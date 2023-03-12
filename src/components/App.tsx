@@ -11,12 +11,13 @@ import { ScrollManager } from '@/components/layout/ScrollManager'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
 
-import Stake from '@/pages/stake'
+import StakePage from '@/pages/stake'
 import { appRoutes } from '@/routes'
 import { isMobile, noop } from '@/utils'
 
 import './App.scss'
 import { LocalizationContext } from '@/context/Localization'
+import DashboardPage from '@/pages/dashboard'
 
 
 export function App(): JSX.Element {
@@ -41,8 +42,13 @@ export function App(): JSX.Element {
                                 </Route>
 
                                 <Route path={appRoutes.stake.path}>
-                                    <Stake />
+                                    <StakePage />
                                 </Route>
+                                
+                                <Route path={appRoutes.dashboard.path}>
+                                    <DashboardPage />
+                                </Route>
+
                             </Switch>
                         </main>
                         <Footer key="footer" />
