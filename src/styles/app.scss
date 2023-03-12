@@ -1,0 +1,175 @@
+.alert {
+    align-items: center;
+    background: rgb(230 172 0 / 48%);
+    border-left: 4px solid #e6ac00;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 12px;
+}
+
+.container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+
+    &--xsmall { max-width: 400px; }
+
+    &--small { max-width: 520px; }
+
+    &--large { max-width: 1200px; }
+}
+
+.section {
+    box-sizing: border-box;
+    padding: 0;
+    width: 100%;
+
+    &__header {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 10px;
+        justify-content: space-between;
+        margin: 40px 0 16px;
+
+        &:not(.preserve) {
+            @media only screen and (max-width: 639px) {
+                flex-flow: column wrap;
+                justify-content: flex-start;
+            }
+        }
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &-link {
+            color: #fff;
+            display: flex;
+            flex-direction: row;
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0.48;
+            outline: none;
+            -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+            text-decoration: none;
+            transition: 0.25s ease;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: none;
+            }
+        }
+
+        &_wrap {
+            flex-wrap: wrap;
+            row-gap: 1em;
+        }
+
+        @media only screen and (min-width: 640px) {
+            align-items: flex-end;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            margin: 64px 0 32px;
+            min-height: 44px;
+        }
+    }
+
+    &__header-actions {
+        align-items: center;
+        column-gap: 20px;
+        display: flex;
+        justify-content: space-between;
+        > * { width: 100% }
+        @media only screen and (min-width: 640px) {
+            > * { width: fit-content }
+        }
+    }
+
+    + .section {
+        margin-top: 40px;
+        @media only screen and (min-width: 640px) {
+            margin-top: 64px;
+        }
+    }
+}
+
+.switcher {
+    display: block;
+
+    input { display: none; }
+
+    &__handle {
+        background-color: rgb(255 255 255 / 40%);
+        border-radius: 8px;
+        cursor: pointer;
+        display: block;
+        height: 16px;
+        position: relative;
+        transition: background-color 0.25s;
+        width: 32px;
+
+        &::after {
+            background-color: #fff;
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: 18px;
+            left: 0;
+            position: absolute;
+            top: -1px;
+            transition: left 0.25s, width 0.15s;
+            width: 18px;
+        }
+
+    }
+
+    input:checked + .switcher__handle {
+        background-color: #e6ac00;
+
+        &::after { left: 14px; }
+    }
+}
+
+.divider {
+    background: none;
+    border-top: 1px solid rgb(255 255 255 / 16%);
+    margin: 16px 0;
+    opacity: 1;
+}
+
+.divider-dashed {
+    border-top-style: dashed;
+}
+
+.spin {
+    animation: rotate 1s linear infinite;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+@keyframes checking {
+    from {
+        border: 1px solid rgb(255 255 255 / 16%);
+    }
+
+    to {
+        border: 1px solid rgb(116 166 255 / 76%);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
