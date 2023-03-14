@@ -3,10 +3,12 @@ import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
 import { Link, NavLink } from 'react-router-dom'
 
-import { Button } from '@/components/common/Button'
-import { Icon } from '@/components/common/Icon'
+// import { Button } from '@/components/common/Button'
+// import { Icon } from '@/components/common/Icon'
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
+
+import { Grid, Link as LinkText, List, Icon, Flex, Navbar, Heading, Button } from '@broxus/react-uikit'
 
 import './index.scss'
 
@@ -21,7 +23,6 @@ export function Footer(): JSX.Element {
                 ghost
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
-                size="md"
                 target="_blank"
                 type="secondary"
             >
@@ -32,7 +33,6 @@ export function Footer(): JSX.Element {
                 ghost
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
-                size="md"
                 target="_blank"
                 type="secondary"
             >
@@ -53,62 +53,50 @@ export function Footer(): JSX.Element {
                     </div>
                     <nav className="footer-nav">
                         <div className="footer-nav__col">
-                            <div className="footer-nav__col-title">
+                            <Heading>
                                 Product
-                            </div>
-                            <ul className="footer-nav__list">
-                                <li>
-                                    <a href="https://octusbridge.io" target="_blank" rel="noopener noreferrer">
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://everscan.io" target="_blank" rel="noopener noreferrer">
-                                        Docs
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://wrappedever.io" target="_blank" rel="noopener noreferrer">
-                                        Make a deposit
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://l1.broxus.com/everscale/wallet"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Become a validator
-                                    </a>
-                                </li>
-                            </ul>
+                            </Heading>
+                            <List>
+                                <LinkText type="text" href="https://octusbridge.io" target="_blank" rel="noopener noreferrer">
+                                    Dashboard
+                                </LinkText>
+
+                                <LinkText type="text" href="https://everscan.io" target="_blank" rel="noopener noreferrer">
+                                    Docs
+                                </LinkText>
+
+                                <LinkText type="text" href="https://wrappedever.io" target="_blank" rel="noopener noreferrer">
+                                    Make a deposit
+                                </LinkText>
+                                <LinkText type="text"
+                                    href="https://l1.broxus.com/everscale/wallet"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Become a validator
+                                </LinkText>
+                            </List>
                         </div>
                         <div className="footer-nav__col">
-                            <div className="footer-nav__col-title">
+                            <Heading>
                                 Our services
-                            </div>
-                            <ul className="footer-nav__list">
-                                <li>
-                                    <a href="https://docs.flatqube.io/" target="_blank" rel="noopener noreferrer">
-                                        Octus Bridge
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://docs.everwallet.net/" target="_blank" rel="noopener noreferrer">
-                                        EVER Wallet
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                        WEVER
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                        FlatQube
-                                    </a>
-                                </li>
-                            </ul>
+                            </Heading>
+
+                            <List>
+                                <LinkText type="text" href="https://docs.flatqube.io/" target="_blank" rel="noopener noreferrer">
+                                    Octus Bridge
+                                </LinkText>
+                                <LinkText type="text" href="https://docs.everwallet.net/" target="_blank" rel="noopener noreferrer">
+                                    EVER Wallet
+                                </LinkText>
+                                <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
+                                    WEVER
+                                </LinkText>
+                                <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
+                                    FlatQube
+                                </LinkText>
+                            </List>
+
                         </div>
                     </nav>
                     <div className="footer__right">
@@ -116,58 +104,58 @@ export function Footer(): JSX.Element {
                     </div>
                 </div>
                 <div className="footer__bottom">
-                    <ul className="footer-soc">
-                        <li>
-                            <a
-                                href="https://discord.gg/6dryaZQNmC"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Discord"
-                            >
-                                <Icon icon="discord" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://t.me/FlatQube"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Telegram"
-                            >
-                                <Icon icon="telegram" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://twitter.com/FlatQube"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Twitter"
-                            >
-                                <Icon icon="twitter" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://flatqube.medium.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="Medium"
-                            >
-                                <Icon icon="medium" />
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="https://github.com/broxus"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="GitHub"
-                            >
-                                <Icon icon="github" />
-                            </a>
-                        </li>
-                    </ul>
+                    <Flex>
+                        <LinkText
+                            type="text"
+                            href="https://discord.gg/6dryaZQNmC"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Discord"
+                        >
+                            <Icon icon="discord" />
+                        </LinkText>
+
+                        <LinkText
+                            type="text"
+                            href="https://t.me/FlatQube"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Telegram"
+                        >
+                            <Icon icon="telegram" />
+                        </LinkText>
+
+                        <LinkText
+                            type="text"
+                            href="https://twitter.com/FlatQube"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Twitter"
+                        >
+                            <Icon icon="twitter" />
+                        </LinkText>
+
+                        <LinkText
+                            type="text"
+                            href="https://flatqube.medium.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Medium"
+                        >
+                            <Icon icon="medium" />
+                        </LinkText>
+
+                        <LinkText
+                            type="text"
+                            href="https://github.com/broxus"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="GitHub"
+                        >
+                            <Icon icon="github" />
+                        </LinkText>
+
+                    </Flex>
                     <div className="footer__sub">
                         <p
                             className="footer-copyright"
@@ -181,46 +169,41 @@ export function Footer(): JSX.Element {
                                 }),
                             }}
                         />
-                        <nav className="footer-subnav">
-                            <ul>
-                                <li>
-                                    <a
-                                        href="https://broxus.com/wp-content/uploads/2021/08/terms_of_use.pdf"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_TERMS_OF_USE_LINK_TEXT',
-                                        })}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://broxus.com/wp-content/uploads/2021/08/privacy_policy.pdf"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_PRIVACY_POLICY_LINK_TEXT',
-                                        })}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="https://broxus.com/wp-content/uploads/2021/08/cookie_policy.pdf"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_COOKIES_TERMS_LINK_TEXT',
-                                        })}
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <Navbar>
+                            <LinkText
+                                type="text"
+                                href="https://broxus.com/wp-content/uploads/2021/08/terms_of_use.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {intl.formatMessage({
+                                    id: 'FOOTER_TERMS_OF_USE_LINK_TEXT',
+                                })}
+                            </LinkText>
+                            <LinkText
+                                type="text"
+                                href="https://broxus.com/wp-content/uploads/2021/08/privacy_policy.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {intl.formatMessage({
+                                    id: 'FOOTER_PRIVACY_POLICY_LINK_TEXT',
+                                })}
+                            </LinkText>
+                            <LinkText
+                                type="text"
+                                href="https://broxus.com/wp-content/uploads/2021/08/cookie_policy.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {intl.formatMessage({
+                                    id: 'FOOTER_COOKIES_TERMS_LINK_TEXT',
+                                })}
+                            </LinkText>
+                        </Navbar>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </div >
+        </footer >
     )
 }

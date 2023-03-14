@@ -2,8 +2,6 @@ import * as React from 'react'
 import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
-
-import { Navbar } from '@/components/common/Navbar'
 import { DesktopNav } from '@/components/layout/DesktopNav'
 import { HeaderDrawer } from '@/components/layout/Header/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
@@ -11,6 +9,7 @@ import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
 import './index.scss'
+import { Navbar } from '@broxus/react-uikit'
 
 
 export function Header(): JSX.Element {

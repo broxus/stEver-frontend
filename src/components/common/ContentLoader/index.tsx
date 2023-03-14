@@ -1,9 +1,9 @@
 import * as React from 'react'
 import classNames from 'classnames'
 
-import { Icon } from '@/components/common/Icon'
 
 import './index.scss'
+import { Icon } from '@broxus/react-uikit';
 
 type Props = {
     className?: string;

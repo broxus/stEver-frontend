@@ -3,35 +3,26 @@ import { reaction } from 'mobx'
 import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
 
-import { Button } from '@/components/common/Button'
-import { Icon } from '@/components/common/Icon'
 import { Component } from '@/components/common/Component'
 import { Logo } from '@/components/layout/Logo'
 // import { EverWallet } from '@/modules/Accounts'
 import { DeviceNav } from '@/components/layout/DeviceNav'
-import { Drawer, DrawerRef } from '@/components/common/Drawer'
+import { Button, Drawer, Icon } from '@broxus/react-uikit'
 
 
 export function HeaderDrawer(): JSX.Element {
     const intl = useIntl()
 
-    const drawer = React.useRef<DrawerRef | null>(null)
-
-    const collapse = () => {
-        drawer.current?.collapse()
-    }
-
     return (
         <Observer>
             {() => (
                 <Drawer
-                    ref={drawer}
                     closable
                     destroyOnClose
                     /* eslint-disable-next-line react/no-unstable-nested-components */
                     trigger={({ expand }) => (
                         <Button
-                            type="icon"
+                            // type="icon"
                             className="btn-open-drawer"
                             onClick={expand}
                         >
@@ -60,7 +51,7 @@ export function HeaderDrawer(): JSX.Element {
                                 </Button>
                             </div> */}
                         </div>
-                        <DeviceNav onNavigate={collapse} />
+                        {/* <DeviceNav onNavigate={collapse} /> */}
                     </Component>
                 </Drawer>
             )}

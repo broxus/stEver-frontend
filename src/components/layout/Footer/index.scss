@@ -1,4 +1,4 @@
-@import '@/styles/variables.scss';
+@import '@broxus/styles/variables';
 
 .footer {
     background-color: #fff;
@@ -183,43 +183,6 @@
         }
     }
 
-    &__list {
-        li {
-            margin-bottom: 12px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            a {
-                color: #8B909A;
-                font-size: 14px;
-                font-weight: 400;
-                letter-spacing: 0.5px;
-                line-height: 20px;
-                text-decoration: none;
-                transition-property: color;
-
-                &[href] {
-
-                    &.active,
-                    &:hover {
-                        color: #404246;
-                    }
-                }
-
-                &:not([href]) {
-                    color: rgb(255 255 255 / 56%);
-
-                    &.active,
-                    &:hover {
-                        color: rgb(255 255 255 / 56%);
-                    }
-                }
-            }
-        }
-    }
-
     @media only screen and (min-width: $breakpoint-medium) {
         margin-left: -30px;
         row-gap: 30px;
@@ -275,31 +238,6 @@
     }
 }
 
-.footer-soc {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-
-    li {
-        margin-right: 10px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        a {
-            align-items: center;
-            display: flex;
-            height: 40px;
-            justify-content: center;
-            width: 40px;
-        }
-    }
-
-    @media only screen and (max-width: 959px) {
-        justify-content: flex-start;
-    }
-}
 
 .toolbar {
     align-items: center;

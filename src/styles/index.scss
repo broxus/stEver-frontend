@@ -1,11 +1,16 @@
-@import '~normalize.css';
-@import 'bootstrap';
-
-@import 'base';
-@import 'motion';
-@import 'text';
-@import 'width';
-@import 'margin';
-@import 'visibility';
+@import '@broxus/styles/base';
+@import '@broxus/styles/variables';
+@import '@broxus/styles/mixins';
+@import '@broxus/styles/animation';
+@import '@broxus/styles/width';
+@import '@broxus/styles/height';
+@import '@broxus/styles/column';
+@import '@broxus/styles/utility';
+@import '@broxus/styles/margin';
+@import '@broxus/styles/padding';
+@import '@broxus/styles/position';
+@import '@broxus/styles/visibility';
+@import '@broxus/styles/vars';
+@import '@broxus/styles/text';
 
 @import 'app';
