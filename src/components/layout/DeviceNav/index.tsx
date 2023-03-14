@@ -19,22 +19,30 @@ export function DeviceNav({ onNavigate }: Props): JSX.Element {
         <Nav className="device-nav" modifiers={['divider']}>
             <Nav.Item key="stake">
                 <NavLink to={appRoutes.stake.makeUrl()} onClick={onNavigate}>
-                    Stake
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_STAKE',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item key="dashboard">
                 <NavLink to={appRoutes.dashboard.makeUrl()} onClick={onNavigate}>
-                    Dashboard
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_DASHBOARD',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item key="docs">
                 <NavLink to={appRoutes.docs.makeUrl()} onClick={onNavigate}>
-                    Docs
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_DOCS',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item key="decomeValidator">
                 <NavLink to={appRoutes.decomeValidator.makeUrl()} onClick={onNavigate}>
-                    Become a validator
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_BECOME_A_VLIDATOR',
+                    })}
                 </NavLink>
             </Nav.Item>
         </Nav>

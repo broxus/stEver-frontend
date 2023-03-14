@@ -12,7 +12,6 @@ import { Grid, Link as LinkText, List, Icon, Flex, Navbar, Heading, Button } fro
 
 import './index.scss'
 
-
 export function Footer(): JSX.Element {
     const intl = useIntl()
 
@@ -26,7 +25,9 @@ export function Footer(): JSX.Element {
                 target="_blank"
                 type="secondary"
             >
-                Install EVER Wallet
+                {intl.formatMessage({
+                    id: 'FOOTER_WALLET_INSTALLATION_LINK_TEXT',
+                })}
             </Button>
             <Button
                 className="footer-tool"
@@ -36,7 +37,9 @@ export function Footer(): JSX.Element {
                 target="_blank"
                 type="secondary"
             >
-                Make a deposit
+                {intl.formatMessage({
+                    id: 'FOOTER_MAKE_A_DEPOSIT_LINK_TEXT',
+                })}
             </Button>
         </div>
     )
@@ -44,7 +47,7 @@ export function Footer(): JSX.Element {
     return (
         <footer className="footer">
             <div className="container container--large">
-                <div className="footer__wrapper">
+                <Flex>
                     <div className="footer__left">
                         <Link to={appRoutes.home.makeUrl()} className="footer-logo">
                             <Logo />
@@ -54,46 +57,66 @@ export function Footer(): JSX.Element {
                     <nav className="footer-nav">
                         <div className="footer-nav__col">
                             <Heading>
-                                Product
+                                {intl.formatMessage({
+                                    id: 'FOOTER_NAV_HEADER_PRODUCT',
+                                })}
                             </Heading>
                             <List>
                                 <LinkText type="text" href="https://octusbridge.io" target="_blank" rel="noopener noreferrer">
-                                    Dashboard
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
+                                    })}
                                 </LinkText>
 
                                 <LinkText type="text" href="https://everscan.io" target="_blank" rel="noopener noreferrer">
-                                    Docs
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV_PRODUCT_LINK_DOCS',
+                                    })}
                                 </LinkText>
 
                                 <LinkText type="text" href="https://wrappedever.io" target="_blank" rel="noopener noreferrer">
-                                    Make a deposit
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV_PRODUCT_LINK_MAKE_A_DEPOSIT',
+                                    })}
                                 </LinkText>
                                 <LinkText type="text"
                                     href="https://l1.broxus.com/everscale/wallet"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Become a validator
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR',
+                                    })}
                                 </LinkText>
                             </List>
                         </div>
                         <div className="footer-nav__col">
                             <Heading>
-                                Our services
+                                {intl.formatMessage({
+                                    id: 'FOOTER_NAV_HEADER_OUR_ERVICES',
+                                })}
                             </Heading>
 
                             <List>
                                 <LinkText type="text" href="https://docs.flatqube.io/" target="_blank" rel="noopener noreferrer">
-                                    Octus Bridge
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_OCTUS_BRIDGE',
+                                    })}
                                 </LinkText>
                                 <LinkText type="text" href="https://docs.everwallet.net/" target="_blank" rel="noopener noreferrer">
-                                    EVER Wallet
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_EVER_WALLET',
+                                    })}
                                 </LinkText>
                                 <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                    WEVER
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_WEVER',
+                                    })}
                                 </LinkText>
                                 <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                    FlatQube
+                                    {intl.formatMessage({
+                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_FLAT_QUBE',
+                                    })}
                                 </LinkText>
                             </List>
 
@@ -102,7 +125,7 @@ export function Footer(): JSX.Element {
                     <div className="footer__right">
                         {toolbar}
                     </div>
-                </div>
+                </Flex>
                 <div className="footer__bottom">
                     <Flex>
                         <LinkText

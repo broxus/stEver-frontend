@@ -5,26 +5,26 @@ import { Link } from 'react-router-dom'
 import { DesktopNav } from '@/components/layout/DesktopNav'
 import { HeaderDrawer } from '@/components/layout/Header/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
-// import { EverWallet } from '@/modules/Accounts'
 import { appRoutes } from '@/routes'
 
 import './index.scss'
 import { Navbar } from '@broxus/react-uikit'
-
+import { WalletAccount } from '@broxus/react-components'
 
 export function Header(): JSX.Element {
     return (
         <header className="header">
-            <Navbar className="width-expand">
+            <Navbar>
                 <Media query={{ minWidth: 768 }}>
                     {match => match && (
                         <>
-                            <Navbar.Item>
+                            <Navbar.Item >
                                 <Link to={appRoutes.home.makeUrl()} className="logo">
                                     <Logo />
                                 </Link>
+                                <DesktopNav />
                             </Navbar.Item>
-                            <DesktopNav />
+                          
                             <Navbar.Right className="header-switchers" component={Navbar.Item}>
                                 {/* <EverWallet showDisconnectButton /> */}
                             </Navbar.Right>
@@ -49,6 +49,7 @@ export function Header(): JSX.Element {
                                         }}
                                     >
                                         {/* <EverWallet showDisconnectButton={false} /> */}
+                                        <WalletAccount />
                                         <Navbar.Toggle icon>
                                             <HeaderDrawer />
                                         </Navbar.Toggle>

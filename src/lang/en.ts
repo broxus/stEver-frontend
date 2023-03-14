@@ -5,7 +5,7 @@ export default {
     NAV_LINK_TEXT_BECOME_A_VLIDATOR: 'Become a validator',
 
     FOOTER_NAV_HEADER_PRODUCT: 'Product',
-    FOOTER_NAV_PRODUCT_LINK_DASHBOARD: 'Product',
+    FOOTER_NAV_PRODUCT_LINK_DASHBOARD: 'Dashboard',
     FOOTER_NAV_PRODUCT_LINK_DOCS: 'Docs',
     FOOTER_NAV_PRODUCT_LINK_MAKE_A_DEPOSIT: 'Make a deposit',
     FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR: 'Become a validator',

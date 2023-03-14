@@ -1,0 +1,23 @@
+.chartDashboard {
+    &__container {
+        &--chartBoard {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: 284px 1fr;
+            &__chart {
+                background: #fff;
+            }
+
+            &__info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 8px;
+                &--item {
+                    height: 100%;
+                    background: #fff;
+                }
+            }
+        }
+    }
+}

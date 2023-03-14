@@ -156,6 +156,18 @@ export default (_: any, options: any): WebpackConfig => {
                     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
                     'css-loader',
                     'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            hoistUseStatements: true,
+                            resources: [
+                                path.resolve(__dirname, 'src/styles/uiKit/mixins.scss'),
+                                path.resolve(__dirname, 'src/styles/uiKit/variables.scss')
+                                // './src/styles/uiKit/mixins.scss',
+                                // './src/styles/uiKit/variables.scss',
+                            ],
+                        },
+                    }
                 ],
             },
             {
@@ -172,7 +184,7 @@ export default (_: any, options: any): WebpackConfig => {
                             },
                         },
                     },
-                    'sass-loader',
+                    'sass-loader'
                 ],
             },
             {

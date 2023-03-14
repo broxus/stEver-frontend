@@ -1,6 +1,7 @@
-@import '@broxus/styles/base';
 @import '@broxus/styles/variables';
 @import '@broxus/styles/mixins';
+@import '@broxus/styles/base';
+
 @import '@broxus/styles/animation';
 @import '@broxus/styles/width';
 @import '@broxus/styles/height';
@@ -12,5 +13,8 @@
 @import '@broxus/styles/visibility';
 @import '@broxus/styles/vars';
 @import '@broxus/styles/text';
+// @import '@broxus/styles/card';
+@import './card.scss';
+@import './list.scss';
 
 @import 'app';

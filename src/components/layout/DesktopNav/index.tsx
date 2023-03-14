@@ -17,46 +17,32 @@ export function DesktopNav(): JSX.Element {
         <Navbar.Nav>
             <Nav.Item>
                 <NavLink key="stake" to={appRoutes.stake.makeUrl()}>
-                    Stake
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_STAKE',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item>
                 <NavLink key="dashboard" to={appRoutes.dashboard.makeUrl()}>
-                    Dashboard
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_DASHBOARD',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item>
                 <NavLink key="docs" to={appRoutes.docs.makeUrl()}>
-                    Docs
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_DOCS',
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item>
                 <NavLink key="decomeValidator" to={appRoutes.decomeValidator.makeUrl()}>
-                    Become a validator
+                    {intl.formatMessage({
+                        id: 'NAV_LINK_TEXT_BECOME_A_VLIDATOR',
+                    })}
                 </NavLink>
             </Nav.Item>
         </Navbar.Nav>
-        // <Navbar.Nav className="desktop-nav flex-wrap width-expand">
-        //     <Nav.Item key="stake">
-        //         <NavLink to={appRoutes.stake.makeUrl()}>
-        //             Stake
-        //         </NavLink>
-        //     </Nav.Item>
-        //     <Nav.Item key="dashboard">
-        //         <NavLink to={appRoutes.dashboard.makeUrl()}>
-        //             Dashboard
-        //         </NavLink>
-        //     </Nav.Item>
-        //     <Nav.Item key="docs">
-        //         <NavLink to={appRoutes.docs.makeUrl()}>
-        //             Docs 
-        //         </NavLink>
-        //     </Nav.Item>
-        //     <Nav.Item key="decomeValidator">
-        //         <NavLink to={appRoutes.decomeValidator.makeUrl()}>
-        //             Become a validator
-        //         </NavLink>
-        //     </Nav.Item>
-        // </Navbar.Nav>
     )
 }
