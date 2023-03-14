@@ -14,16 +14,16 @@ import { WalletAccount } from '@broxus/react-components'
 export function Header(): JSX.Element {
     return (
         <header className="header">
-            <Navbar>
+            <Navbar className='uk-width-expand'>
                 <Media query={{ minWidth: 768 }}>
                     {match => match && (
                         <>
-                            <Navbar.Item >
+                            <Navbar.Left className='uk-width-expand'>
                                 <Link to={appRoutes.home.makeUrl()} className="logo">
                                     <Logo />
                                 </Link>
                                 <DesktopNav />
-                            </Navbar.Item>
+                            </Navbar.Left>
                           
                             <Navbar.Right className="header-switchers" component={Navbar.Item}>
                                 {/* <EverWallet showDisconnectButton /> */}
