@@ -36,9 +36,7 @@ function FormStakStake(): JSX.Element {
         <>
             <Flex flexDirection='column' justifyContent='between'>
                 <TextInput placeholder='0' />
-                <br/>
                 <TextInput placeholder='0' />
-                <br/>
                 <Button type='default' className='uk-width-1-1' >
                     Stake EVER
                 </Button>

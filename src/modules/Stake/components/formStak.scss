@@ -2,7 +2,6 @@
     &__container {
         display: block;
         width: 440px;
-        height: 313px;
         background: #FFFFFF;
         box-shadow: 0px 2px 32px rgba(0, 0, 0, 0.08);
         margin: auto;
@@ -10,6 +9,33 @@
 
         &--tabs {
             padding: 24px;
+
+            .uk-tabs-nav-wrap {
+                border: 1px solid #E4E5EA;
+
+                .uk-tabs-nav-list {
+                    width: 100%;
+                    justify-content: space-evenly;
+
+                    .uk-tabs-tab {
+                        width: 100%;
+                        justify-content: center;
+                    }
+
+                    .uk-tabs-tab-active:not(.uk-tabs-tab-disabled) {
+                        color: var(--tabs-tab-active-color);
+                        background: #ECF1FE;
+                    }
+
+                    .uk-tabs-ink-bar {
+                        display: none;
+                    }
+
+                    .uk-tabs-tab+.uk-tabs-tab {
+                        margin: 0;
+                    }
+                }
+            }
 
             .uk-tabs-nav {
                 margin-bottom: 24px;
