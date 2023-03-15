@@ -2,7 +2,7 @@ import * as React from 'react'
 import styles from './tabelDepoolsDashboard.module.scss'
 import classNames from 'classnames'
 import Media from 'react-media'
-import { Flex, Heading, Tile } from '@broxus/react-uikit'
+import { Flex, Heading, Link, Tile } from '@broxus/react-uikit'
 
 const transactions = [
     {
@@ -69,7 +69,7 @@ export function TabelTransactionsDashboard(): JSX.Element {
                     Transactions
                 </Heading>
                 <Tile type='default' size='xsmall'>
-                    <table className="uk-table uk-table-divider uk-width-1-1">
+                    <table className="uk-table uk-table-divider uk-width-1-1 table">
                         <Media query={{ minWidth: 640 }}>
                             <TransactionListHeader />
                         </Media>
@@ -92,7 +92,7 @@ export function TabelTransactionsDashboard(): JSX.Element {
 export function TransactionListHeader(): JSX.Element {
     return (
         <>
-            <thead>
+            <thead className='uk-height-small'>
                 <tr>
                     <th className='uk-text-left'>Depool</th>
                     <th className='uk-text-left'>Transaction</th>
@@ -114,11 +114,11 @@ type Props = {
 export function TransactionListItem({ idx, pool }: Props): JSX.Element {
     return (
         <>
-            <tbody>
+            <tbody className='uk-height-small'>
                 <tr>
-                    <td className='uk-text-left'>{pool.depool}</td>
-                    <td className='uk-text-left'>{pool.transaction}</td>
-                    <td className='uk-text-left'>{pool.strategy}</td>
+                    <td className='uk-text-left'><Link>{pool.depool}</Link></td>
+                    <td className='uk-text-left'><Link>{pool.transaction}</Link></td>
+                    <td className='uk-text-left'><Link>{pool.strategy}</Link></td>
                     <td className='uk-text-left'>{pool.type}</td>
                     <td className='uk-text-left'>{pool.value}</td>
                     <td className='uk-text-right'>{pool.date_time.date}</td>
