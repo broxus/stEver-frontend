@@ -20,7 +20,7 @@ export function FormStak(): JSX.Element {
                             },
                             {
                                 label: 'Unstake',
-                                key: '3',
+                                key: '2',
                                 children: <FormStakUnstake />,
                             },
                         ]}
@@ -44,7 +44,7 @@ function FormStakStake(): JSX.Element {
                     title='You spend EVER'
                     iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg'
                 />
-                 <br/>
+                <br />
                 <TextInput
                     placeholder='0'
                     value=''
@@ -54,7 +54,7 @@ function FormStakStake(): JSX.Element {
                     title='You receive stEVER'
                     iconUrl='https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg'
                 />
-                 <br/>
+                <br />
                 <Button type='primary' className='uk-width-1-1' >
                     Stake EVER
                 </Button>
@@ -71,23 +71,23 @@ function FormStakUnstake(): JSX.Element {
                     value=''
                     disabled={false}
                     inputMode='numeric'
-                    readOnly={false}
-                    title='You spend EVER'
-                    iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg'
+                    readOnly={true}
+                    title='You receive stEVER'
+                    iconUrl='https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg'
                 />
-                <br/>
+                <br />
                 <TextInput
                     placeholder='0'
                     value=''
                     disabled={false}
                     inputMode='numeric'
-                    readOnly={true}
-                    title='You receive stEVER'
-                    iconUrl='https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg'
+                    readOnly={false}
+                    title='You spend EVER'
+                    iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg'
                 />
-                 <br/>
+                <br />
                 <Button type='default' className='uk-width-1-1' >
-                    Stake EVER
+                    Unstake EVER
                 </Button>
             </Flex>
         </>
