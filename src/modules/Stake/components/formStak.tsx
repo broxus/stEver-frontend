@@ -2,6 +2,7 @@ import * as React from 'react'
 import './formStak.scss'
 import { Button, Form, Tabs } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
+import { TextInput } from '@/components/common/TextInput'
 
 export function FormStak(): JSX.Element {
     return (
@@ -33,9 +34,9 @@ export function FormStak(): JSX.Element {
 function FormStakStake(): JSX.Element {
     return (
         <>
+            <TextInput />
             <AmountInput />
-            <AmountInput />
-            <Button>
+            <Button type='default'>
                 Stake EVER
             </Button>
         </>
@@ -46,7 +47,7 @@ function FormStakUnstake(): JSX.Element {
         <>
             <AmountInput />
             <AmountInput />
-            <Button>
+            <Button type='default'>
                 Unstake EVER
             </Button>
         </>

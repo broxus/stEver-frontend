@@ -1,6 +1,7 @@
 @mixin hook-accordion-header() {
     flex-direction: row-reverse;
     justify-content: space-between;
+
     span {
         font-style: normal;
         font-weight: 500;
@@ -10,4 +11,34 @@
         color: #000000;
     }
 
+}
+
+@mixin hook-button-default() {
+    color: #2B63F1;
+    background: #ECF1FE;
+}
+
+@mixin hook-tile-default() {
+    p {
+        span {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
+}
+
+@mixin hook-tile-primary() {
+    background: #ECF1FE;
+    border-left: 4px #2B63F1 solid;
+
+    p {
+        color: #2B63F1;
+
+        span {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
+        }
+    }
 }

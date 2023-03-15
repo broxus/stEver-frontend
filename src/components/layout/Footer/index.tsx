@@ -8,7 +8,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
-import { Grid, Link as LinkText, List, Icon, Flex, Navbar, Heading, Button } from '@broxus/react-uikit'
+import { Grid, Link as LinkText, List, Icon, Flex, Navbar, Heading, Button, Tile, Text } from '@broxus/react-uikit'
 
 import './index.scss'
 
@@ -18,24 +18,22 @@ export function Footer(): JSX.Element {
     const toolbar = (
         <div className="toolbar">
             <Button
-                className="footer-tool"
                 ghost
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
                 target="_blank"
-                type="secondary"
+                type='default'
             >
                 {intl.formatMessage({
                     id: 'FOOTER_WALLET_INSTALLATION_LINK_TEXT',
                 })}
             </Button>
             <Button
-                className="footer-tool"
                 ghost
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
                 target="_blank"
-                type="secondary"
+                type='default'
             >
                 {intl.formatMessage({
                     id: 'FOOTER_MAKE_A_DEPOSIT_LINK_TEXT',
@@ -47,7 +45,7 @@ export function Footer(): JSX.Element {
     return (
         <footer className="footer">
             <div className="container container--large">
-                <Flex>
+                <div className="footer__wrapper">
                     <div className="footer__left">
                         <Link to={appRoutes.home.makeUrl()} className="footer-logo">
                             <Logo />
@@ -56,132 +54,149 @@ export function Footer(): JSX.Element {
                     </div>
                     <nav className="footer-nav">
                         <div className="footer-nav__col">
-                            <Heading>
-                                {intl.formatMessage({
-                                    id: 'FOOTER_NAV_HEADER_PRODUCT',
-                                })}
-                            </Heading>
+                            <Text component='h6' className="footer-nav__col-title">
+                                {intl.formatMessage({ id: 'FOOTER_NAV_HEADER_OUR_ERVICES' })}
+                            </Text>
                             <List>
-                                <LinkText type="text" href="https://octusbridge.io" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
-                                    })}
-                                </LinkText>
-
-                                <LinkText type="text" href="https://everscan.io" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV_PRODUCT_LINK_DOCS',
-                                    })}
-                                </LinkText>
-
-                                <LinkText type="text" href="https://wrappedever.io" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV_PRODUCT_LINK_MAKE_A_DEPOSIT',
-                                    })}
-                                </LinkText>
-                                <LinkText type="text"
-                                    href="https://l1.broxus.com/everscale/wallet"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR',
-                                    })}
-                                </LinkText>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV_PRODUCT_LINK_DOCS',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV_PRODUCT_LINK_MAKE_A_DEPOSIT',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR',
+                                        })}
+                                    </LinkText>
+                                </Tile>
                             </List>
+                            {/* <ul className="footer-nav__list">
+                                <li>
+                                    <a
+                                        href="https://drive.google.com/u/0/uc?id=1V9rDRD6ltXTNwxmWqDw3ey3-SYTQX2mN&view?usp=sharing"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
+                                        })}
+                                    </a>
+                                </li>
+                            </ul> */}
+
                         </div>
                         <div className="footer-nav__col">
-                            <Heading>
+                            <Text component='h6' className="footer-nav__col-title">
                                 {intl.formatMessage({
                                     id: 'FOOTER_NAV_HEADER_OUR_ERVICES',
                                 })}
-                            </Heading>
-
+                            </Text>
                             <List>
-                                <LinkText type="text" href="https://docs.flatqube.io/" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_OCTUS_BRIDGE',
-                                    })}
-                                </LinkText>
-                                <LinkText type="text" href="https://docs.everwallet.net/" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_EVER_WALLET',
-                                    })}
-                                </LinkText>
-                                <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_WEVER',
-                                    })}
-                                </LinkText>
-                                <LinkText type="text" href="https://docs.everwallet.net/concepts/ever-and-wever" target="_blank" rel="noopener noreferrer">
-                                    {intl.formatMessage({
-                                        id: 'FOOTER_NAV__OUR_ERVICES_LINK_FLAT_QUBE',
-                                    })}
-                                </LinkText>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV__OUR_ERVICES_LINK_OCTUS_BRIDGE',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV__OUR_ERVICES_LINK_EVER_WALLET',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text' >
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV__OUR_ERVICES_LINK_WEVER',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-remove'>
+                                    <LinkText type='text'>
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_NAV__OUR_ERVICES_LINK_FLAT_QUBE',
+                                        })}
+                                    </LinkText>
+                                </Tile>
                             </List>
-
+                            {/* <ul className="footer-nav__list">
+ 
+                            </ul> */}
                         </div>
                     </nav>
                     <div className="footer__right">
                         {toolbar}
                     </div>
-                </Flex>
+                </div>
                 <div className="footer__bottom">
                     <Flex>
-                        <LinkText
-                            type="text"
-                            href="https://discord.gg/6dryaZQNmC"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Discord"
-                        >
-                            <Icon icon="discord" />
-                        </LinkText>
-
-                        <LinkText
-                            type="text"
-                            href="https://t.me/FlatQube"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Telegram"
-                        >
-                            <Icon icon="telegram" />
-                        </LinkText>
-
-                        <LinkText
-                            type="text"
-                            href="https://twitter.com/FlatQube"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Twitter"
-                        >
-                            <Icon icon="twitter" />
-                        </LinkText>
-
-                        <LinkText
-                            type="text"
-                            href="https://flatqube.medium.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Medium"
-                        >
-                            <Icon icon="medium" />
-                        </LinkText>
-
-                        <LinkText
-                            type="text"
-                            href="https://github.com/broxus"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="GitHub"
-                        >
-                            <Icon icon="github" />
-                        </LinkText>
-
+                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                            <LinkText
+                                type='text'
+                                href="https://discord.gg/6dryaZQNmC"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Discord">
+                                <Icon icon="discord" />
+                            </LinkText>
+                        </Tile>
+                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                            <LinkText
+                                type='text'
+                                href="https://t.me/FlatQube"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Telegram"
+                            >
+                                <Icon icon="telegram" />
+                            </LinkText>
+                        </Tile>
+                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                            <LinkText
+                                type='text'
+                                href="https://twitter.com/FlatQube"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Twitter"
+                            >
+                                <Icon icon="twitter" />
+                            </LinkText>
+                        </Tile>
+                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                            <LinkText
+                                type='text'
+                                href="https://flatqube.medium.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Medium"
+                            >
+                                <Icon icon="medium" />
+                            </LinkText>
+                        </Tile>
                     </Flex>
                     <div className="footer__sub">
-                        <p
-                            className="footer-copyright"
+                        <LinkText
+                            type='text'
+                            // className="footer-copyright"
                             dangerouslySetInnerHTML={{
                                 __html: intl.formatMessage({
                                     id: 'FOOTER_COPYRIGHTS',
@@ -192,41 +207,50 @@ export function Footer(): JSX.Element {
                                 }),
                             }}
                         />
-                        <Navbar>
-                            <LinkText
-                                type="text"
-                                href="https://broxus.com/wp-content/uploads/2021/08/terms_of_use.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {intl.formatMessage({
-                                    id: 'FOOTER_TERMS_OF_USE_LINK_TEXT',
-                                })}
-                            </LinkText>
-                            <LinkText
-                                type="text"
-                                href="https://broxus.com/wp-content/uploads/2021/08/privacy_policy.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {intl.formatMessage({
-                                    id: 'FOOTER_PRIVACY_POLICY_LINK_TEXT',
-                                })}
-                            </LinkText>
-                            <LinkText
-                                type="text"
-                                href="https://broxus.com/wp-content/uploads/2021/08/cookie_policy.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {intl.formatMessage({
-                                    id: 'FOOTER_COOKIES_TERMS_LINK_TEXT',
-                                })}
-                            </LinkText>
-                        </Navbar>
+                        <nav className="footer-subnav">
+                            <Flex>
+                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                                    <LinkText
+                                        type='text'
+                                        href="https://broxus.com/wp-content/uploads/2021/08/terms_of_use.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_TERMS_OF_USE_LINK_TEXT',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+
+                                    <LinkText
+                                        type='text'
+                                        href="https://broxus.com/wp-content/uploads/2021/08/privacy_policy.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_PRIVACY_POLICY_LINK_TEXT',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                                    <LinkText
+                                        type='text'
+                                        href="https://broxus.com/wp-content/uploads/2021/08/cookie_policy.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'FOOTER_COOKIES_TERMS_LINK_TEXT',
+                                        })}
+                                    </LinkText>
+                                </Tile>
+                            </Flex>
+                        </nav>
                     </div>
                 </div>
-            </div >
+            </div>
         </footer >
     )
 }

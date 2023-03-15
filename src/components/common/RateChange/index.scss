@@ -1,0 +1,43 @@
+.rate-change {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.75px;
+    line-height: 20px;
+    opacity: 0.7;
+    padding-left: 20px;
+    position: relative;
+
+    &::before {
+        border: 5px solid transparent;
+        content: '';
+        display: block;
+        left: 5px;
+        position: absolute;
+    }
+}
+
+.rate-change-up {
+    color: #4ab44a;
+    opacity: 1;
+
+    &::before {
+        border-bottom-color: #4ab44a;
+        top: 2px;
+    }
+}
+
+.rate-change-down {
+    color: #eb4361;
+    opacity: 1;
+
+    &::before {
+        border-top-color: #eb4361;
+        top: 7.5px;
+    }
+}
+
+.rate-change-sm {
+    font-size: 12px;
+}

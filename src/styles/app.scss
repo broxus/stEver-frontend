@@ -1,13 +1,42 @@
-h1 {}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'PT Root Sans', sans-serif;
+}
 
-h2 {
+
+h1 {
     font-style: normal;
     font-weight: 600;
     font-size: 44px;
     line-height: 48px;
+    text-align: center;
+    font-feature-settings: 'ss10' on;
+    color: #000000;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    font-feature-settings: 'ss10' on;
+    color: #000000;
 }
 
 h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 32px;
+    font-feature-settings: 'ss10' on;
+    color: #000000;
+}
+
+h4 {
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -16,16 +45,18 @@ h3 {
     color: #000000;
 }
 
-h4 {
-    font-family: 'Faktum';
+h5 {
     font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    font-feature-settings: 'ss10' on;
+    color: #000000;
 }
 
-h5 {
+h6 {
+    font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 20px;
@@ -33,6 +64,9 @@ h5 {
     color: #000000;
 }
 
+body {
+    font: 400 16px/1.2 'PT Root UI', sans-serif;
+}
 
 .container {
     box-sizing: border-box;

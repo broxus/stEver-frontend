@@ -1,31 +1,31 @@
 import * as React from 'react'
 import './infoStak.scss'
-import { Flex, Grid, Heading, Text } from '@broxus/react-uikit'
+import { Flex, Grid, Heading, Text, Tile } from '@broxus/react-uikit'
 
 export function InfoStak(): JSX.Element {
     return (
         <>
             <Flex flexDirection='column' justifyContent='center'>
-                <div className='infoStak'>
-                    <Heading component='h2'>
+                <Flex justifyContent='center'>
+                    <Heading component='h1'>
                         Stake your EVERs
                     </Heading>
-                </div>
+                </Flex>
 
-                {/* <Grid divider={true}>
-                    <Flex flexDirection='column' >
-                        <Text component='h4'>24 876 944</Text>
-                        <Text>EVER staked</Text>
-                    </Flex>
-                    <Flex flexDirection='column'>
-                        <Text component='h4'>12%</Text>
-                        <Text>Average APY</Text>
-                    </Flex>
-                    <Flex flexDirection='column'>
-                        <Text component='h4'>16</Text>
-                        <Text>Active stakers</Text>
-                    </Flex>
-                </Grid> */}
+                <Flex justifyContent='center' className='border'>
+                    <Tile size='xsmall'>
+                        <Text component='h4' className='uk-text-center uk-margin-small-bottom' >24 876</Text>
+                        <Text className='uk-text-center uk-margin-remove'>EVER staked</Text>
+                    </Tile>
+                    <Tile size='xsmall'>
+                        <Text component='h4' className='uk-text-center uk-margin-small-bottom'>12%</Text>
+                        <Text className='uk-text-center uk-margin-remove'>Average APY</Text>
+                    </Tile>
+                    <Tile size='xsmall'>
+                        <Text component='h4' className='uk-text-center uk-margin-small-bottom'>16</Text>
+                        <Text className='uk-text-center uk-margin-remove'>Active stakers</Text>
+                    </Tile>
+                </Flex>
             </Flex >
         </>
     )
