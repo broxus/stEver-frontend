@@ -35,9 +35,27 @@ function FormStakStake(): JSX.Element {
     return (
         <>
             <Flex flexDirection='column' justifyContent='between'>
-                <TextInput placeholder='0' />
-                <TextInput placeholder='0' />
-                <Button type='default' className='uk-width-1-1' >
+                <TextInput
+                    placeholder='0'
+                    value=''
+                    disabled={false}
+                    inputMode='numeric'
+                    readOnly={false}
+                    title='You spend EVER'
+                    iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg'
+                />
+                 <br/>
+                <TextInput
+                    placeholder='0'
+                    value=''
+                    disabled={false}
+                    inputMode='numeric'
+                    readOnly={true}
+                    title='You receive stEVER'
+                    iconUrl='https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg'
+                />
+                 <br/>
+                <Button type='primary' className='uk-width-1-1' >
                     Stake EVER
                 </Button>
             </Flex>
@@ -47,13 +65,31 @@ function FormStakStake(): JSX.Element {
 function FormStakUnstake(): JSX.Element {
     return (
         <>
-            <AmountInput />
-            
-            <AmountInput />
-            <br/>
-            <Button type='default'>
-                Unstake EVER
-            </Button>
+            <Flex flexDirection='column' justifyContent='between'>
+                <TextInput
+                    placeholder='0'
+                    value=''
+                    disabled={false}
+                    inputMode='numeric'
+                    readOnly={false}
+                    title='You spend EVER'
+                    iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg'
+                />
+                <br/>
+                <TextInput
+                    placeholder='0'
+                    value=''
+                    disabled={false}
+                    inputMode='numeric'
+                    readOnly={true}
+                    title='You receive stEVER'
+                    iconUrl='https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg'
+                />
+                 <br/>
+                <Button type='default' className='uk-width-1-1' >
+                    Stake EVER
+                </Button>
+            </Flex>
         </>
     )
 }

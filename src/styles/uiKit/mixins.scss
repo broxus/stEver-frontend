@@ -18,6 +18,11 @@
     background: #ECF1FE;
 }
 
+@mixin hook-button-primary() {
+    color: #fff;
+    background: #2B63F1;
+}
+
 @mixin hook-tile-default() {
     p {
         span {
