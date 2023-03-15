@@ -2,6 +2,8 @@ import * as React from 'react'
 import classNames from 'classnames'
 
 import './index.scss'
+import { Badge, Flex, Grid, Text } from '@broxus/react-uikit';
+import { AmountInput, TokenAmountInput, TokenBadge } from '@broxus/react-components';
 
 export type TextInputProps = {
     placeholder?: string;
@@ -45,36 +47,20 @@ export function TextInput({
     }
 
     return (
-        <div
-            className={classNames('text-input_wrapper', className, {
-                'text-input_wrapper--dirty': value,
-                'text-input_wrapper--invalid': invalid,
-            })}
-        >
-            {prefix && (
-                <div className="text-input_prefix">{prefix}</div>
-            )}
-            <div className="text-input_input">
-                <input
-                    autoComplete="off"
-                    type="text"
-                    className={classNames('text-input', {
-                        [`text-input_size_${size}`]: Boolean(size),
-                    })}
-                    placeholder={placeholder}
-                    id={id}
-                    inputMode={inputMode}
-                    value={value}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    onBlur={onBlur}
-                    onChange={_onChange}
-                    onFocus={onFocus}
-                />
-            </div>
-            {suffix && (
-                <div className="text-input_suffix">{suffix}</div>
-            )}
-        </div>
+        <Flex childWidth={1} flexDirection='column' className='text-input-container' >
+            <Text size='small' component='p' className='uk-margin-remove'>You spend EVER</Text>
+            <TokenAmountInput
+                placeholder={placeholder}
+                // id={id}
+                // inputMode={inputMode}
+                value={'0'}
+                // disabled={disabled}
+                // readOnly={readOnly}
+                // onBlur={onBlur}
+                // onFocus={onFocus}
+                className='text-input'
+                iconSize={24}
+                iconUrl='https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg' />
+        </Flex>
     )
 }

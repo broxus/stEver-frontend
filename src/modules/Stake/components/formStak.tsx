@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './formStak.scss'
-import { Button, Form, Tabs } from '@broxus/react-uikit'
+import { Button, Flex, Form, Grid, Tabs, Tile } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
 import { TextInput } from '@/components/common/TextInput'
 
@@ -8,7 +8,7 @@ export function FormStak(): JSX.Element {
     return (
         <>
             <div className='form'>
-                <div className='form__container'>
+                <Tile className='form__container uk-padding-remove'>
                     <Tabs
                         className='form__container--tabs'
                         defaultActiveKey="1"
@@ -25,7 +25,7 @@ export function FormStak(): JSX.Element {
                             },
                         ]}
                     />
-                </div>
+                </Tile>
             </div>
         </>
     )
@@ -34,11 +34,15 @@ export function FormStak(): JSX.Element {
 function FormStakStake(): JSX.Element {
     return (
         <>
-            <TextInput />
-            <AmountInput />
-            <Button type='default'>
-                Stake EVER
-            </Button>
+            <Flex flexDirection='column' justifyContent='between'>
+                <TextInput placeholder='0' />
+                <br/>
+                <TextInput placeholder='0' />
+                <br/>
+                <Button type='default' className='uk-width-1-1' >
+                    Stake EVER
+                </Button>
+            </Flex>
         </>
     )
 }
@@ -46,7 +50,9 @@ function FormStakUnstake(): JSX.Element {
     return (
         <>
             <AmountInput />
+            
             <AmountInput />
+            <br/>
             <Button type='default'>
                 Unstake EVER
             </Button>

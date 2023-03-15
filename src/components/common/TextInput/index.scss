@@ -1,80 +1,64 @@
+.text-input-container {
+    border-bottom: 1px solid #D4D7DC;
 
+    p {
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #A6AAB2;
+    }
+}
 
 .text-input {
     box-sizing: border-box;
-    color: #fff;
-    cursor: text;
-    flex: 1;
-    font-size: 14px;
-    height: 36px;
-    padding: 0 12px;
+    background: #fff0;
+    // width: min-content;
+    border: none;
+    color: #000;
+    min-width: 128px;
+    padding: 0;
 
-    &::placeholder {
-        color: rgb(255 255 255 / 56%);
-    }
+    // .uk-control-prefix {
+    //     margin: 0;
+    //     margin-right: 0 !important;
+    // }
 
-    &:disabled {
-        color: rgba(255, 255, 255, 0.32);
-        background: rgba(0, 0, 0, 0.08);
-        cursor: not-allowed;
-    }
+    input {
+        height: 42px !important;
+        margin-left: -3px;
 
-    &_wrapper {
-        align-items: center;
-        border: 1px solid rgb(255 255 255 / 16%);
-        box-sizing: border-box;
-        display: flex;
-        flex-flow: row nowrap;
-        gap: 4px;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        text-align: left;
+        font-feature-settings: 'ss10' on;
+        color: #A6AAB2;
 
-        &--dirty {
-            border-color: rgb(255 255 255 / 24%);
-        }
-
-        &--invalid {
-            border-color: #eb4361;
-        }
-    }
-
-    &_input,
-    &_prefix,
-    &_suffix {
-        box-sizing: border-box;
-        display: inline-flex;
-        max-width: 100%;
-        width: 100%;
-    }
-
-    &_input {
-        flex: 1;
-        min-width: 1px;
-
-        &:not(:last-child) {
-            > .text-input { padding-right: 4px }
+        &::placeholder {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 28px;
+            text-align: left;
+            font-feature-settings: 'ss10' on;
+            color: #A6AAB2;
         }
     }
 
-    &_prefix {
-        padding-left: 12px;
-        width: auto;
-
-        + .text-input_input .text-input {
-            padding-left: 4px;
-        }
+    .uk-control-suffix {
+        margin: 0px;
+        margin-left: 0 !important;
     }
 
-    &_suffix {
-        padding-right: 4px;
-        width: auto;
+
+    // &:disabled {
+    //     color: rgba(255, 255, 255, 0.32);
+    //     background: rgba(0, 0, 0, 0.08);
+    //     cursor: not-allowed;
+    // }
+    &:hover {
+        background: #fff0;
     }
 
-    &_size {
-        &_small {
-            height: 36px;
-        }
-
-        &_medium {
-            height: 44px;
-        }
+    &:focus {
+        background: #fff0;
     }
 }

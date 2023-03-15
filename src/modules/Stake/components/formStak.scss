@@ -7,16 +7,23 @@
         box-shadow: 0px 2px 32px rgba(0, 0, 0, 0.08);
         margin: auto;
         margin-top: 40px;
+
         &--tabs {
             padding: 24px;
 
-            .uk-tabs-nav::before {
-                border-bottom: none;
+            .uk-tabs-nav {
+                margin-bottom: 24px;
+
+                &::before {
+                    border-bottom: none;
+                }
             }
-            .uk-tabs-nav-wrap{
+
+            .uk-tabs-nav .uk-tabs-nav-wrap {
                 justify-content: center;
             }
         }
     }
+
     margin-bottom: 128px;
 }
