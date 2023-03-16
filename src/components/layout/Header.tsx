@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom'
 import { WalletAccount } from '@broxus/react-components'
 import { Navbar } from '@broxus/react-uikit'
 
-import { DesktopNav } from '@/components/layout/DesktopNav'
-import { HeaderDrawer } from '@/components/layout/Header/HeaderDrawer'
+import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
-import './index.scss'
+import { DesktopNav } from './DesktopNav'
+
+import './Header.scss'
 
 export function Header(): JSX.Element {
     return (

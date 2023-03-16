@@ -1,9 +1,8 @@
 import * as React from 'react'
 import classNames from 'classnames'
-
-import './index.scss'
 import { Link } from '@broxus/react-uikit'
 
+import './OrderingSwitcher.scss'
 
 type Props<T> = {
     ascending: T;

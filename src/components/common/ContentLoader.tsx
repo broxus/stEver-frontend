@@ -1,9 +1,8 @@
 import * as React from 'react'
 import classNames from 'classnames'
-
-
-import './index.scss'
 import { Icon } from '@broxus/react-uikit'
+
+import './ContentLoader.scss'
 
 type Props = {
     className?: string;

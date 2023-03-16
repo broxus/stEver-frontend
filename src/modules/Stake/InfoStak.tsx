@@ -1,8 +1,9 @@
 import * as React from 'react'
-import './infoStak.scss'
 import {
     Flex, Heading, Text, Tile,
 } from '@broxus/react-uikit'
+
+import './InfoStak.scss'
 
 export function InfoStak(): JSX.Element {
     return (

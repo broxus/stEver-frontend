@@ -1,6 +1,7 @@
 import * as React from 'react'
-import './faqStak.scss'
 import { Accordion, Text } from '@broxus/react-uikit'
+
+import './faqStak.scss'
 
 export function FaqStak(): JSX.Element {
     return (

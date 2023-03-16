@@ -10,14 +10,13 @@ import {
 import { ScrollManager } from '@/components/layout/ScrollManager'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
-import StakePage from '@/pages/stake'
+import StakePage from '@/pages/Stake'
 import { appRoutes } from '@/routes'
 import { noop } from '@/utils'
+import { LocalizationContext } from '@/context/Localization'
+import DashboardPage from '@/pages/Dashboard'
 
 import './App.scss'
-import { LocalizationContext } from '@/context/Localization'
-import DashboardPage from '@/pages/dashboard'
-
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)

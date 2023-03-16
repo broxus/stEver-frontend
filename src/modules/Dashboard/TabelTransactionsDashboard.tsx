@@ -4,8 +4,9 @@ import {
     Flex, Heading, Link, Tile,
 } from '@broxus/react-uikit'
 
-import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+import { Pagination } from '@/components/common/Pagination'
+
 
 const transactions = [
     {

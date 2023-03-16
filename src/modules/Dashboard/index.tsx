@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { ChartDashboard } from '@/modules/Dashboard/components/chartDashboard'
-import { TabelDepoolsDashboard } from '@/modules/Dashboard/components/tabelDepoolsDashboard'
-import { TabelTransactionsDashboard } from '@/modules/Dashboard/components/tabelTransactionsDashboard'
+import { ChartDashboard } from './ChartDashboard'
+import { TabelDepoolsDashboard } from './TabelDepoolsDashboard'
+import { TabelTransactionsDashboard } from './TabelTransactionsDashboard'
 
 import './index.scss'
 

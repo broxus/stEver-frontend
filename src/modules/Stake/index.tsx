@@ -1,9 +1,8 @@
 import * as React from 'react'
 
-import { InfoStak } from '@/modules/Stake/components/infoStak'
-import { FormStak } from '@/modules/Stake/components/formStak'
-import { FaqStak } from '@/modules/Stake/components/faqStak'
-
+import { InfoStak } from './InfoStak'
+import { FormStak } from './FormStak'
+import { FaqStak } from './FaqStak'
 
 export function Stak(): JSX.Element {
     return (

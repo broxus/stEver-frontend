@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
+import { Nav } from '@broxus/react-uikit'
 
 import { appRoutes } from '@/routes'
 
-import './index.scss'
-import { Nav } from '@broxus/react-uikit'
+import './DeviceNav.scss'
 
 type Props = {
     onNavigate?: () => void;

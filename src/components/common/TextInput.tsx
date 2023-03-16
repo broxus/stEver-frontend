@@ -1,8 +1,8 @@
 import * as React from 'react'
-
-import './index.scss'
 import { Flex, Label, Text } from '@broxus/react-uikit'
 import { TokenAmountInput } from '@broxus/react-components'
+
+import './TextInput.scss'
 
 export type TextInputProps = {
     placeholder?: string;

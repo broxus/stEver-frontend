@@ -2,10 +2,9 @@ import * as React from 'react'
 import BigNumber from 'bignumber.js'
 import classNames from 'classnames'
 
-
-import './index.scss'
 import { formattedAmount } from '@/utils/formatted-amount'
 
+import './RateChange.scss'
 
 type RateChangeProps = {
     className?: string;

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import './chartDashboard.scss'
 import { Chart } from '@broxus/react-components'
 import { Time } from 'lightweight-charts'
 import {
@@ -7,6 +6,8 @@ import {
 } from '@broxus/react-uikit'
 
 import { RateChange } from '@/components/common/RateChange'
+
+import './ChartDashboard.scss'
 
 export function ChartDashboard(): JSX.Element {
     const data = [{ value: 0, time: 1642425322 as Time }, { value: 8, time: 1642511722 as Time }, { value: 10, time: 1642598122 as Time }, { value: 20, time: 1642684522 as Time }, { value: 3, time: 1642770922 as Time }, { value: 43, time: 1642857322 as Time }, { value: 41, time: 1642943722 as Time }, { value: 43, time: 1643030122 as Time }, { value: 56, time: 1643116522 as Time }, { value: 46, time: 1643202922 as Time }]

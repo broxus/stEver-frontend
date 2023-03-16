@@ -5,7 +5,6 @@ import { Button, Drawer, Icon } from '@broxus/react-uikit'
 
 import { Component } from '@/components/common/Component'
 import { Logo } from '@/components/layout/Logo'
-// import { EverWallet } from '@/modules/Accounts'
 
 
 export function HeaderDrawer(): JSX.Element {

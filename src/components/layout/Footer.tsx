@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { Link } from 'react-router-dom'
-
-// import { Button } from '@/components/common/Button'
-// import { Icon } from '@/components/common/Icon'
 import {
     Link as LinkText, List, Icon, Flex, Button, Tile, Text,
 } from '@broxus/react-uikit'
@@ -12,7 +9,7 @@ import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
 
-import './index.scss'
+import './Footer.scss'
 
 export function Footer(): JSX.Element {
     const intl = useIntl()

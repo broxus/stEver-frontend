@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
+import { Icon, Nav, Navbar } from '@broxus/react-uikit'
 
 import { appRoutes } from '@/routes'
 
-import './index.scss'
-import { Icon, Nav, Navbar } from '@broxus/react-uikit'
-
+import './DesktopNav.scss'
 
 export function DesktopNav(): JSX.Element {
     const intl = useIntl()

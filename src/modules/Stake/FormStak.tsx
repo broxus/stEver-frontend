@@ -1,10 +1,11 @@
 import * as React from 'react'
-import './formStak.scss'
 import {
     Button, Flex, Tabs, Tile,
 } from '@broxus/react-uikit'
 
 import { TextInput } from '@/components/common/TextInput'
+
+import './FormStak.scss'
 
 export function FormStak(): JSX.Element {
     return (

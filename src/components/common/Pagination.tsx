@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import classNames from 'classnames'
-import './index.scss'
 import {
     Button, Card, Flex, Text,
 } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
+
+import './Pagination.scss'
 
 export type PaginationProps = {
     className?: string;
