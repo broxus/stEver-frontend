@@ -1,37 +1,81 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tile,
+    Flex, Heading, Link, Tabs, Tile,
 } from '@broxus/react-uikit'
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { transactions } from './_.mock'
 
+import "./TabelTransactionsDashboard.scss"
+
 export function TabelTransactionsDashboard(): JSX.Element {
     return (
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" className="tabelTransactionsDashboard">
             <Heading component="h4">
                 Transactions
             </Heading>
-            <Tile type="default" size="xsmall">
-                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                    <Media query={{ minWidth: 640 }}>
-                        <TransactionListHeader />
-                    </Media>
-                    {transactions.map((trans, idx) => (
-                        <Media key={trans.depool} query={{ minWidth: 640 }}>
-                            <TransactionListItem
-                                key={trans.depool}
-                                idx={idx + 1}
-                                pool={trans}
-                            />
-                        </Media>
-                    ))}
-                </table>
-                <TransactionListPagination />
-            </Tile>
+            <Tabs
+                defaultActiveKey="1"
+                items={[
+                    {
+                        label: 'Users',
+                        key: '1',
+                        children: <TransactionListUsers />,
+                    },
+                    {
+                        label: 'Strategies',
+                        key: '2',
+                        children: <TransactionListStrategies />,
+                    },
+                ]}
+            />
         </Flex>
+    )
+}
+
+export function TransactionListUsers(): JSX.Element {
+    return (
+        <Tile type="default" size="xsmall" className="uk-margin-small-top">
+            <table className="uk-table uk-table-divider uk-width-1-1 table">
+                <Media query={{ minWidth: 640 }}>
+                    <TransactionListHeader />
+                </Media>
+                {transactions.map((trans, idx) => (
+                    <Media key={trans.depool} query={{ minWidth: 640 }}>
+                        <TransactionListItem
+                            key={trans.depool}
+                            idx={idx + 1}
+                            pool={trans}
+                        />
+                    </Media>
+                ))}
+            </table>
+            <TransactionListPagination />
+        </Tile>
+    )
+}
+
+export function TransactionListStrategies(): JSX.Element {
+    return (
+        <Tile type="default" size="xsmall" className="uk-margin-small-top">
+            <table className="uk-table uk-table-divider uk-width-1-1 table">
+                <Media query={{ minWidth: 640 }}>
+                    <TransactionListHeader />
+                </Media>
+                {transactions.map((trans, idx) => (
+                    <Media key={trans.depool} query={{ minWidth: 640 }}>
+                        <TransactionListItem
+                            key={trans.depool}
+                            idx={idx + 1}
+                            pool={trans}
+                        />
+                    </Media>
+                ))}
+            </table>
+            <TransactionListPagination />
+        </Tile>
     )
 }
 

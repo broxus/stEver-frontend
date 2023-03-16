@@ -102,7 +102,7 @@ export default (_: any, options: any): WebpackConfig => {
 
     config.plugins.push(
         new HtmlWebpackPlugin({
-            title: 'DEX, Liquidity Pools, Farming and Vesting | FlatQube',
+            title: 'DEX, Liquidity Pools, Farming and Vesting | StEver',
             favicon: 'public/favicon.svg',
             filename: path.resolve(__dirname, 'dist/index.html'),
             template: 'public/index.html',
