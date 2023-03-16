@@ -1,5 +1,8 @@
-dist
-lang
 node_modules/*
+dist
+.intl
+
+__tests__/*
+**/*.spec.ts
+**/*-test.ts
 /*.js
-/webpack.config.ts

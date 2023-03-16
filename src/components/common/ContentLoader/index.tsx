@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 
 import './index.scss'
-import { Icon } from '@broxus/react-uikit';
+import { Icon } from '@broxus/react-uikit'
 
 type Props = {
     className?: string;

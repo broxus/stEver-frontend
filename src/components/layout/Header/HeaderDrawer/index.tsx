@@ -1,13 +1,11 @@
 import * as React from 'react'
-import { reaction } from 'mobx'
 import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
+import { Button, Drawer, Icon } from '@broxus/react-uikit'
 
 import { Component } from '@/components/common/Component'
 import { Logo } from '@/components/layout/Logo'
 // import { EverWallet } from '@/modules/Accounts'
-import { DeviceNav } from '@/components/layout/DeviceNav'
-import { Button, Drawer, Icon } from '@broxus/react-uikit'
 
 
 export function HeaderDrawer(): JSX.Element {

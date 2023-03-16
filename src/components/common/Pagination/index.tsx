@@ -2,7 +2,9 @@ import * as React from 'react'
 import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import './index.scss'
-import { Button, Card, Flex, Grid, Icon, Input, Text, Tile } from '@broxus/react-uikit'
+import {
+    Button, Card, Flex, Text,
+} from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
 
 export type PaginationProps = {
@@ -58,7 +60,7 @@ export const Pagination = React.memo(({
     return (
         <div className={classNames('pagination', 'uk-margin-small', className)}>
 
-            <Flex justifyContent='right' >
+            <Flex justifyContent="right">
                 <AmountInput
                     className="pagination__input uk-margin-small-right"
                     inputMode="decimal"
@@ -68,10 +70,18 @@ export const Pagination = React.memo(({
                     onKeyUp={onKeyUp}
                     showMaxButton={false}
                 />
-                <Text className='uk-margin-small-right'>page of {totalPages}</Text>
+                <Text className="uk-margin-small-right">
+                    page of
+                    {totalPages}
+                </Text>
                 <Card>
-                    <Button className='uk-margin-small-right' type='default' onClick={onPrev} disabled={disabled || currentPage === 1}>Prev</Button>
-                    <Button type='default' onClick={onNext} disabled={disabled || currentPage === totalPages}>Next</Button>
+                    <Button
+                        className="uk-margin-small-right" type="default" onClick={onPrev}
+                        disabled={disabled || currentPage === 1}
+                    >
+                        Prev
+                    </Button>
+                    <Button type="default" onClick={onNext} disabled={disabled || currentPage === totalPages}>Next</Button>
                 </Card>
             </Flex>
         </div>

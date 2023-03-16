@@ -1,14 +1,16 @@
 import * as React from 'react'
-import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // import { Button } from '@/components/common/Button'
 // import { Icon } from '@/components/common/Icon'
+import {
+    Link as LinkText, List, Icon, Flex, Button, Tile, Text,
+} from '@broxus/react-uikit'
+
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
-import { Grid, Link as LinkText, List, Icon, Flex, Navbar, Heading, Button, Tile, Text } from '@broxus/react-uikit'
 
 import './index.scss'
 
@@ -22,7 +24,7 @@ export function Footer(): JSX.Element {
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
                 target="_blank"
-                type='default'
+                type="default"
             >
                 {intl.formatMessage({
                     id: 'FOOTER_WALLET_INSTALLATION_LINK_TEXT',
@@ -33,7 +35,7 @@ export function Footer(): JSX.Element {
                 href="https://github.com/broxus/flatqube-frontend"
                 rel="noopener noreferrer"
                 target="_blank"
-                type='default'
+                type="default"
             >
                 {intl.formatMessage({
                     id: 'FOOTER_MAKE_A_DEPOSIT_LINK_TEXT',
@@ -54,33 +56,33 @@ export function Footer(): JSX.Element {
                     </div>
                     <nav className="footer-nav">
                         <div className="footer-nav__col">
-                            <Text component='h6' className="footer-nav__col-title">
+                            <Text component="h6" className="footer-nav__col-title">
                                 {intl.formatMessage({ id: 'FOOTER_NAV_HEADER_OUR_ERVICES' })}
                             </Text>
                             <List>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV_PRODUCT_LINK_DOCS',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV_PRODUCT_LINK_MAKE_A_DEPOSIT',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR',
                                         })}
@@ -103,35 +105,35 @@ export function Footer(): JSX.Element {
 
                         </div>
                         <div className="footer-nav__col">
-                            <Text component='h6' className="footer-nav__col-title">
+                            <Text component="h6" className="footer-nav__col-title">
                                 {intl.formatMessage({
                                     id: 'FOOTER_NAV_HEADER_OUR_ERVICES',
                                 })}
                             </Text>
                             <List>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV__OUR_ERVICES_LINK_OCTUS_BRIDGE',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV__OUR_ERVICES_LINK_EVER_WALLET',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text' >
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV__OUR_ERVICES_LINK_WEVER',
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-remove'>
-                                    <LinkText type='text'>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <LinkText type="text">
                                         {intl.formatMessage({
                                             id: 'FOOTER_NAV__OUR_ERVICES_LINK_FLAT_QUBE',
                                         })}
@@ -149,19 +151,20 @@ export function Footer(): JSX.Element {
                 </div>
                 <div className="footer__bottom">
                     <Flex>
-                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                        <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                             <LinkText
-                                type='text'
+                                type="text"
                                 href="https://discord.gg/6dryaZQNmC"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                title="Discord">
+                                title="Discord"
+                            >
                                 <Icon icon="discord" />
                             </LinkText>
                         </Tile>
-                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                        <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                             <LinkText
-                                type='text'
+                                type="text"
                                 href="https://t.me/FlatQube"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -170,9 +173,9 @@ export function Footer(): JSX.Element {
                                 <Icon icon="telegram" />
                             </LinkText>
                         </Tile>
-                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                        <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                             <LinkText
-                                type='text'
+                                type="text"
                                 href="https://twitter.com/FlatQube"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -181,9 +184,9 @@ export function Footer(): JSX.Element {
                                 <Icon icon="twitter" />
                             </LinkText>
                         </Tile>
-                        <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                        <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                             <LinkText
-                                type='text'
+                                type="text"
                                 href="https://flatqube.medium.com/"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -195,7 +198,7 @@ export function Footer(): JSX.Element {
                     </Flex>
                     <div className="footer__sub">
                         <LinkText
-                            type='text'
+                            type="text"
                             // className="footer-copyright"
                             dangerouslySetInnerHTML={{
                                 __html: intl.formatMessage({
@@ -209,9 +212,9 @@ export function Footer(): JSX.Element {
                         />
                         <nav className="footer-subnav">
                             <Flex>
-                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                                <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                                     <LinkText
-                                        type='text'
+                                        type="text"
                                         href="https://broxus.com/wp-content/uploads/2021/08/terms_of_use.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -221,10 +224,10 @@ export function Footer(): JSX.Element {
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                                <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
 
                                     <LinkText
-                                        type='text'
+                                        type="text"
                                         href="https://broxus.com/wp-content/uploads/2021/08/privacy_policy.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -234,9 +237,9 @@ export function Footer(): JSX.Element {
                                         })}
                                     </LinkText>
                                 </Tile>
-                                <Tile size='xsmall' className='uk-padding-small uk-padding-remove-vertical'>
+                                <Tile size="xsmall" className="uk-padding-small uk-padding-remove-vertical">
                                     <LinkText
-                                        type='text'
+                                        type="text"
                                         href="https://broxus.com/wp-content/uploads/2021/08/cookie_policy.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -251,6 +254,6 @@ export function Footer(): JSX.Element {
                     </div>
                 </div>
             </div>
-        </footer >
+        </footer>
     )
 }

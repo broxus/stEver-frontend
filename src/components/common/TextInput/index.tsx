@@ -1,9 +1,8 @@
 import * as React from 'react'
-import classNames from 'classnames'
 
 import './index.scss'
-import { Badge, Flex, Grid, Label, Text } from '@broxus/react-uikit';
-import { AmountInput, TokenAmountInput, TokenBadge } from '@broxus/react-components';
+import { Flex, Label, Text } from '@broxus/react-uikit'
+import { TokenAmountInput } from '@broxus/react-components'
 
 export type TextInputProps = {
     placeholder?: string;
@@ -32,7 +31,7 @@ export function TextInput({
     onChangeInput,
     onFocus,
     title,
-    iconUrl
+    iconUrl,
 }: TextInputProps): JSX.Element {
 
     const _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,10 +40,15 @@ export function TextInput({
     }
 
     return (
-        <Flex childWidth={1} flexDirection='column' className='text-input-container' >
-            <Flex className='uk-margin-remove' justifyContent='between'>
-                <Text size='small' component='p' className='uk-margin-remove'>{title}</Text>
-                {readOnly && <Text size='small' component='p' className='uk-margin-remove'>≈ 1.2395 EVER <Label type='success'>12% APY</Label> </Text>}
+        <Flex childWidth={1} flexDirection="column" className="text-input-container">
+            <Flex className="uk-margin-remove" justifyContent="between">
+                <Text size="small" component="p" className="uk-margin-remove">{title}</Text>
+                {readOnly && (
+                    <Text size="small" component="p" className="uk-margin-remove">
+                        ≈ 1.2395 EVER
+                        <Label type="success">12% APY</Label>
+                    </Text>
+                )}
 
             </Flex>
 
@@ -58,7 +62,7 @@ export function TextInput({
                 readOnly={readOnly}
                 onBlur={onBlur}
                 onFocus={onFocus}
-                className='text-input'
+                className="text-input"
                 iconSize={24}
                 iconUrl={iconUrl}
             />

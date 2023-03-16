@@ -1,18 +1,17 @@
 import * as React from 'react'
+
 import { ChartDashboard } from '@/modules/Dashboard/components/chartDashboard'
 import { TabelDepoolsDashboard } from '@/modules/Dashboard/components/tabelDepoolsDashboard'
 import { TabelTransactionsDashboard } from '@/modules/Dashboard/components/tabelTransactionsDashboard'
+
 import './index.scss'
-import { Container, Flex, Grid } from '@broxus/react-uikit'
 
 export function Dashboard(): JSX.Element {
     return (
-        <>
-            <div className="container container--large dashboard">
-                <ChartDashboard />
-                <TabelDepoolsDashboard />
-                <TabelTransactionsDashboard />
-            </div>
-        </>
+        <div className="container container--large dashboard">
+            <ChartDashboard />
+            <TabelDepoolsDashboard />
+            <TabelTransactionsDashboard />
+        </div>
     )
 }

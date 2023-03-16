@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Settings } from 'luxon'
 import { IntlProvider } from 'react-intl'
 import {
     Redirect,
@@ -7,13 +6,13 @@ import {
     BrowserRouter as Router,
     Switch,
 } from 'react-router-dom'
+
 import { ScrollManager } from '@/components/layout/ScrollManager'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
-
 import StakePage from '@/pages/stake'
 import { appRoutes } from '@/routes'
-import { isMobile, noop } from '@/utils'
+import { noop } from '@/utils'
 
 import './App.scss'
 import { LocalizationContext } from '@/context/Localization'
@@ -44,7 +43,7 @@ export function App(): JSX.Element {
                                 <Route path={appRoutes.stake.path}>
                                     <StakePage />
                                 </Route>
-                                
+
                                 <Route path={appRoutes.dashboard.path}>
                                     <DashboardPage />
                                 </Route>
@@ -54,7 +53,7 @@ export function App(): JSX.Element {
                         <Footer key="footer" />
                     </div>
                 </ScrollManager>
-            </Router> 
+            </Router>
         </IntlProvider>
     )
 }

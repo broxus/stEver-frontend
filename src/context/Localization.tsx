@@ -1,7 +1,6 @@
 import React from 'react'
 
 import en from '@/lang/en'
-
 import { storage } from '@/utils'
 
 const messagesList = { en } as const

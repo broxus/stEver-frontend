@@ -2,7 +2,7 @@ import * as React from 'react'
 import classNames from 'classnames'
 
 import './index.scss'
-import { Link } from '@broxus/react-uikit';
+import { Link } from '@broxus/react-uikit'
 
 
 type Props<T> = {
