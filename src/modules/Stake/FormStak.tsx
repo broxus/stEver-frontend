@@ -61,6 +61,7 @@ function FormStakStake(): JSX.Element {
         </Flex>
     )
 }
+
 function FormStakUnstake(): JSX.Element {
     return (
         <Flex flexDirection="column" justifyContent="between">

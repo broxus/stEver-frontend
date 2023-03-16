@@ -6,65 +6,8 @@ import {
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
+import { transactions } from './_.mock'
 
-
-const transactions = [
-    {
-        depool: '0:5iHe...8ob3',
-        transaction: '0:5b8...f90',
-        strategy: '0:5b8...f90',
-        type: 'Deposit to strategy',
-        value: '11 000',
-        date_time: {
-            time: '17:22:14',
-            date: 'Jun 07, 2021',
-        },
-    },
-    {
-        depool: '0:5iHe...8ob3',
-        transaction: '0:5b8...f90',
-        strategy: '0:5b8...f90',
-        type: 'Deposit to strategy',
-        value: '11 000',
-        date_time: {
-            time: '17:22:14',
-            date: 'Jun 07, 2021',
-        },
-    },
-    {
-        depool: '0:5iHe...8ob3',
-        transaction: '0:5b8...f90',
-        strategy: '0:5b8...f90',
-        type: 'Deposit to strategy',
-        value: '11 000',
-        date_time: {
-            time: '17:22:14',
-            date: 'Jun 07, 2021',
-        },
-    },
-    {
-        depool: '0:5iHe...8ob3',
-        transaction: '0:5b8...f90',
-        strategy: '0:5b8...f90',
-        type: 'Deposit to strategy',
-        value: '11 000',
-        date_time: {
-            time: '17:22:14',
-            date: 'Jun 07, 2021',
-        },
-    },
-    {
-        depool: '0:5iHe...8ob3',
-        transaction: '0:5b8...f90',
-        strategy: '0:5b8...f90',
-        type: 'Deposit to strategy',
-        value: '11 000',
-        date_time: {
-            time: '17:22:14',
-            date: 'Jun 07, 2021',
-        },
-    },
-]
 export function TabelTransactionsDashboard(): JSX.Element {
     return (
         <Flex flexDirection="column">

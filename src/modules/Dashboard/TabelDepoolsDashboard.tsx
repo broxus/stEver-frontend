@@ -6,26 +6,8 @@ import {
 
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+import { depools } from './_.mock'
 
-
-const depools = [
-    {
-        depool: '0:5iHe...8ob3',
-        validator_fee: '4.2%',
-        strategy: '0:5b8...f90',
-        owner: '0:5b8...f90',
-        priority: 'High',
-        tvl: 1021000,
-    },
-    {
-        depool: '0:5iHe...8ob3',
-        validator_fee: '4.2%',
-        strategy: '0:5b8...f90',
-        owner: '0:5b8...f90',
-        priority: 'High',
-        tvl: 1021000,
-    },
-]
 export function TabelDepoolsDashboard(): JSX.Element {
     return (
         <Flex flexDirection="column">
