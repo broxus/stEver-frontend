@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import Media from 'react-media'
 import { Pagination } from '@/components/common/Pagination'
 import { Flex, Heading, Link, Tile } from '@broxus/react-uikit'
+import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 const depools = [
     {
@@ -45,24 +46,39 @@ export function TabelDepoolsDashboard(): JSX.Element {
                             </Media>
                         ))}
                     </table>
-                    <DepoolsListPagination/>
+                    <DepoolsListPagination />
                 </Tile>
             </Flex>
-           
+
         </>
     )
 }
 
 export function DepoolsListHeader(): JSX.Element {
+    const onSwitchOrdering = async (value: any) => {
+        alert("onSwitchOrdering")
+    }
+
     return (
         <thead className='uk-height-small'>
             <tr>
                 <th className='uk-text-left'>Depool</th>
-                <th className='uk-text-left'>Validator fee</th>
+                <th className='uk-text-left'>
+                    <OrderingSwitcher<any>
+                        ascending={1}
+                        descending={1}
+                        value={1}
+                        onSwitch={onSwitchOrdering}
+                    >
+                        Validator fee
+                    </OrderingSwitcher>
+                </th>
                 <th className='uk-text-left'>Strategy</th>
                 <th className='uk-text-left'>Owner</th>
                 <th className='uk-text-left'>Priority</th>
-                <th className='uk-text-right'>TVL</th>
+                <th className='uk-text-right'>
+                    TVL
+                </th>
             </tr>
         </thead>
     )

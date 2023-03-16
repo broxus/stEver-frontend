@@ -1,0 +1,48 @@
+.ordering-switcher {
+    position: relative;
+
+    &.btn {
+        background: none;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        margin: 0;
+        min-height: unset;
+        padding: 0;
+
+        &:hover,
+        &focus {
+            background: none;
+            border: 0;
+            color: inherit;
+        }
+    }
+
+    &-desc,
+    &-asc {
+        color: #000 !important;
+        padding-right: 24px !important;
+
+        &::before {
+            border: 5px solid transparent;
+            content: '';
+            display: block;
+            position: absolute;
+            right: 5px;
+        }
+    }
+
+    &-asc {
+        &::before {
+            border-bottom-color: #000;
+            top: 2px;
+        }
+    }
+
+    &-desc {
+        &::before {
+            border-top-color: #fff;
+            top: 7.5px;
+        }
+    }
+}

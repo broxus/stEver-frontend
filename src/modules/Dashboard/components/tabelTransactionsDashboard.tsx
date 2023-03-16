@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import Media from 'react-media'
 import { Flex, Heading, Link, Tile } from '@broxus/react-uikit'
 import { Pagination } from '@/components/common/Pagination'
+import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 const transactions = [
     {
@@ -92,6 +93,10 @@ export function TabelTransactionsDashboard(): JSX.Element {
 }
 
 export function TransactionListHeader(): JSX.Element {
+    const onSwitchOrdering = async (value: any) => {
+        alert("onSwitchOrdering")
+    }
+
     return (
         <>
             <thead className='uk-height-small'>
@@ -101,7 +106,16 @@ export function TransactionListHeader(): JSX.Element {
                     <th className='uk-text-left'>Strategy</th>
                     <th className='uk-text-left'>Type</th>
                     <th className='uk-text-left'>Value</th>
-                    <th className='uk-text-right'>Date & Time</th>
+                    <th className='uk-text-right'>
+                        <OrderingSwitcher<any>
+                            ascending={1}
+                            descending={1}
+                            value={1}
+                            onSwitch={onSwitchOrdering}
+                        >
+                            Date & Time
+                        </OrderingSwitcher>
+                    </th>
                 </tr>
             </thead>
         </>
