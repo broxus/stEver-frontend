@@ -1,0 +1,29 @@
+.pagination {
+
+    // align-items: center;
+    // display: flex;
+    // gap: 10px;
+    // justify-content: flex-end;
+    // margin-top: 16px;
+    label {
+        background: #fff;
+        border: 1px solid #C6C9CF;
+        width: 64px;
+        height: 36px;
+        margin: auto 0;
+
+        &:hover {
+            background: #fff;
+            border: 1px solid #C6C9CF;
+        }
+
+        &:active {
+            background: #fff;
+            border: 1px solid #C6C9CF;
+        }
+    }
+    .uk-card {
+        margin: auto 0;
+    }
+
+}

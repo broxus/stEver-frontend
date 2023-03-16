@@ -2,6 +2,7 @@ import * as React from 'react'
 import styles from './tabelDepoolsDashboard.module.scss'
 import classNames from 'classnames'
 import Media from 'react-media'
+import { Pagination } from '@/components/common/Pagination'
 import { Flex, Heading, Link, Tile } from '@broxus/react-uikit'
 
 const depools = [
@@ -44,8 +45,10 @@ export function TabelDepoolsDashboard(): JSX.Element {
                             </Media>
                         ))}
                     </table>
+                    <DepoolsListPagination/>
                 </Tile>
             </Flex>
+           
         </>
     )
 }
@@ -84,5 +87,32 @@ export function DepoolsListItem({ idx, pool }: Props): JSX.Element {
                 </tr>
             </tbody>
         </>
+    )
+}
+
+
+
+export function DepoolsListPagination(): JSX.Element {
+
+    const onNextPage = async () => {
+        alert("Next")
+    }
+
+    const onPrevPage = async () => {
+        alert("Prev")
+    }
+
+    const onSubmitPage = async (value: number) => {
+        alert("Sub")
+    }
+
+    return (
+        <Pagination
+            currentPage={1}
+            totalPages={10}
+            onNext={onNextPage}
+            onPrev={onPrevPage}
+            onSubmit={onSubmitPage}
+        />
     )
 }
