@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
-import { WalletAccount } from '@broxus/react-components'
 import { Navbar } from '@broxus/react-uikit'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
@@ -26,7 +25,6 @@ export function Header(): JSX.Element {
                                 </Link>
                                 <DesktopNav />
                             </Navbar.Left>
-
                             <Navbar.Right className="header-switchers" component={Navbar.Item}>
                                 {/* <EverWallet showDisconnectButton /> */}
                             </Navbar.Right>
@@ -51,7 +49,6 @@ export function Header(): JSX.Element {
                                         }}
                                     >
                                         {/* <EverWallet showDisconnectButton={false} /> */}
-                                        <WalletAccount />
                                         <Navbar.Toggle icon>
                                             <HeaderDrawer />
                                         </Navbar.Toggle>
