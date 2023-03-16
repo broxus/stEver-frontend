@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tile,
+    Flex, Heading, Label, Link, Tile,
 } from '@broxus/react-uikit'
 
 import { Pagination } from '@/components/common/Pagination'
@@ -78,7 +78,7 @@ export function DepoolsListItem({ idx, pool }: Props): JSX.Element {
                 <td className="uk-text-left">{pool.validator_fee}</td>
                 <td className="uk-text-left"><Link>{pool.strategy}</Link></td>
                 <td className="uk-text-left"><Link>{pool.owner}</Link></td>
-                <td className="uk-text-left">{pool.priority}</td>
+                <td className="uk-text-left"><Label type={pool.priority === "High" ? "success" : pool.priority === "Middle" ?  "warning" : "danger"} >{pool.priority}</Label></td>
                 <td className="uk-text-right">{pool.tvl}</td>
             </tr>
         </tbody>
