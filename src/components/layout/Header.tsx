@@ -11,8 +11,11 @@ import { appRoutes } from '@/routes'
 import { DesktopNav } from './DesktopNav'
 
 import './Header.scss'
+import { TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
 
 export function Header(): JSX.Element {
+    const wallet = useTvmWalletContext()
+    console.log(wallet)
     return (
         <header className="header">
             <Navbar className="uk-width-expand">
@@ -26,7 +29,7 @@ export function Header(): JSX.Element {
                                 <DesktopNav />
                             </Navbar.Left>
                             <Navbar.Right className="header-switchers" component={Navbar.Item}>
-                                {/* <EverWallet showDisconnectButton /> */}
+                                <TvmConnector standalone />
                             </Navbar.Right>
                         </>
                     )}
@@ -48,7 +51,7 @@ export function Header(): JSX.Element {
                                             paddingRight: 0,
                                         }}
                                     >
-                                        {/* <EverWallet showDisconnectButton={false} /> */}
+                                        <TvmConnector />
                                         <Navbar.Toggle icon>
                                             <HeaderDrawer />
                                         </Navbar.Toggle>

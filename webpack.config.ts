@@ -90,7 +90,11 @@ export default (_: any, options: any): WebpackConfig => {
      * -------------------------------------------------------------
      */
 
-    config.plugins = []
+    config.plugins = [
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+    ]
 
     if (isDevelopment && showErrors) {
         config.plugins.push(new ForkTsCheckerWebpackPlugin({
@@ -207,11 +211,18 @@ export default (_: any, options: any): WebpackConfig => {
         },
 
         extensions: ['.js', '.ts', '.tsx', '.scss', '.css'],
-
         fallback: {
+            assert: require.resolve('assert'),
             buffer: require.resolve('buffer'),
+            crypto: require.resolve('crypto-browserify'),
+            http: require.resolve('stream-http'),
+            https: require.resolve('https-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            process: require.resolve('process/browser'),
+            stream: require.resolve('stream-browserify'),
+            url: require.resolve('url'),
+            util: require.resolve('util'),
         },
-
         modules: [
             path.resolve(__dirname, 'src'),
             'node_modules',

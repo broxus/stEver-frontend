@@ -7,19 +7,23 @@ import {
     Switch,
 } from 'react-router-dom'
 
-import { ScrollManager } from '@/components/layout/ScrollManager'
-import { Footer } from '@/components/layout/Footer'
-import { Header } from '@/components/layout/Header'
-import StakePage from '@/pages/Stake'
-import { appRoutes } from '@/routes'
-import { noop } from '@/utils'
+import { TvmWalletProvider } from '@broxus/react-modules'
+
 import { LocalizationContext } from '@/context/Localization'
-import DashboardPage from '@/pages/Dashboard'
+import { useTvmWallet } from '@/utils/useTvmWallet'
+import { noop } from '@/utils'
+import { Header } from './layout/Header'
+import { appRoutes } from '@/routes'
+
+import { Footer } from './layout/Footer'
 
 import './App.scss'
+import DashboardPage from '@/modules/Dashboard'
+import StakPage from '@/modules/Stake'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
+    const wallet = useTvmWallet()
 
     return (
         <IntlProvider
@@ -29,8 +33,8 @@ export function App(): JSX.Element {
             messages={localization.messages}
             onError={noop}
         >
-            <Router>
-                <ScrollManager>
+            <TvmWalletProvider wallet={wallet} >
+                <Router>
                     <div className="wrapper">
                         <Header key="header" />
                         <main className="main">
@@ -40,7 +44,7 @@ export function App(): JSX.Element {
                                 </Route>
 
                                 <Route path={appRoutes.stake.path}>
-                                    <StakePage />
+                                    <StakPage />
                                 </Route>
 
                                 <Route path={appRoutes.dashboard.path}>
@@ -51,8 +55,8 @@ export function App(): JSX.Element {
                         </main>
                         <Footer key="footer" />
                     </div>
-                </ScrollManager>
-            </Router>
+                </Router>
+            </TvmWalletProvider>
         </IntlProvider>
     )
 }

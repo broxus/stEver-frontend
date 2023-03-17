@@ -1,6 +1,5 @@
 import * as React from 'react'
-
-import { Strategy } from '@/modules/Strategy'
+import { Strategy } from '../components'
 
 export default function StrategyPage(): JSX.Element {
     return (

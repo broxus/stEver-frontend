@@ -6,10 +6,22 @@ import {
 import { TextInput } from '@/components/common/TextInput'
 
 import './FormStak.scss'
+import { useStore } from '@/hooks/useStore'
+import { StakingStore } from '@/modules/Stake/store/stakingStore'
 
 export function FormStak(): JSX.Element {
+    const staking = useStore(StakingStore)
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+    }
+
+
     return (
-        <div className="form">
+        <form
+            onSubmit={onSubmit}
+            className="form"
+        >
             <Tile className="form__container uk-padding-remove">
                 <Tabs
                     className="form__container--tabs"
@@ -28,7 +40,7 @@ export function FormStak(): JSX.Element {
                     ]}
                 />
             </Tile>
-        </div>
+        </form>
     )
 }
 
