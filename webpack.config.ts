@@ -207,7 +207,7 @@ export default (_: any, options: any): WebpackConfig => {
     config.resolve = {
         alias: {
             '@': path.resolve(__dirname, 'src'),
-            '@broxus/styles': path.resolve(__dirname, './node_modules/@broxus/react-uikit/dist/esm/styles'),
+            '@broxus/react-uikit': path.resolve(__dirname, './node_modules/@broxus/react-uikit'),
         },
 
         extensions: ['.js', '.ts', '.tsx', '.scss', '.css'],
