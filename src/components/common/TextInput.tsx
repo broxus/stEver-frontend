@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { Flex, Label, Text } from '@broxus/react-uikit'
 import { TokenAmountInput } from '@broxus/react-components'
+import classNames from 'classnames'
 
 import './TextInput.scss'
 
 export type TextInputProps = {
+    autoFocus?: boolean;
     placeholder?: string;
     value?: string;
     disabled?: boolean;
@@ -17,9 +19,13 @@ export type TextInputProps = {
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     title: string;
     iconUrl: string;
+    price?: string;
+    currency?: string;
+    borderButtom?: boolean;
 }
 
 export function TextInput({
+    autoFocus,
     placeholder,
     value = '',
     disabled,
@@ -28,31 +34,43 @@ export function TextInput({
     readOnly,
     onBlur,
     onChange,
-    onChangeInput,
     onFocus,
-    title,
     iconUrl,
+
+    title,
+    price,
+    currency,
+    borderButtom
 }: TextInputProps): JSX.Element {
 
-    const _onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange?.(e.currentTarget.value)
-        onChangeInput?.(e)
+    // const _onChange = (_: string): void => {
+    //     onChange?.(_)
+    // }
+    // const [_value, setValue] = React.useState<string>()
+    
+    console.log(value)
+    const _onChange = (_: string): void => {
+        // console.log(_)
+        // setValue(_)
+        onChange?.(_)
     }
 
+
     return (
-        <Flex childWidth={1} flexDirection="column" className="text-input-container">
+        <Flex childWidth={1} flexDirection="column" className={classNames(
+            borderButtom && "text-input-border-buttom", "text-input-container"
+        )}>
             <Flex className="uk-margin-remove" justifyContent="between">
                 <Text size="small" component="p" className="uk-margin-remove">{title}</Text>
                 {readOnly && (
                     <Text size="small" component="p" className="uk-margin-remove">
-                        ≈ 1.2395 EVER
-                        <Label type="success">12% APY</Label>
+                        ≈{price}{' '}{currency}
                     </Text>
                 )}
-
             </Flex>
 
             <TokenAmountInput
+                autoFocus={autoFocus}
                 placeholder={placeholder}
                 id={id}
                 inputMode={inputMode}
@@ -61,6 +79,7 @@ export function TextInput({
                 showMaxButton={!readOnly}
                 readOnly={readOnly}
                 onBlur={onBlur}
+                onChange={_onChange}
                 onFocus={onFocus}
                 className="text-input"
                 iconSize={24}

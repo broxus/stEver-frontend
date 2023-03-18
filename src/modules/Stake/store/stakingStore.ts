@@ -1,5 +1,7 @@
+import { makeAutoObservable } from "mobx";
+
 export enum StakingType {
-    Deposit, Withdraw,
+    Stake, Unstake,
 }
 
 type State = {
@@ -10,9 +12,40 @@ type State = {
 }
 
 const initState: State = {
-    type: StakingType.Deposit,
+    type: StakingType.Stake,
 }
 
 export class StakingStore {
+
+    protected state = initState
+
+
+    constructor(
+
+    ) {
+        makeAutoObservable(this, {}, {
+            autoBind: true,
+        })
+    }
+
+    public async submit(): Promise<void> {
+
+    }
+
+    public setAmount(value: string): void {
+        this.state.amount = value
+    }
+
+    public setType(value: StakingType): void {
+        this.state.type = value
+    }
+
+    public get type(): StakingType {
+        return this.state.type
+    }
+
+    public get amount(): string | undefined {
+        return this.state.amount
+    }
 
 }

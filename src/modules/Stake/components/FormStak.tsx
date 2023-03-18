@@ -7,11 +7,16 @@ import { TextInput } from '@/components/common/TextInput'
 
 import './FormStak.scss'
 import { useStore } from '@/hooks/useStore'
-import { StakingStore } from '@/modules/Stake/store/stakingStore'
+import { StakingStore, StakingType } from '@/modules/Stake/store/stakingStore'
+import { useAmountField } from '@/hooks/useAmountField'
+import CoinEverLogo from '@/assets/icons/EVER.svg'
+import CoinStEverLogo from '@/assets/icons/StEVER.svg'
+import { observer } from 'mobx-react-lite'
 
-export function FormStak(): JSX.Element {
+
+function FormStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
-
+    console.log(staking.amount)
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
     }
@@ -45,18 +50,28 @@ export function FormStak(): JSX.Element {
 }
 
 function FormStakStake(): JSX.Element {
+    const staking = useStore(StakingStore)
+    const field = useAmountField({
+        onBlur: staking.setAmount,
+        onChange: staking.setAmount,
+    })
+
     return (
+        
         <Flex flexDirection="column" justifyContent="between">
             <TextInput
+                autoFocus
                 placeholder="0"
-                value=""
+                value={staking.amount}
+                onChange={staking.setAmount}
+                onBlur={field.onBlur}
                 disabled={false}
                 inputMode="numeric"
                 readOnly={false}
                 title="You spend EVER"
-                iconUrl="https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg"
+                iconUrl={CoinEverLogo}
+                borderButtom={true}
             />
-            <br />
             <TextInput
                 placeholder="0"
                 value=""
@@ -64,9 +79,10 @@ function FormStakStake(): JSX.Element {
                 inputMode="numeric"
                 readOnly
                 title="You receive stEVER"
-                iconUrl="https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg"
+                iconUrl={CoinStEverLogo}
+                price={"1,23"}
+                currency={"EVER"}
             />
-            <br />
             <Button type="primary" className="uk-width-1-1">
                 Stake EVER
             </Button>
@@ -78,28 +94,34 @@ function FormStakUnstake(): JSX.Element {
     return (
         <Flex flexDirection="column" justifyContent="between">
             <TextInput
-                placeholder="0"
-                value=""
-                disabled={false}
-                inputMode="numeric"
-                readOnly
-                title="You receive stEVER"
-                iconUrl="https://raw.githubusercontent.com/broxus/flatqube-assets/master/icons/stEVER/logo.svg"
-            />
-            <br />
-            <TextInput
+                autoFocus
                 placeholder="0"
                 value=""
                 disabled={false}
                 inputMode="numeric"
                 readOnly={false}
-                title="You spend EVER"
-                iconUrl="https://app.flatqube.io/assets/992f1244bd3cbc67afa8.svg"
+                title="You receive stEVER"
+                iconUrl={CoinStEverLogo}
+                borderButtom={true}
             />
-            <br />
+            <TextInput
+                placeholder="0"
+                // value={staking.amount}
+                // onChange={staking.setAmount}
+                // onBlur={field.onBlur}
+                disabled={false}
+                inputMode="numeric"
+                readOnly={true}
+                title="You spend EVER"
+                iconUrl={CoinEverLogo}
+                price={"1,23"}
+                currency={"StEVER"}
+            />
             <Button type="default" className="uk-width-1-1">
                 Unstake EVER
             </Button>
         </Flex>
     )
 }
+
+export const FormStak = observer(FormStakInner)

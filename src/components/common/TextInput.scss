@@ -1,5 +1,9 @@
-.text-input-container {
+.text-input-border-buttom {
     border-bottom: 1px solid #D4D7DC;
+}
+
+.text-input-container {
+    margin-bottom: 16px;
 
     p {
         line-height: 20px;
@@ -27,11 +31,11 @@
         margin-left: -3px;
 
         font-weight: 500;
-        font-size: 24px;
+        font-size: 24px!important;
         line-height: 28px;
         text-align: left;
         font-feature-settings: 'ss10' on;
-        color: #A6AAB2;
+        color: #000;
 
         &::placeholder {
             font-weight: 500;
