@@ -22,17 +22,11 @@ type StakingStoreData = {
 }
 
 
-const initState: StakingStoreState & Partial<StakingStoreData> = {
-    type: StakingType.Stake,
-}
 
 export class StakingStore extends AbstractStore<
     StakingStoreData,
     StakingStoreState
 > {
-
-    @observable
-    public state = initState
 
     protected rpc = useRpcClient()
 
@@ -41,6 +35,8 @@ export class StakingStore extends AbstractStore<
     ) {
         super()
         makeObservable(this);
+
+        this.setState("type", StakingType.Stake);
 
         (async () => {
             const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
@@ -53,21 +49,21 @@ export class StakingStore extends AbstractStore<
     }
 
     public setAmount(value: string): void {
-        this.state.amount = value
+        this.setState("amount", value);
     }
 
     public setType(value: StakingType): void {
-        this.state.type = value
+        this.setState("type", value);
     }
 
     @computed
     public get type(): StakingType {
-        return this.state.type
+        return this._state.type
     }
 
     @computed
     public get amount(): string | undefined {
-        return this.state.amount
+        return this._state.amount
     }
 
     @computed
@@ -80,8 +76,7 @@ export class StakingStore extends AbstractStore<
 
     @computed
     public get stakeDetails(): StEverVaultDetails | undefined {
-        console.log(this._data.contr)
-        const details = this._data.contr?.state.details
+        const details = this._data.contr?.details
         return details
     }
 

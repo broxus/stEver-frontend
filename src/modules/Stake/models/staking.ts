@@ -2,21 +2,19 @@ import { ProviderContractWrapper } from "@broxus/js-core";
 import { StakingUtils } from "./utils";
 import { Address, ProviderRpcClient } from "everscale-inpage-provider";
 import { StEverVaultDetails } from "@/abi/types";
-import { makeAutoObservable, runInAction } from "mobx";
+import { computed, makeAutoObservable, makeObservable, runInAction } from "mobx";
 
 type StakingType = {
     details?: StEverVaultDetails
 }
 
 const initState: StakingType = {
-    
+
 }
 
 export class Staking extends ProviderContractWrapper<
     StakingType
 > {
-
-    public state = initState
 
     public static Utils = StakingUtils
 
@@ -24,6 +22,7 @@ export class Staking extends ProviderContractWrapper<
         address: Address | string,
     ) {
         super(address)
+        makeObservable(this);
     }
 
     public static async create(
@@ -49,5 +48,10 @@ export class Staking extends ProviderContractWrapper<
 
     public async encodeDepositPayload(): Promise<string> {
         return Staking.Utils._encodeDepositPayload(this.address)
+    }
+
+    @computed
+    public get details(): StakingType["details"] {
+        return this._data.details
     }
 }
