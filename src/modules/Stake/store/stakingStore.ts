@@ -76,6 +76,7 @@ export class StakingStore extends AbstractStore<
 
     @computed
     public get stakeDetails(): StEverVaultDetails | undefined {
+        console.log(this._data.contr)
         const details = this._data.contr?.details
         return details
     }
