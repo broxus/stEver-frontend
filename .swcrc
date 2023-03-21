@@ -5,7 +5,7 @@
             "parser": {
                 "syntax": "typescript",
                 "tsx": true,
-                "decorators": false,
+                "decorators": true,
                 "dynamicImport": true
             }
         }
@@ -16,7 +16,7 @@
             "parser": {
                 "syntax": "ecmascript",
                 "jsx": true,
-                "decorators": false,
+                "decorators": true,
                 "dynamicImport": true
             }
         }

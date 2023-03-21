@@ -16,9 +16,14 @@ import { observer } from 'mobx-react-lite'
 
 function FormStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
-    console.log(staking.amount)
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        staking.submit()
         e.preventDefault()
+    }
+
+    const onChangeTabs = (e: StakingType) => {
+        staking.setType(e)
     }
 
 
@@ -31,16 +36,18 @@ function FormStakInner(): JSX.Element {
                 <Tabs
                     className="form__container--tabs"
                     defaultActiveKey="1"
+                    //@ts-ignore
+                    onChange={onChangeTabs}
                     items={[
                         {
                             label: 'Stake',
-                            key: '1',
-                            children: <FormStakStake />,
+                            key: `${StakingType[0]}`,
+                            children: <FormStakStake type={StakingType.Stake} />,
                         },
                         {
                             label: 'Unstake',
-                            key: '2',
-                            children: <FormStakUnstake />,
+                            key: `${StakingType[1]}`,
+                            children: <FormStakStake type={StakingType.Unstake} />,
                         },
                     ]}
                 />
@@ -49,15 +56,20 @@ function FormStakInner(): JSX.Element {
     )
 }
 
-function FormStakStake(): JSX.Element {
+function FormStakStake({
+    type
+}: {
+    type: StakingType
+}): JSX.Element {
+
     const staking = useStore(StakingStore)
     const field = useAmountField({
         onBlur: staking.setAmount,
         onChange: staking.setAmount,
     })
-
+ 
     return (
-        
+
         <Flex flexDirection="column" justifyContent="between">
             <TextInput
                 autoFocus
@@ -68,57 +80,25 @@ function FormStakStake(): JSX.Element {
                 disabled={false}
                 inputMode="numeric"
                 readOnly={false}
-                title="You spend EVER"
-                iconUrl={CoinEverLogo}
+                title={type === StakingType.Stake ? "You spend EVER" : "You receive stEVER"}
+                iconUrl={
+                    type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
+                }
                 borderButtom={true}
             />
             <TextInput
                 placeholder="0"
-                value=""
+                value={staking.getAmount}
                 disabled={false}
                 inputMode="numeric"
                 readOnly
-                title="You receive stEVER"
-                iconUrl={CoinStEverLogo}
-                price={"1,23"}
-                currency={"EVER"}
+                title={type === StakingType.Stake ? "You receive stEVER" : "You spend EVER"}
+                iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
+                price={type === StakingType.Stake ? staking.exchangeRate : "0.9"}
+                currency={type === StakingType.Stake ? "StEVER" : "StEVER"}
             />
             <Button type="primary" className="uk-width-1-1">
-                Stake EVER
-            </Button>
-        </Flex>
-    )
-}
-
-function FormStakUnstake(): JSX.Element {
-    return (
-        <Flex flexDirection="column" justifyContent="between">
-            <TextInput
-                autoFocus
-                placeholder="0"
-                value=""
-                disabled={false}
-                inputMode="numeric"
-                readOnly={false}
-                title="You receive stEVER"
-                iconUrl={CoinStEverLogo}
-                borderButtom={true}
-            />
-            <TextInput
-                placeholder="0"
-                // value={staking.amount}
-                // onChange={staking.setAmount}
-                // onBlur={field.onBlur}
-                disabled={false}
-                inputMode="numeric"
-                readOnly={true}
-                title="You spend EVER"
-                iconUrl={CoinEverLogo}
-                price={"1,23"}
-                currency={"StEVER"}
-            />
-            <Button type="default" className="uk-width-1-1">
-                Unstake EVER
+                {type === StakingType.Stake ? "Stake EVER" : "Unstake EVER"}
             </Button>
         </Flex>
     )

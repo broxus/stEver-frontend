@@ -4,6 +4,7 @@ import { TokenAmountInput } from '@broxus/react-components'
 import classNames from 'classnames'
 
 import './TextInput.scss'
+import { observer } from 'mobx-react-lite'
 
 export type TextInputProps = {
     autoFocus?: boolean;
@@ -24,7 +25,7 @@ export type TextInputProps = {
     borderButtom?: boolean;
 }
 
-export function TextInput({
+function TextInputInner({
     autoFocus,
     placeholder,
     value = '',
@@ -43,18 +44,9 @@ export function TextInput({
     borderButtom
 }: TextInputProps): JSX.Element {
 
-    // const _onChange = (_: string): void => {
-    //     onChange?.(_)
-    // }
-    // const [_value, setValue] = React.useState<string>()
-    
-    console.log(value)
     const _onChange = (_: string): void => {
-        // console.log(_)
-        // setValue(_)
         onChange?.(_)
     }
-
 
     return (
         <Flex childWidth={1} flexDirection="column" className={classNames(
@@ -88,3 +80,5 @@ export function TextInput({
         </Flex>
     )
 }
+
+export const TextInput = observer(TextInputInner)

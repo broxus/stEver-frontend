@@ -31,7 +31,9 @@
         "strict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "target": "esnext"
+        "target": "esnext",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
     },
     "exclude": [
         "webpack.config.ts",

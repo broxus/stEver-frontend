@@ -5,6 +5,7 @@ import { TabelDepoolsDashboard } from './TabelDepoolsDashboard'
 import { TabelTransactionsDashboard } from './TabelTransactionsDashboard'
 
 import './index.scss'
+import { TabelWithdrawDashboard } from './TabelWithdrawDashboard'
 
 export function Dashboard(): JSX.Element {
     return (
@@ -12,6 +13,7 @@ export function Dashboard(): JSX.Element {
             <ChartDashboard />
             <TabelDepoolsDashboard />
             <TabelTransactionsDashboard />
+            <TabelWithdrawDashboard />
         </div>
     )
 }

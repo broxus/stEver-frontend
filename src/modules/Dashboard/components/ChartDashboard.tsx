@@ -22,7 +22,7 @@ export function ChartDashboard(): JSX.Element {
                         <Grid gap="xsmall" childWidth={1}>
                             <Tile type="primary" size="xsmall">
                                 <Grid gap="xsmall" childWidth={1}>
-                                    <Text>Current price</Text>
+                                    <Text>TVL</Text>
                                     <Text>
                                         1.21 EVER
                                         <span>~ $0.13</span>
@@ -32,7 +32,7 @@ export function ChartDashboard(): JSX.Element {
                             </Tile>
                             <Tile type="default" size="xsmall">
                                 <Grid gap="xsmall" childWidth={1}>
-                                    <Text>TVL</Text>
+                                    <Text>Current price</Text>
                                     <Text>
                                         1.21 EVER
                                         <span>~ $0.13</span>

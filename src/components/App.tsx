@@ -20,6 +20,8 @@ import { Footer } from './layout/Footer'
 import './App.scss'
 import DashboardPage from '@/modules/Dashboard'
 import StakPage from '@/modules/Stake'
+import { useRpcClient, useRpcProvider } from '@broxus/js-core'
+import { useProvider } from '@/hooks/useStore'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
