@@ -1,7 +1,6 @@
 import {
     TvmWalletService,
     inheritTextStyle,
-    onlyTvmNetworks,
     successLabelStyle,
 } from '@broxus/js-core'
 import { debug } from '@broxus/js-utils'

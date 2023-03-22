@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Flex, Label, Text } from '@broxus/react-uikit'
+import { Flex, Text } from '@broxus/react-uikit'
 import { TokenAmountInput } from '@broxus/react-components'
 import classNames from 'classnames'
 
@@ -41,7 +41,7 @@ function TextInputInner({
     title,
     price,
     currency,
-    borderButtom
+    borderButtom,
 }: TextInputProps): JSX.Element {
 
     const _onChange = (_: string): void => {
@@ -49,14 +49,17 @@ function TextInputInner({
     }
 
     return (
-        <Flex childWidth={1} flexDirection="column" className={classNames(
-            borderButtom && "text-input-border-buttom", "text-input-container"
-        )}>
+        <Flex
+            childWidth={1} flexDirection="column" className={classNames(borderButtom && 'text-input-border-buttom', 'text-input-container')}
+        >
             <Flex className="uk-margin-remove" justifyContent="between">
                 <Text size="small" component="p" className="uk-margin-remove">{title}</Text>
                 {readOnly && (
                     <Text size="small" component="p" className="uk-margin-remove">
-                        ≈{price}{' '}{currency}
+                        ≈
+                        {price}
+                        {' '}
+                        {currency}
                     </Text>
                 )}
             </Flex>

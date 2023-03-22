@@ -1,112 +1,112 @@
 export const StEverAccountAbi = {
-    "ABI version": 2,
-    "version": "2.2",
-    "header": ["time", "expire"],
-    "functions": [
+    'ABI version': 2,
+    version: '2.2',
+    header: ['time', 'expire'],
+    functions: [
         {
-            "name": "constructor",
-            "inputs": [
+            name: 'constructor',
+            inputs: [
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "getDetails",
-            "inputs": [
-                { "name": "answerId", "type": "uint32" }
+            name: 'getDetails',
+            inputs: [
+                { name: 'answerId', type: 'uint32' },
             ],
-            "outputs": [
-                { "components": [{ "name": "user", "type": "address" }, { "name": "vault", "type": "address" }, { "name": "version", "type": "uint32" }], "name": "value0", "type": "tuple" }
-            ]
+            outputs: [
+                { components: [{ name: 'user', type: 'address' }, { name: 'vault', type: 'address' }, { name: 'version', type: 'uint32' }], name: 'value0', type: 'tuple' },
+            ],
         },
         {
-            "name": "addPendingValue",
-            "inputs": [
-                { "name": "_nonce", "type": "uint64" },
-                { "name": "_amount", "type": "uint128" },
-                { "name": "_remainingGasTo", "type": "address" }
+            name: 'addPendingValue',
+            inputs: [
+                { name: '_nonce', type: 'uint64' },
+                { name: '_amount', type: 'uint128' },
+                { name: '_remainingGasTo', type: 'address' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "resetPendingValues",
-            "inputs": [
-                { "components": [{ "name": "amount", "type": "uint128" }, { "name": "timestamp", "type": "uint64" }], "name": "rejectedWithdrawals", "type": "map(uint64,tuple)" },
-                { "name": "_sendGasTo", "type": "address" }
+            name: 'resetPendingValues',
+            inputs: [
+                { components: [{ name: 'amount', type: 'uint128' }, { name: 'timestamp', type: 'uint64' }], name: 'rejectedWithdrawals', type: 'map(uint64,tuple)' },
+                { name: '_sendGasTo', type: 'address' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "removePendingWithdraw",
-            "inputs": [
-                { "name": "_nonce", "type": "uint64" }
+            name: 'removePendingWithdraw',
+            inputs: [
+                { name: '_nonce', type: 'uint64' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "processWithdraw",
-            "inputs": [
-                { "name": "_satisfiedWithdrawRequests", "type": "uint64[]" }
+            name: 'processWithdraw',
+            inputs: [
+                { name: '_satisfiedWithdrawRequests', type: 'uint64[]' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "onEmergencyWithdrawToUser",
-            "inputs": [
+            name: 'onEmergencyWithdrawToUser',
+            inputs: [
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "onStartEmergency",
-            "inputs": [
-                { "name": "_proofNonce", "type": "uint64" }
+            name: 'onStartEmergency',
+            inputs: [
+                { name: '_proofNonce', type: 'uint64' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "upgrade",
-            "inputs": [
-                { "name": "_newCode", "type": "cell" },
-                { "name": "_newVersion", "type": "uint32" },
-                { "name": "_sendGasTo", "type": "address" }
+            name: 'upgrade',
+            inputs: [
+                { name: '_newCode', type: 'cell' },
+                { name: '_newVersion', type: 'uint32' },
+                { name: '_sendGasTo', type: 'address' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "withdrawRequests",
-            "inputs": [
+            name: 'withdrawRequests',
+            inputs: [
             ],
-            "outputs": [
-                { "components": [{ "name": "amount", "type": "uint128" }, { "name": "timestamp", "type": "uint64" }], "name": "withdrawRequests", "type": "map(uint64,tuple)" }
-            ]
-        }
+            outputs: [
+                { components: [{ name: 'amount', type: 'uint128' }, { name: 'timestamp', type: 'uint64' }], name: 'withdrawRequests', type: 'map(uint64,tuple)' },
+            ],
+        },
     ],
-    "data": [
+    data: [
     ],
-    "events": [
+    events: [
         {
-            "name": "Receive",
-            "inputs": [
-                { "name": "amount", "type": "uint128" }
+            name: 'Receive',
+            inputs: [
+                { name: 'amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
-        }
+            outputs: [
+            ],
+        },
     ],
-    "fields": [
-        { "name": "_pubkey", "type": "uint256" },
-        { "name": "_timestamp", "type": "uint64" },
-        { "name": "_constructorFlag", "type": "bool" },
-        { "name": "vault", "type": "address" },
-        { "name": "user", "type": "address" },
-        { "name": "currentVersion", "type": "uint32" },
-        { "components": [{ "name": "amount", "type": "uint128" }, { "name": "timestamp", "type": "uint64" }], "name": "withdrawRequests", "type": "map(uint64,tuple)" }
-    ]
+    fields: [
+        { name: '_pubkey', type: 'uint256' },
+        { name: '_timestamp', type: 'uint64' },
+        { name: '_constructorFlag', type: 'bool' },
+        { name: 'vault', type: 'address' },
+        { name: 'user', type: 'address' },
+        { name: 'currentVersion', type: 'uint32' },
+        { components: [{ name: 'amount', type: 'uint128' }, { name: 'timestamp', type: 'uint64' }], name: 'withdrawRequests', type: 'map(uint64,tuple)' },
+    ],
 } as const

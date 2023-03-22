@@ -3,12 +3,14 @@ import Media from 'react-media'
 import {
     Flex, Heading, Label, Link, Tile,
 } from '@broxus/react-uikit'
+import { observer } from 'mobx-react-lite'
 
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+
 import { depools } from './_.mock'
 
-export function TabelDepoolsDashboard(): JSX.Element {
+export function TabelDepoolsDashboardInner(): JSX.Element {
     return (
         <Flex flexDirection="column">
             <Heading component="h4">
@@ -78,7 +80,7 @@ export function DepoolsListItem({ idx, pool }: Props): JSX.Element {
                 <td className="uk-text-left">{pool.validator_fee}</td>
                 <td className="uk-text-left"><Link>{pool.strategy}</Link></td>
                 <td className="uk-text-left"><Link>{pool.owner}</Link></td>
-                <td className="uk-text-left"><Label type={pool.priority === "High" ? "success" : pool.priority === "Middle" ?  "warning" : "danger"} >{pool.priority}</Label></td>
+                <td className="uk-text-left"><Label type={pool.priority === 'High' ? 'success' : pool.priority === 'Middle' ? 'warning' : 'danger'}>{pool.priority}</Label></td>
                 <td className="uk-text-right">{pool.tvl}</td>
             </tr>
         </tbody>
@@ -110,3 +112,5 @@ export function DepoolsListPagination(): JSX.Element {
         />
     )
 }
+
+export const TabelDepoolsDashboard = observer(TabelDepoolsDashboardInner)

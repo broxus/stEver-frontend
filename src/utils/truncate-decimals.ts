@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js'
+
 import { isGoodBignumber } from './is-good-bignumber'
-
-
 
 
 export function truncateDecimals(value: string, decimals?: number): string | undefined {

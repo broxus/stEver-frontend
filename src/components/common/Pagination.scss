@@ -1,27 +1,31 @@
 .pagination {
-
     // align-items: center;
     // display: flex;
     // gap: 10px;
     // justify-content: flex-end;
     // margin-top: 16px;
+    a {
+        margin: auto 0;
+    }
+
     label {
         background: #fff;
-        border: 1px solid #C6C9CF;
-        width: 64px;
+        border: 1px solid #c6c9cf;
         height: 36px;
         margin: auto 0;
+        width: 64px;
 
         &:hover {
             background: #fff;
-            border: 1px solid #C6C9CF;
+            border: 1px solid #c6c9cf;
         }
 
         &:active {
             background: #fff;
-            border: 1px solid #C6C9CF;
+            border: 1px solid #c6c9cf;
         }
     }
+
     .uk-card {
         margin: auto 0;
     }

@@ -6,26 +6,27 @@ import {
     BrowserRouter as Router,
     Switch,
 } from 'react-router-dom'
-
 import { TvmWalletProvider } from '@broxus/react-modules'
 
 import { LocalizationContext } from '@/context/Localization'
 import { useTvmWallet } from '@/utils/useTvmWallet'
 import { noop } from '@/utils'
-import { Header } from './layout/Header'
 import { appRoutes } from '@/routes'
 
-import { Footer } from './layout/Footer'
 
 import './App.scss'
 import DashboardPage from '@/modules/Dashboard'
 import StakPage from '@/modules/Stake'
-import { useRpcClient, useRpcProvider } from '@broxus/js-core'
-import { useProvider } from '@/hooks/useStore'
+import { OpenAPI } from '@/apiClientCodegen'
+
+import { Footer } from './layout/Footer'
+import { Header } from './layout/Header'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
     const wallet = useTvmWallet()
+
+    OpenAPI.BASE = 'https://staking.everwallet.net/v1'
 
     return (
         <IntlProvider
@@ -35,7 +36,7 @@ export function App(): JSX.Element {
             messages={localization.messages}
             onError={noop}
         >
-            <TvmWalletProvider wallet={wallet} >
+            <TvmWalletProvider wallet={wallet}>
                 <Router>
                     <div className="wrapper">
                         <Header key="header" />

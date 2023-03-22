@@ -1,6 +1,7 @@
 import * as React from 'react'
 import BigNumber from 'bignumber.js'
-import { truncateDecimals } from '@/utils/truncate-decimals';
+
+import { truncateDecimals } from '@/utils/truncate-decimals'
 
 type FieldShape = {
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -17,7 +18,9 @@ type Props = {
 }
 
 
-export function useAmountField({ decimals, defaultValue, max, min, ...props }: Props): FieldShape {
+export function useAmountField({
+    decimals, defaultValue, max, min, ...props
+}: Props): FieldShape {
     const onBlur: React.FocusEventHandler<HTMLInputElement> = event => {
         let { value } = event.target
 

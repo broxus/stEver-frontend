@@ -1,26 +1,30 @@
-import { StEverVaultDetails } from "@/abi/types";
-import { AbstractStore, TvmWalletService, useRpcClient, useRpcProvider } from "@broxus/js-core";
-import BigNumber from "bignumber.js";
-import { computed, makeAutoObservable, makeObservable, observable, reaction } from "mobx";
-import { StakingUtils } from "../models/utils";
-import { Staking } from "../models/staking";
-import { ST_EVER_VAULT_ADDRESS_CONFIG } from "@/constants";
+import {
+    AbstractStore, TvmWalletService, useRpcClient, useRpcProvider,
+} from '@broxus/js-core'
+import BigNumber from 'bignumber.js'
+import {
+    computed, makeObservable, reaction,
+} from 'mobx'
+
+import { StEverVaultDetails } from '@/abi/types'
+import { ST_EVER_VAULT_ADDRESS_CONFIG } from '@/constants'
+
+import { Staking } from '../models/staking'
 
 export enum StakingType {
-    Stake, Unstake,
+    Stake = 'Stake',
+    Unstake = 'Unstake',
 }
 
 type StakingStoreState = {
     amount?: string;
-    type: StakingType
-    isLoading?: boolean;
-    error?: string;
+    type: StakingType;
+    depositStEverAmount: string;
 }
 
 type StakingStoreData = {
-    contr: Staking
+    contr: Staking;
 }
-
 
 
 export class StakingStore extends AbstractStore<
@@ -28,32 +32,52 @@ export class StakingStore extends AbstractStore<
     StakingStoreState
 > {
 
-    protected rpc = useRpcClient()
+    protected rpc = useRpcProvider()
 
     constructor(
         public readonly wallet: TvmWalletService,
     ) {
         super()
-        makeObservable(this);
+        makeObservable(this)
 
-        this.setState("type", StakingType.Stake);
+        this.setState('type', StakingType.Stake);
+        this.setState("depositStEverAmount", "0");
+
 
         (async () => {
             const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
-            this.setData("contr", contr)
-        })();
+            this.setData('contr', contr)
+        })()
+
+        reaction(
+            () => this._state.amount,
+            async amount => {
+                if (amount)
+                    this.estimateDepositStEverAmount(amount)
+            },
+            { fireImmediately: true },
+        )
+
+        reaction(
+            () => this._state.type,
+            async () => {
+                if (this._state.amount)
+                    this.estimateDepositStEverAmount(this._state.amount)
+            },
+            { fireImmediately: true },
+        )
     }
 
     public async submit(): Promise<void> {
-        alert("D")
+        alert('D')
     }
 
     public setAmount(value: string): void {
-        this.setState("amount", value);
+        this.setState('amount', value)
     }
 
     public setType(value: StakingType): void {
-        this.setState("type", value);
+        this.setState('type', value)
     }
 
     @computed
@@ -69,14 +93,18 @@ export class StakingStore extends AbstractStore<
     @computed
     public get getAmount(): string | undefined {
         if (this.amount) {
-            return new BigNumber(this.amount).dividedBy("3").toFixed()
+            return new BigNumber(this.amount).dividedBy('3').toFixed()
         }
         return undefined
     }
 
     @computed
+    public get getDepositStEverAmount(): string {
+        return this._state.depositStEverAmount
+    }
+
+    @computed
     public get stakeDetails(): StEverVaultDetails | undefined {
-        console.log(this._data.contr)
         const details = this._data.contr?.details
         return details
     }
@@ -88,6 +116,17 @@ export class StakingStore extends AbstractStore<
         const stEverToEverRate = new BigNumber(stEverSupply).div(totalAssets)
         return new BigNumber(1).div(stEverToEverRate).toFixed(4)
     }
+
+    private async estimateDepositStEverAmount(value: string): Promise<void> {
+        let amount = new BigNumber(value).times(new BigNumber(10).pow(9)).toFixed(0, BigNumber.ROUND_DOWN)
+        console.log(this._state.type)
+        if (this._state.type === StakingType.Stake) {
+            this.setState("depositStEverAmount", await this._data.contr.getDepositStEverAmount(amount))
+        } else {
+            this.setState("depositStEverAmount", await this._data.contr.getWithdrawEverAmount(amount))
+        }
+    }
+
 
 
 }

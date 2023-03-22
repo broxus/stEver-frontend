@@ -12,12 +12,12 @@
             &__info {
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
                 gap: 8px;
+                justify-content: space-between;
 
                 &--item {
-                    height: 100%;
                     background: #fff;
+                    height: 100%;
                 }
             }
         }

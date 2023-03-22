@@ -1,22 +1,47 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tabs, Tile,
+    Button,
+    Checkbox,
+    Drop,
+    Flex, Grid, Heading, Link, Tabs, Text, Tile,
 } from '@broxus/react-uikit'
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
+
 import { transactions } from './_.mock'
 
-import "./TabelTransactionsDashboard.scss"
+import './TabelTransactionsDashboard.scss'
+import { createPortal } from 'react-dom'
+import { observer } from 'mobx-react-lite'
 
-export function TabelTransactionsDashboard(): JSX.Element {
+export function TabelTransactionsDashboardInner(): JSX.Element {
+
+    const [elNavWrap, setElNavWrap] = React.useState<Element>()
+
+    React.useEffect(() => {
+        const elTabsId = document.getElementById('tabs-transactions')
+        const elNavWrap = elTabsId!.querySelector('.uk-tabs-nav-wrap')
+
+        console.log(elNavWrap)
+        if (elNavWrap) {
+            setElNavWrap(elNavWrap)
+        }
+    }, [])
+
     return (
         <Flex flexDirection="column" className="tabelTransactionsDashboard">
             <Heading component="h4">
                 Transactions
             </Heading>
+            {elNavWrap
+                && createPortal(
+                    <TransactionListFilter />,
+                    elNavWrap,
+                )}
             <Tabs
+                id="tabs-transactions"
                 defaultActiveKey="1"
                 items={[
                     {
@@ -151,3 +176,39 @@ export function TransactionListPagination(): JSX.Element {
         />
     )
 }
+
+export function TransactionListFilter(): JSX.Element {
+    return (
+        <Drop
+            trigger={['click']}
+            placement="bottom-right"
+            overlay={(
+                <Tile type="default" size="xsmall">
+                    <Text component="h6">Type</Text>
+                    <Grid gap="small">
+                        <Checkbox>Strategy deposit</Checkbox>
+                        <Checkbox>Strategy pending withdraw</Checkbox>
+                    </Grid>
+                    <hr />
+                    <Flex justifyContent="between">
+                        <Link>Default</Link>
+                        <Flex>
+                            <Button size="small" type="default">
+                                Cancel
+                            </Button>
+                            <Button size="small" type="primary">
+                                Apply
+                            </Button>
+                        </Flex>
+                    </Flex>
+                </Tile>
+            )}
+        >
+            <Button type="default">
+                Type
+            </Button>
+        </Drop>
+    )
+}
+
+export const TabelTransactionsDashboard = observer(TabelTransactionsDashboardInner)

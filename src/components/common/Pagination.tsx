@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import {
-    Button, Card, Flex, Text,
+    Button, Card, Flex, Link, Text,
 } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
 
@@ -60,31 +60,34 @@ export const Pagination = React.memo(({
 
     return (
         <div className={classNames('pagination', 'uk-margin-small', className)}>
-
-            <Flex justifyContent="right">
-                <AmountInput
-                    className="pagination__input uk-margin-small-right"
-                    inputMode="decimal"
-                    readOnly={disabled}
-                    type="text"
-                    value={value}
-                    onKeyUp={onKeyUp}
-                    showMaxButton={false}
-                />
-                <Text className="uk-margin-small-right">
-                    page of
-                    {totalPages}
-                </Text>
-                <Card>
-                    <Button
-                        className="uk-margin-small-right" type="default" onClick={onPrev}
-                        disabled={disabled || currentPage === 1}
-                    >
-                        Prev
-                    </Button>
-                    <Button type="default" onClick={onNext} disabled={disabled || currentPage === totalPages}>Next</Button>
-                </Card>
+            <Flex justifyContent="between">
+                <Link>Export</Link>
+                <Flex justifyContent="right">
+                    <AmountInput
+                        className="pagination__input uk-margin-small-right"
+                        inputMode="decimal"
+                        readOnly={disabled}
+                        type="text"
+                        value={value}
+                        onKeyUp={onKeyUp}
+                        showMaxButton={false}
+                    />
+                    <Text className="uk-margin-small-right">
+                        page of
+                        {totalPages}
+                    </Text>
+                    <Card>
+                        <Button
+                            className="uk-margin-small-right" type="default" onClick={onPrev}
+                            disabled={disabled || currentPage === 1}
+                        >
+                            Prev
+                        </Button>
+                        <Button type="default" onClick={onNext} disabled={disabled || currentPage === totalPages}>Next</Button>
+                    </Card>
+                </Flex>
             </Flex>
+
         </div>
     )
 })

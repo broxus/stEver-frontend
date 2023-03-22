@@ -1,23 +1,49 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Label, Link, Tabs, Tile,
+    Flex, Heading, Link, Tabs, Tile,
 } from '@broxus/react-uikit'
 
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
-import "./TabelWithdrawDashboard.scss"
+import './TabelWithdrawDashboard.scss'
 import { transactions } from './_.mock'
 
-export function TabelWithdrawDashboard(): JSX.Element {
+import { createPortal } from 'react-dom'
+
+import { TransactionListFilter } from './TabelTransactionsDashboard'
+
+import { observer } from 'mobx-react-lite'
+
+export function TabelWithdrawDashboardInner(): JSX.Element {
+
+    const [elNavWrap, setElNavWrap] = React.useState<Element>()
+
+    React.useEffect(() => {
+        const elTabsId = document.getElementById('tabs-withdraw')
+        const elNavWrap = elTabsId!.querySelector('.uk-tabs-nav-wrap')
+
+        console.log(elNavWrap)
+        if (elNavWrap) {
+            setElNavWrap(elNavWrap)
+        }
+    }, [])
+
+
     return (
         <Flex flexDirection="column" className="tabelWithdrawDashboard">
             <Heading component="h4">
                 Pendings withdraw
             </Heading>
+            {elNavWrap
+                && createPortal(
+                    <TransactionListFilter />,
+                    elNavWrap,
+                )}
             <Tabs
                 defaultActiveKey="1"
+                id="tabs-withdraw"
                 items={[
                     {
                         label: 'Users',
@@ -151,3 +177,5 @@ export function WithdrawListPagination(): JSX.Element {
         />
     )
 }
+
+export const TabelWithdrawDashboard = observer(TabelWithdrawDashboardInner)

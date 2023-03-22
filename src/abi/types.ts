@@ -1,4 +1,5 @@
 import type { DecodedTransaction } from 'everscale-inpage-provider'
+
 import { StEverVaultAbi } from './StEverVault.abi'
 import { StEverAccountAbi } from './StEverAccount.abi'
 

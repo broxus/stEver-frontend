@@ -6,7 +6,7 @@ import './FaqStak.scss'
 export function FaqStak(): JSX.Element {
     return (
         <Accordion>
-            <Accordion.Item header="How long does it take to stake/unstake tokens?" >
+            <Accordion.Item header="How long does it take to stake/unstake tokens?">
                 <Text component="p">
                     Deposits are credited instantly and your money immediately begins to generate a profit. Withdrawals may take up to 36 hours. After a withdrawal, WEVER is credited to your account.
                 </Text>

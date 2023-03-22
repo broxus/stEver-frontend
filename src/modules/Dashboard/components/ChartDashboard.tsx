@@ -4,13 +4,14 @@ import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
 
-import { dataСharts } from './_.mock'
 import { RateChange } from '@/components/common/RateChange'
 
+import { dataСharts } from './_.mock'
+
 import './ChartDashboard.scss'
+import { observer } from 'mobx-react-lite'
 
-export function ChartDashboard(): JSX.Element {
-
+function ChartDashboardInner(): JSX.Element {
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
@@ -74,3 +75,5 @@ export function ChartDashboard(): JSX.Element {
         </div>
     )
 }
+
+export const ChartDashboard = observer(ChartDashboardInner)

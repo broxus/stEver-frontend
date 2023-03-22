@@ -1,3 +1,3 @@
-import StakePage from "./page/StakePage";
+import StakePage from './page/StakePage'
 
 export default StakePage
