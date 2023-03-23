@@ -7,9 +7,13 @@ import {
 } from 'mobx'
 
 import { StEverVaultDetails } from '@/abi/types'
-import { ST_EVER_VAULT_ADDRESS_CONFIG } from '@/constants'
+import { ST_EVER_DECIMALS, ST_EVER_VAULT_ADDRESS_CONFIG } from '@/constants'
 
 import { Staking } from '../models/staking'
+import { parseCurrency } from '@/utils/parseCurrency'
+import { Address } from 'everscale-inpage-provider'
+import { formatCurrency } from '@/utils/formatCurrency'
+import { convertCurrency } from '@/utils/convertCurrency'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -20,6 +24,7 @@ type StakingStoreState = {
     amount?: string;
     type: StakingType;
     depositStEverAmount: string;
+    balance: string;
 }
 
 type StakingStoreData = {
@@ -32,7 +37,7 @@ export class StakingStore extends AbstractStore<
     StakingStoreState
 > {
 
-    protected rpc = useRpcProvider()
+    protected rpc = useRpcClient()
 
     constructor(
         public readonly wallet: TvmWalletService,
@@ -42,7 +47,6 @@ export class StakingStore extends AbstractStore<
 
         this.setState('type', StakingType.Stake);
         this.setState("depositStEverAmount", "0");
-
 
         (async () => {
             const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
@@ -78,6 +82,11 @@ export class StakingStore extends AbstractStore<
 
     public setType(value: StakingType): void {
         this.setState('type', value)
+    }
+
+    @computed
+    public get maxAmount(): string {
+        return this._state.balance
     }
 
     @computed
@@ -118,8 +127,7 @@ export class StakingStore extends AbstractStore<
     }
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        let amount = new BigNumber(value).times(new BigNumber(10).pow(9)).toFixed(0, BigNumber.ROUND_DOWN)
-        console.log(this._state.type)
+        let amount = parseCurrency(value, ST_EVER_DECIMALS)
         if (this._state.type === StakingType.Stake) {
             this.setState("depositStEverAmount", await this._data.contr.getDepositStEverAmount(amount))
         } else {

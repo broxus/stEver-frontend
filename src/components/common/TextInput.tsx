@@ -20,6 +20,7 @@ export type TextInputProps = {
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     title: string;
     iconUrl: string;
+    maxValue?: string;
     price?: string;
     currency?: string;
     borderButtom?: boolean;
@@ -37,7 +38,7 @@ function TextInputInner({
     onChange,
     onFocus,
     iconUrl,
-
+    maxValue,
     title,
     price,
     currency,
@@ -72,6 +73,7 @@ function TextInputInner({
                 value={value}
                 disabled={disabled}
                 showMaxButton={!readOnly}
+                maxValue={maxValue}
                 readOnly={readOnly}
                 onBlur={onBlur}
                 onChange={_onChange}

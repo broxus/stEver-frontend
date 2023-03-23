@@ -14,6 +14,9 @@ import CoinStEverLogo from '@/assets/icons/StEVER.svg'
 
 import { Observer, observer } from 'mobx-react-lite'
 import BigNumber from 'bignumber.js'
+import { formatCurrency } from '@/utils/formatCurrency'
+import { convertCurrency } from '@/utils/convertCurrency'
+import { ST_EVER_DECIMALS } from '@/constants'
 
 
 function FormStakInner(): JSX.Element {
@@ -23,11 +26,6 @@ function FormStakInner(): JSX.Element {
         staking.submit()
         e.preventDefault()
     }
-
-    const onChangeTabs = (e: StakingType) => {
-        staking.setType(e)
-    }
-
 
     return (
         <form
@@ -39,17 +37,17 @@ function FormStakInner(): JSX.Element {
                     className="form__container--tabs"
                     defaultActiveKey="1"
                     // @ts-ignore
-                    onChange={onChangeTabs}
+                    onChange={(e) => staking.setType(e)}
                     items={[
                         {
                             label: 'Stake',
                             key: `${StakingType.Stake}`,
-                            children: <FormStakStake type={StakingType.Stake} />,
+                            children: <FormTab type={StakingType.Stake} staking={staking} />,
                         },
                         {
                             label: 'Unstake',
                             key: `${StakingType.Unstake}`,
-                            children: <FormStakStake type={StakingType.Unstake} />,
+                            children: <FormTab type={StakingType.Unstake} staking={staking} />,
                         },
                     ]}
                 />
@@ -58,31 +56,15 @@ function FormStakInner(): JSX.Element {
     )
 }
 
-function FormStakStake({
+type FormTabType = {
+    type: StakingType;
+    staking: StakingStore
+}
+
+function FormTab({
     type,
-}: {
-    type: StakingType
-}): JSX.Element {
-
-    const staking = useStore(StakingStore)
-
-    const onChange = (e: string) => {
-        staking.setAmount(e)
-    }
-    const formatCurrency = (amount: BigNumber.Value): string => {
-        const d = new BigNumber(amount)
-
-        if (d.isLessThan(1)) {
-            return d.dp(8, BigNumber.ROUND_FLOOR).toFixed()
-        }
-        if (d.isLessThan(1000)) {
-            return d.dp(4, BigNumber.ROUND_FLOOR).toFixed()
-        }
-
-        return d.toFixed(0, BigNumber.ROUND_FLOOR)
-    }
-    const convertCurrency = (amount: string | undefined, decimals: number) => new BigNumber(amount || '0').div(new BigNumber(10).pow(9)).toFixed()
-
+    staking
+}: FormTabType): JSX.Element {
     return (
         <Flex flexDirection="column" justifyContent="between">
             <Observer>
@@ -91,8 +73,9 @@ function FormStakStake({
                         autoFocus
                         placeholder="0"
                         value={staking.amount}
-                        onChange={onChange}
+                        onChange={(e) => staking.setAmount(e)}
                         disabled={false}
+                        maxValue={staking.maxAmount}
                         inputMode="numeric"
                         readOnly={false}
                         title={type === StakingType.Stake ? 'You spend EVER' : 'You receive stEVER'}
@@ -107,13 +90,13 @@ function FormStakStake({
                 {() => (
                     <TextInput
                         placeholder="0"
-                        value={formatCurrency(convertCurrency(staking.getDepositStEverAmount, 9))}
+                        value={formatCurrency(convertCurrency(staking.getDepositStEverAmount, ST_EVER_DECIMALS))}
                         disabled={false}
                         inputMode="numeric"
                         readOnly
                         title={type === StakingType.Stake ? 'You receive stEVER' : 'You spend EVER'}
                         iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
-                        price={type === StakingType.Stake ? staking.exchangeRate : '0.9'}
+                        price={type === StakingType.Stake ? staking.exchangeRate : staking.exchangeRate}
                         currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                     />
                 )}
@@ -122,8 +105,6 @@ function FormStakStake({
                 {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
             </Button>
         </Flex>
-
-
     )
 }
 
