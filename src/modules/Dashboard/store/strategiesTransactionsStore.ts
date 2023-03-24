@@ -1,4 +1,4 @@
-import { Direction, StrategiesService, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest, SystemsTransactionsResponse, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering, UsersTransactionsRequest } from "@/apiClientCodegen";
+import { Direction, StrategiesService, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest, SystemsTransactionsResponse, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering, UsersTransactionsRequest } from "@/apiClientCodegen";
 import { AbstractStore } from "@broxus/js-core";
 import { computed, makeObservable, reaction } from "mobx";
 
@@ -29,10 +29,10 @@ export class StrategiesTransactionsStore extends AbstractStore<
         makeObservable(this)
 
         this.setState(() => ({
-            // ordering: {
-            //     column: UserTransactionColumn.CREATED_AT,
-            //     direction: Direction.DESC,
-            // },
+            ordering: {
+                column: SystemTransactionColumn.CREATED_AT,
+                direction: Direction.DESC,
+            },
             pagination: {
                 currentPage: 0,
                 limit: 10,
@@ -77,10 +77,10 @@ export class StrategiesTransactionsStore extends AbstractStore<
         return this._data.transactions
     }
 
-    // @computed
-    // public get ordering() {
-    //     return this._state.ordering
-    // }
+    @computed
+    public get ordering() {
+        return this._state.ordering
+    }
 
     @computed
     public get pagination() {

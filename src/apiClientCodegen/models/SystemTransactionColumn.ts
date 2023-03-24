@@ -7,4 +7,5 @@
  */
 export enum SystemTransactionColumn {
     CREATED_AT = 'createdAt',
+    AMOUNT = 'amount',
 }

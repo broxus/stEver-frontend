@@ -13,8 +13,9 @@ import { Observer, observer } from 'mobx-react-lite'
 import { useStore } from '@/hooks/useStore'
 import { sliceAddress } from '@broxus/js-utils'
 import { PanelLoader } from '@/components/common/PanelLoader'
-import { SystemTransactionResponse } from '@/apiClientCodegen'
-import { StrategiesTransactionsStore } from '../store/StrategiesTransactionsStore'
+import { Direction, SystemTransactionColumn, SystemTransactionResponse } from '@/apiClientCodegen'
+import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -69,7 +70,21 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                 <th className="uk-text-left">Strategy</th>
                 <th className="uk-text-left">Transaction</th>
                 <th className="uk-text-left">Type</th>
-                <th className="uk-text-left">Value, EVER</th>
+                <th className="uk-text-left">
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={SystemTransactionColumn.AMOUNT}
+                                value={strategyTransactions.ordering.direction}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                Value, EVER
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
+                </th>
                 <th className="uk-text-right">
                     Date & Time
                 </th>

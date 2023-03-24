@@ -14,7 +14,6 @@ import { useStore } from '@/hooks/useStore'
 import { sliceAddress } from '@broxus/js-utils'
 import { PanelLoader } from '@/components/common/PanelLoader'
 import { StrategyWithdrawalResponse, SystemTransactionResponse, Direction, StrategyWithdrawalColumn } from '@/apiClientCodegen'
-import { StrategiesTransactionsStore } from '../store/StrategiesTransactionsStore'
 import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 

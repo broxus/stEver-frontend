@@ -5,7 +5,6 @@ import './DashboardPage.scss'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
 import { UserTransactionsStore } from '../store/userTransactionsStore'
-import { StrategiesTransactionsStore } from '../store/StrategiesTransactionsStore'
 import { UserWithdrawStore } from '../store/userWithdrawStore'
 import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import { ChartStore } from '../store/chartStore'
@@ -15,6 +14,7 @@ import { TabelUserTransactionsDashboard } from '../components/TabelUserTransacti
 import { TabelStrategyTransactionsDashboard } from '../components/TabelStrategyTransactionsDashboard'
 import { TabelUserWithdrawDashboard } from '../components/TabelUserWithdrawDashboard'
 import { TabelStrategyWithdrawDashboard } from '../components/TabelStrategyWithdrawDashboard'
+import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 
 export default function DashboardPage(): JSX.Element {
     const TabelDepoolsProvider = useProvider(TabelDepoolsStore)

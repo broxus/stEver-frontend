@@ -70,7 +70,21 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                 <th className="uk-text-left">User</th>
                 <th className="uk-text-left">Transaction</th>
                 <th className="uk-text-left">Type</th>
-                <th className="uk-text-left">Value, EVER</th>
+                <th className="uk-text-left">
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={UserTransactionColumn.AMOUNT}
+                                value={userTransactions.ordering.direction}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                Value, EVER
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
+                </th>
                 <th className="uk-text-right">
                     <Observer>
                         {() => (

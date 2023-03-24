@@ -7,4 +7,5 @@
  */
 export enum UserTransactionColumn {
     CREATED_AT = 'createdAt',
+    AMOUNT = 'amount',
 }
