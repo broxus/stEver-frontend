@@ -17,4 +17,5 @@ export type StrategyWithdrawalResponse = {
     strategy: string;
     transactionHash: string;
     transactionTime: number;
-}
+};
+

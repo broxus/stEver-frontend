@@ -15,7 +15,9 @@ import type { TvlRequest } from '../models/TvlRequest';
 import type { TvlResponse } from '../models/TvlResponse';
 import type { UsersTransactionsRequest } from '../models/UsersTransactionsRequest';
 import type { UsersTransactionsResponse } from '../models/UsersTransactionsResponse';
+
 import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class StrategiesService {
@@ -27,12 +29,12 @@ export class StrategiesService {
      * @returns StrategiesResponse OK
      * @throws ApiError
      */
-    public static postStrategies(
+    public static postStrategiesSearch(
         requestBody: StrategiesRequest,
     ): CancelablePromise<StrategiesResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/strategies/search`,
+            url: '/strategies/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -45,12 +47,12 @@ export class StrategiesService {
      * @returns StrategiesDepositsResponse OK
      * @throws ApiError
      */
-    public static postStrategies1(
+    public static postStrategiesDepositsSearch(
         requestBody: StrategiesDepositsRequest,
     ): CancelablePromise<StrategiesDepositsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/strategies/deposits/search`,
+            url: '/strategies/deposits/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -63,12 +65,12 @@ export class StrategiesService {
      * @returns StrategiesWithdrawalsResponse OK
      * @throws ApiError
      */
-    public static postStrategies2(
+    public static postStrategiesWithdrawalsSearch(
         requestBody: StrategiesWithdrawalsRequest,
     ): CancelablePromise<StrategiesWithdrawalsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/strategies/withdrawals/search`,
+            url: '/strategies/withdrawals/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -81,12 +83,12 @@ export class StrategiesService {
      * @returns SystemsTransactionsResponse OK
      * @throws ApiError
      */
-    public static postStrategies3(
+    public static postStrategiesTransactionsSearch(
         requestBody: SystemsTransactionsRequest,
     ): CancelablePromise<SystemsTransactionsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/strategies/transactions/search`,
+            url: '/strategies/transactions/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -98,10 +100,10 @@ export class StrategiesService {
      * @returns MainPageResponse OK
      * @throws ApiError
      */
-    public static getStrategies(): CancelablePromise<MainPageResponse> {
-        return __request({
+    public static getStrategiesMain(): CancelablePromise<MainPageResponse> {
+        return __request(OpenAPI, {
             method: 'GET',
-            path: `/strategies/main`,
+            url: '/strategies/main',
         });
     }
 
@@ -112,12 +114,15 @@ export class StrategiesService {
      * @returns StrategyPageResponse OK
      * @throws ApiError
      */
-    public static getStrategies1(
+    public static getStrategiesMain1(
         string: string,
     ): CancelablePromise<StrategyPageResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'GET',
-            path: `/strategies/${string}/main`,
+            url: '/strategies/{string}/main',
+            path: {
+                'string': string,
+            },
         });
     }
 
@@ -129,13 +134,16 @@ export class StrategiesService {
      * @returns TvlResponse OK
      * @throws ApiError
      */
-    public static postStrategies4(
+    public static postStrategiesTvl(
         string: string,
         requestBody: TvlRequest,
     ): CancelablePromise<TvlResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/strategies/${string}/tvl`,
+            url: '/strategies/{string}/tvl',
+            path: {
+                'string': string,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -148,12 +156,12 @@ export class StrategiesService {
      * @returns UsersTransactionsResponse OK
      * @throws ApiError
      */
-    public static postStrategies5(
+    public static postUsersTransactionsSearch(
         requestBody: UsersTransactionsRequest,
     ): CancelablePromise<UsersTransactionsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/users/transactions/search`,
+            url: '/users/transactions/search',
             body: requestBody,
             mediaType: 'application/json',
         });

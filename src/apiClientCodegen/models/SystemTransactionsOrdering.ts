@@ -11,4 +11,5 @@ import type { SystemTransactionColumn } from './SystemTransactionColumn';
 export type SystemTransactionsOrdering = {
     column: SystemTransactionColumn;
     direction: Direction;
-}
+};
+

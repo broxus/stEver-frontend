@@ -16,4 +16,5 @@ export type SystemTransactionResponse = {
     strategy: string;
     transactionHash: string;
     transactionTime: number;
-}
+};
+

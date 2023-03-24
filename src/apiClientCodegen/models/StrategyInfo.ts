@@ -17,4 +17,5 @@ export type StrategyInfo = {
      */
     tvl: string;
     validatorFee: number;
-}
+};
+

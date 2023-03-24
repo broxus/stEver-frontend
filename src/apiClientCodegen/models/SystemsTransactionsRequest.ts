@@ -14,4 +14,5 @@ export type SystemsTransactionsRequest = {
     offset: number;
     ordering?: SystemTransactionsOrdering;
     strategy?: string | null;
-}
+};
+

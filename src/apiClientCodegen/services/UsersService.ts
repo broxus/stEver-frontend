@@ -7,7 +7,9 @@ import type { UsersDepositsRequest } from '../models/UsersDepositsRequest';
 import type { UsersDepositsResponse } from '../models/UsersDepositsResponse';
 import type { UsersWithdrawalsRequest } from '../models/UsersWithdrawalsRequest';
 import type { UsersWithdrawalsResponse } from '../models/UsersWithdrawalsResponse';
+
 import type { CancelablePromise } from '../core/CancelablePromise';
+import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class UsersService {
@@ -19,12 +21,12 @@ export class UsersService {
      * @returns UsersDepositsResponse OK
      * @throws ApiError
      */
-    public static postUsers(
+    public static postUsersDepositsSearch(
         requestBody: UsersDepositsRequest,
     ): CancelablePromise<UsersDepositsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/users/deposits/search`,
+            url: '/users/deposits/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -37,12 +39,12 @@ export class UsersService {
      * @returns UsersWithdrawalsResponse OK
      * @throws ApiError
      */
-    public static postUsers1(
+    public static postUsersWithdrawalsSearch(
         requestBody: UsersWithdrawalsRequest,
     ): CancelablePromise<UsersWithdrawalsResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/users/withdrawals/search`,
+            url: '/users/withdrawals/search',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -55,12 +57,12 @@ export class UsersService {
      * @returns TvlResponse OK
      * @throws ApiError
      */
-    public static postUsers2(
+    public static postUsersTvl(
         requestBody: TvlRequest,
     ): CancelablePromise<TvlResponse> {
-        return __request({
+        return __request(OpenAPI, {
             method: 'POST',
-            path: `/users/tvl`,
+            url: '/users/tvl',
             body: requestBody,
             mediaType: 'application/json',
         });

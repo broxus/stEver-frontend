@@ -22,4 +22,5 @@ export type UsersWithdrawalsRequest = {
     ordering?: UserWithdrawalsOrdering;
     status?: UsersWithdrawalsStatus;
     userAddress?: string | null;
-}
+};
+

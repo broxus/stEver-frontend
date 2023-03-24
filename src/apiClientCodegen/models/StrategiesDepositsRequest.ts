@@ -13,4 +13,5 @@ export type StrategiesDepositsRequest = {
     offset: number;
     ordering?: StrategyDepositsOrdering;
     strategy?: string | null;
-}
+};
+

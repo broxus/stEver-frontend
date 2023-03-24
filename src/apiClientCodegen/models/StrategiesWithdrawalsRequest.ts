@@ -14,4 +14,5 @@ export type StrategiesWithdrawalsRequest = {
     ordering?: StrategyWithdrawalsOrdering;
     status?: StrategiesWithdrawalsStatus;
     strategy?: string | null;
-}
+};
+

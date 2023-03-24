@@ -9,4 +9,5 @@ import type { StrategyPage } from './StrategyPage';
  */
 export type StrategyPageResponse = {
     data: StrategyPage;
-}
+};
+

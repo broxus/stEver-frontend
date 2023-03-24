@@ -32,4 +32,5 @@ export type MainPage = {
      * tvlDelta
      */
     tvlDelta: string;
-}
+};
+

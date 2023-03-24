@@ -10,4 +10,5 @@ import type { StrategyInfo } from './StrategyInfo';
 export type StrategiesResponse = {
     strategies: Array<StrategyInfo>;
     totalCount: number;
-}
+};
+

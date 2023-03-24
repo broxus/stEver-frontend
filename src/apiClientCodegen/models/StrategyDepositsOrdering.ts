@@ -11,4 +11,5 @@ import type { StrategyDepositColumn } from './StrategyDepositColumn';
 export type StrategyDepositsOrdering = {
     column: StrategyDepositColumn;
     direction: Direction;
-}
+};
+

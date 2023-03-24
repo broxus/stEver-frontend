@@ -11,4 +11,5 @@ import type { UserDepositColumn } from './UserDepositColumn';
 export type UserDepositsOrdering = {
     column: UserDepositColumn;
     direction: Direction;
-}
+};
+

@@ -17,4 +17,5 @@ export type UserDepositResponse = {
     transactionHash: string;
     transactionTime: number;
     userAddress: string;
-}
+};
+

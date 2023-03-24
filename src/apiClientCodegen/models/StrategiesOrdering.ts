@@ -11,4 +11,5 @@ import type { StrategyColumn } from './StrategyColumn';
 export type StrategiesOrdering = {
     column: StrategyColumn;
     direction: Direction;
-}
+};
+

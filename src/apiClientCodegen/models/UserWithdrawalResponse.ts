@@ -21,4 +21,5 @@ export type UserWithdrawalResponse = {
     transactionHash: string;
     transactionTime: number;
     userAddress: string;
-}
+};
+

@@ -16,4 +16,5 @@ export type StrategyDepositResponse = {
     strategy: string;
     transactionHash: string;
     transactionTime: number;
-}
+};
+

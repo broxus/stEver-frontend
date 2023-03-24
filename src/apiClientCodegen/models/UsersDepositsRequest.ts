@@ -20,4 +20,5 @@ export type UsersDepositsRequest = {
     offset: number;
     ordering?: UserDepositsOrdering;
     userAddress?: string | null;
-}
+};
+

@@ -3,43 +3,60 @@ import Media from 'react-media'
 import {
     Flex, Heading, Label, Link, Tile,
 } from '@broxus/react-uikit'
-import { observer } from 'mobx-react-lite'
-
+import { Observer, observer } from 'mobx-react-lite'
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
-
-import { depools } from './_.mock'
+import { useStore } from '@/hooks/useStore'
+import { sliceAddress } from '@broxus/js-utils'
+import { TabelDepoolsStore } from '../store/depoolsStore'
+import { Direction, StrategyColumn } from '@/apiClientCodegen'
+import { PanelLoader } from '@/components/common/PanelLoader'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
+
+    const tabelDepools = useStore(TabelDepoolsStore)
+
     return (
         <Flex flexDirection="column">
             <Heading component="h4">
                 Participating depools
             </Heading>
-            <Tile type="default" size="xsmall">
-                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                    <Media query={{ minWidth: 640 }}>
-                        <DepoolsListHeader />
-                    </Media>
-                    {depools.map((pool, idx) => (
-                        <Media key={pool.depool} query={{ minWidth: 640 }}>
-                            <DepoolsListItem
-                                key={pool.depool}
-                                idx={idx + 1}
-                                pool={pool}
-                            />
-                        </Media>
-                    ))}
-                </table>
-                <DepoolsListPagination />
-            </Tile>
-        </Flex>
+            <Observer>
+                {() => (
+                    <PanelLoader loading={tabelDepools.isFetching}>
+                        <Tile type="default" size="xsmall">
+                            <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                <Media query={{ minWidth: 640 }}>
+                                    <DepoolsListHeader tabelDepools={tabelDepools} />
+                                </Media>
+                                {tabelDepools.depoolsStrategies?.map((pool, idx) => (
+                                    <Media key={pool.depool} query={{ minWidth: 640 }}>
+                                        <DepoolsListItem
+                                            key={pool.depool}
+                                            idx={idx + 1}
+                                            pool={pool}
+                                        />
+                                    </Media>
+                                ))}
+
+                            </table>
+                            <DepoolsListPagination tabelDepools={tabelDepools} />
+                        </Tile>
+                    </PanelLoader>
+                )}
+            </Observer>
+        </Flex >
     )
 }
 
-export function DepoolsListHeader(): JSX.Element {
+type DepoolsListHeaderType = {
+    tabelDepools: TabelDepoolsStore
+}
+
+export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
+
     const onSwitchOrdering = async (value: any) => {
-        alert('onSwitchOrdering')
+        tabelDepools.setState("ordering", value)
     }
 
     return (
@@ -47,20 +64,51 @@ export function DepoolsListHeader(): JSX.Element {
             <tr>
                 <th className="uk-text-left">Depool</th>
                 <th className="uk-text-left">
-                    <OrderingSwitcher<any>
-                        ascending={1}
-                        descending={1}
-                        value={1}
-                        onSwitch={onSwitchOrdering}
-                    >
-                        Validator fee
-                    </OrderingSwitcher>
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={StrategyColumn.PRIORITY}
+                                value={tabelDepools.ordering.direction}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                Validator fee
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
                 </th>
                 <th className="uk-text-left">Strategy</th>
                 <th className="uk-text-left">Owner</th>
-                <th className="uk-text-left">Priority</th>
+                <th className="uk-text-left">
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={StrategyColumn.PRIORITY}
+                                value={tabelDepools.ordering.direction}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                Priority
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
+                </th>
                 <th className="uk-text-right">
-                    TVL
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={StrategyColumn.TVL}
+                                value={tabelDepools.ordering.direction}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                TVL
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
                 </th>
             </tr>
         </thead>
@@ -72,44 +120,59 @@ type Props = {
     pool: any;
 }
 
-export function DepoolsListItem({ idx, pool }: Props): JSX.Element {
+export function DepoolsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left"><Link>{pool.depool}</Link></td>
-                <td className="uk-text-left">{pool.validator_fee}</td>
-                <td className="uk-text-left"><Link>{pool.strategy}</Link></td>
-                <td className="uk-text-left"><Link>{pool.owner}</Link></td>
-                <td className="uk-text-left"><Label type={pool.priority === 'High' ? 'success' : pool.priority === 'Middle' ? 'warning' : 'danger'}>{pool.priority}</Label></td>
+                <td className="uk-text-left"><Link>{sliceAddress(pool.depool)}</Link></td>
+                <td className="uk-text-left">{pool.validatorFee}</td>
+                <td className="uk-text-left"><Link>{sliceAddress(pool.strategy)}</Link></td>
+                <td className="uk-text-left"><Link>{sliceAddress(pool.owner)}</Link></td>
+                <td className="uk-text-left"><Label type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}>{pool.priority}</Label></td>
                 <td className="uk-text-right">{pool.tvl}</td>
             </tr>
         </tbody>
     )
 }
 
-
-export function DepoolsListPagination(): JSX.Element {
+type DepoolsListPaginationType = {
+    tabelDepools: TabelDepoolsStore
+}
+export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationType): JSX.Element {
 
     const onNextPage = async () => {
-        alert('Next')
+        tabelDepools.setState('pagination', {
+            ...tabelDepools.pagination,
+            currentPage: tabelDepools.pagination.currentPage + 1,
+        })
     }
 
     const onPrevPage = async () => {
-        alert('Prev')
+        tabelDepools.setState('pagination', {
+            ...tabelDepools.pagination,
+            currentPage: tabelDepools.pagination.currentPage - 1,
+        })
     }
 
     const onSubmitPage = async (value: number) => {
-        alert('Sub')
+        tabelDepools.setState('pagination', {
+            ...tabelDepools.pagination,
+            currentPage: value,
+        })
     }
 
     return (
-        <Pagination
-            currentPage={1}
-            totalPages={10}
-            onNext={onNextPage}
-            onPrev={onPrevPage}
-            onSubmit={onSubmitPage}
-        />
+        <Observer>
+            {() => (
+                <Pagination
+                    currentPage={tabelDepools.pagination.currentPage + 1}
+                    totalPages={tabelDepools.pagination.totalPages}
+                    onNext={onNextPage}
+                    onPrev={onPrevPage}
+                    onSubmit={onSubmitPage}
+                />
+            )}
+        </Observer>
     )
 }
 

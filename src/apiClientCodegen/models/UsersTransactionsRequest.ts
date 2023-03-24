@@ -22,4 +22,5 @@ export type UsersTransactionsRequest = {
      */
     to?: number | null;
     userAddress?: string | null;
-}
+};
+

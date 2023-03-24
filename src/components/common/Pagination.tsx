@@ -7,6 +7,7 @@ import {
 import { AmountInput } from '@broxus/react-components'
 
 import './Pagination.scss'
+import { DownloadCsv } from './DownloadCsv'
 
 export type PaginationProps = {
     className?: string;
@@ -31,8 +32,8 @@ export const Pagination = React.memo(({
 
     const [value, setValue] = React.useState<string>(currentPage.toString())
 
-    const onChange: React.ChangeEventHandler<HTMLInputElement> = event => {
-        setValue(event.target.value)
+    const onChange = (_: string): void => {
+        setValue?.(_)
     }
 
     const onKeyUp: React.KeyboardEventHandler<HTMLInputElement> = event => {
@@ -61,14 +62,25 @@ export const Pagination = React.memo(({
     return (
         <div className={classNames('pagination', 'uk-margin-small', className)}>
             <Flex justifyContent="between">
-                <Link>Export</Link>
+                <DownloadCsv
+                    filename="blocks.csv"
+                    keys={[
+                        'common.ID',
+                        'blocks.workchain',
+                        'blocks.shard',
+                        'blocks.number',
+                        'blocks.transactions',
+                        'blocks.date-n-time',
+                    ]}
+                />
                 <Flex justifyContent="right">
                     <AmountInput
                         className="pagination__input uk-margin-small-right"
                         inputMode="decimal"
-                        readOnly={disabled}
+                        readOnly={true}
                         type="text"
                         value={value}
+                        onChange={onChange}
                         onKeyUp={onKeyUp}
                         showMaxButton={false}
                     />

@@ -14,4 +14,5 @@ export type StrategiesRequest = {
     ordering?: StrategiesOrdering;
     validatorFeeGe: number | null;
     validatorFeeLe: number | null;
-}
+};
+

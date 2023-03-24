@@ -10,4 +10,5 @@ import type { UserTransactionResponse } from './UserTransactionResponse';
 export type UsersTransactionsResponse = {
     totalCount: number;
     transactions: Array<UserTransactionResponse>;
-}
+};
+

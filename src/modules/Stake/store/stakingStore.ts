@@ -14,6 +14,7 @@ import { parseCurrency } from '@/utils/parseCurrency'
 import { Address } from 'everscale-inpage-provider'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
+import { formattedTokenAmount } from '@broxus/js-utils'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -48,10 +49,10 @@ export class StakingStore extends AbstractStore<
         this.setState('type', StakingType.Stake);
         this.setState("depositStEverAmount", "0");
 
-        (async () => {
-            const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
-            this.setData('contr', contr)
-        })()
+            (async () => {
+                const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
+                this.setData('contr', contr)
+            })()
 
         reaction(
             () => this._state.amount,
@@ -86,7 +87,10 @@ export class StakingStore extends AbstractStore<
 
     @computed
     public get maxAmount(): string {
-        return this._state.balance
+        return formattedTokenAmount(
+            this.wallet.balance,
+            this.wallet.currency.decimals,
+        )
     }
 
     @computed

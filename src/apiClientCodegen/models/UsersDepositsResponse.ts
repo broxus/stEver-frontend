@@ -10,4 +10,5 @@ import type { UserDepositResponse } from './UserDepositResponse';
 export type UsersDepositsResponse = {
     deposits: Array<UserDepositResponse>;
     totalCount: number;
-}
+};
+

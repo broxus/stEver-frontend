@@ -9,4 +9,5 @@ import type { MainPage } from './MainPage';
  */
 export type MainPageResponse = {
     data: MainPage;
-}
+};
+

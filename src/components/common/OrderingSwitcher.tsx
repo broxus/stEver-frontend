@@ -6,6 +6,7 @@ import './OrderingSwitcher.scss'
 
 type Props<T> = {
     ascending: T;
+    column: string;
     children: React.ReactNode;
     descending: T;
     value: T | undefined;
@@ -15,13 +16,17 @@ type Props<T> = {
 
 export function OrderingSwitcher<T>({
     ascending,
+    column,
     children,
     value,
     descending,
     onSwitch,
-}: Props<T>): JSX.Element {
+}: Props<any>): JSX.Element {
     const onClick = () => {
-        onSwitch?.(value === descending ? ascending : descending)
+        onSwitch?.({
+            column: column,
+            direction: value === descending ? ascending : descending
+        })
     }
 
     return (

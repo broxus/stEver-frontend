@@ -10,4 +10,5 @@ import type { SystemTransactionResponse } from './SystemTransactionResponse';
 export type SystemsTransactionsResponse = {
     totalCount: number;
     transactions: Array<SystemTransactionResponse>;
-}
+};
+

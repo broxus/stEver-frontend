@@ -11,4 +11,5 @@ export type TvlResponse = {
      * tvl
      */
     tvl: string;
-}
+};
+

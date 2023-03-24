@@ -16,4 +16,5 @@ export type UserTransactionResponse = {
     transactionHash: string;
     transactionTime: number;
     userAddress: string;
-}
+};
+
