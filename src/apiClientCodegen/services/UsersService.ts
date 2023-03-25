@@ -59,7 +59,7 @@ export class UsersService {
      */
     public static postUsersTvl(
         requestBody: TvlRequest,
-    ): CancelablePromise<TvlResponse> {
+    ): CancelablePromise<Array<TvlResponse>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/users/tvl',

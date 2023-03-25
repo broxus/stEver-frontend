@@ -137,7 +137,7 @@ export class StrategiesService {
     public static postStrategiesTvl(
         string: string,
         requestBody: TvlRequest,
-    ): CancelablePromise<TvlResponse> {
+    ): CancelablePromise<Array<TvlResponse>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/strategies/{string}/tvl',
