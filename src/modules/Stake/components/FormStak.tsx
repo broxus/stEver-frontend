@@ -2,21 +2,18 @@ import * as React from 'react'
 import {
     Button, Flex, Tabs, Tile,
 } from '@broxus/react-uikit'
+import { Observer, observer } from 'mobx-react-lite'
 
 import { TextInput } from '@/components/common/TextInput'
 
 import './FormStak.scss'
 import { useStore } from '@/hooks/useStore'
 import { StakingStore, StakingType } from '@/modules/Stake/store/stakingStore'
-import { useAmountField } from '@/hooks/useAmountField'
 import CoinEverLogo from '@/assets/icons/EVER.svg'
 import CoinStEverLogo from '@/assets/icons/StEVER.svg'
-
-import { Observer, observer } from 'mobx-react-lite'
-import BigNumber from 'bignumber.js'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
-import { ST_EVER_DECIMALS } from '@/constants'
+import { ST_EVER_DECIMALS } from '@/config'
 
 
 function FormStakInner(): JSX.Element {
@@ -37,7 +34,7 @@ function FormStakInner(): JSX.Element {
                     className="form__container--tabs"
                     defaultActiveKey="1"
                     // @ts-ignore
-                    onChange={(e) => staking.setType(e)}
+                    onChange={e => staking.setType(e)}
                     items={[
                         {
                             label: 'Stake',
@@ -63,7 +60,7 @@ type FormTabType = {
 
 function FormTab({
     type,
-    staking
+    staking,
 }: FormTabType): JSX.Element {
     return (
         <Flex flexDirection="column" justifyContent="between">
@@ -73,7 +70,7 @@ function FormTab({
                         autoFocus
                         placeholder="0"
                         value={staking.amount}
-                        onChange={(e) => staking.setAmount(e)}
+                        onChange={e => staking.setAmount(e)}
                         disabled={false}
                         maxValue={staking.maxAmount}
                         inputMode="numeric"

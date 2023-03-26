@@ -1,6 +1,9 @@
-import { Direction, StrategiesRequest, StrategiesResponse, StrategiesService, StrategyColumn, StrategyInfo } from "@/apiClientCodegen";
-import { AbstractStore } from "@broxus/js-core";
-import { computed, makeObservable, reaction } from "mobx";
+import { AbstractStore } from '@broxus/js-core'
+import { computed, makeObservable, reaction } from 'mobx'
+
+import {
+    Direction, StrategiesRequest, StrategiesService, StrategyColumn, StrategyInfo,
+} from '@/apiClientCodegen'
 
 type TabelDepoolsStoreData = {
     depoolsStrategies: Array<StrategyInfo>;
@@ -41,7 +44,7 @@ export class TabelDepoolsStore extends AbstractStore<
                 limit: 10,
                 totalCount: 0,
                 totalPages: 0,
-            }
+            },
         }))
 
         reaction(
@@ -67,7 +70,7 @@ export class TabelDepoolsStore extends AbstractStore<
         const response = await StrategiesService.postStrategiesSearch(params)
         this.setData('depoolsStrategies', response.strategies)
         if (response.totalCount !== this._state.pagination.totalCount) {
-            this.setState("pagination", {
+            this.setState('pagination', {
                 currentPage: this.pagination.currentPage,
                 limit: this.pagination.limit,
                 totalCount: response.totalCount,
@@ -95,4 +98,5 @@ export class TabelDepoolsStore extends AbstractStore<
     public get isFetching() {
         return this._state.isFetching
     }
+
 }

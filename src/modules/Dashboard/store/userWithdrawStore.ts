@@ -1,6 +1,9 @@
-import { Direction, StrategiesService, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersService, UsersTransactionsRequest, UsersWithdrawalsRequest, UsersWithdrawalsResponse, UsersWithdrawalsStatus } from "@/apiClientCodegen";
-import { AbstractStore } from "@broxus/js-core";
-import { computed, makeObservable, reaction } from "mobx";
+import { AbstractStore } from '@broxus/js-core'
+import { computed, makeObservable, reaction } from 'mobx'
+
+import {
+    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersService, UsersWithdrawalsRequest, UsersWithdrawalsStatus,
+} from '@/apiClientCodegen'
 
 type UserTransactionsStoreData = {
     transactions: Array<UserWithdrawalResponse>;
@@ -38,7 +41,7 @@ export class UserWithdrawStore extends AbstractStore<
                 limit: 10,
                 totalCount: 0,
                 totalPages: 0,
-            }
+            },
         }))
 
         reaction(
@@ -65,7 +68,7 @@ export class UserWithdrawStore extends AbstractStore<
         const response = await UsersService.postUsersWithdrawalsSearch(params)
         this.setData('transactions', response.withdrawals)
         if (response.totalCount !== this._state.pagination.totalCount) {
-            this.setState("pagination", {
+            this.setState('pagination', {
                 currentPage: this.pagination.currentPage,
                 limit: this.pagination.limit,
                 totalCount: response.totalCount,
@@ -93,4 +96,5 @@ export class UserWithdrawStore extends AbstractStore<
     public get isFetching() {
         return this._state.isFetching
     }
+
 }

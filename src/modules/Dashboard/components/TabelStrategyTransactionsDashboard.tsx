@@ -1,20 +1,17 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Button,
-    Checkbox,
-    Drop,
-    Flex, Grid, Heading, Label, Link, Tabs, Text, Tile,
+    Flex, Heading, Link, Tile,
 } from '@broxus/react-uikit'
+import { Observer, observer } from 'mobx-react-lite'
+import { sliceAddress } from '@broxus/js-utils'
 
 import { Pagination } from '@/components/common/Pagination'
-
-import { Observer, observer } from 'mobx-react-lite'
 import { useStore } from '@/hooks/useStore'
-import { sliceAddress } from '@broxus/js-utils'
 import { PanelLoader } from '@/components/common/PanelLoader'
 import { Direction, SystemTransactionColumn, SystemTransactionResponse } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
@@ -50,7 +47,7 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex >
+        </Flex>
     )
 }
 
@@ -61,7 +58,7 @@ type TransactionsListHeaderType = {
 export function TransactionsListHeader({ strategyTransactions }: TransactionsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
-        strategyTransactions.setState("ordering", value)
+        strategyTransactions.setState('ordering', value)
     }
 
     return (

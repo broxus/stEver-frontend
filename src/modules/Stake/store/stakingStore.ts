@@ -1,20 +1,17 @@
 import {
-    AbstractStore, TvmWalletService, useRpcClient, useRpcProvider,
+    AbstractStore, TvmWalletService, useRpcClient,
 } from '@broxus/js-core'
 import BigNumber from 'bignumber.js'
 import {
     computed, makeObservable, reaction,
 } from 'mobx'
+import { formattedTokenAmount } from '@broxus/js-utils'
 
 import { StEverVaultDetails } from '@/abi/types'
-import { ST_EVER_DECIMALS, ST_EVER_VAULT_ADDRESS_CONFIG } from '@/constants'
+import { parseCurrency } from '@/utils/parseCurrency'
 
 import { Staking } from '../models/staking'
-import { parseCurrency } from '@/utils/parseCurrency'
-import { Address } from 'everscale-inpage-provider'
-import { formatCurrency } from '@/utils/formatCurrency'
-import { convertCurrency } from '@/utils/convertCurrency'
-import { formattedTokenAmount } from '@broxus/js-utils'
+import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS } from '@/config'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -46,19 +43,18 @@ export class StakingStore extends AbstractStore<
         super()
         makeObservable(this)
 
-        this.setState('type', StakingType.Stake);
-        this.setState("depositStEverAmount", "0");
+        this.setState('type', StakingType.Stake)
+        this.setState('depositStEverAmount', '0');
 
-            (async () => {
-                const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
-                this.setData('contr', contr)
-            })()
+        (async () => {
+            const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
+            this.setData('contr', contr)
+        })()
 
         reaction(
             () => this._state.amount,
             async amount => {
-                if (amount)
-                    this.estimateDepositStEverAmount(amount)
+                if (amount) this.estimateDepositStEverAmount(amount)
             },
             { fireImmediately: true },
         )
@@ -66,8 +62,7 @@ export class StakingStore extends AbstractStore<
         reaction(
             () => this._state.type,
             async () => {
-                if (this._state.amount)
-                    this.estimateDepositStEverAmount(this._state.amount)
+                if (this._state.amount) this.estimateDepositStEverAmount(this._state.amount)
             },
             { fireImmediately: true },
         )
@@ -131,14 +126,14 @@ export class StakingStore extends AbstractStore<
     }
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        let amount = parseCurrency(value, ST_EVER_DECIMALS)
+        const amount = parseCurrency(value, ST_EVER_DECIMALS)
         if (this._state.type === StakingType.Stake) {
-            this.setState("depositStEverAmount", await this._data.contr.getDepositStEverAmount(amount))
-        } else {
-            this.setState("depositStEverAmount", await this._data.contr.getWithdrawEverAmount(amount))
+            this.setState('depositStEverAmount', await this._data.contr.getDepositStEverAmount(amount))
+        }
+        else {
+            this.setState('depositStEverAmount', await this._data.contr.getWithdrawEverAmount(amount))
         }
     }
-
 
 
 }

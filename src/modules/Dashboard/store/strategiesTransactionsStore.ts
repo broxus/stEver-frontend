@@ -1,6 +1,11 @@
-import { Direction, StrategiesService, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest, SystemsTransactionsResponse, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering, UsersTransactionsRequest } from "@/apiClientCodegen";
-import { AbstractStore } from "@broxus/js-core";
-import { computed, makeObservable, reaction } from "mobx";
+import { AbstractStore } from '@broxus/js-core'
+import { computed, makeObservable, reaction } from 'mobx'
+
+import {
+    Direction, StrategiesService, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest,
+} from '@/apiClientCodegen'
+import { useParams } from 'react-router-dom';
+import { Params } from '@/routes';
 
 type StrategiesTransactionsStoreData = {
     transactions: Array<SystemTransactionResponse>;
@@ -23,6 +28,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
     StrategiesTransactionsStoreData,
     StrategiesTransactionsStoreState
 > {
+    protected params = useParams<Params>()
 
     constructor() {
         super()
@@ -38,7 +44,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
                 limit: 10,
                 totalCount: 0,
                 totalPages: 0,
-            }
+            },
         }))
 
         reaction(
@@ -52,7 +58,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
                     limit: this._state.pagination.limit,
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
-                    strategy: null
+                    strategy: this.params.id,
                 })
             },
             { fireImmediately: true },
@@ -63,7 +69,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
         const response = await StrategiesService.postStrategiesTransactionsSearch(params)
         this.setData('transactions', response.transactions)
         if (response.totalCount !== this._state.pagination.totalCount) {
-            this.setState("pagination", {
+            this.setState('pagination', {
                 currentPage: this.pagination.currentPage,
                 limit: this.pagination.limit,
                 totalCount: response.totalCount,
@@ -91,4 +97,5 @@ export class StrategiesTransactionsStore extends AbstractStore<
     public get isFetching() {
         return this._state.isFetching
     }
+
 }

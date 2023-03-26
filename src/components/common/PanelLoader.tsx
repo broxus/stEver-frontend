@@ -1,5 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
+
 import { ContentLoader } from './ContentLoader'
 import './PanelLoader.scss'
 
@@ -24,7 +25,7 @@ export function PanelLoader({
             {loading && (
                 <div className="panel-loader__loader">
                     <ContentLoader slim />
-                    <>PPpp</>
+                    PPpp
                 </div>
             )}
         </div>

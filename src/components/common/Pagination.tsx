@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import {
-    Button, Card, Flex, Link, Text,
+    Button, Card, Flex, Text,
 } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
 
@@ -77,7 +77,7 @@ export const Pagination = React.memo(({
                     <AmountInput
                         className="pagination__input uk-margin-small-right"
                         inputMode="decimal"
-                        readOnly={true}
+                        readOnly
                         type="text"
                         value={value}
                         onChange={onChange}

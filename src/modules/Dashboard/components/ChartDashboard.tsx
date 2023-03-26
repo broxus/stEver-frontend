@@ -1,67 +1,25 @@
 import * as React from 'react'
-import { Chart, SeriesApi } from '@broxus/react-components'
+import { Chart } from '@broxus/react-components'
 import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
 
 import { RateChange } from '@/components/common/RateChange'
 
-// import { dataСharts } from './_.mock'
-
 import './ChartDashboard.scss'
 import { Observer, observer } from 'mobx-react-lite'
+
 import { useStore } from '@/hooks/useStore'
+
 import { ChartStore } from '../store/chartStore'
+
 import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
-import { DateTime } from 'luxon'
 
 function ChartDashboardInner(): JSX.Element {
 
     const dashboard = useStore(ChartStore)
     const series = React.useRef<any>(null)
-    const [timeframe, setTimeframe] = React.useState<'H1' | 'D1'>('H1')
     const chart = React.useRef<any>(null)
-
-
-    // const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
-    //     if (logicalRange == null) {
-    //         return
-    //     }
-    //     const barsInfo = series.current?.api().barsInLogicalRange(logicalRange)
-    //     if (
-    //         barsInfo?.barsBefore !== undefined
-    //         && Math.ceil(barsInfo.barsBefore) < 0
-    //         && barsInfo?.from !== undefined
-    //         && typeof barsInfo.from === 'number'
-    //     ) {
-    //         console.log({
-    //             from: (barsInfo.from
-    //                 + (Math.ceil(barsInfo?.barsBefore) - 2)
-    //                 * (timeframe === 'D1' ? 86400 : 3600))
-    //                 * 1000,
-    //             to: barsInfo.from * 1000,
-    //         })
-    //         console.log({
-    //             from: Math.floor(DateTime.local().minus({
-    //                 days: 30,
-    //             }).toUTC(undefined, {
-    //                 keepLocalTime: false,
-    //             }).toSeconds()),
-    //             to: Math.floor(DateTime.local().toUTC(undefined, {
-    //                 keepLocalTime: false,
-    //             }).toSeconds())
-    //         })
-
-    //         dashboard.setState("pagination", {
-    //             from: (barsInfo.from
-    //                 + (Math.ceil(barsInfo?.barsBefore) - 2)
-    //                 * (timeframe === 'D1' ? 86400 : 3600))
-    //                 ,
-    //             to: barsInfo.from
-    //         })
-
-    //     }
-    // }, 50)
 
     const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
         if (logicalRange == null) {
@@ -81,33 +39,12 @@ function ChartDashboardInner(): JSX.Element {
                     86400
                 )
             )
-            dashboard.setState("pagination", {
-                from: from,
-                to: barsInfo.from
+            dashboard.setState('pagination', {
+                from,
+                to: barsInfo.from,
             })
         }
     }, 50)
-
-    React.useEffect(() => {
-        setTimeout(() => {
-            chart.current?.timeScale().resetTimeScale()
-            chart.current?.timeScale().scrollToRealTime()
-        }, 5)
-    }, [timeframe])
-
-
-    React.useEffect(() => {
-        setTimeout(() => {
-            chart.current?.timeScale().resetTimeScale()
-            chart.current?.timeScale().scrollToRealTime()
-        }, 5)
-    }, [timeframe])
-
-    React.useEffect(() => {
-        chart.current?.timeScale().applyOptions({
-            barSpacing: (chart.current?.timeScale().width() ?? 960) / (timeframe === 'D1' ? 30 : 7 * 24),
-        })
-    }, [chart.current, timeframe])
 
     React.useEffect(() => {
         series.current?.api().priceScale().applyOptions({
@@ -117,6 +54,7 @@ function ChartDashboardInner(): JSX.Element {
             },
         })
     }, [series.current])
+
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -131,6 +69,7 @@ function ChartDashboardInner(): JSX.Element {
             precision: 1,
         })}`
     }
+
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
@@ -147,8 +86,13 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.tvl} EVER
-                                                <span>~ ${dashboard?.strategyMainInfo?.tvlDelta}</span>
+                                                {dashboard?.strategyMainInfo?.tvl}
+                                                {' '}
+                                                EVER
+                                                <span>
+                                                    ~ $
+                                                    {dashboard?.strategyMainInfo?.tvlDelta}
+                                                </span>
                                             </Text>
                                             <RateChange size="sm" value="8.81" />
                                         </Grid>
@@ -157,8 +101,13 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Current price</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.price} EVER
-                                                <span>~ ${dashboard?.strategyMainInfo?.priceDelta}</span>
+                                                {dashboard?.strategyMainInfo?.price}
+                                                {' '}
+                                                EVER
+                                                <span>
+                                                    ~ $
+                                                    {dashboard?.strategyMainInfo?.priceDelta}
+                                                </span>
                                             </Text>
                                             <RateChange size="sm" value="8.81" />
                                         </Grid>
@@ -167,8 +116,12 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>APY</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.apy}EVER
-                                                <span>~ ${dashboard?.strategyMainInfo?.apyDelta}</span>
+                                                {dashboard?.strategyMainInfo?.apy}
+                                                EVER
+                                                <span>
+                                                    ~ $
+                                                    {dashboard?.strategyMainInfo?.apyDelta}
+                                                </span>
                                             </Text>
                                             <RateChange size="sm" value="8.81" />
                                         </Grid>
@@ -177,8 +130,13 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Holders</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.holders} EVER
-                                                <span>~ ${dashboard?.strategyMainInfo?.holdersDelta}</span>
+                                                {dashboard?.strategyMainInfo?.holders}
+                                                {' '}
+                                                EVER
+                                                <span>
+                                                    ~ $
+                                                    {dashboard?.strategyMainInfo?.holdersDelta}
+                                                </span>
                                             </Text>
                                             <RateChange size="sm" value="8.81" />
                                         </Grid>
@@ -191,7 +149,8 @@ function ChartDashboardInner(): JSX.Element {
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
                             <Observer>
                                 {() => (
-                                    <Chart height={480} width={1000} style={{ height: '100%' }}
+                                    <Chart
+                                        height={480} width={1000} style={{ height: '100%' }}
                                         ref={chart}
                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                     >

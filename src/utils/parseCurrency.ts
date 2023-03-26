@@ -1,5 +1,6 @@
-import BigNumber from "bignumber.js"
-import { multiplier } from "./multiplier"
+import BigNumber from 'bignumber.js'
+
+import { multiplier } from './multiplier'
 
 export const parseCurrency = (
     amount: string,

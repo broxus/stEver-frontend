@@ -1,22 +1,21 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Button,
-    Checkbox,
-    Drop,
-    Flex, Grid, Heading, Label, Link, Tabs, Text, Tile,
+    Flex, Heading, Link, Tile,
 } from '@broxus/react-uikit'
+import { Observer, observer } from 'mobx-react-lite'
+import { sliceAddress } from '@broxus/js-utils'
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
-
-import { Observer, observer } from 'mobx-react-lite'
 import { useStore } from '@/hooks/useStore'
-import { UserTransactionsStore } from '../store/userTransactionsStore'
-import { sliceAddress } from '@broxus/js-utils'
 import { PanelLoader } from '@/components/common/PanelLoader'
-import { Direction, UserTransactionColumn, UserTransactionResponse, UserWithdrawalColumn, UserWithdrawalResponse } from '@/apiClientCodegen'
+import {
+    Direction, UserWithdrawalColumn, UserWithdrawalResponse,
+} from '@/apiClientCodegen'
+
 import { UserWithdrawStore } from '../store/userWithdrawStore'
+
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
 
@@ -51,7 +50,7 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex >
+        </Flex>
     )
 }
 
@@ -62,7 +61,7 @@ type TransactionsListHeaderType = {
 export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
-        userWithdraw.setState("ordering", value)
+        userWithdraw.setState('ordering', value)
     }
 
     return (
@@ -163,5 +162,58 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
         </Observer>
     )
 }
+
+// function ListFilter(): JSX.Element {
+//
+//    const onChange = (e: any) => {
+//        console.log(e)
+//    }
+//
+//    return (
+//        <Drop
+//            trigger={['click']}
+//            placement="bottom-right"
+//            overlay={(
+//                <Tile type="default" size="xsmall">
+//                    <Text component="h6">Type</Text>
+//                    <Grid gap="small">
+//
+//                        <Checkbox.Group
+//                            options={[
+//                                {
+//
+//                                    label: 'd',
+//                                    value: false,
+//
+//                                },
+//                            ]}
+//                        />
+//
+//                        {/* <Checkbox onChange={onChange}>Strategy deposit</Checkbox>
+//                        <Checkbox onChange={onChange}>Strategy pending withdraw</Checkbox> */}
+//
+//                    </Grid>
+//                    <hr />
+//                    <Flex justifyContent="between">
+//                        <Link>Default</Link>
+//                        <Flex>
+//                            <Button size="small" type="default">
+//                                Cancel
+//                            </Button>
+//                            <Button size="small" type="primary">
+//                                Apply
+//                            </Button>
+//                        </Flex>
+//                    </Flex>
+//                </Tile>
+//            )}
+//        >
+//            <Button type="default">
+//                Type
+//            </Button>
+//        </Drop>
+//    )
+// }
+
 
 export const TabelUserWithdrawDashboard = observer(TabelUserWithdrawDashboardInner)

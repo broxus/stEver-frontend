@@ -1,10 +1,7 @@
 import * as React from 'react'
 import { IntlProvider } from 'react-intl'
 import {
-    Redirect,
-    Route,
-    BrowserRouter as Router,
-    Switch,
+    BrowserRouter as Router, Redirect, Route, Switch,
 } from 'react-router-dom'
 import { TvmWalletProvider } from '@broxus/react-modules'
 
@@ -18,15 +15,17 @@ import './App.scss'
 import DashboardPage from '@/modules/Dashboard'
 import StakPage from '@/modules/Stake'
 import { OpenAPI } from '@/apiClientCodegen'
+import StrategyPage from '@/modules/Strategy/page/Strategy'
 
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
+import { API_URL } from '@/config'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
     const wallet = useTvmWallet()
 
-    OpenAPI.BASE = 'https://staking.everwallet.net/v1'
+    OpenAPI.BASE = API_URL
 
     return (
         <IntlProvider
@@ -52,6 +51,10 @@ export function App(): JSX.Element {
 
                                 <Route path={appRoutes.dashboard.path}>
                                     <DashboardPage />
+                                </Route>
+
+                                <Route path={appRoutes.strategy.path}>
+                                    <StrategyPage />
                                 </Route>
 
                             </Switch>

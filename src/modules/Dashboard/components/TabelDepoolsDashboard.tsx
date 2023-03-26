@@ -4,13 +4,18 @@ import {
     Flex, Heading, Label, Link, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
+import { sliceAddress } from '@broxus/js-utils'
+import { generatePath, NavLink } from 'react-router-dom'
+
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
-import { sliceAddress } from '@broxus/js-utils'
-import { TabelDepoolsStore } from '../store/depoolsStore'
 import { Direction, StrategyColumn } from '@/apiClientCodegen'
 import { PanelLoader } from '@/components/common/PanelLoader'
+import { appRoutes } from '@/routes'
+
+import { TabelDepoolsStore } from '../store/depoolsStore'
+
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -45,7 +50,7 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex >
+        </Flex>
     )
 }
 
@@ -56,7 +61,7 @@ type DepoolsListHeaderType = {
 export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
-        tabelDepools.setState("ordering", value)
+        tabelDepools.setState('ordering', value)
     }
 
     return (
@@ -126,9 +131,24 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
             <tr>
                 <td className="uk-text-left"><Link>{sliceAddress(pool.depool)}</Link></td>
                 <td className="uk-text-left">{pool.validatorFee}</td>
-                <td className="uk-text-left"><Link>{sliceAddress(pool.strategy)}</Link></td>
+                <td className="uk-text-left">
+                    <NavLink to={generatePath(appRoutes.strategy.path, {
+                        id: pool.strategy,
+                    })}
+                    >
+                        {sliceAddress(pool.strategy)}
+                    </NavLink>
+
+
+                </td>
                 <td className="uk-text-left"><Link>{sliceAddress(pool.owner)}</Link></td>
-                <td className="uk-text-left"><Label type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}>{pool.priority}</Label></td>
+                <td className="uk-text-left">
+                    <Label
+                        type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
+                    >
+                        {pool.priority}
+                    </Label>
+                </td>
                 <td className="uk-text-right">{pool.tvl}</td>
             </tr>
         </tbody>
@@ -138,6 +158,7 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
 type DepoolsListPaginationType = {
     tabelDepools: TabelDepoolsStore
 }
+
 export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationType): JSX.Element {
 
     const onNextPage = async () => {

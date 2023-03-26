@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
-import { useCsv } from '@/utils/useCsv';
-import { useDownload } from '@/utils/useDownload';
+
+import { useCsv } from '@/utils/useCsv'
+import { useDownload } from '@/utils/useDownload'
+
 import './DownloadCsv.scss'
-import { Link } from '@broxus/react-uikit';
+import { Link } from '@broxus/react-uikit'
 
 type Props = {
     items?: any[];

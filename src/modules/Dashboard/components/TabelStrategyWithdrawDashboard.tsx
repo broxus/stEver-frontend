@@ -1,21 +1,20 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Button,
-    Checkbox,
-    Drop,
-    Flex, Grid, Heading, Label, Link, Tabs, Text, Tile,
+    Flex, Heading, Link, Tile,
 } from '@broxus/react-uikit'
+import { Observer, observer } from 'mobx-react-lite'
+import { sliceAddress } from '@broxus/js-utils'
 
 import { Pagination } from '@/components/common/Pagination'
-
-import { Observer, observer } from 'mobx-react-lite'
 import { useStore } from '@/hooks/useStore'
-import { sliceAddress } from '@broxus/js-utils'
 import { PanelLoader } from '@/components/common/PanelLoader'
-import { StrategyWithdrawalResponse, SystemTransactionResponse, Direction, StrategyWithdrawalColumn } from '@/apiClientCodegen'
-import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
+import {
+    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn,
+} from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
+
+import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 
 export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
 
@@ -50,7 +49,7 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex >
+        </Flex>
     )
 }
 
@@ -61,7 +60,7 @@ type TransactionsListHeaderType = {
 export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
-        strategyWithdraw.setState("ordering", value)
+        strategyWithdraw.setState('ordering', value)
     }
 
     return (

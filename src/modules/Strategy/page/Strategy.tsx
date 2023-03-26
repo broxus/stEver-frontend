@@ -1,9 +1,34 @@
 import * as React from 'react'
 
-import { Strategy } from '../components'
+import { ChartStrategy } from '@/modules/Strategy/components/ChartStrategy'
+import { ChartStore } from '@/modules/Strategy/store/chartStore'
+import { useProvider } from '@/hooks/useStore'
+
+import './StrategyPage.scss'
+import { useParams } from 'react-router-dom'
+import { Params } from '@/routes'
+import { StrategiesTransactionsStore } from '@/modules/Dashboard/store/strategiesTransactionsStore'
+import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/components/TabelStrategyTransactionsDashboard'
+import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
+import { TabelStrategyWithdrawDashboard } from '@/modules/Dashboard/components/TabelStrategyWithdrawDashboard'
 
 export default function StrategyPage(): JSX.Element {
+    const ChartProvider = useProvider(ChartStore)
+    const StrategiesTransactionsProvider = useProvider(StrategiesTransactionsStore)
+    const StrategyWithdrawProvider = useProvider(StrategyWithdrawStore)
+
     return (
-        <Strategy />
+        <div className="container container--large dashboard">
+            <ChartProvider>
+                <ChartStrategy />
+            </ChartProvider>
+
+            <StrategiesTransactionsProvider>
+                <TabelStrategyTransactionsDashboard />
+            </StrategiesTransactionsProvider>
+            <StrategyWithdrawProvider>
+                <TabelStrategyWithdrawDashboard />
+            </StrategyWithdrawProvider>
+        </div>
     )
-}
+} 

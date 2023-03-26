@@ -1,8 +1,11 @@
-import { Direction, MainPage, MainPageResponse, StrategiesRequest, StrategiesResponse, StrategiesService, StrategyColumn, StrategyInfo, TvlRequest, TvlResponse, UsersService } from "@/apiClientCodegen";
-import { AbstractStore } from "@broxus/js-core";
-import { uniqBy } from "lodash";
-import { DateTime } from "luxon";
-import { computed, makeObservable, reaction } from "mobx";
+import { AbstractStore } from '@broxus/js-core'
+import { uniqBy } from 'lodash'
+import { DateTime } from 'luxon'
+import { computed, makeObservable, reaction } from 'mobx'
+
+import {
+    MainPage, StrategiesService, TvlRequest, TvlResponse, UsersService,
+} from '@/apiClientCodegen'
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
@@ -39,12 +42,12 @@ export class ChartStore extends AbstractStore<
         reaction(
             () => [
                 this._state.pagination.from,
-                this._state.pagination.to
+                this._state.pagination.to,
             ],
             async () => {
                 await this.getUsersTvlCharts({
                     from: Math.floor(this._state?.pagination?.from || DateTime.local().minus({
-                        days: 30
+                        days: 30,
                     }).toUTC(undefined, {
                         keepLocalTime: false,
                     }).toSeconds()),
@@ -69,36 +72,7 @@ export class ChartStore extends AbstractStore<
         const response = await UsersService.postUsersTvl(params)
 
         const data = this._data.tvlCharts.concat(response ?? [])
-        this.setData("tvlCharts", data)
-
-        // const mappedResponse = response.map(
-        //     item => ({
-        //         time: (item.timestamp),
-        //         value: parseFloat(item.tvl),
-        //     }),
-        // )
-        // if (this._data.tvlCharts) {
-        //     const merged = uniqBy(mappedResponse.concat(this._data.tvlCharts.slice()), 'time')
-        //     merged.sort((a, b) => (a.time as number) - (b.time as number))
-        //     this.setData('tvlCharts', merged)
-        // } else {
-        // const merged = uniqBy(mappedResponse.concat(this._data.tvlCharts.slice()), 'time')
-        // merged.sort((a, b) => (a.time as number) - (b.time as number))
-        // this.setData('tvlCharts', merged)
-        // // }
-
-        // setData((prevData: SeriesDataItemTypeMap[typeof type][]) => {
-
-        //     if (update) {
-        //         prevData.slice().push(...mappedResponse)
-        //         return uniqBy(prevData, 'time')
-        //     }
-        //     const merged = uniqBy(mappedResponse.concat(prevData.slice()), 'time')
-        //     merged.sort((a, b) => (a.time as number) - (b.time as number))
-        //     return merged
-        // })
-
-        // this.setData('tvlCharts', response)
+        this.setData('tvlCharts', data)
     }
 
 
@@ -120,4 +94,5 @@ export class ChartStore extends AbstractStore<
     public get strategyMainInfo() {
         return this._data.strategyMainInfo
     }
+
 }

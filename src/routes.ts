@@ -32,4 +32,5 @@ export const appRoutes = {
     dashboard: new Route<URLTokensParams>('/dashboard'),
     docs: new Route<URLTokensParams>('/docs'),
     decomeValidator: new Route<URLTokensParams>('/decomeValidator'),
+    strategy: new Route<URLTokensParams>('/strategy/:id'),
 }
