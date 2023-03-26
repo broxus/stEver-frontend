@@ -98,7 +98,7 @@ function FormTab({
                     />
                 )}
             </Observer>
-            <Button type="primary" className="uk-width-1-1">
+            <Button htmlType="submit" type="primary" className="uk-width-1-1">
                 {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
             </Button>
         </Flex>

@@ -69,7 +69,8 @@ export class StakingStore extends AbstractStore<
     }
 
     public async submit(): Promise<void> {
-        alert('D')
+        const d = await this._data.contr.encodeDepositPayload()
+        console.log(d)
     }
 
     public setAmount(value: string): void {
