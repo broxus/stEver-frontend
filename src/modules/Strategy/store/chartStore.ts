@@ -36,8 +36,8 @@ export class ChartStore extends AbstractStore<
 
         reaction(
             () => [
-                this._state.pagination.from,
-                this._state.pagination.to,
+                this._state.pagination?.from,
+                this._state.pagination?.to,
             ],
             async () => {
                 if (this.params.id)
@@ -62,7 +62,7 @@ export class ChartStore extends AbstractStore<
 
         reaction(
             () => {
-                this._state.pagination.address
+                this._state.pagination?.address
             },
             async () => {
                 if (this._state?.pagination?.address)

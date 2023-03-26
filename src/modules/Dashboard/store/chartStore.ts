@@ -41,8 +41,8 @@ export class ChartStore extends AbstractStore<
         this.setData('tvlCharts', [])
         reaction(
             () => [
-                this._state.pagination.from,
-                this._state.pagination.to,
+                this._state.pagination?.from,
+                this._state.pagination?.to,
             ],
             async () => {
                 await this.getUsersTvlCharts({

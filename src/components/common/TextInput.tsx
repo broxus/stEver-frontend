@@ -51,7 +51,7 @@ function TextInputInner({
 
     return (
         <Flex
-            childWidth={1} flexDirection="column" className={classNames(borderButtom && 'text-input-border-buttom', 'text-input-container')}
+            flexDirection="column" className={classNames(borderButtom && 'text-input-border-buttom', 'text-input-container')}
         >
             <Flex className="uk-margin-remove" justifyContent="between">
                 <Text size="small" component="p" className="uk-margin-remove">{title}</Text>

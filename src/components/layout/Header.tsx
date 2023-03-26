@@ -14,8 +14,6 @@ import { DesktopNav } from './DesktopNav'
 import './Header.scss'
 
 export function Header(): JSX.Element {
-    const wallet = useTvmWalletContext()
-    console.log(wallet)
     return (
         <header className="header">
             <Navbar className="uk-width-expand">
