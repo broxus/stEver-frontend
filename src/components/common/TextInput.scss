@@ -14,35 +14,24 @@
 
 .text-input {
     background: #fff0;
-
-    // width: min-content;
     border: none;
     box-sizing: border-box;
     color: #000;
     min-width: 128px;
     padding: 0;
 
-
-    // &:disabled {
-    //     color: rgba(255, 255, 255, 0.32);
-    //     background: rgba(0, 0, 0, 0.08);
-    //     cursor: not-allowed;
-    // }
     &:hover {
         background: #fff0;
+        color: #000;
     }
 
     &:focus {
         background: #fff0;
+        color: #000;
     }
 
-    // .uk-control-prefix {
-    //     margin: 0;
-    //     margin-right: 0 !important;
-    // }
-
     input {
-        color: #000;
+        color: #000!important;
         font-feature-settings: 'ss10' on;
         font-size: 24px!important;
 

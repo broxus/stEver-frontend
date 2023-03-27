@@ -46,7 +46,6 @@ function ChartDashboardInner(): JSX.Element {
     }, 50)
 
     React.useEffect(() => {
-        console.log("T1")
         dashboard.getUsersTvlCharts({
             from: Math.floor(DateTime.local()
                 .minus({

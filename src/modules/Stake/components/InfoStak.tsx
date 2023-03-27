@@ -4,30 +4,44 @@ import {
 } from '@broxus/react-uikit'
 
 import './InfoStak.scss'
+import { useStore } from '@/hooks/useStore'
+import { StakingStore } from '../store/stakingStore'
+import { Observer, observer } from 'mobx-react-lite'
+import BigNumber from 'bignumber.js'
+import { ST_EVER_DECIMALS } from '@/config'
 
-export function InfoStak(): JSX.Element {
+export function InfoStakInner(): JSX.Element {
+    const staking = useStore(StakingStore)
+
     return (
-        <Flex flexDirection="column" justifyContent="center">
-            <Flex justifyContent="center">
-                <Heading component="h1">
-                    Stake your EVERs
-                </Heading>
-            </Flex>
+        <Observer>
+            {() => (
+                <Flex flexDirection="column" justifyContent="center">
+                    <Flex justifyContent="center">
+                        <Heading component="h1">
+                            Stake your EVERs
+                        </Heading>
+                    </Flex>
 
-            <Flex justifyContent="center" className="border">
-                <Tile className="uk-padding-remove">
-                    <Text component="h4" className="uk-text-center uk-margin-remove">24 876 200</Text>
-                    <Text className="uk-text-center uk-margin-remove">EVER staked</Text>
-                </Tile>
-                <Tile className="uk-padding-remove">
-                    <Text component="h4" className="uk-text-center uk-margin-remove">12%</Text>
-                    <Text className="uk-text-center uk-margin-remove">Average APY</Text>
-                </Tile>
-                <Tile className="uk-padding-remove">
-                    <Text component="h4" className="uk-text-center uk-margin-remove">16</Text>
-                    <Text className="uk-text-center uk-margin-remove">Active stakers</Text>
-                </Tile>
-            </Flex>
-        </Flex>
+                    <Flex justifyContent="center" className="border">
+                        <Tile className="uk-padding-remove">
+                            <Text component="h4" className="uk-text-center uk-margin-remove">{parseFloat(new BigNumber(staking?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</Text>
+                            <Text className="uk-text-center uk-margin-remove">EVER staked</Text>
+                        </Tile>
+                        <Tile className="uk-padding-remove">
+                            <Text component="h4" className="uk-text-center uk-margin-remove">{new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).integerValue().toFixed()}%</Text>
+                            <Text className="uk-text-center uk-margin-remove">Average APY</Text>
+                        </Tile>
+                        <Tile className="uk-padding-remove">
+                            <Text component="h4" className="uk-text-center uk-margin-remove">{staking?.strategyMainInfo?.holders}</Text>
+                            <Text className="uk-text-center uk-margin-remove">Holders</Text>
+                        </Tile>
+                    </Flex>
+                </Flex>
+            )}
+        </Observer>
+
     )
 }
+
+export const InfoStak = observer(InfoStakInner)

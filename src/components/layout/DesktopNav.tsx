@@ -28,7 +28,7 @@ export function DesktopNav(): JSX.Element {
                     })}
                 </NavLink>
             </Nav.Item>
-            <Nav.Item>
+            {/* <Nav.Item>
                 <NavLink key="docs" to={appRoutes.docs.makeUrl()}>
                     {intl.formatMessage({
                         id: 'NAV_LINK_TEXT_DOCS',
@@ -41,7 +41,7 @@ export function DesktopNav(): JSX.Element {
                         id: 'NAV_LINK_TEXT_BECOME_A_VLIDATOR',
                     })}
                 </NavLink>
-            </Nav.Item>
+            </Nav.Item> */}
         </Navbar.Nav>
     )
 }

@@ -13,6 +13,7 @@ import { parseCurrency } from '@/utils/parseCurrency'
 import { Staking } from '../models/staking'
 import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS, ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG } from '@/config'
 import { Address } from 'everscale-inpage-provider'
+import { MainPage, StrategiesService } from '@/apiClientCodegen'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -28,6 +29,8 @@ type StakingStoreState = {
 
 type StakingStoreData = {
     modelStaking: Staking;
+    strategyMainInfo: MainPage
+
 }
 
 
@@ -56,7 +59,7 @@ export class StakingStore extends AbstractStore<
         reaction(
             () => this._state.amount,
             async amount => {
-                if (amount) this.estimateDepositStEverAmount(amount)
+                this.estimateDepositStEverAmount(amount || "0")
             },
             { fireImmediately: true },
         )
@@ -77,6 +80,14 @@ export class StakingStore extends AbstractStore<
                         ))
 
                 })
+            },
+            { fireImmediately: true },
+        )
+
+        reaction(
+            () => { },
+            async () => {
+                this.getMainInfo()
             },
             { fireImmediately: true },
         )
@@ -104,6 +115,11 @@ export class StakingStore extends AbstractStore<
                 })
             }
         }
+    }
+
+    public async getMainInfo(): Promise<void> {
+        const response = await StrategiesService.getStrategiesMain()
+        this.setData('strategyMainInfo', response.data)
     }
 
     public setAmount(value: string): void {
@@ -158,6 +174,11 @@ export class StakingStore extends AbstractStore<
     }
 
     @computed
+    public get strategyMainInfo() {
+        return this._data.strategyMainInfo
+    }
+
+    @computed
     public get exchangeRate(): string | undefined {
         if (!this.stakeDetails) return undefined
         const { stEverSupply, totalAssets } = this.stakeDetails
@@ -166,7 +187,7 @@ export class StakingStore extends AbstractStore<
     }
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        const amount = parseCurrency(value, ST_EVER_DECIMALS)
+        const amount = parseCurrency(value, ST_EVER_DECIMALS) || "0"
         if (this._state.type === StakingType.Stake) {
             this.setState('depositStEverAmount', await this._data.modelStaking.getDepositStEverAmount(amount))
         }
