@@ -4,11 +4,13 @@ import {
 } from '@broxus/react-uikit'
 
 import './InfoStak.scss'
-import { useStore } from '@/hooks/useStore'
-import { StakingStore } from '../store/stakingStore'
 import { Observer, observer } from 'mobx-react-lite'
 import BigNumber from 'bignumber.js'
+
+import { useStore } from '@/hooks/useStore'
 import { ST_EVER_DECIMALS } from '@/config'
+
+import { StakingStore } from '../store/stakingStore'
 
 export function InfoStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
@@ -29,7 +31,10 @@ export function InfoStakInner(): JSX.Element {
                             <Text className="uk-text-center uk-margin-remove">EVER staked</Text>
                         </Tile>
                         <Tile className="uk-padding-remove">
-                            <Text component="h4" className="uk-text-center uk-margin-remove">{new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).integerValue().toFixed()}%</Text>
+                            <Text component="h4" className="uk-text-center uk-margin-remove">
+                                {new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).integerValue().toFixed()}
+                                %
+                            </Text>
                             <Text className="uk-text-center uk-margin-remove">Average APY</Text>
                         </Tile>
                         <Tile className="uk-padding-remove">

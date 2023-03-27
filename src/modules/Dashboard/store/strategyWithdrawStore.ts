@@ -1,11 +1,11 @@
 import { AbstractStore } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
+import { useParams } from 'react-router-dom'
 
 import {
     Direction, StrategiesService, StrategiesWithdrawalsRequest, StrategiesWithdrawalsStatus, StrategyWithdrawalColumn, StrategyWithdrawalResponse, StrategyWithdrawalsOrdering,
 } from '@/apiClientCodegen'
-import { useParams } from 'react-router-dom';
-import { Params } from '@/routes';
+import { Params } from '@/routes'
 
 type StrategiesTransactionsStoreData = {
     transactions: Array<StrategyWithdrawalResponse>;
@@ -28,6 +28,7 @@ export class StrategyWithdrawStore extends AbstractStore<
     StrategiesTransactionsStoreData,
     StrategiesTransactionsStoreState
 > {
+
     protected params = useParams<Params>()
 
     constructor() {
@@ -58,7 +59,7 @@ export class StrategyWithdrawStore extends AbstractStore<
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
                     status: StrategiesWithdrawalsStatus.DONE,
-                    strategy: this.params.id
+                    strategy: this.params.id,
                 })
             },
             { fireImmediately: true },

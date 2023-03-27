@@ -1,17 +1,18 @@
-import { AbstractStore } from '@broxus/js-core'
+import { AbstractStore, useCurrenciesApi } from '@broxus/js-core'
 import { uniqBy } from 'lodash'
-import { DateTime } from 'luxon'
 import { computed, makeObservable, reaction } from 'mobx'
+import BigNumber from 'bignumber.js'
 
 import {
     MainPage, StrategiesService, TvlRequest, TvlResponse, UsersService,
 } from '@/apiClientCodegen'
-import BigNumber from 'bignumber.js'
-import { ST_EVER_DECIMALS } from '@/config'
+import { ST_EVER_DECIMALS, WEVERRootAddress } from '@/config'
+
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
     strategyMainInfo: MainPage
+    price: string
 }
 
 type TabelDepoolsStoreState = {
@@ -32,6 +33,20 @@ export class ChartStore extends AbstractStore<
             async () => {
                 this.getMainInfo()
             },
+            { fireImmediately: true },
+        )
+
+        reaction(
+            () => { },
+            (async () => {
+                const api = useCurrenciesApi()
+                const price = await api.currenciesUsdtPrices.fetch(
+                    undefined,
+                    { method: 'POST' },
+                    { currency_addresses: [WEVERRootAddress] ?? [] },
+                )
+                this.setData('price', price[WEVERRootAddress])
+            }),
             { fireImmediately: true },
         )
     }
@@ -60,6 +75,11 @@ export class ChartStore extends AbstractStore<
     @computed
     public get strategyMainInfo() {
         return this._data.strategyMainInfo
+    }
+
+    @computed
+    public get price() {
+        return this._data.price
     }
 
 }

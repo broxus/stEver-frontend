@@ -1,11 +1,11 @@
 import { AbstractStore } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
+import { useParams } from 'react-router-dom'
 
 import {
     Direction, StrategiesService, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest,
 } from '@/apiClientCodegen'
-import { useParams } from 'react-router-dom';
-import { Params } from '@/routes';
+import { Params } from '@/routes'
 
 type StrategiesTransactionsStoreData = {
     transactions: Array<SystemTransactionResponse>;
@@ -28,6 +28,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
     StrategiesTransactionsStoreData,
     StrategiesTransactionsStoreState
 > {
+
     protected params = useParams<Params>()
 
     constructor() {

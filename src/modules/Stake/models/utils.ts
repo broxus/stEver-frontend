@@ -1,10 +1,10 @@
 import { Address, Transaction } from 'everscale-inpage-provider'
+import BigNumber from 'bignumber.js'
 
 import { StEverVaultDetails } from '@/abi/types'
+import { FEE } from '@/config'
 
 import { StEverTokenWallet, StEverTokenWalletRoot, stEverVaultContract } from './contracts'
-import BigNumber from 'bignumber.js'
-import { FEE } from '@/config'
 
 export abstract class StakingUtils {
 
@@ -36,7 +36,7 @@ export abstract class StakingUtils {
             .send({
                 from: sender,
                 amount: new BigNumber(depositAmount).plus(FEE).toFixed(),
-            });
+            })
         return transaction
     }
 
@@ -46,7 +46,7 @@ export abstract class StakingUtils {
             .encodeDepositPayload({
                 _nonce: Date.now().toString(),
             })
-            .call();
+            .call()
         return depositPayload
     }
 
@@ -73,7 +73,8 @@ export abstract class StakingUtils {
             .send({
                 from: sender,
                 amount: new BigNumber(params.amount).plus(FEE).toFixed(),
-            });
+            })
         return transaction
     }
+
 }

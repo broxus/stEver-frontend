@@ -5,8 +5,6 @@ import { ChartStore } from '@/modules/Strategy/store/chartStore'
 import { useProvider } from '@/hooks/useStore'
 
 import './StrategyPage.scss'
-import { useParams } from 'react-router-dom'
-import { Params } from '@/routes'
 import { StrategiesTransactionsStore } from '@/modules/Dashboard/store/strategiesTransactionsStore'
 import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/components/TabelStrategyTransactionsDashboard'
 import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
@@ -31,4 +29,4 @@ export default function StrategyPage(): JSX.Element {
             </StrategyWithdrawProvider>
         </div>
     )
-} 
+}

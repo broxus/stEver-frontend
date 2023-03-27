@@ -1,12 +1,11 @@
 import { AbstractStore } from '@broxus/js-core'
 import { uniqBy } from 'lodash'
-import { DateTime } from 'luxon'
 import { computed, makeObservable, reaction } from 'mobx'
+import { useParams } from 'react-router-dom'
 
 import {
-    MainPage, StrategiesService, StrategyPage, TvlRequest, TvlResponse, UsersService,
+    StrategiesService, StrategyPage, TvlRequest, TvlResponse,
 } from '@/apiClientCodegen'
-import { useParams } from 'react-router-dom'
 import { Params } from '@/routes'
 
 type TabelDepoolsStoreData = {
@@ -65,8 +64,7 @@ export class ChartStore extends AbstractStore<
                 this._state.pagination?.address
             },
             async () => {
-                if (this._state?.pagination?.address)
-                    this.getMainInfo(this._state?.pagination?.address)
+                if (this._state?.pagination?.address) this.getMainInfo(this._state?.pagination?.address)
             },
             { fireImmediately: true },
         )

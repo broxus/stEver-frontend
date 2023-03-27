@@ -15,7 +15,5 @@ export default function StakPage(): JSX.Element {
         <StakingProvider>
             <Stak />
         </StakingProvider>
-
-
     )
 }

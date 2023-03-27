@@ -4,17 +4,18 @@ import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
 
-import { RateChange } from '@/components/common/RateChange'
 
 import './ChartDashboard.scss'
 import { Observer, observer } from 'mobx-react-lite'
-
-import { useStore } from '@/hooks/useStore'
-
-import { ChartStore } from '../store/chartStore'
-
 import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
 import { DateTime } from 'luxon'
+import BigNumber from 'bignumber.js'
+
+import { ST_EVER_DECIMALS } from '@/config'
+import { useStore } from '@/hooks/useStore'
+import { RateChange } from '@/components/common/RateChange'
+
+import { ChartStore } from '../store/chartStore'
 
 function ChartDashboardInner(): JSX.Element {
 
@@ -111,6 +112,7 @@ function ChartDashboardInner(): JSX.Element {
             precision: 1,
         })}`
     }
+    console.log(dashboard?.strategyMainInfo)
 
     return (
         <div className="chartDashboard">
@@ -128,44 +130,43 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.tvl}
+                                                {parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}
                                                 {' '}
                                                 EVER
+
                                                 <span>
                                                     ~ $
-                                                    {dashboard?.strategyMainInfo?.tvlDelta}
+                                                    {' '}
+                                                    {new BigNumber(dashboard?.strategyMainInfo?.tvl).times(dashboard.price).integerValue().toFixed()}
                                                 </span>
                                             </Text>
-                                            <RateChange size="sm" value="8.81" />
+                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
                                     <Tile type="default" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Current price</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.price}
+                                                {new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
                                                 {' '}
                                                 EVER
                                                 <span>
                                                     ~ $
-                                                    {dashboard?.strategyMainInfo?.priceDelta}
+                                                    {new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
+
                                                 </span>
                                             </Text>
-                                            <RateChange size="sm" value="8.81" />
+                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
                                     <Tile type="default" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>APY</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.apy}
-                                                EVER
-                                                <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.apyDelta}
-                                                </span>
+                                                {new BigNumber(dashboard?.strategyMainInfo?.apy).times(100).toFixed(2)}
+                                                %
                                             </Text>
-                                            <RateChange size="sm" value="8.81" />
+                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
                                     <Tile type="default" size="xsmall">
@@ -173,14 +174,8 @@ function ChartDashboardInner(): JSX.Element {
                                             <Text>Holders</Text>
                                             <Text>
                                                 {dashboard?.strategyMainInfo?.holders}
-                                                {' '}
-                                                EVER
-                                                <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.holdersDelta}
-                                                </span>
                                             </Text>
-                                            <RateChange size="sm" value="8.81" />
+                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
                                 </Grid>

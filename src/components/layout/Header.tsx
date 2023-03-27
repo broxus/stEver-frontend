@@ -3,7 +3,7 @@ import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
 import { Navbar } from '@broxus/react-uikit'
-import { TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
+import { TvmConnector } from '@broxus/react-modules'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'

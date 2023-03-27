@@ -6,14 +6,14 @@ import {
     computed, makeObservable, reaction,
 } from 'mobx'
 import { formattedTokenAmount } from '@broxus/js-utils'
+import { Address } from 'everscale-inpage-provider'
 
 import { StEverVaultDetails } from '@/abi/types'
 import { parseCurrency } from '@/utils/parseCurrency'
+import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS, ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG } from '@/config'
+import { MainPage, StrategiesService } from '@/apiClientCodegen'
 
 import { Staking } from '../models/staking'
-import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS, ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG } from '@/config'
-import { Address } from 'everscale-inpage-provider'
-import { MainPage, StrategiesService } from '@/apiClientCodegen'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -40,6 +40,7 @@ export class StakingStore extends AbstractStore<
 > {
 
     protected rpc = useRpcClient()
+
     protected walletsCache = useWalletsCache()
 
     constructor(
@@ -59,7 +60,7 @@ export class StakingStore extends AbstractStore<
         reaction(
             () => this._state.amount,
             async amount => {
-                this.estimateDepositStEverAmount(amount || "0")
+                this.estimateDepositStEverAmount(amount || '0')
             },
             { fireImmediately: true },
         )
@@ -71,13 +72,15 @@ export class StakingStore extends AbstractStore<
 
                 await this.walletsCache.resolve(
                     this.wallet.address!,
-                    new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG)
-                ).then((e) => {
-                    this.setState("stBalance",
+                    new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
+                ).then(e => {
+                    this.setState(
+                        'stBalance',
                         formattedTokenAmount(
                             e.balance,
                             this.wallet.currency.decimals,
-                        ))
+                        ),
+                    )
 
                 })
             },
@@ -98,17 +101,18 @@ export class StakingStore extends AbstractStore<
             const amount = parseCurrency(this.amount, ST_EVER_DECIMALS)
             if (this._state.type === StakingType.Stake) {
                 await this._data.modelStaking.deposit(amount, this.wallet.account.address)
-            } else {
+            }
+            else {
                 const address = await this._data.modelStaking.getTokenWallet(
                     new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
-                    this.wallet.account.address
+                    this.wallet.account.address,
                 )
 
                 const depositPayload = await this._data.modelStaking.encodeDepositPayload()
                 await this._data.modelStaking.transfer(address, this.wallet.account.address, {
                     remainingGasTo: this.wallet.account?.address,
                     deployWalletValue: 0,
-                    amount: amount,
+                    amount,
                     notify: true,
                     recipient: new Address(ST_EVER_VAULT_ADDRESS_CONFIG),
                     payload: depositPayload,
@@ -137,9 +141,9 @@ export class StakingStore extends AbstractStore<
                 this.wallet.balance,
                 this.wallet.currency.decimals,
             )
-        } else {
-            return this._state.stBalance
         }
+        return this._state.stBalance
+
 
     }
 
@@ -187,7 +191,7 @@ export class StakingStore extends AbstractStore<
     }
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        const amount = parseCurrency(value, ST_EVER_DECIMALS) || "0"
+        const amount = parseCurrency(value, ST_EVER_DECIMALS) || '0'
         if (this._state.type === StakingType.Stake) {
             this.setState('depositStEverAmount', await this._data.modelStaking.getDepositStEverAmount(amount))
         }

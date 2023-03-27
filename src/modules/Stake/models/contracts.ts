@@ -1,4 +1,4 @@
-import { resolveTvmAddress, useRpcClient, useRpcProvider } from '@broxus/js-core'
+import { resolveTvmAddress, useRpcProvider } from '@broxus/js-core'
 import { Address, Contract } from 'everscale-inpage-provider'
 
 import { StEverVaultAbi } from '@/abi/StEverVault.abi'

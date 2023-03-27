@@ -50,7 +50,7 @@ export class Staking extends ProviderContractWrapper<
         return Staking.Utils._getWithdrawEverAmount(this.address, amount)
     }
 
-    public async deposit(amount: string, sender: Address,): Promise<Transaction> {
+    public async deposit(amount: string, sender: Address): Promise<Transaction> {
         return Staking.Utils._deposit(this.address, sender, amount)
     }
 

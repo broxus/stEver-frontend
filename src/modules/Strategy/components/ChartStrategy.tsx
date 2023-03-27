@@ -46,8 +46,8 @@ function ChartStrategyInner(): JSX.Element {
                 string: dashboard.getCurrentAddress,
                 requestBody: {
                     from,
-                    to: barsInfo.from
-                }
+                    to: barsInfo.from,
+                },
             })
         }
     }, 50)
@@ -64,13 +64,14 @@ function ChartStrategyInner(): JSX.Element {
                         .toUTC(undefined, {
                             keepLocalTime: false,
                         })
-                        .toSeconds()),
+                        .toSeconds(),
+                ),
                 to: Math.floor(DateTime.local()
                     .toUTC(undefined, {
                         keepLocalTime: false,
                     })
                     .toSeconds()),
-            }
+            },
         })
     }, [])
 

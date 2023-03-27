@@ -16,10 +16,10 @@ import DashboardPage from '@/modules/Dashboard'
 import StakPage from '@/modules/Stake'
 import { OpenAPI } from '@/apiClientCodegen'
 import StrategyPage from '@/modules/Strategy/page/Strategy'
+import { API_URL } from '@/config'
 
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
-import { API_URL } from '@/config'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
