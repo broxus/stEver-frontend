@@ -15,7 +15,8 @@ import { PanelLoader } from '@/components/common/PanelLoader'
 import { appRoutes } from '@/routes'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
-
+import BigNumber from 'bignumber.js'
+import { ST_EVER_DECIMALS } from '@/config'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -67,7 +68,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left">Depool</th>
+                {/* <th className="uk-text-left">Depool</th> */}
                 <th className="uk-text-left">
                     <Observer>
                         {() => (
@@ -84,7 +85,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                     </Observer>
                 </th>
                 <th className="uk-text-left">Strategy</th>
-                <th className="uk-text-left">Owner</th>
+                {/* <th className="uk-text-left">Owner</th> */}
                 <th className="uk-text-left">
                     <Observer>
                         {() => (
@@ -129,7 +130,7 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left"><Link>{sliceAddress(pool.depool)}</Link></td>
+                {/* <td className="uk-text-left"><Link>{sliceAddress(pool.depool)}</Link></td> */}
                 <td className="uk-text-left">{pool.validatorFee}</td>
                 <td className="uk-text-left">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
@@ -141,7 +142,7 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
 
 
                 </td>
-                <td className="uk-text-left"><Link>{sliceAddress(pool.owner)}</Link></td>
+                {/* <td className="uk-text-left"><Link>{sliceAddress(pool.owner)}</Link></td> */}
                 <td className="uk-text-left">
                     <Label
                         type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
@@ -149,7 +150,7 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
                         {pool.priority}
                     </Label>
                 </td>
-                <td className="uk-text-right">{pool.tvl}</td>
+                <td className="uk-text-right">{parseFloat(new BigNumber(pool.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
             </tr>
         </tbody>
     )

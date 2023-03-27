@@ -13,6 +13,8 @@ import { Direction, SystemTransactionColumn, SystemTransactionResponse } from '@
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
+import BigNumber from 'bignumber.js'
+import { ST_EVER_DECIMALS } from '@/config'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -102,7 +104,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                 <td className="uk-text-left"><Link>{sliceAddress(pool.strategy)}</Link></td>
                 <td className="uk-text-left"><Link>{sliceAddress(pool.transactionHash)}</Link></td>
                 <td className="uk-text-left">{pool.kind}</td>
-                <td className="uk-text-left">{pool.amount}</td>
+                <td className="uk-text-left">{parseFloat(new BigNumber(pool.amount ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
                 <td className="uk-text-right">{pool.transactionTime}</td>
             </tr>
         </tbody>

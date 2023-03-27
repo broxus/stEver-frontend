@@ -13,6 +13,8 @@ import { PanelLoader } from '@/components/common/PanelLoader'
 import { Direction, UserTransactionColumn, UserTransactionResponse } from '@/apiClientCodegen'
 
 import { UserTransactionsStore } from '../store/userTransactionsStore'
+import { ST_EVER_DECIMALS } from '@/config'
+import BigNumber from 'bignumber.js'
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
@@ -114,7 +116,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                 <td className="uk-text-left"><Link>{sliceAddress(pool.userAddress)}</Link></td>
                 <td className="uk-text-left"><Link>{sliceAddress(pool.transactionHash)}</Link></td>
                 <td className="uk-text-left">{pool.kind}</td>
-                <td className="uk-text-left">{pool.amount}</td>
+                <td className="uk-text-left">{parseFloat(new BigNumber(pool.amount ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
                 <td className="uk-text-right">{pool.transactionTime}</td>
             </tr>
         </tbody>
