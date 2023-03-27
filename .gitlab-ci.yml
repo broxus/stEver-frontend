@@ -1,0 +1,113 @@
+include:
+  - project: "infrastructure/gitlab-ci"
+    ref: main
+    file: "/templates/cloudbuild-common.gitlab-ci.yaml"
+  - project: "infrastructure/gitlab-ci"
+    ref: main
+    file: "templates/deploy.gitlab-ci.yaml"
+
+stages:
+  - cloudbuild
+  - deploy
+
+cloudbuild:image:dev:
+  only:
+    - dev
+  except:
+    - tags
+  extends: .cloudbuild:common
+  before_script:
+    - !reference [.image_branch, before_script]
+    - rm -rf src/config.ts && cp config/dev.ts src/config.ts
+
+deploy:dev:
+  only:
+    - dev
+  except:
+    - tags
+  extends: .deploy
+  when: on_success
+  environment:
+    name: dev
+    on_stop: stop:dev
+
+stop:dev:
+  only:
+    - dev
+  except:
+    - tags
+  extends: .stop
+  environment:
+    name: dev
+
+cloudbuild:image:master:
+  only:
+    - master
+  except:
+    - tags
+  extends: .cloudbuild:common
+  before_script:
+    - !reference [.image_branch, before_script]
+    - rm -rf src/config.ts && cp config/stage.ts src/config.ts
+
+deploy:master:
+  only:
+    - master
+  except:
+    - tags
+  extends: .deploy
+  environment:
+    name: stage
+    on_stop: stop:master
+
+stop:master:
+  only:
+    - master
+  except:
+    - tags
+  extends: .stop
+  environment:
+    name: stage
+
+cloudbuild:image:prod:
+  only:
+    - prod
+  except:
+    - tags
+  extends: .cloudbuild:common
+  before_script:
+    - !reference [.image_branch, before_script]
+    - rm -rf src/config.ts && cp config/prod.ts src/config.ts
+
+deploy:prod:
+  only:
+    - prod
+  except:
+    - tags
+  extends: .deploy
+  environment:
+    name: prod
+    on_stop: stop:prod
+
+stop:prod:
+  only:
+    - prod
+  except:
+    - tags
+  extends: .stop
+  environment:
+    name: prod
+
+cloudbuild:image:review:
+  extends: .cloudbuild:common
+  only:
+    - merge_requests
+  before_script:
+    - !reference [.image_branch, before_script]
+    - rm -rf src/config.ts && cp config/review.ts src/config.ts
+
+deploy:review:
+  extends: .deploy_review
+
+stop:review:
+  extends: .stop_review
