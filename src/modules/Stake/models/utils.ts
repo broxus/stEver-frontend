@@ -2,7 +2,7 @@ import { Address, Transaction } from 'everscale-inpage-provider'
 
 import { StEverVaultDetails } from '@/abi/types'
 
-import { StEverTokenWallet, stEverVaultContract } from './contracts'
+import { StEverTokenWallet, StEverTokenWalletRoot, stEverVaultContract } from './contracts'
 import BigNumber from 'bignumber.js'
 import { FEE } from '@/config'
 
@@ -48,6 +48,15 @@ export abstract class StakingUtils {
             })
             .call();
         return depositPayload
+    }
+
+    public static async _getTokenWallet(address: Address, owner: Address): Promise<Address> {
+        const contract = StEverTokenWalletRoot(address)
+        const tokenWallet = await contract.methods.walletOf({
+            answerId: 0,
+            walletOwner: owner,
+        }).call().then(r => r.value0)
+        return tokenWallet
     }
 
     public static async _transfer(address: Address, params: {

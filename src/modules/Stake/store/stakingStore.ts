@@ -88,8 +88,13 @@ export class StakingStore extends AbstractStore<
             if (this._state.type === StakingType.Stake) {
                 await this._data.modelStaking.deposit(amount)
             } else {
+                const address = await this._data.modelStaking.getTokenWallet(
+                    new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
+                    this.wallet.account.address
+                )
+
                 const depositPayload = await this._data.modelStaking.encodeDepositPayload()
-                await this._data.modelStaking.transfer({
+                await this._data.modelStaking.transfer(address, {
                     remainingGasTo: this.wallet.account?.address,
                     deployWalletValue: 0,
                     amount: amount,

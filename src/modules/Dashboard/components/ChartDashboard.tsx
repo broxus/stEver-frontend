@@ -36,9 +36,7 @@ function ChartDashboardInner(): JSX.Element {
             const from = (
                 barsInfo.from + (
                     Math.ceil(barsInfo?.barsBefore) - 2
-                ) * (
-                    3600
-                )
+                ) * 86400
             )
             dashboard.getUsersTvlCharts({
                 from,
@@ -52,7 +50,7 @@ function ChartDashboardInner(): JSX.Element {
         dashboard.getUsersTvlCharts({
             from: Math.floor(DateTime.local()
                 .minus({
-                    days: 7,
+                    days: 30,
                 })
                 .toUTC(undefined, {
                     keepLocalTime: false,
@@ -68,10 +66,10 @@ function ChartDashboardInner(): JSX.Element {
     }, [])
 
     React.useEffect(() => {
-        const bs = (chart.current?.timeScale().width() ?? 960) / (7 * 24)
+        const bs = (chart.current?.timeScale().width() ?? 860) / 30
         chart.current?.timeScale().applyOptions({
             barSpacing: bs,
-            minBarSpacing: bs,
+            // minBarSpacing: bs,
         })
 
         chart.current?.priceScale('right').applyOptions({
@@ -209,7 +207,7 @@ function ChartDashboardInner(): JSX.Element {
                                                 formatter: usdPriceFormatter,
                                                 type: 'custom',
                                             }}
-                                            priceScaleId="left"
+                                            priceScaleId="right"
                                         // visible={dashboard?.tvlCharts.length > 0}                                            
                                         // data={dashboard?.tvlCharts.map((d => (
                                         //     { time: d.timestamp, value: parseInt(d.tvl) }

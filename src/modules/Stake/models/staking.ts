@@ -58,7 +58,11 @@ export class Staking extends ProviderContractWrapper<
         return Staking.Utils._encodeDepositPayload(this.address)
     }
 
-    public async transfer(params: {
+    public async getTokenWallet(address: Address, owner: Address): Promise<Address> {
+        return Staking.Utils._getTokenWallet(address, owner)
+    }
+
+    public async transfer(address: Address, params: {
         amount: string | number;
         recipient: Address;
         deployWalletValue: string | number;
@@ -66,7 +70,7 @@ export class Staking extends ProviderContractWrapper<
         notify: boolean;
         payload: string;
     }): Promise<Transaction> {
-        return Staking.Utils._transfer(this._data.details?.stEverWallet!, params)
+        return Staking.Utils._transfer(address, params)
     }
 
 

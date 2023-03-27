@@ -6,6 +6,8 @@ import { computed, makeObservable, reaction } from 'mobx'
 import {
     MainPage, StrategiesService, TvlRequest, TvlResponse, UsersService,
 } from '@/apiClientCodegen'
+import BigNumber from 'bignumber.js'
+import { ST_EVER_DECIMALS } from '@/config'
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
@@ -51,7 +53,7 @@ export class ChartStore extends AbstractStore<
     public get tvlCharts() {
         return uniqBy(this._data.tvlCharts, 'timestamp').map<any>((item => ({
             time: (item.timestamp),
-            value: parseFloat(item.tvl),
+            value: parseFloat(new BigNumber(item.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).toFixed()),
         }))).reverse()
     }
 
