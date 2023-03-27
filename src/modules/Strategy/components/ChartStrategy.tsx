@@ -1,19 +1,20 @@
 import * as React from 'react'
-import {Chart} from '@broxus/react-components'
+import { Chart } from '@broxus/react-components'
 import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
 
-import {RateChange} from '@/components/common/RateChange'
+import { RateChange } from '@/components/common/RateChange'
 
 import './ChartStrategy.scss'
-import {Observer, observer} from 'mobx-react-lite'
+import { Observer, observer } from 'mobx-react-lite'
 
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 
-import {ChartStore} from '../store/chartStore'
+import { ChartStore } from '../store/chartStore'
 
-import {abbreviateNumber, debounce, formattedAmount} from '@broxus/js-utils'
+import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
+import { DateTime } from 'luxon'
 
 
 function ChartStrategyInner(): JSX.Element {
@@ -40,22 +41,54 @@ function ChartStrategyInner(): JSX.Element {
                     86400
                 )
             )
-            dashboard.setState('pagination', {
-                address: dashboard.getCurrentAddress,
-                from,
-                to: barsInfo.from,
+
+            dashboard.getUsersTvlCharts({
+                string: dashboard.getCurrentAddress,
+                requestBody: {
+                    from,
+                    to: barsInfo.from
+                }
             })
         }
     }, 50)
 
     React.useEffect(() => {
-        series.current?.api().priceScale().applyOptions({
+        dashboard.getUsersTvlCharts({
+            string: dashboard.getCurrentAddress,
+            requestBody: {
+                from: Math.floor(
+                    DateTime.local()
+                        .minus({
+                            days: 30,
+                        })
+                        .toUTC(undefined, {
+                            keepLocalTime: false,
+                        })
+                        .toSeconds()),
+                to: Math.floor(DateTime.local()
+                    .toUTC(undefined, {
+                        keepLocalTime: false,
+                    })
+                    .toSeconds()),
+            }
+        })
+    }, [])
+
+    React.useEffect(() => {
+        const bs = (chart.current?.timeScale().width() ?? 860) / 30
+        chart.current?.timeScale().applyOptions({
+            barSpacing: bs,
+            // minBarSpacing: bs,
+        })
+
+        chart.current?.priceScale('right').applyOptions({
             scaleMargins: {
-                bottom: 0.5,
+                bottom: 0.025,
                 top: 0.1,
             },
         })
-    }, [series.current])
+    }, [chart.current])
+
 
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
@@ -96,7 +129,7 @@ function ChartStrategyInner(): JSX.Element {
                                                     {dashboard?.strategyMainInfo?.tvlDelta}
                                                 </span>
                                             </Text>
-                                            <RateChange size="sm" value="8.81"/>
+                                            <RateChange size="sm" value="8.81" />
                                         </Grid>
                                     </Tile>
                                     {/* <Tile type="default" size="xsmall">
@@ -152,7 +185,7 @@ function ChartStrategyInner(): JSX.Element {
                             <Observer>
                                 {() => (
                                     <Chart
-                                        height={480} width={1000} style={{height: '100%'}}
+                                        height={480} width={1000} style={{ height: '100%' }}
                                         ref={chart}
                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                     >
@@ -167,10 +200,10 @@ function ChartStrategyInner(): JSX.Element {
                                                 type: 'custom',
                                             }}
                                             priceScaleId="left"
-                                            // visible={dashboard?.tvlCharts.length > 0}
-                                            // data={dashboard?.tvlCharts.map((d => (
-                                            //     { time: d.timestamp, value: parseInt(d.tvl) }
-                                            // ))).reverse()}
+                                        // visible={dashboard?.tvlCharts.length > 0}
+                                        // data={dashboard?.tvlCharts.map((d => (
+                                        //     { time: d.timestamp, value: parseInt(d.tvl) }
+                                        // ))).reverse()}
                                         />
                                     </Chart>
                                 )}

@@ -34,31 +34,31 @@ export class ChartStore extends AbstractStore<
         makeObservable(this)
         this.setData('tvlCharts', [])
 
-        reaction(
-            () => [
-                this._state.pagination?.from,
-                this._state.pagination?.to,
-            ],
-            async () => {
-                if (this.params.id)
-                    await this.getUsersTvlCharts(
-                        {
-                            string: this.params.id,
-                            requestBody: {
-                                from: Math.floor(this._state?.pagination?.from || DateTime.local().minus({
-                                    days: 30,
-                                }).toUTC(undefined, {
-                                    keepLocalTime: false,
-                                }).toSeconds()),
-                                to: Math.floor(this._state?.pagination?.to || DateTime.local().toUTC(undefined, {
-                                    keepLocalTime: false,
-                                }).toSeconds()),
-                            }
-                        }
-                    )
-            },
-            { fireImmediately: true },
-        )
+        // reaction(
+        //     () => [
+        //         this._state.pagination?.from,
+        //         this._state.pagination?.to,
+        //     ],
+        //     async () => {
+        //         if (this.params.id)
+        //             await this.getUsersTvlCharts(
+        //                 {
+        //                     string: this.params.id,
+        //                     requestBody: {
+        //                         from: Math.floor(this._state?.pagination?.from || DateTime.local().minus({
+        //                             days: 30,
+        //                         }).toUTC(undefined, {
+        //                             keepLocalTime: false,
+        //                         }).toSeconds()),
+        //                         to: Math.floor(this._state?.pagination?.to || DateTime.local().toUTC(undefined, {
+        //                             keepLocalTime: false,
+        //                         }).toSeconds()),
+        //                     }
+        //                 }
+        //             )
+        //     },
+        //     { fireImmediately: true },
+        // )
 
         reaction(
             () => {
