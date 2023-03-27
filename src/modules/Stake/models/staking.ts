@@ -50,8 +50,8 @@ export class Staking extends ProviderContractWrapper<
         return Staking.Utils._getWithdrawEverAmount(this.address, amount)
     }
 
-    public async deposit(amount: string): Promise<Transaction> {
-        return Staking.Utils._deposit(this.address, amount)
+    public async deposit(amount: string, sender: Address,): Promise<Transaction> {
+        return Staking.Utils._deposit(this.address, sender, amount)
     }
 
     public async encodeDepositPayload(): Promise<string> {
@@ -62,7 +62,7 @@ export class Staking extends ProviderContractWrapper<
         return Staking.Utils._getTokenWallet(address, owner)
     }
 
-    public async transfer(address: Address, params: {
+    public async transfer(address: Address, sender: Address, params: {
         amount: string | number;
         recipient: Address;
         deployWalletValue: string | number;
@@ -70,7 +70,7 @@ export class Staking extends ProviderContractWrapper<
         notify: boolean;
         payload: string;
     }): Promise<Transaction> {
-        return Staking.Utils._transfer(address, params)
+        return Staking.Utils._transfer(address, sender, params)
     }
 
 

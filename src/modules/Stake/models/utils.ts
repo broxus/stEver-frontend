@@ -26,7 +26,7 @@ export abstract class StakingUtils {
         return value0
     }
 
-    public static async _deposit(address: Address, depositAmount: string): Promise<Transaction> {
+    public static async _deposit(address: Address, sender: Address, depositAmount: string): Promise<Transaction> {
         const contract = stEverVaultContract(address)
         const transaction = await contract.methods
             .deposit({
@@ -34,7 +34,7 @@ export abstract class StakingUtils {
                 _nonce: Date.now().toString(),
             })
             .send({
-                from: new Address("0:f8938c6b8ed47a4b2fb2c3f85054e899918a812724a3d9f84ccbf65016b20638"),
+                from: sender,
                 amount: new BigNumber(depositAmount).plus(FEE).toFixed(),
             });
         return transaction
@@ -59,7 +59,7 @@ export abstract class StakingUtils {
         return tokenWallet
     }
 
-    public static async _transfer(address: Address, params: {
+    public static async _transfer(address: Address, sender: Address, params: {
         amount: string | number;
         recipient: Address;
         deployWalletValue: string | number;
@@ -71,7 +71,7 @@ export abstract class StakingUtils {
         const transaction = await contract.methods
             .transfer(params)
             .send({
-                from: new Address("0:f8938c6b8ed47a4b2fb2c3f85054e899918a812724a3d9f84ccbf65016b20638"),
+                from: sender,
                 amount: new BigNumber(params.amount).plus(FEE).toFixed(),
             });
         return transaction
