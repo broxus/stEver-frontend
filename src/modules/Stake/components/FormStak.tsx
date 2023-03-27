@@ -14,6 +14,8 @@ import CoinStEverLogo from '@/assets/icons/StEVER.svg'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
 import { ST_EVER_DECIMALS } from '@/config'
+import { useWalletsCache } from '@broxus/js-core'
+import { Address } from 'everscale-inpage-provider'
 
 
 function FormStakInner(): JSX.Element {

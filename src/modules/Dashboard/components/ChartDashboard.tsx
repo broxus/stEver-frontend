@@ -14,6 +14,7 @@ import { useStore } from '@/hooks/useStore'
 import { ChartStore } from '../store/chartStore'
 
 import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
+import { DateTime } from 'luxon'
 
 function ChartDashboardInner(): JSX.Element {
 
@@ -36,10 +37,10 @@ function ChartDashboardInner(): JSX.Element {
                 barsInfo.from + (
                     Math.ceil(barsInfo?.barsBefore) - 2
                 ) * (
-                    86400
+                    3600
                 )
             )
-            dashboard.setState('pagination', {
+            dashboard.getUsersTvlCharts({
                 from,
                 to: barsInfo.from,
             })
@@ -47,13 +48,57 @@ function ChartDashboardInner(): JSX.Element {
     }, 50)
 
     React.useEffect(() => {
-        series.current?.api().priceScale().applyOptions({
+        console.log("T1")
+        dashboard.getUsersTvlCharts({
+            from: Math.floor(DateTime.local()
+                .minus({
+                    days: 7,
+                })
+                .toUTC(undefined, {
+                    keepLocalTime: false,
+                })
+                .toSeconds()),
+
+            to: Math.floor(DateTime.local()
+                .toUTC(undefined, {
+                    keepLocalTime: false,
+                })
+                .toSeconds()),
+        })
+    }, [])
+
+    React.useEffect(() => {
+        const bs = (chart.current?.timeScale().width() ?? 960) / (7 * 24)
+        chart.current?.timeScale().applyOptions({
+            barSpacing: bs,
+            minBarSpacing: bs,
+        })
+
+        chart.current?.priceScale('right').applyOptions({
             scaleMargins: {
-                bottom: 0.5,
+                bottom: 0.025,
                 top: 0.1,
             },
         })
-    }, [series.current])
+    }, [chart.current])
+
+    // React.useEffect(() => {
+    //     series.current?.api().priceScale().applyOptions({
+    //         scaleMargins: {
+    //             bottom: 0.5,
+    //             top: 0.1,
+    //         },
+    //     })
+    // }, [series.current])
+
+    // React.useEffect(() => {
+    //     const bs = (chart.current?.timeScale().width() ?? 960) / 30 * 24
+    //     chart.current?.timeScale().applyOptions({
+    //         barSpacing: bs,
+    //         minBarSpacing: bs,
+    //     })
+    // }, [chart.current])
+
 
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {

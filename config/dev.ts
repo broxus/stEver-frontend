@@ -2,6 +2,7 @@ export type NetworkGroup = 'mainnet' | 'testnet' | 'fld' | 'rfld' | 'localnet' |
 
 export const ST_EVER = 'STEVER'
 export const ST_EVER_DECIMALS = 9
+export const FEE = 2000000000 
 
 export const STAKE_APY_PERCENT = 12
 

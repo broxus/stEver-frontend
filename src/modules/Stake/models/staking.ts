@@ -1,5 +1,5 @@
 import { ProviderContractWrapper } from '@broxus/js-core'
-import { Address } from 'everscale-inpage-provider'
+import { Address, Transaction } from 'everscale-inpage-provider'
 import {
     computed, makeObservable,
 } from 'mobx'
@@ -50,9 +50,25 @@ export class Staking extends ProviderContractWrapper<
         return Staking.Utils._getWithdrawEverAmount(this.address, amount)
     }
 
+    public async deposit(amount: string): Promise<Transaction> {
+        return Staking.Utils._deposit(this.address, amount)
+    }
+
     public async encodeDepositPayload(): Promise<string> {
         return Staking.Utils._encodeDepositPayload(this.address)
     }
+
+    public async transfer(params: {
+        amount: string | number;
+        recipient: Address;
+        deployWalletValue: string | number;
+        remainingGasTo: Address;
+        notify: boolean;
+        payload: string;
+    }): Promise<Transaction> {
+        return Staking.Utils._transfer(this._data.details?.stEverWallet!, params)
+    }
+
 
     @computed
     public get details(): StakingType['details'] {
