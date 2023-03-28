@@ -9,7 +9,7 @@ import {
 import { Params } from '@/routes'
 import { Strategy } from '../models/staking'
 import { Address } from 'everscale-inpage-provider'
-import { GetDePoolInfo, StrategyDePool } from '@/abi/types'
+import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
 import { WEVERRootAddress } from '@/config'
 
 type TabelDepoolsStoreData = {
@@ -110,7 +110,7 @@ export class ChartStore extends AbstractStore<
     }
 
     @computed
-    public get strategyRounds(): any | undefined {
+    public get strategyRounds(): GetRounds | undefined {
         const details = this._data?.modelStrategy?.rounds
         return details
     }

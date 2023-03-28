@@ -1,6 +1,6 @@
 import { Address } from 'everscale-inpage-provider'
 
-import { GetDePoolInfo, StrategyDePool } from '@/abi/types'
+import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
 import { StEverDePoolStrategy, StEverStrategyDePool } from './contracts'
 
 export abstract class StrategyUtils {
@@ -17,7 +17,7 @@ export abstract class StrategyUtils {
         return data
     }
 
-    public static async _getRounds(address: Address): Promise<any> {
+    public static async _getRounds(address: Address): Promise<GetRounds> {
         const contract = StEverDePoolStrategy(address)
         const data = await contract.methods.getRounds().call()
         return data

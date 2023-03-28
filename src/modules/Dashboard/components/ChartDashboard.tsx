@@ -164,7 +164,7 @@ function ChartDashboardInner(): JSX.Element {
                                                         value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
                                                     />
                                                 </span>
-                                            </Text>
+                                            </Text> 
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
@@ -216,10 +216,6 @@ function ChartDashboardInner(): JSX.Element {
                                                 type: 'custom',
                                             }}
                                             priceScaleId="right"
-                                        // visible={dashboard?.tvlCharts.length > 0}                                            
-                                        // data={dashboard?.tvlCharts.map((d => (
-                                        //     { time: d.timestamp, value: parseInt(d.tvl) }
-                                        // ))).reverse()}
                                         />
                                     </Chart>
                                 )}

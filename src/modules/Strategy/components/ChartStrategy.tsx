@@ -107,8 +107,6 @@ function ChartStrategyInner(): JSX.Element {
             precision: 1,
         })}`
     }
-
-    console.log(dashboard.strategyRounds)
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
@@ -174,11 +172,7 @@ function ChartStrategyInner(): JSX.Element {
                                                 formatter: usdPriceFormatter,
                                                 type: 'custom',
                                             }}
-                                            priceScaleId="left"
-                                        // visible={dashboard?.tvlCharts.length > 0}
-                                        // data={dashboard?.tvlCharts.map((d => (
-                                        //     { time: d.timestamp, value: parseInt(d.tvl) }
-                                        // ))).reverse()}
+                                            priceScaleId="right"
                                         />
                                     </Chart>
                                 )}

@@ -44,7 +44,7 @@ export function InfoStakInner(): JSX.Element {
                             <Text className="uk-text-center uk-margin-remove">Average APY</Text>
                         </Tile>
                         <Tile className="uk-padding-remove">
-                            <Text component="h4" className="uk-text-center uk-margin-remove">{staking?.strategyMainInfo?.holders}</Text>
+                            <Text component="h4" className="uk-text-center uk-margin-remove">{staking?.strategyMainInfo?.holders ?? 0}</Text>
                             <Text className="uk-text-center uk-margin-remove">Holders</Text>
                         </Tile>
                     </Flex>

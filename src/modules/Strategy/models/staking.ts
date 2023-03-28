@@ -4,13 +4,13 @@ import {
     computed, makeObservable,
 } from 'mobx'
 
-import { GetDePoolInfo, StrategyDePool } from '@/abi/types'
+import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
 
 import { StrategyUtils } from './utils'
 
 type StrategyType = {
     details?: GetDePoolInfo
-    rounds?: any
+    rounds?: GetRounds
 }
 
 const initState: StrategyType = {
@@ -59,7 +59,7 @@ export class Strategy extends ProviderContractWrapper<
     }
     
     @computed
-    public get rounds(): StrategyType['details'] {
+    public get rounds(): StrategyType['rounds'] {
         return this._data.rounds
     }
 

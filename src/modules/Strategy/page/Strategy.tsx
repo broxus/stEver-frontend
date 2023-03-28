@@ -9,6 +9,7 @@ import { StrategiesTransactionsStore } from '@/modules/Dashboard/store/strategie
 import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/components/TabelStrategyTransactionsDashboard'
 import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
 import { TabelStrategyWithdrawDashboard } from '@/modules/Dashboard/components/TabelStrategyWithdrawDashboard'
+import { RoundsBalancesStrategy } from '../components/RoundsBalancesStrategy'
 
 export default function StrategyPage(): JSX.Element {
     const ChartProvider = useProvider(ChartStore)
@@ -19,8 +20,8 @@ export default function StrategyPage(): JSX.Element {
         <div className="container container--large dashboard">
             <ChartProvider>
                 <ChartStrategy />
+                <RoundsBalancesStrategy />
             </ChartProvider>
-
             <StrategiesTransactionsProvider>
                 <TabelStrategyTransactionsDashboard />
             </StrategiesTransactionsProvider>
