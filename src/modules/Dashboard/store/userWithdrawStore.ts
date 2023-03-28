@@ -55,7 +55,7 @@ export class UserWithdrawStore extends AbstractStore<
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
                     userAddress: null,
-                    status: UsersWithdrawalsStatus.DONE,
+                    // status: UsersWithdrawalsStatus.DONE,
                     amountGe: undefined,
                     amountLe: undefined,
                 })
