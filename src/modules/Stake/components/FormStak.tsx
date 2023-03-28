@@ -100,10 +100,15 @@ function FormTab({
                             price={type === StakingType.Stake ? staking.exchangeRate : staking.exchangeRate}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
-
-                        <Button htmlType="submit" disabled={!wallet.isConnected} type="primary" className="uk-width-1-1">
-                            {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
-                        </Button>
+                        {staking?.isFetching ?
+                            <Button  disabled={staking?.isFetching} type="primary" className="uk-width-1-1">
+                                Loading...
+                            </Button>
+                            :
+                            <Button htmlType="submit" disabled={!wallet.isConnected} type="primary" className="uk-width-1-1">
+                                {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
+                            </Button>
+                        }
                     </>
                 )}
             </Observer>

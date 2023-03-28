@@ -11,6 +11,7 @@ import { useStore } from '@/hooks/useStore'
 import { ST_EVER_DECIMALS } from '@/config'
 
 import { StakingStore } from '../store/stakingStore'
+import { FormattedTokenAmount } from '@broxus/react-components'
 
 export function InfoStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
@@ -27,7 +28,12 @@ export function InfoStakInner(): JSX.Element {
 
                     <Flex justifyContent="center" className="border">
                         <Tile className="uk-padding-remove">
-                            <Text component="h4" className="uk-text-center uk-margin-remove">{parseFloat(new BigNumber(staking?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</Text>
+                            <Text component="h4" className="uk-text-center uk-margin-remove">
+                                <FormattedTokenAmount
+                                    decimals={ST_EVER_DECIMALS}
+                                    value={staking?.strategyMainInfo?.tvl}
+                                />
+                            </Text>
                             <Text className="uk-text-center uk-margin-remove">EVER staked</Text>
                         </Tile>
                         <Tile className="uk-padding-remove">

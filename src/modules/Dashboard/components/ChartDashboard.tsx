@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Chart } from '@broxus/react-components'
+import { Chart, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
 import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
@@ -130,14 +130,15 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                {parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}
-                                                {' '}
-                                                EVER
-
+                                                <FormattedTokenAmount
+                                                    value={parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}
+                                                    symbol="EVER"
+                                                />
+                                                <br />
                                                 <span>
-                                                    ~ $
-                                                    {' '}
-                                                    {new BigNumber(dashboard?.strategyMainInfo?.tvl).times(dashboard.price).integerValue().toFixed()}
+                                                    ~<FormattedCurrencyValue
+                                                        value={new BigNumber(dashboard?.strategyMainInfo?.tvl).times(dashboard.price).integerValue().toFixed()}
+                                                    />
                                                 </span>
                                             </Text>
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
@@ -147,13 +148,15 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Current price</Text>
                                             <Text>
-                                                {new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
-                                                {' '}
-                                                EVER
+                                                <FormattedTokenAmount
+                                                    value={new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
+                                                    symbol="EVER"
+                                                />
+                                                <br />
                                                 <span>
-                                                    ~ $
-                                                    {new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
-
+                                                    ~<FormattedCurrencyValue
+                                                        value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
+                                                    />
                                                 </span>
                                             </Text>
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />

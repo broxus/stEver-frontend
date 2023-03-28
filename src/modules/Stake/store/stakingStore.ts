@@ -25,12 +25,12 @@ type StakingStoreState = {
     type: StakingType;
     depositStEverAmount: string;
     stBalance: string;
+    isFetching?: boolean;
 }
 
 type StakingStoreData = {
     modelStaking: Staking;
     strategyMainInfo: MainPage
-
 }
 
 
@@ -62,7 +62,7 @@ export class StakingStore extends AbstractStore<
             async amount => {
                 this.estimateDepositStEverAmount(amount || '0')
             },
-            { fireImmediately: true },
+            { fireImmediately: false },
         )
 
         reaction(
@@ -190,7 +190,13 @@ export class StakingStore extends AbstractStore<
         return new BigNumber(1).div(stEverToEverRate).toFixed(4)
     }
 
+    @computed
+    public get isFetching(): boolean | undefined {
+        return this._state.isFetching
+    }
+
     private async estimateDepositStEverAmount(value: string): Promise<void> {
+        this.setState("isFetching", true)
         const amount = parseCurrency(value, ST_EVER_DECIMALS) || '0'
         if (this._state.type === StakingType.Stake) {
             this.setState('depositStEverAmount', await this._data.modelStaking.getDepositStEverAmount(amount))
@@ -198,6 +204,7 @@ export class StakingStore extends AbstractStore<
         else {
             this.setState('depositStEverAmount', await this._data.modelStaking.getWithdrawEverAmount(amount))
         }
+        this.setState("isFetching", false)
     }
 
 
