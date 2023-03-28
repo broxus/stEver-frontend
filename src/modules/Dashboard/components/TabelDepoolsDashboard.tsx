@@ -17,6 +17,8 @@ import { appRoutes } from '@/routes'
 import { TabelDepoolsStore } from '../store/depoolsStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
+import { ExplorerAccountLink } from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -68,7 +70,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
     return (
         <thead className="uk-height-small">
             <tr>
-                {/* <th className="uk-text-left">Depool</th> */}
+                <th className="uk-text-left">Strategy</th>
                 <th className="uk-text-left">
                     <Observer>
                         {() => (
@@ -84,8 +86,8 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                         )}
                     </Observer>
                 </th>
-                <th className="uk-text-left">Strategy</th>
-                {/* <th className="uk-text-left">Owner</th> */}
+                <th className="uk-text-left">Depool</th>
+                <th className="uk-text-left">Owner</th>
                 <th className="uk-text-left">
                     <Observer>
                         {() => (
@@ -127,11 +129,11 @@ type Props = {
 }
 
 export function DepoolsListItem({ pool }: Props): JSX.Element {
+    const { wallet } = useTvmWalletContext()
+
     return (
         <tbody className="uk-height-small">
             <tr>
-                {/* <td className="uk-text-left"><Link>{sliceAddress(pool.depool)}</Link></td> */}
-                <td className="uk-text-left">{pool.validatorFee}</td>
                 <td className="uk-text-left">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
                         id: pool.strategy,
@@ -139,10 +141,10 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
                     >
                         {sliceAddress(pool.strategy)}
                     </NavLink>
-
-
                 </td>
-                {/* <td className="uk-text-left"><Link>{sliceAddress(pool.owner)}</Link></td> */}
+                <td className="uk-text-left">{pool.validatorFee}</td>
+                <td className="uk-text-left"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>{sliceAddress(pool.depool)}</ExplorerAccountLink> </Link></td>
+                <td className="uk-text-left"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>{sliceAddress(pool.owner)}</ExplorerAccountLink></Link></td>
                 <td className="uk-text-left">
                     <Label
                         type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}

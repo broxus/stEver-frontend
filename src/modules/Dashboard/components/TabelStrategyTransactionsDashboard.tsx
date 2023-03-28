@@ -15,6 +15,10 @@ import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
+import { NavLink, generatePath } from 'react-router-dom'
+import { appRoutes } from '@/routes'
+import { ExplorerAccountLink, ExplorerTransactionLink } from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -98,11 +102,25 @@ type Props = {
 }
 
 export function TransactionsListItem({ pool }: Props): JSX.Element {
+
+    const { wallet } = useTvmWalletContext()
+
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left"><Link>{sliceAddress(pool.strategy)}</Link></td>
-                <td className="uk-text-left"><Link>{sliceAddress(pool.transactionHash)}</Link></td>
+                <td className="uk-text-left">
+                    <NavLink to={generatePath(appRoutes.strategy.path, {
+                        id: pool.strategy,
+                    })}
+                    >
+                        {sliceAddress(pool.strategy)}
+                    </NavLink></td>
+                <td className="uk-text-left">
+                    <Link>
+                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                            {sliceAddress(pool.transactionHash)}
+                        </ExplorerTransactionLink>
+                    </Link></td>
                 <td className="uk-text-left">{pool.kind}</td>
                 <td className="uk-text-left">{parseFloat(new BigNumber(pool.amount ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
                 <td className="uk-text-right">{pool.transactionTime}</td>
