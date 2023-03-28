@@ -1,7 +1,10 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tile,
+    Button,
+    Checkbox,
+    Drop,
+    Flex, Heading, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -10,7 +13,7 @@ import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import { PanelLoader } from '@/components/common/PanelLoader'
-import { Direction, UserTransactionColumn, UserTransactionResponse } from '@/apiClientCodegen'
+import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind } from '@/apiClientCodegen'
 
 import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { ST_EVER_DECIMALS } from '@/config'
@@ -30,6 +33,7 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
             <Heading component="h4">
                 Transactions
             </Heading>
+            <TransactionListFilter userTransactions={userTransactions} />
             <Observer>
                 {() => (
                     <PanelLoader loading={userTransactions.isFetching}>
@@ -197,6 +201,66 @@ export function DepoolsListPagination({ userTransactions }: TransactionsListPagi
                 </Flex>
             )}
         </Observer>
+    )
+}
+
+type TransactionsListFilter = {
+    userTransactions: UserTransactionsStore
+}
+
+
+export function TransactionListFilter({ userTransactions }: TransactionsListFilter): JSX.Element {
+
+    const current = React.useRef<UserTransactionsKind[]>([])
+
+    const onChange = (e: UserTransactionsKind[]) => {
+        current.current = e
+    }
+
+    const onSubmit = () => {
+        userTransactions.setState("filter", current.current)
+    }
+
+    const options = [
+        {
+            label: 'Strategy deposit',
+            value: UserTransactionsKind.DEPOSIT,
+        },
+        {
+            label: 'Strategy pending withdraw',
+            value: UserTransactionsKind.WITHDRAWAL,
+        }
+    ]
+    return (
+        <Drop
+            trigger={['click']}
+            placement="bottom-right"
+            overlay={(
+                <Tile type="default" size="xsmall">
+                    <Text component="h6">Type</Text>
+                    <Checkbox.Group
+                        options={options}
+                        onChange={onChange}
+                    />
+                    <hr />
+                    <Flex justifyContent="between">
+                        <Link>Default</Link>
+                        <Flex>
+                            <Button size="small" type="default">
+                                Cancel
+                            </Button>
+                            <Button onClick={() => onSubmit()} size="small" type="primary">
+                                Apply
+                            </Button>
+                        </Flex>
+                    </Flex>
+                </Tile>
+            )}
+        >
+            <Button type="default">
+                Type
+            </Button>
+        </Drop>
     )
 }
 

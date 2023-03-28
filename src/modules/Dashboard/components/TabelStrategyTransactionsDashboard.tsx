@@ -1,6 +1,9 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
+    Button,
+    Checkbox,
+    Drop,
     Flex, Heading, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
@@ -9,7 +12,7 @@ import { sliceAddress } from '@broxus/js-utils'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import { PanelLoader } from '@/components/common/PanelLoader'
-import { Direction, SystemTransactionColumn, SystemTransactionResponse } from '@/apiClientCodegen'
+import { Direction, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
@@ -32,6 +35,7 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
             <Heading component="h4">
                 Transactions
             </Heading>
+            <TransactionListFilter strategyTransactions={strategyTransactions} />
             <Observer>
                 {() => (
                     <PanelLoader loading={strategyTransactions.isFetching}>
@@ -199,6 +203,66 @@ export function DepoolsListPagination({ strategyTransactions }: TransactionsList
                 </Flex>
             )}
         </Observer>
+    )
+}
+
+type TransactionsListFilter = {
+    strategyTransactions: StrategiesTransactionsStore
+}
+
+
+export function TransactionListFilter({ strategyTransactions }: TransactionsListFilter): JSX.Element {
+
+    const current = React.useRef<SystemTransactionsKind[]>([])
+
+    const onChange = (e: SystemTransactionsKind[]) => {
+        current.current = e
+    }
+
+    const onSubmit = () => {
+        strategyTransactions.setState("filter", current.current)
+    }
+
+    const options = [
+        {
+            label: 'Strategy deposit',
+            value: SystemTransactionsKind.DEPOSIT,
+        },
+        {
+            label: 'Strategy pending withdraw',
+            value: SystemTransactionsKind.WITHDRAWAL,
+        }
+    ]
+    return (
+        <Drop
+            trigger={['click']}
+            placement="bottom-right"
+            overlay={(
+                <Tile type="default" size="xsmall">
+                    <Text component="h6">Type</Text>
+                    <Checkbox.Group
+                        options={options}
+                        onChange={onChange}
+                    />
+                    <hr />
+                    <Flex justifyContent="between">
+                        <Link>Default</Link>
+                        <Flex>
+                            <Button size="small" type="default">
+                                Cancel
+                            </Button>
+                            <Button onClick={() => onSubmit()} size="small" type="primary">
+                                Apply
+                            </Button>
+                        </Flex>
+                    </Flex>
+                </Tile>
+            )}
+        >
+            <Button type="default">
+                Type
+            </Button>
+        </Drop>
     )
 }
 

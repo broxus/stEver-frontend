@@ -20,6 +20,7 @@ type UserTransactionsStoreState = {
     isFetching?: boolean;
     ordering: UserTransactionsOrdering
     pagination: UserTransactionsDashboardPagination;
+    filter: UserTransactionsKind[]
 }
 
 export class UserTransactionsStore extends AbstractStore<
@@ -42,17 +43,19 @@ export class UserTransactionsStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
+            filter: []
         }))
 
         reaction(
             () => [
                 this._state.ordering,
                 this._state.pagination,
+                this._state.filter,
             ],
             async () => {
                 this.getTransactions({
                     from: null,
-                    // kind: UserTransactionsKind.DEPOSIT,
+                    kind: this._state.filter.length === 2 ? undefined : this._state.filter[0],
                     limit: this._state.pagination.limit,
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,

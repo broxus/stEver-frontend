@@ -47,7 +47,6 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                         />
                                     </Media>
                                 ))}
-
                             </table>
                             <DepoolsListPagination tabelDepools={tabelDepools} />
                         </Tile>

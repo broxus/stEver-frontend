@@ -22,6 +22,7 @@ type StrategiesTransactionsStoreState = {
     isFetching?: boolean;
     ordering: SystemTransactionsOrdering
     pagination: StrategiesTransactionsDashboardPagination;
+    filter: SystemTransactionsKind[]
 }
 
 export class StrategiesTransactionsStore extends AbstractStore<
@@ -46,16 +47,18 @@ export class StrategiesTransactionsStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
+            filter: []
         }))
 
         reaction(
             () => [
                 this._state.ordering,
                 this._state.pagination,
+                this._state.filter,
             ],
             async () => {
                 this.getTransactions({
-                    // kind: SystemTransactionsKind.DEPOSIT,
+                    kind: this._state.filter.length === 2 ? undefined : this._state.filter[0],
                     limit: this._state.pagination.limit,
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
