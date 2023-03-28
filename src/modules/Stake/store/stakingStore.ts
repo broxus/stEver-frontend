@@ -139,9 +139,10 @@ export class StakingStore extends AbstractStore<
                 this.wallet.currency.decimals,
             )
         }
-        return this._data.stBalance
-
-
+        return formattedTokenAmount(
+            this._data.stBalance,
+            this.wallet.currency.decimals,
+        )
     }
 
     @computed
