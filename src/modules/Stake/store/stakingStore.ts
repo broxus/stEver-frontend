@@ -24,13 +24,13 @@ type StakingStoreState = {
     amount?: string;
     type: StakingType;
     depositStEverAmount: string;
-    stBalance: string;
     isFetching?: boolean;
 }
 
 type StakingStoreData = {
     modelStaking: Staking;
     strategyMainInfo: MainPage
+    stBalance: string;
 }
 
 
@@ -74,12 +74,9 @@ export class StakingStore extends AbstractStore<
                     this.wallet.address!,
                     new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
                 ).then(e => {
-                    this.setState(
+                    this.setData(
                         'stBalance',
-                        formattedTokenAmount(
-                            e.balance,
-                            this.wallet.currency.decimals,
-                        ),
+                        e.balance ? e.balance : "0",
                     )
 
                 })
@@ -142,7 +139,7 @@ export class StakingStore extends AbstractStore<
                 this.wallet.currency.decimals,
             )
         }
-        return this._state.stBalance
+        return this._data.stBalance
 
 
     }
