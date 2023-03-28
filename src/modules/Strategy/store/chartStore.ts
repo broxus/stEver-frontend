@@ -1,4 +1,4 @@
-import { AbstractStore } from '@broxus/js-core'
+import { AbstractStore, useCurrenciesApi } from '@broxus/js-core'
 import { uniqBy } from 'lodash'
 import { computed, makeObservable, reaction } from 'mobx'
 import { useParams } from 'react-router-dom'
@@ -7,15 +7,20 @@ import {
     StrategiesService, StrategyPage, TvlRequest, TvlResponse,
 } from '@/apiClientCodegen'
 import { Params } from '@/routes'
+import { Strategy } from '../models/staking'
+import { Address } from 'everscale-inpage-provider'
+import { GetDePoolInfo, StrategyDePool } from '@/abi/types'
+import { WEVERRootAddress } from '@/config'
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
     strategyMainInfo: StrategyPage
+    modelStrategy: Strategy
+    price: string
 }
 
 type TabelDepoolsStoreState = {
     pagination: {
-        address: string;
         from: number;
         to: number;
     };
@@ -31,41 +36,34 @@ export class ChartStore extends AbstractStore<
     constructor() {
         super()
         makeObservable(this)
-        this.setData('tvlCharts', [])
+        this.setData('tvlCharts', []);
 
-        // reaction(
-        //     () => [
-        //         this._state.pagination?.from,
-        //         this._state.pagination?.to,
-        //     ],
-        //     async () => {
-        //         if (this.params.id)
-        //             await this.getUsersTvlCharts(
-        //                 {
-        //                     string: this.params.id,
-        //                     requestBody: {
-        //                         from: Math.floor(this._state?.pagination?.from || DateTime.local().minus({
-        //                             days: 30,
-        //                         }).toUTC(undefined, {
-        //                             keepLocalTime: false,
-        //                         }).toSeconds()),
-        //                         to: Math.floor(this._state?.pagination?.to || DateTime.local().toUTC(undefined, {
-        //                             keepLocalTime: false,
-        //                         }).toSeconds()),
-        //                     }
-        //                 }
-        //             )
-        //     },
-        //     { fireImmediately: true },
-        // )
+        (async () => {
+            const contr = await Strategy.create(new Address(this.params.id))
+            this.setData('modelStrategy', contr)
+        })()
 
         reaction(
             () => {
-                this._state.pagination?.address
+                this.params.id
             },
             async () => {
-                if (this._state?.pagination?.address) this.getMainInfo(this._state?.pagination?.address)
+                if (this.params.id) this.getMainInfo(this.params.id)
             },
+            { fireImmediately: true },
+        )
+
+        reaction(
+            () => { },
+            (async () => {
+                const api = useCurrenciesApi()
+                const price = await api.currenciesUsdtPrices.fetch(
+                    undefined,
+                    { method: 'POST' },
+                    { currency_addresses: [WEVERRootAddress] ?? [] },
+                )
+                this.setData('price', price[WEVERRootAddress])
+            }),
             { fireImmediately: true },
         )
     }
@@ -105,4 +103,20 @@ export class ChartStore extends AbstractStore<
         return this.params.id
     }
 
+    @computed
+    public get strategyDetails(): GetDePoolInfo | undefined {
+        const details = this._data?.modelStrategy?.details
+        return details
+    }
+
+    @computed
+    public get strategyRounds(): any | undefined {
+        const details = this._data?.modelStrategy?.rounds
+        return details
+    }
+
+    @computed
+    public get price() {
+        return this._data.price
+    }
 }

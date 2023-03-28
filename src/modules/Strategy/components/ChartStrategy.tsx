@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Chart } from '@broxus/react-components'
+import { Chart, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
 import {
     Flex, Grid, Heading, Text, Tile, Width,
 } from '@broxus/react-uikit'
@@ -15,6 +15,8 @@ import { ChartStore } from '../store/chartStore'
 
 import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
 import { DateTime } from 'luxon'
+import { ST_EVER_DECIMALS } from '@/config'
+import BigNumber from 'bignumber.js'
 
 
 function ChartStrategyInner(): JSX.Element {
@@ -106,6 +108,7 @@ function ChartStrategyInner(): JSX.Element {
         })}`
     }
 
+    console.log(dashboard.strategyRounds)
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
@@ -118,65 +121,36 @@ function ChartStrategyInner(): JSX.Element {
                         <Observer>
                             {() => (
                                 <Grid gap="xsmall" childWidth={1}>
-                                    <Tile type="primary" size="xsmall">
+                                    <Tile type="default" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                {dashboard?.strategyMainInfo?.tvl}
-                                                {' '}
-                                                EVER
+                                                <FormattedTokenAmount
+                                                    decimals={ST_EVER_DECIMALS}
+                                                    value={dashboard?.strategyMainInfo?.tvl}
+                                                    symbol='EVER'
+                                                />
+                                                <br />
                                                 <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.tvlDelta}
+                                                    ~<FormattedCurrencyValue
+                                                        value={
+                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                .times(dashboard.price)
+                                                                .integerValue()
+                                                                .toFixed()
+                                                        }
+                                                    />
                                                 </span>
                                             </Text>
-                                            <RateChange size="sm" value="8.81" />
-                                        </Grid>
-                                    </Tile>
-                                    {/* <Tile type="default" size="xsmall">
-                                        <Grid gap="xsmall" childWidth={1}>
-                                            <Text>Current price</Text>
-                                            <Text>
-                                                {dashboard?.strategyMainInfo?.price}
-                                                {' '}
-                                                EVER
-                                                <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.priceDelta}
-                                                </span>
-                                            </Text>
-                                            <RateChange size="sm" value="8.81"/>
+                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
                                     <Tile type="default" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
-                                            <Text>APY</Text>
-                                            <Text>
-                                                {dashboard?.strategyMainInfo?.apy}
-                                                EVER
-                                                <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.apyDelta}
-                                                </span>
-                                            </Text>
-                                            <RateChange size="sm" value="8.81"/>
+                                            <Text>Fee</Text>
+                                            <Text>{dashboard.strategyDetails?.validatorRewardFraction}%</Text>
                                         </Grid>
-                                    </Tile> */}
-                                    {/* <Tile type="default" size="xsmall">
-                                        <Grid gap="xsmall" childWidth={1}>
-                                            <Text>Holders</Text>
-                                            <Text>
-                                                {dashboard?.strategyMainInfo?.holders}
-                                                {' '}
-                                                EVER
-                                                <span>
-                                                    ~ $
-                                                    {dashboard?.strategyMainInfo?.holdersDelta}
-                                                </span>
-                                            </Text>
-                                            <RateChange size="sm" value="8.81"/>
-                                        </Grid>
-                                    </Tile> */}
+                                    </Tile>
                                 </Grid>
                             )}
                         </Observer>
