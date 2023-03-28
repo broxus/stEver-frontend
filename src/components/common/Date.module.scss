@@ -1,0 +1,26 @@
+.root {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+
+    &.line {
+        flex-direction: row-reverse;
+        grid-gap: 4px;
+
+        .main {
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
+.main {
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 16px;
+    color: var(--gray);
+}

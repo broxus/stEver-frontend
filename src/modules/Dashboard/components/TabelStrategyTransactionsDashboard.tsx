@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tile,
+    Flex, Heading, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -19,6 +19,7 @@ import { NavLink, generatePath } from 'react-router-dom'
 import { appRoutes } from '@/routes'
 import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { Date } from '@/components/common/Date'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -128,7 +129,11 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         value={pool.amount}
                     />
                 </td>
-                <td className="uk-text-right">{pool.transactionTime}</td>
+                <td className="uk-text-right">
+                    <Flex flexDirection='column'>
+                        <Date time={pool.transactionTime * 1000} />
+                    </Flex>
+                </td>
             </tr>
         </tbody>
     )

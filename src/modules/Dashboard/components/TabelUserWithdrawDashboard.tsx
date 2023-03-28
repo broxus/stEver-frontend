@@ -19,6 +19,7 @@ import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
 import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { Date } from '@/components/common/Date'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
@@ -128,7 +129,11 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         value={pool.amount ?? 0}
                     />
                 </td>
-                <td className="uk-text-right">{pool.transactionTime}</td>
+                <td className="uk-text-right">
+                    <Flex flexDirection='column'>
+                        <Date time={pool.transactionTime * 1000} />
+                    </Flex>
+                </td>
             </tr>
         </tbody>
     )
