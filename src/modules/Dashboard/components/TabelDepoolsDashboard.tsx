@@ -17,7 +17,7 @@ import { appRoutes } from '@/routes'
 import { TabelDepoolsStore } from '../store/depoolsStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
-import { ExplorerAccountLink } from '@broxus/react-components'
+import { ExplorerAccountLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
@@ -152,7 +152,12 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
                         {pool.priority}
                     </Label>
                 </td>
-                <td className="uk-text-right">{parseFloat(new BigNumber(pool.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
+                <td className="uk-text-right">
+                    <FormattedTokenAmount
+                        decimals={ST_EVER_DECIMALS}
+                        value={pool.tvl}
+                    />
+                </td>
             </tr>
         </tbody>
     )

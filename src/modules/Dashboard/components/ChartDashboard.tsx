@@ -131,13 +131,19 @@ function ChartDashboardInner(): JSX.Element {
                                             <Text>TVL</Text>
                                             <Text>
                                                 <FormattedTokenAmount
-                                                    value={parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}
-                                                    symbol="EVER"
+                                                    decimals={ST_EVER_DECIMALS}
+                                                    value={dashboard?.strategyMainInfo?.tvl}
+                                                    symbol='EVER'
                                                 />
                                                 <br />
                                                 <span>
                                                     ~<FormattedCurrencyValue
-                                                        value={new BigNumber(dashboard?.strategyMainInfo?.tvl).times(dashboard.price).integerValue().toFixed()}
+                                                        value={
+                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                .times(dashboard.price)
+                                                                .integerValue()
+                                                                .toFixed()
+                                                        }
                                                     />
                                                 </span>
                                             </Text>

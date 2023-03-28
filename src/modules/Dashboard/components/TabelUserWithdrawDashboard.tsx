@@ -17,7 +17,7 @@ import {
 import { UserWithdrawStore } from '../store/userWithdrawStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
-import { ExplorerAccountLink, ExplorerTransactionLink } from '@broxus/react-components'
+import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 
 
@@ -122,7 +122,12 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
             <tr>
                 <td className="uk-text-left"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>{sliceAddress(pool.userAddress)}</ExplorerAccountLink></Link></td>
                 <td className="uk-text-left"><Link><ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
-                <td className="uk-text-left">{parseFloat(new BigNumber(pool.amount ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed())}</td>
+                <td className="uk-text-left">
+                    <FormattedTokenAmount
+                        decimals={ST_EVER_DECIMALS}
+                        value={pool.amount ?? 0}
+                    />
+                </td>
                 <td className="uk-text-right">{pool.transactionTime}</td>
             </tr>
         </tbody>
