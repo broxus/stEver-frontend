@@ -14,6 +14,7 @@ import CoinStEverLogo from '@/assets/icons/StEVER.svg'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
 import { ST_EVER_DECIMALS } from '@/config'
+import { useTvmWalletContext } from '@broxus/react-modules'
 
 
 function FormStakInner(): JSX.Element {
@@ -62,6 +63,8 @@ function FormTab({
     type,
     staking,
 }: FormTabType): JSX.Element {
+    const { wallet } = useTvmWalletContext()
+
     return (
         <Flex flexDirection="column" justifyContent="between">
             <Observer>
@@ -71,7 +74,7 @@ function FormTab({
                         placeholder="0"
                         value={staking.amount}
                         onChange={e => staking.setAmount(e)}
-                        disabled={false}
+                        disabled={!wallet.isConnected}
                         maxValue={staking.maxAmount}
                         inputMode="numeric"
                         readOnly={false}
@@ -85,22 +88,25 @@ function FormTab({
             </Observer>
             <Observer>
                 {() => (
-                    <TextInput
-                        placeholder="0"
-                        value={formatCurrency(convertCurrency(staking.getDepositStEverAmount, ST_EVER_DECIMALS))}
-                        disabled={false}
-                        inputMode="numeric"
-                        readOnly
-                        title={type === StakingType.Stake ? 'You receive stEVER' : 'You spend EVER'}
-                        iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
-                        price={type === StakingType.Stake ? staking.exchangeRate : staking.exchangeRate}
-                        currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
-                    />
+                    <>
+                        <TextInput
+                            placeholder="0"
+                            value={formatCurrency(convertCurrency(staking.getDepositStEverAmount, ST_EVER_DECIMALS))}
+                            disabled={false}
+                            inputMode="numeric"
+                            readOnly
+                            title={type === StakingType.Stake ? 'You receive stEVER' : 'You spend EVER'}
+                            iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
+                            price={type === StakingType.Stake ? staking.exchangeRate : staking.exchangeRate}
+                            currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
+                        />
+
+                        <Button htmlType="submit" disabled={!wallet.isConnected} type="primary" className="uk-width-1-1">
+                            {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
+                        </Button>
+                    </>
                 )}
             </Observer>
-            <Button htmlType="submit" type="primary" className="uk-width-1-1">
-                {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
-            </Button>
         </Flex>
     )
 }
