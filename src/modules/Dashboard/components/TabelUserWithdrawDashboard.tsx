@@ -20,6 +20,8 @@ import { ST_EVER_DECIMALS } from '@/config'
 import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
+import { formatDate } from '@/utils'
+import { DownloadCsv } from '@/components/common/DownloadCsv'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
@@ -168,13 +170,36 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
     return (
         <Observer>
             {() => (
-                <Pagination
-                    currentPage={userWithdraw.pagination.currentPage + 1}
-                    totalPages={userWithdraw.pagination.totalPages}
-                    onNext={onNextPage}
-                    onPrev={onPrevPage}
-                    onSubmit={onSubmitPage}
-                />
+                <Flex justifyContent="between">
+                    <DownloadCsv
+                        filename="PendingsWithdrawUser.csv"
+                        keys={[
+                            'userAddress',
+                            'amount',
+                            'nonce',
+                            'stAmount',
+                            'status',
+                            'transactionHash',
+                            'transactionTime',
+                        ]}
+                        items={userWithdraw?.transactions?.map(page => [
+                            page.userAddress,
+                            page.amount,
+                            page.nonce,
+                            page.stAmount,
+                            page.status,
+                            page.transactionHash,
+                            formatDate((page.transactionTime || 0) * 1000), ,
+                        ])}
+                    />
+                    <Pagination
+                        currentPage={userWithdraw.pagination.currentPage + 1}
+                        totalPages={userWithdraw.pagination.totalPages}
+                        onNext={onNextPage}
+                        onPrev={onPrevPage}
+                        onSubmit={onSubmitPage}
+                    />
+                </Flex>
             )}
         </Observer>
     )

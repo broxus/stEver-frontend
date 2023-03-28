@@ -19,6 +19,7 @@ import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
 import { ExplorerAccountLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { DownloadCsv } from '@/components/common/DownloadCsv'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -193,13 +194,37 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
     return (
         <Observer>
             {() => (
-                <Pagination
-                    currentPage={tabelDepools.pagination.currentPage + 1}
-                    totalPages={tabelDepools.pagination.totalPages}
-                    onNext={onNextPage}
-                    onPrev={onPrevPage}
-                    onSubmit={onSubmitPage}
-                />
+                <>
+                    <Flex justifyContent="between">
+                        <DownloadCsv
+                            
+                            filename="DePools.csv"
+                            keys={[
+                                'depool',
+                                'owner',
+                                'priority',
+                                'strategy',
+                                'tvl',
+                                'validatorFee',
+                            ]}
+                            items={tabelDepools?.depoolsStrategies?.map(page => [
+                                page.depool,
+                                page.owner,
+                                page.priority,
+                                page.strategy,
+                                page.validatorFee,
+                            ])}
+                        />
+                        <Pagination
+                            currentPage={tabelDepools.pagination.currentPage + 1}
+                            totalPages={tabelDepools.pagination.totalPages}
+                            onNext={onNextPage}
+                            onPrev={onPrevPage}
+                            onSubmit={onSubmitPage}
+                        />
+                    </Flex>
+                </>
+
             )}
         </Observer>
     )

@@ -24,7 +24,7 @@ export function DownloadCsv({
     const download = useDownload(csv, filename, 'text/csv')
 
     return (
-        <Link onClick={download}>
+        <Link className="uk-margin-auto-vertical" onClick={download}>
             Export
         </Link>
     )

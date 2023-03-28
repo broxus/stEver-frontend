@@ -20,6 +20,8 @@ import { appRoutes } from '@/routes'
 import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
+import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { formatDate } from '@/utils'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -169,13 +171,32 @@ export function DepoolsListPagination({ strategyTransactions }: TransactionsList
     return (
         <Observer>
             {() => (
-                <Pagination
-                    currentPage={strategyTransactions.pagination.currentPage + 1}
-                    totalPages={strategyTransactions.pagination.totalPages}
-                    onNext={onNextPage}
-                    onPrev={onPrevPage}
-                    onSubmit={onSubmitPage}
-                />
+                <Flex justifyContent="between">
+                    <DownloadCsv
+                        filename="TransactionsStrategy.csv"
+                        keys={[
+                            'amount',
+                            'kind',
+                            'strategy',
+                            'transactionHash',
+                            'transactionTime',
+                        ]}
+                        items={strategyTransactions?.transactions?.map(page => [
+                            page.amount,
+                            page.kind,
+                            page.strategy,
+                            page.transactionHash,
+                            formatDate((page.transactionTime || 0) * 1000), ,
+                        ])}
+                    />
+                    <Pagination
+                        currentPage={strategyTransactions.pagination.currentPage + 1}
+                        totalPages={strategyTransactions.pagination.totalPages}
+                        onNext={onNextPage}
+                        onPrev={onPrevPage}
+                        onSubmit={onSubmitPage}
+                    />
+                </Flex>
             )}
         </Observer>
     )

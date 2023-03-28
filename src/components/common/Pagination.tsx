@@ -62,17 +62,6 @@ export const Pagination = React.memo(({
     return (
         <div className={classNames('pagination', 'uk-margin-small', className)}>
             <Flex justifyContent="between">
-                <DownloadCsv
-                    filename="blocks.csv"
-                    keys={[
-                        'common.ID',
-                        'blocks.workchain',
-                        'blocks.shard',
-                        'blocks.number',
-                        'blocks.transactions',
-                        'blocks.date-n-time',
-                    ]}
-                />
                 <Flex justifyContent="right">
                     <AmountInput
                         className="pagination__input uk-margin-small-right"

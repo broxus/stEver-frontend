@@ -22,6 +22,8 @@ import { appRoutes } from '@/routes'
 import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
+import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { formatDate } from '@/utils'
 
 export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
 
@@ -169,13 +171,34 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
     return (
         <Observer>
             {() => (
-                <Pagination
-                    currentPage={strategyWithdraw.pagination.currentPage + 1}
-                    totalPages={strategyWithdraw.pagination.totalPages}
-                    onNext={onNextPage}
-                    onPrev={onPrevPage}
-                    onSubmit={onSubmitPage}
-                />
+                <Flex justifyContent="between">
+                    <DownloadCsv
+                        filename="PendingsWithdrawStrategy.csv"
+                        keys={[
+                            'amount',
+                            'round',
+                            'status',
+                            'strategy',
+                            'transactionHash',
+                            'transactionTime',
+                        ]}
+                        items={strategyWithdraw?.transactions?.map(page => [
+                            page.amount,
+                            page.round,
+                            page.status,
+                            page.strategy,
+                            page.transactionHash,
+                            formatDate((page.transactionTime || 0) * 1000), ,
+                        ])}
+                    />
+                    <Pagination
+                        currentPage={strategyWithdraw.pagination.currentPage + 1}
+                        totalPages={strategyWithdraw.pagination.totalPages}
+                        onNext={onNextPage}
+                        onPrev={onPrevPage}
+                        onSubmit={onSubmitPage}
+                    />
+                </Flex>
             )}
         </Observer>
     )
