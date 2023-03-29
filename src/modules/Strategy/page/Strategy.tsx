@@ -10,6 +10,7 @@ import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/componen
 import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
 import { TabelStrategyWithdrawDashboard } from '@/modules/Dashboard/components/TabelStrategyWithdrawDashboard'
 import { RoundsBalancesStrategy } from '../components/RoundsBalancesStrategy'
+import { Flex, Heading } from '@broxus/react-uikit'
 
 export default function StrategyPage(): JSX.Element {
     const ChartProvider = useProvider(ChartStore)
@@ -22,12 +23,24 @@ export default function StrategyPage(): JSX.Element {
                 <ChartStrategy />
                 <RoundsBalancesStrategy />
             </ChartProvider>
-            <StrategiesTransactionsProvider>
-                <TabelStrategyTransactionsDashboard />
-            </StrategiesTransactionsProvider>
-            <StrategyWithdrawProvider>
-                <TabelStrategyWithdrawDashboard />
-            </StrategyWithdrawProvider>
+            
+            <Flex flexDirection="column" className="tabelTabs">
+                <Heading component="h4">
+                    Transactions
+                </Heading>
+                <StrategiesTransactionsProvider>
+                    <TabelStrategyTransactionsDashboard />
+                </StrategiesTransactionsProvider>
+            </Flex>
+
+            <Flex flexDirection="column" className="tabelTabs">
+                <Heading component="h4">
+                    Pendings withdraw
+                </Heading>
+                <StrategyWithdrawProvider>
+                    <TabelStrategyWithdrawDashboard />
+                </StrategyWithdrawProvider>
+            </Flex>
         </div>
     )
 }

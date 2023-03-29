@@ -74,17 +74,22 @@ export const Pagination = React.memo(({
                         showMaxButton={false}
                     />
                     <Text className="uk-margin-small-right">
-                        page of
-                        {totalPages}
+                        page of {" "}{totalPages}
                     </Text>
                     <Card>
                         <Button
                             className="uk-margin-small-right" type="default" onClick={onPrev}
                             disabled={disabled || currentPage === 1}
                         >
-                            Prev
+                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 13L2 7L8 1" stroke="#2B63F1" stroke-width="1.6" />
+                            </svg>
                         </Button>
-                        <Button type="default" onClick={onNext} disabled={disabled || currentPage === totalPages}>Next</Button>
+                        <Button type="default" onClick={onNext} disabled={disabled || currentPage === totalPages}>
+                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L7 7L1 13" stroke="#2B63F1" stroke-width="1.6" />
+                            </svg>
+                        </Button>
                     </Card>
                 </Flex>
             </Flex>

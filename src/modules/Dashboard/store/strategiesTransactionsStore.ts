@@ -77,7 +77,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
                 currentPage: this.pagination.currentPage,
                 limit: this.pagination.limit,
                 totalCount: response.totalCount,
-                totalPages: response.totalCount / this.pagination.limit,
+                totalPages: Math.ceil(response.totalCount / this.pagination.limit),
             })
         }
     }

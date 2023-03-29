@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { Chart, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
 import {
-    Flex, Grid, Heading, Text, Tile, Width,
+    Breadcrumb,
+    Card,
+    Flex, Grid, Heading, Label, Text, Tile, Width,
 } from '@broxus/react-uikit'
 
 import { RateChange } from '@/components/common/RateChange'
@@ -13,10 +15,12 @@ import { useStore } from '@/hooks/useStore'
 
 import { ChartStore } from '../store/chartStore'
 
-import { abbreviateNumber, debounce, formattedAmount } from '@broxus/js-utils'
+import { abbreviateNumber, debounce, formattedAmount, sliceAddress } from '@broxus/js-utils'
 import { DateTime } from 'luxon'
 import { ST_EVER_DECIMALS } from '@/config'
 import BigNumber from 'bignumber.js'
+import { Link, useParams } from 'react-router-dom'
+import { Params, appRoutes } from '@/routes'
 
 
 function ChartStrategyInner(): JSX.Element {
@@ -24,6 +28,7 @@ function ChartStrategyInner(): JSX.Element {
     const dashboard = useStore(ChartStore)
     const series = React.useRef<any>(null)
     const chart = React.useRef<any>(null)
+    const { id } = useParams<Params>()
 
     const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
         if (logicalRange == null) {
@@ -110,9 +115,30 @@ function ChartStrategyInner(): JSX.Element {
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
+                <Breadcrumb>
+                    <Breadcrumb.Item>
+                        <Link to={appRoutes.dashboard.path}>Dashboard</Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <a>Strategy {sliceAddress(id)}</a>
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+
                 <Heading component="h2">
-                    General information
+                    Strategy {sliceAddress(id)}
                 </Heading>
+
+                <Card>
+                    <Label type={"success"}>
+                        High efficiency
+                    </Label>
+                    <Label>
+                        Strategy
+                    </Label>
+                    <Label>
+                        Owner
+                    </Label>
+                </Card>
 
                 <Grid gap="xsmall" match>
                     <Width size="1-4">
@@ -181,7 +207,7 @@ function ChartStrategyInner(): JSX.Element {
                     </Width>
                 </Grid>
             </Flex>
-        </div>
+        </div >
     )
 }
 

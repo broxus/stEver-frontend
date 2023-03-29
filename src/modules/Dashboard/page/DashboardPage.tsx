@@ -80,7 +80,6 @@ export default function DashboardPage(): JSX.Element {
                                     label: 'Strategies',
                                     key: 'Strategies',
                                     children: <TabelStrategyTransactionsDashboard />
-
                                 },
                             ]}
                         />
