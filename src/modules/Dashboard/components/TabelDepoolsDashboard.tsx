@@ -149,7 +149,7 @@ export function DepoolsListItem({ pool }: Props): JSX.Element {
                     <Label
                         type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
                     >
-                        {pool.priority}
+                        {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
                     </Label>
                 </td>
                 <td className="uk-text-right">
@@ -196,7 +196,7 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
                 <>
                     <Flex justifyContent="between">
                         <DownloadCsv
-                            
+
                             filename="DePools.csv"
                             keys={[
                                 'depool',

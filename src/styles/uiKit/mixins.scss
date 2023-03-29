@@ -54,3 +54,27 @@
         box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
     }
 }
+
+
+
+
+@mixin hook-label-misc() {
+    .uk-label {
+        padding: 4px 8px;
+    }
+}
+
+@mixin hook-label-success() {
+    color: #398A39;
+    background: #DEF1DE;
+}
+
+@mixin hook-label-warning() {
+    background: #FEF2CD;
+    color: #B28501;
+}
+
+@mixin hook-label-danger() {
+    background: #F7D7DD;
+    color: #A53045;
+}
