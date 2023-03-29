@@ -5,6 +5,7 @@ import { StEverVaultDetails } from '@/abi/types'
 import { FEE } from '@/config'
 
 import { StEverTokenWallet, StEverTokenWalletRoot, stEverVaultContract } from './contracts'
+import { useRpcProvider } from '@broxus/js-core'
 
 export abstract class StakingUtils {
 
@@ -27,7 +28,8 @@ export abstract class StakingUtils {
     }
 
     public static async _deposit(address: Address, sender: Address, depositAmount: string): Promise<Transaction> {
-        const contract = stEverVaultContract(address)
+        const provider = useRpcProvider()
+        const contract = stEverVaultContract(address, provider)
         const transaction = await contract.methods
             .deposit({
                 _amount: depositAmount,
@@ -67,7 +69,8 @@ export abstract class StakingUtils {
         notify: boolean;
         payload: string;
     }): Promise<Transaction> {
-        const contract = StEverTokenWallet(address)
+        const provider = useRpcProvider()
+        const contract = StEverTokenWallet(address, provider)
         const transaction = await contract.methods
             .transfer(params)
             .send({
