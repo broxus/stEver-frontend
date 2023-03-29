@@ -242,7 +242,7 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
             value: SystemTransactionsKind.DEPOSIT,
         },
         {
-            label: 'Strategy pending withdraw',
+            label: 'Strategy withdraw',
             value: SystemTransactionsKind.WITHDRAWAL,
         }
     ]

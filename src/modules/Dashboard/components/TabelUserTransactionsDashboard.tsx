@@ -217,7 +217,7 @@ function TransactionUserListFilterInner(): JSX.Element {
             value: UserTransactionsKind.DEPOSIT,
         },
         {
-            label: 'User pending withdraw',
+            label: 'User withdraw',
             value: UserTransactionsKind.WITHDRAWAL,
         }
     ]
