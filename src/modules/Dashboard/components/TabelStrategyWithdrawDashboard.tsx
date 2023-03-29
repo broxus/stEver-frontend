@@ -80,7 +80,7 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={StrategyWithdrawalColumn.CREATED_AT}
-                                value={strategyWithdraw.ordering.direction}
+                                value={{ column: strategyWithdraw.ordering.column, direction: strategyWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Date & Time

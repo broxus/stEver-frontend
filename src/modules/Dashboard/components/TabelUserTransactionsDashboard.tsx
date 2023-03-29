@@ -81,7 +81,7 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={UserTransactionColumn.AMOUNT}
-                                value={userTransactions.ordering.direction}
+                                value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Value, EVER
@@ -96,7 +96,7 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={UserTransactionColumn.CREATED_AT}
-                                value={userTransactions.ordering.direction}
+                                value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Date & Time

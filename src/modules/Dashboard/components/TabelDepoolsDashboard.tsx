@@ -64,6 +64,8 @@ type DepoolsListHeaderType = {
 export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
+        console.log(value)
+
         tabelDepools.setState('ordering', value)
     }
 
@@ -78,7 +80,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={StrategyColumn.PRIORITY}
-                                value={tabelDepools.ordering.direction}
+                                value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Validator fee
@@ -95,7 +97,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={StrategyColumn.PRIORITY}
-                                value={tabelDepools.ordering.direction}
+                                value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Priority
@@ -110,7 +112,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={StrategyColumn.TVL}
-                                value={tabelDepools.ordering.direction}
+                                value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 TVL

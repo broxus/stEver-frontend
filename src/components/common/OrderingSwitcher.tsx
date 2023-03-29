@@ -23,17 +23,18 @@ export function OrderingSwitcher<T>({
     onSwitch,
 }: Props<any>): JSX.Element {
     const onClick = () => {
+        console.log(value.direction)
         onSwitch?.({
             column,
-            direction: value === descending ? ascending : descending,
+            direction: value.direction === descending ? ascending : descending,
         })
     }
 
     return (
         <Link
-            className={classNames('ordering-switcher', {
-                'ordering-switcher-asc': value === ascending,
-                'ordering-switcher-desc': value === descending,
+            className={classNames('btn', 'ordering-switcher', {
+                'ordering-switcher-asc': value.column === column && value.direction === ascending,
+                'ordering-switcher-desc': value.column === column && value.direction === descending,
             })}
             onClick={onClick}
         >

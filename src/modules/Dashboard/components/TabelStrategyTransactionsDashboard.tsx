@@ -94,7 +94,7 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={SystemTransactionColumn.AMOUNT}
-                                value={strategyTransactions.ordering.direction}
+                                value={{ column: strategyTransactions.ordering.column, direction: strategyTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Value, EVER
@@ -103,7 +103,19 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                     </Observer>
                 </th>
                 <th className="uk-text-right">
-                    Date & Time
+                    <Observer>
+                        {() => (
+                            <OrderingSwitcher<Direction>
+                                ascending={Direction.DESC}
+                                descending={Direction.ASC}
+                                column={SystemTransactionColumn.CREATED_AT}
+                                value={{ column: strategyTransactions.ordering.column, direction: strategyTransactions.ordering.direction }}
+                                onSwitch={onSwitchOrdering}
+                            >
+                                Date & Time
+                            </OrderingSwitcher>
+                        )}
+                    </Observer>
                 </th>
             </tr>
         </thead>
@@ -223,7 +235,7 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
         current.current = e
         strategyTransactions.setState("filter", e)
     }
-    
+
     const options = [
         {
             label: 'Strategy deposit',

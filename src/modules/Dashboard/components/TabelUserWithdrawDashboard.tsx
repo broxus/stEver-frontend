@@ -78,7 +78,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={UserWithdrawalColumn.ST_AMOUNT}
-                                value={userWithdraw.ordering.direction}
+                                value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Value, EVER
@@ -93,7 +93,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 ascending={Direction.DESC}
                                 descending={Direction.ASC}
                                 column={UserWithdrawalColumn.CREATED_AT}
-                                value={userWithdraw.ordering.direction}
+                                value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
                                 Date & Time
