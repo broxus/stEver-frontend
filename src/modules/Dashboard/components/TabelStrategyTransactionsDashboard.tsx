@@ -25,42 +25,49 @@ import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
+import { createPortal } from 'react-dom'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
     const strategyTransactions = useStore(StrategiesTransactionsStore)
 
-    return (
-        <Flex flexDirection="column">
-            <Heading component="h4">
-                Transactions
-            </Heading>
-            <TransactionListFilter strategyTransactions={strategyTransactions} />
-            <Observer>
-                {() => (
-                    <PanelLoader loading={strategyTransactions.isFetching}>
-                        <Tile type="default" size="xsmall">
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader strategyTransactions={strategyTransactions} />
-                                </Media>
-                                {strategyTransactions.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        <TransactionsListItem
-                                            key={pool.transactionHash}
-                                            idx={idx + 1}
-                                            pool={pool}
-                                        />
-                                    </Media>
-                                ))}
+    // const [elNavWrap, setElNavWrap] = React.useState<Element>()
 
-                            </table>
-                            <DepoolsListPagination strategyTransactions={strategyTransactions} />
-                        </Tile>
-                    </PanelLoader>
-                )}
-            </Observer>
-        </Flex>
+    // React.useEffect(() => {
+    //     const elTabsId = document.getElementById('tabs-withdraw')
+    //     const elNavWrap = elTabsId!.querySelector('.uk-tabs-nav-wrap')
+
+    //     console.log(elNavWrap)
+    //     if (elNavWrap) {
+    //         setElNavWrap(elNavWrap)
+    //     }
+    // }, [])
+
+    return (
+        <Observer>
+            {() => (
+                <PanelLoader loading={strategyTransactions.isFetching}>
+                    <Tile type="default" size="xsmall">
+                        <table className="uk-table uk-table-divider uk-width-1-1 table">
+                            <Media query={{ minWidth: 640 }}>
+                                <TransactionsListHeader strategyTransactions={strategyTransactions} />
+                            </Media>
+                            {strategyTransactions.transactions?.map((pool, idx) => (
+                                <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                    <TransactionsListItem
+                                        key={pool.transactionHash}
+                                        idx={idx + 1}
+                                        pool={pool}
+                                    />
+                                </Media>
+                            ))}
+
+                        </table>
+                        <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                    </Tile>
+                </PanelLoader>
+            )}
+        </Observer>
     )
 }
 
@@ -211,12 +218,14 @@ type TransactionsListFilter = {
 }
 
 
-export function TransactionListFilter({ strategyTransactions }: TransactionsListFilter): JSX.Element {
+export function TransactionStrtegyListFilter(): JSX.Element {
 
     const current = React.useRef<SystemTransactionsKind[]>([])
+    const strategyTransactions = useStore(StrategiesTransactionsStore)
 
     const onChange = (e: SystemTransactionsKind[]) => {
         current.current = e
+        strategyTransactions.setState("filter", e)
     }
 
     const onSubmit = () => {
@@ -235,7 +244,7 @@ export function TransactionListFilter({ strategyTransactions }: TransactionsList
     ]
     return (
         <Drop
-            trigger={['click']}
+            trigger={['hover']}
             placement="bottom-right"
             overlay={(
                 <Tile type="default" size="xsmall">
@@ -244,7 +253,7 @@ export function TransactionListFilter({ strategyTransactions }: TransactionsList
                         options={options}
                         onChange={onChange}
                     />
-                    <hr />
+                    {/* <hr />
                     <Flex justifyContent="between">
                         <Link>Default</Link>
                         <Flex>
@@ -255,7 +264,7 @@ export function TransactionListFilter({ strategyTransactions }: TransactionsList
                                 Apply
                             </Button>
                         </Flex>
-                    </Flex>
+                    </Flex> */}
                 </Tile>
             )}
         >

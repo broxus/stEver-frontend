@@ -10,13 +10,15 @@ import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import { ChartStore } from '../store/chartStore'
 import { ChartDashboard } from '../components/ChartDashboard'
 import { TabelDepoolsDashboard } from '../components/TabelDepoolsDashboard'
-import { TabelUserTransactionsDashboard } from '../components/TabelUserTransactionsDashboard'
-import { TabelStrategyTransactionsDashboard } from '../components/TabelStrategyTransactionsDashboard'
+import { TabelUserTransactionsDashboard, TransactionUserListFilter } from '../components/TabelUserTransactionsDashboard'
+import { TabelStrategyTransactionsDashboard, TransactionStrtegyListFilter } from '../components/TabelStrategyTransactionsDashboard'
 import { TabelUserWithdrawDashboard } from '../components/TabelUserWithdrawDashboard'
 import { TabelStrategyWithdrawDashboard } from '../components/TabelStrategyWithdrawDashboard'
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
+import { Flex, Heading, Tabs } from '@broxus/react-uikit'
 
 export default function DashboardPage(): JSX.Element {
+
     const TabelDepoolsProvider = useProvider(TabelDepoolsStore)
 
     const UserTransactionsProvider = useProvider(UserTransactionsStore)
@@ -27,6 +29,23 @@ export default function DashboardPage(): JSX.Element {
 
     const ChartProvider = useProvider(ChartStore)
 
+    const [state, setState] = React.useState("Users")
+
+    const TabExtraContent = () => {
+        if (state === "Strategies") {
+            return (
+                <StrategiesTransactionsProvider>
+                    <TransactionStrtegyListFilter />
+                </StrategiesTransactionsProvider>
+            )
+        } else {
+            return (
+                <UserTransactionsProvider>
+                    <TransactionUserListFilter />
+                </UserTransactionsProvider>
+            )
+        }
+    }
 
     return (
         <div className="container container--large dashboard">
@@ -38,21 +57,67 @@ export default function DashboardPage(): JSX.Element {
                 <TabelDepoolsDashboard />
             </TabelDepoolsProvider>
 
-            <UserTransactionsProvider>
-                <TabelUserTransactionsDashboard />
-            </UserTransactionsProvider>
+            <Flex flexDirection="column" className="tabelTabs">
+                <Heading component="h4">
+                    Transactions
+                </Heading>
+                <Tabs
+                    defaultActiveKey="1"
+                    id="tabs-withdraw"
+                    onChange={(e) => {
+                        setState(e)
+                    }}
+                    tabBarExtraContent={
+                        {
+                            right: <TabExtraContent />
+                        }
+                    }
+                    items={[
+                        {
+                            label: 'Users',
+                            key: 'Users',
+                            children: <UserTransactionsProvider>
+                                <TabelUserTransactionsDashboard />
+                            </UserTransactionsProvider>
+                        },
+                        {
+                            label: 'Strategies',
+                            key: 'Strategies',
+                            children: <StrategiesTransactionsProvider>
+                                <TabelStrategyTransactionsDashboard />
+                            </StrategiesTransactionsProvider>
+                        },
+                    ]}
+                />
+            </Flex>
 
-            <StrategiesTransactionsProvider>
-                <TabelStrategyTransactionsDashboard />
-            </StrategiesTransactionsProvider>
+            <Flex flexDirection="column" className="tabelTabs">
+                <Heading component="h4">
+                    Pendings withdraw
+                </Heading>
+                <Tabs
+                    defaultActiveKey="1"
+                    id="tabs-withdraw"
+                    items={[
+                        {
+                            label: 'Users',
+                            key: 'Users',
+                            children: <UserWithdrawProvider>
+                                <TabelUserWithdrawDashboard />
+                            </UserWithdrawProvider>
+                        },
+                        {
+                            label: 'Strategies',
+                            key: 'Strategies',
+                            children: <StrategyWithdrawProvider>
+                                <TabelStrategyWithdrawDashboard />
+                            </StrategyWithdrawProvider>
+                        },
+                    ]}
+                />
+            </Flex>
 
-            <UserWithdrawProvider>
-                <TabelUserWithdrawDashboard />
-            </UserWithdrawProvider>
 
-            <StrategyWithdrawProvider>
-                <TabelStrategyWithdrawDashboard />
-            </StrategyWithdrawProvider>
         </div>
     )
 }

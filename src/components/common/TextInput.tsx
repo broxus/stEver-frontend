@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import './TextInput.scss'
 import { observer } from 'mobx-react-lite'
+import { ST_EVER_DECIMALS } from '@/config'
 
 export type TextInputProps = {
     autoFocus?: boolean;
@@ -81,6 +82,7 @@ function TextInputInner({
                 className="text-input"
                 iconSize={24}
                 iconUrl={iconUrl}
+                precision={ST_EVER_DECIMALS}
             />
         </Flex>
     )

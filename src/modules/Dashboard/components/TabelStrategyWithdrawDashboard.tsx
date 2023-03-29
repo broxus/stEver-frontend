@@ -30,35 +30,30 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
     const strategyWithdraw = useStore(StrategyWithdrawStore)
 
     return (
-        <Flex flexDirection="column">
-            <Heading component="h4">
-                Pendings withdraw
-            </Heading>
-            <Observer>
-                {() => (
-                    <PanelLoader loading={strategyWithdraw.isFetching}>
-                        <Tile type="default" size="xsmall">
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
+        <Observer>
+            {() => (
+                <PanelLoader loading={strategyWithdraw.isFetching}>
+                    <Tile type="default" size="xsmall">
+                        <table className="uk-table uk-table-divider uk-width-1-1 table">
+                            <Media query={{ minWidth: 640 }}>
+                                <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
+                            </Media>
+                            {strategyWithdraw.transactions?.map((pool, idx) => (
+                                <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                    <TransactionsListItem
+                                        key={pool.transactionHash}
+                                        idx={idx + 1}
+                                        pool={pool}
+                                    />
                                 </Media>
-                                {strategyWithdraw.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        <TransactionsListItem
-                                            key={pool.transactionHash}
-                                            idx={idx + 1}
-                                            pool={pool}
-                                        />
-                                    </Media>
-                                ))}
+                            ))}
 
-                            </table>
-                            <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
-                        </Tile>
-                    </PanelLoader>
-                )}
-            </Observer>
-        </Flex>
+                        </table>
+                        <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
+                    </Tile>
+                </PanelLoader>
+            )}
+        </Observer>
     )
 }
 

@@ -23,17 +23,14 @@ import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { createPortal } from 'react-dom'
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
     const userTransactions = useStore(UserTransactionsStore)
 
     return (
-        <Flex flexDirection="column">
-            <Heading component="h4">
-                Transactions
-            </Heading>
-            <TransactionListFilter userTransactions={userTransactions} />
+        <>
             <Observer>
                 {() => (
                     <PanelLoader loading={userTransactions.isFetching}>
@@ -58,7 +55,7 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex>
+        </>
     )
 }
 
@@ -209,12 +206,14 @@ type TransactionsListFilter = {
 }
 
 
-export function TransactionListFilter({ userTransactions }: TransactionsListFilter): JSX.Element {
+export function TransactionUserListFilter(): JSX.Element {
 
     const current = React.useRef<UserTransactionsKind[]>([])
+    const userTransactions = useStore(UserTransactionsStore)
 
     const onChange = (e: UserTransactionsKind[]) => {
         current.current = e
+        userTransactions.setState("filter", e)
     }
 
     const onSubmit = () => {
@@ -223,17 +222,17 @@ export function TransactionListFilter({ userTransactions }: TransactionsListFilt
 
     const options = [
         {
-            label: 'Strategy deposit',
+            label: 'User deposit',
             value: UserTransactionsKind.DEPOSIT,
         },
         {
-            label: 'Strategy pending withdraw',
+            label: 'User pending withdraw',
             value: UserTransactionsKind.WITHDRAWAL,
         }
     ]
     return (
         <Drop
-            trigger={['click']}
+            trigger={['hover']}
             placement="bottom-right"
             overlay={(
                 <Tile type="default" size="xsmall">
@@ -242,18 +241,15 @@ export function TransactionListFilter({ userTransactions }: TransactionsListFilt
                         options={options}
                         onChange={onChange}
                     />
-                    <hr />
+                    {/* <hr />
                     <Flex justifyContent="between">
-                        <Link>Default</Link>
+                        <Link >Default</Link>
                         <Flex>
-                            <Button size="small" type="default">
-                                Cancel
-                            </Button>
                             <Button onClick={() => onSubmit()} size="small" type="primary">
                                 Apply
                             </Button>
                         </Flex>
-                    </Flex>
+                    </Flex> */}
                 </Tile>
             )}
         >

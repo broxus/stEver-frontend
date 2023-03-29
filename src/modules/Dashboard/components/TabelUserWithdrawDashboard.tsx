@@ -29,35 +29,30 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
     const userWithdraw = useStore(UserWithdrawStore)
 
     return (
-        <Flex flexDirection="column">
-            <Heading component="h4">
-                Pendings withdraw
-            </Heading>
-            <Observer>
-                {() => (
-                    <PanelLoader loading={userWithdraw.isFetching}>
-                        <Tile type="default" size="xsmall">
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader userWithdraw={userWithdraw} />
+        <Observer>
+            {() => (
+                <PanelLoader loading={userWithdraw.isFetching}>
+                    <Tile type="default" size="xsmall">
+                        <table className="uk-table uk-table-divider uk-width-1-1 table">
+                            <Media query={{ minWidth: 640 }}>
+                                <TransactionsListHeader userWithdraw={userWithdraw} />
+                            </Media>
+                            {userWithdraw.transactions?.map((pool, idx) => (
+                                <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                    <TransactionsListItem
+                                        key={pool.transactionHash}
+                                        idx={idx + 1}
+                                        pool={pool}
+                                    />
                                 </Media>
-                                {userWithdraw.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        <TransactionsListItem
-                                            key={pool.transactionHash}
-                                            idx={idx + 1}
-                                            pool={pool}
-                                        />
-                                    </Media>
-                                ))}
+                            ))}
 
-                            </table>
-                            <DepoolsListPagination userWithdraw={userWithdraw} />
-                        </Tile>
-                    </PanelLoader>
-                )}
-            </Observer>
-        </Flex>
+                        </table>
+                        <DepoolsListPagination userWithdraw={userWithdraw} />
+                    </Tile>
+                </PanelLoader>
+            )}
+        </Observer>
     )
 }
 

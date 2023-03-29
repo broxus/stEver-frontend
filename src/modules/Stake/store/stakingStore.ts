@@ -134,15 +134,9 @@ export class StakingStore extends AbstractStore<
     @computed
     public get maxAmount(): string {
         if (this.type === StakingType.Stake) {
-            return formattedTokenAmount(
-                this.wallet.balance,
-                this.wallet.currency.decimals,
-            )
+            return new BigNumber(this.wallet.balance).shiftedBy(-ST_EVER_DECIMALS).minus(10).toFixed()
         }
-        return formattedTokenAmount(
-            this._data.stBalance,
-            this.wallet.currency.decimals,
-        )
+        return new BigNumber(this._data.stBalance).shiftedBy(-ST_EVER_DECIMALS).toFixed()
     }
 
     @computed
