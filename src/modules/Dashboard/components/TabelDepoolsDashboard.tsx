@@ -74,7 +74,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
             <tr>
                 <th className="uk-text-left">Strategy</th>
                 <th className="uk-text-left">
-                    <Observer>
+                    {/* <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
                                 ascending={Direction.DESC}
@@ -86,7 +86,8 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 Validator fee
                             </OrderingSwitcher>
                         )}
-                    </Observer>
+                    </Observer> */}
+                    Validator fee
                 </th>
                 <th className="uk-text-left">Depool</th>
                 <th className="uk-text-left">Owner</th>
