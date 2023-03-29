@@ -127,7 +127,7 @@ function ChartStrategyInner(): JSX.Element {
                 <Heading component="h2">
                     Strategy {sliceAddress(id)}
                 </Heading>
-
+                {/* 
                 <Card>
                     <Label type={"success"}>
                         High efficiency
@@ -138,7 +138,7 @@ function ChartStrategyInner(): JSX.Element {
                     <Label>
                         Owner
                     </Label>
-                </Card>
+                </Card> */}
 
                 <Grid gap="xsmall" match>
                     <Width size="1-4">

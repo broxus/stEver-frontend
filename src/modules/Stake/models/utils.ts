@@ -72,7 +72,7 @@ export abstract class StakingUtils {
             .transfer(params)
             .send({
                 from: sender,
-                amount: new BigNumber(params.amount).plus(FEE).toFixed(),
+                amount: new BigNumber(FEE).toFixed(),
             })
         return transaction
     }

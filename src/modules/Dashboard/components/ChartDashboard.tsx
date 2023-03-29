@@ -80,24 +80,6 @@ function ChartDashboardInner(): JSX.Element {
         })
     }, [chart.current])
 
-    // React.useEffect(() => {
-    //     series.current?.api().priceScale().applyOptions({
-    //         scaleMargins: {
-    //             bottom: 0.5,
-    //             top: 0.1,
-    //         },
-    //     })
-    // }, [series.current])
-
-    // React.useEffect(() => {
-    //     const bs = (chart.current?.timeScale().width() ?? 960) / 30 * 24
-    //     chart.current?.timeScale().applyOptions({
-    //         barSpacing: bs,
-    //         minBarSpacing: bs,
-    //     })
-    // }, [chart.current])
-
-
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
