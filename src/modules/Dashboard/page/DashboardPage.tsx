@@ -34,15 +34,11 @@ export default function DashboardPage(): JSX.Element {
     const TabExtraContent = () => {
         if (state === "Strategies") {
             return (
-                <StrategiesTransactionsProvider>
-                    <TransactionStrtegyListFilter />
-                </StrategiesTransactionsProvider>
+                <TransactionStrtegyListFilter />
             )
         } else {
             return (
-                <UserTransactionsProvider>
-                    <TransactionUserListFilter />
-                </UserTransactionsProvider>
+                <TransactionUserListFilter />
             )
         }
     }
@@ -61,34 +57,35 @@ export default function DashboardPage(): JSX.Element {
                 <Heading component="h4">
                     Transactions
                 </Heading>
-                <Tabs
-                    defaultActiveKey="1"
-                    id="tabs-withdraw"
-                    onChange={(e) => {
-                        setState(e)
-                    }}
-                    tabBarExtraContent={
-                        {
-                            right: <TabExtraContent />
-                        }
-                    }
-                    items={[
-                        {
-                            label: 'Users',
-                            key: 'Users',
-                            children: <UserTransactionsProvider>
-                                <TabelUserTransactionsDashboard />
-                            </UserTransactionsProvider>
-                        },
-                        {
-                            label: 'Strategies',
-                            key: 'Strategies',
-                            children: <StrategiesTransactionsProvider>
-                                <TabelStrategyTransactionsDashboard />
-                            </StrategiesTransactionsProvider>
-                        },
-                    ]}
-                />
+                <UserTransactionsProvider>
+                    <StrategiesTransactionsProvider>
+                        <Tabs
+                            defaultActiveKey="1"
+                            id="tabs-withdraw"
+                            onChange={(e) => {
+                                setState(e)
+                            }}
+                            tabBarExtraContent={
+                                {
+                                    right: <TabExtraContent />
+                                }
+                            }
+                            items={[
+                                {
+                                    label: 'Users',
+                                    key: 'Users',
+                                    children: <TabelUserTransactionsDashboard />
+                                },
+                                {
+                                    label: 'Strategies',
+                                    key: 'Strategies',
+                                    children: <TabelStrategyTransactionsDashboard />
+
+                                },
+                            ]}
+                        />
+                    </StrategiesTransactionsProvider>
+                </UserTransactionsProvider>
             </Flex>
 
             <Flex flexDirection="column" className="tabelTabs">

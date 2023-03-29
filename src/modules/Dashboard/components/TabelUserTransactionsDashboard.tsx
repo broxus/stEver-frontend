@@ -28,7 +28,7 @@ import { createPortal } from 'react-dom'
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
     const userTransactions = useStore(UserTransactionsStore)
-
+    console.log(userTransactions.transactions)
     return (
         <>
             <Observer>
@@ -48,7 +48,6 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                         />
                                     </Media>
                                 ))}
-
                             </table>
                             <DepoolsListPagination userTransactions={userTransactions} />
                         </Tile>
@@ -201,12 +200,8 @@ export function DepoolsListPagination({ userTransactions }: TransactionsListPagi
     )
 }
 
-type TransactionsListFilter = {
-    userTransactions: UserTransactionsStore
-}
 
-
-export function TransactionUserListFilter(): JSX.Element {
+function TransactionUserListFilterInner(): JSX.Element {
 
     const current = React.useRef<UserTransactionsKind[]>([])
     const userTransactions = useStore(UserTransactionsStore)
@@ -214,10 +209,6 @@ export function TransactionUserListFilter(): JSX.Element {
     const onChange = (e: UserTransactionsKind[]) => {
         current.current = e
         userTransactions.setState("filter", e)
-    }
-
-    const onSubmit = () => {
-        userTransactions.setState("filter", current.current)
     }
 
     const options = [
@@ -240,16 +231,8 @@ export function TransactionUserListFilter(): JSX.Element {
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
+                        stack={true}
                     />
-                    {/* <hr />
-                    <Flex justifyContent="between">
-                        <Link >Default</Link>
-                        <Flex>
-                            <Button onClick={() => onSubmit()} size="small" type="primary">
-                                Apply
-                            </Button>
-                        </Flex>
-                    </Flex> */}
                 </Tile>
             )}
         >
@@ -261,3 +244,4 @@ export function TransactionUserListFilter(): JSX.Element {
 }
 
 export const TabelUserTransactionsDashboard = observer(TabelUserTransactionsDashboardInner)
+export const TransactionUserListFilter = observer(TransactionUserListFilterInner)

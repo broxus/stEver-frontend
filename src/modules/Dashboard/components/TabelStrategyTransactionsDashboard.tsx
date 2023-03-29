@@ -213,12 +213,8 @@ export function DepoolsListPagination({ strategyTransactions }: TransactionsList
     )
 }
 
-type TransactionsListFilter = {
-    strategyTransactions: StrategiesTransactionsStore
-}
 
-
-export function TransactionStrtegyListFilter(): JSX.Element {
+function TransactionStrtegyListFilterInner(): JSX.Element {
 
     const current = React.useRef<SystemTransactionsKind[]>([])
     const strategyTransactions = useStore(StrategiesTransactionsStore)
@@ -227,11 +223,7 @@ export function TransactionStrtegyListFilter(): JSX.Element {
         current.current = e
         strategyTransactions.setState("filter", e)
     }
-
-    const onSubmit = () => {
-        strategyTransactions.setState("filter", current.current)
-    }
-
+    
     const options = [
         {
             label: 'Strategy deposit',
@@ -252,19 +244,8 @@ export function TransactionStrtegyListFilter(): JSX.Element {
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
+                        stack={true}
                     />
-                    {/* <hr />
-                    <Flex justifyContent="between">
-                        <Link>Default</Link>
-                        <Flex>
-                            <Button size="small" type="default">
-                                Cancel
-                            </Button>
-                            <Button onClick={() => onSubmit()} size="small" type="primary">
-                                Apply
-                            </Button>
-                        </Flex>
-                    </Flex> */}
                 </Tile>
             )}
         >
@@ -276,3 +257,4 @@ export function TransactionStrtegyListFilter(): JSX.Element {
 }
 
 export const TabelStrategyTransactionsDashboard = observer(TabelStrategyTransactionsDashboardInner)
+export const TransactionStrtegyListFilter = observer(TransactionStrtegyListFilterInner)
