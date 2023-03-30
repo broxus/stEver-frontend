@@ -16,6 +16,10 @@ export type StrategyInfo = {
      * tvl
      */
     tvl: string;
+    /**
+     * tvlDeltaNextRound
+     */
+    tvlDeltaNextRound: string;
     validatorFee: number;
 };
 

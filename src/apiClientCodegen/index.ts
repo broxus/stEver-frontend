@@ -6,9 +6,12 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { ApyResponse } from './models/ApyResponse';
 export { Direction } from './models/Direction';
+export type { HoldersResponse } from './models/HoldersResponse';
 export type { MainPage } from './models/MainPage';
 export type { MainPageResponse } from './models/MainPageResponse';
+export type { PriceResponse } from './models/PriceResponse';
 export type { StrategiesDepositsRequest } from './models/StrategiesDepositsRequest';
 export type { StrategiesDepositsResponse } from './models/StrategiesDepositsResponse';
 export type { StrategiesOrdering } from './models/StrategiesOrdering';

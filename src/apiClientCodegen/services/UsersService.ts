@@ -1,6 +1,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ApyResponse } from '../models/ApyResponse';
+import type { HoldersResponse } from '../models/HoldersResponse';
+import type { PriceResponse } from '../models/PriceResponse';
 import type { TvlRequest } from '../models/TvlRequest';
 import type { TvlResponse } from '../models/TvlResponse';
 import type { UsersDepositsRequest } from '../models/UsersDepositsRequest';
@@ -63,6 +66,60 @@ export class UsersService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/users/tvl',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Users price search
+     * Get users price data.
+     * @param requestBody
+     * @returns PriceResponse OK
+     * @throws ApiError
+     */
+    public static postUsersPrice(
+        requestBody: TvlRequest,
+    ): CancelablePromise<Array<PriceResponse>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/price',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Users apy search
+     * Get users apy data.
+     * @param requestBody
+     * @returns ApyResponse OK
+     * @throws ApiError
+     */
+    public static postUsersApy(
+        requestBody: TvlRequest,
+    ): CancelablePromise<Array<ApyResponse>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/apy',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Users holders search
+     * Get st ever holders data.
+     * @param requestBody
+     * @returns HoldersResponse OK
+     * @throws ApiError
+     */
+    public static postUsersHolders(
+        requestBody: TvlRequest,
+    ): CancelablePromise<Array<HoldersResponse>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/holders',
             body: requestBody,
             mediaType: 'application/json',
         });
