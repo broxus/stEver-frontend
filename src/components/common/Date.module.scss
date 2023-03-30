@@ -18,9 +18,21 @@
     }
 }
 
+.title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #000000;
+}
+
 .main {
+    font-weight: 400;
     font-size: 12px;
-    letter-spacing: 0.4px;
     line-height: 16px;
-    color: var(--gray);
+    letter-spacing: 0.1px;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    color: #6C7078;
 }

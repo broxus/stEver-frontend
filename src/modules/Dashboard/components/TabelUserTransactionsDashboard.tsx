@@ -78,8 +78,8 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={UserTransactionColumn.AMOUNT}
                                 value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
@@ -93,8 +93,8 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={UserTransactionColumn.CREATED_AT}
                                 value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
@@ -169,7 +169,7 @@ export function DepoolsListPagination({ userTransactions }: TransactionsListPagi
     return (
         <Observer>
             {() => (
-                <Flex justifyContent="between"  className="pagination-container">
+                <Flex justifyContent="between" className="pagination-container">
                     <DownloadCsv
                         filename="TransactionsUser.csv"
                         keys={[

@@ -10,6 +10,14 @@
         color: #8B909A;
         padding-bottom: 12px;
         padding-top: 24px;
+
+        &:last-child {
+            padding-right: 13px;
+        }
+
+        &:first-child {
+            padding-left: 13px;
+        }
     }
 
     td {
@@ -20,6 +28,13 @@
         letter-spacing: 0.1px;
         font-feature-settings: 'tnum' on, 'lnum' on;
         color: #000000;
+        &:last-child {
+            padding-right: 13px;
+        }
+
+        &:first-child {
+            padding-left: 13px;
+        }
     }
 }
 

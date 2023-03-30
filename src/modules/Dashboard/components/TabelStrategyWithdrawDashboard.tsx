@@ -77,8 +77,8 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={StrategyWithdrawalColumn.CREATED_AT}
                                 value={{ column: strategyWithdraw.ordering.column, direction: strategyWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}

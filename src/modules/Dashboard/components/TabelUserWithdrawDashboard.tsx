@@ -75,8 +75,8 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={UserWithdrawalColumn.ST_AMOUNT}
                                 value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
@@ -90,8 +90,8 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={UserWithdrawalColumn.CREATED_AT}
                                 value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
@@ -165,7 +165,7 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
     return (
         <Observer>
             {() => (
-                <Flex justifyContent="between"  className="pagination-container">
+                <Flex justifyContent="between" className="pagination-container">
                     <DownloadCsv
                         filename="PendingsWithdrawUser.csv"
                         keys={[

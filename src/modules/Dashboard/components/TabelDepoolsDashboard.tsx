@@ -94,8 +94,8 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={StrategyColumn.PRIORITY}
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
@@ -109,8 +109,8 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
+                                ascending={Direction.ASC}
+                                descending={Direction.DESC}
                                 column={StrategyColumn.TVL}
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
