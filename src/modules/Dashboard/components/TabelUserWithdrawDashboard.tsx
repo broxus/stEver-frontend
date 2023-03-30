@@ -81,7 +81,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Value, EVER
+                                Value, stEver
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -124,7 +124,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
-                        value={pool.amount ?? 0}
+                        value={pool.stAmount ?? 0}
                     />
                 </td>
                 <td className="uk-text-right uk-width-small">
