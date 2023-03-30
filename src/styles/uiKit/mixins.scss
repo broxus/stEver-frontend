@@ -23,6 +23,41 @@
     color: #fff;
 }
 
+@mixin hook-button-secondary() {
+    background: #FFFFFF;
+    border: 1px solid #E4E5EA;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: #4D4F55;
+    padding: 8px 14px;
+    line-height: normal;
+    padding-right: 30px;
+
+    &:hover {
+        background-color: #FFFFFF !important;
+        color: #4D4F55 !important;
+    }
+
+    &:active {
+        background-color: #FFFFFF !important;
+        color: #4D4F55 !important;
+    }
+
+    &::before {
+        border: 5px solid transparent;
+        content: '';
+        display: block;
+        position: absolute;
+        right: 14px;
+    }
+
+    &::before {
+        border-top-color: #000;
+        top: 14.5px;
+    }
+}
+
 @mixin hook-tile-default() {
     p {
         span {

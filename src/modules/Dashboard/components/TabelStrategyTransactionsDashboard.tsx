@@ -250,7 +250,7 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
                 </Tile>
             )}
         >
-            <Button type="default">
+            <Button type='secondary'>
                 Type
             </Button>
         </Drop>
