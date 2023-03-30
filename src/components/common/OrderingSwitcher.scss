@@ -13,10 +13,12 @@
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.1px;
-        color: #000000;
+        color: #4D4F55;
+
 
         &:hover,
         &focus {
+            text-decoration: none;
             background: none;
             border: 0;
             color: inherit;
@@ -45,6 +47,35 @@
     }
 
     &-desc {
+        &::before {
+            border-top-color: #000;
+            top: 7.5px;
+        }
+    }
+
+
+    &-desc-left,
+    &-asc-left {
+        color: #000 !important;
+        padding-left: 24px !important;
+
+        &::before {
+            border: 5px solid transparent;
+            content: '';
+            display: block;
+            position: absolute;
+            left: 5px;
+        }
+    }
+
+    &-asc-left {
+        &::before {
+            border-bottom-color: #000;
+            top: 2px;
+        }
+    }
+
+    &-desc-left {
         &::before {
             border-top-color: #000;
             top: 7.5px;

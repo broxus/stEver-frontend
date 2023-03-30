@@ -72,22 +72,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
         <thead className="uk-height-small">
             <tr>
                 <th className="uk-text-left uk-width-small">Strategy</th>
-                <th className="uk-text-left uk-width-small">
-                    {/* <Observer>
-                        {() => (
-                            <OrderingSwitcher<Direction>
-                                ascending={Direction.DESC}
-                                descending={Direction.ASC}
-                                column={StrategyColumn.PRIORITY}
-                                value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
-                                onSwitch={onSwitchOrdering}
-                            >
-                                Validator fee
-                            </OrderingSwitcher>
-                        )}
-                    </Observer> */}
-                    Validator fee
-                </th>
+                <th className="uk-text-left uk-width-small">Validator fee</th>
                 <th className="uk-text-left uk-width-small">Depool</th>
                 <th className="uk-text-left uk-width-small">Owner</th>
                 <th className="uk-text-left uk-width-small">
@@ -114,6 +99,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 column={StrategyColumn.TVL}
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
+                                positionLeft={true}
                             >
                                 TVL
                             </OrderingSwitcher>

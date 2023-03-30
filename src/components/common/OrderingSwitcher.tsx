@@ -11,6 +11,7 @@ type Props<T> = {
     descending: T;
     value: T | undefined;
     onSwitch: (value: T) => void;
+    positionLeft?: boolean
 }
 
 
@@ -21,6 +22,7 @@ export function OrderingSwitcher<T>({
     value,
     descending,
     onSwitch,
+    positionLeft
 }: Props<any>): JSX.Element {
     const onClick = () => {
         console.log(value.direction)
@@ -32,10 +34,18 @@ export function OrderingSwitcher<T>({
 
     return (
         <Link
-            className={classNames('btn', 'ordering-switcher', {
-                'ordering-switcher-asc': value.column === column && value.direction === ascending,
-                'ordering-switcher-desc': value.column === column && value.direction === descending,
-            })}
+            className={classNames('btn', 'ordering-switcher',
+                positionLeft ?
+                    {
+                        'ordering-switcher-asc-left': value.column === column && value.direction === ascending,
+                        'ordering-switcher-desc-left': value.column === column && value.direction === descending,
+                    }
+                    :
+                    {
+                        'ordering-switcher-asc': value.column === column && value.direction === ascending,
+                        'ordering-switcher-desc': value.column === column && value.direction === descending,
+                    }
+            )}
             onClick={onClick}
         >
             {children}

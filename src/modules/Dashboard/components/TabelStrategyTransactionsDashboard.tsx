@@ -99,6 +99,7 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                                 column={SystemTransactionColumn.CREATED_AT}
                                 value={{ column: strategyTransactions.ordering.column, direction: strategyTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
+                                positionLeft={true}
                             >
                                 Date & Time
                             </OrderingSwitcher>

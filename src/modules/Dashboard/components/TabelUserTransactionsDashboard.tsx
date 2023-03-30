@@ -98,6 +98,7 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 column={UserTransactionColumn.CREATED_AT}
                                 value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
+                                positionLeft={true}
                             >
                                 Date & Time
                             </OrderingSwitcher>
