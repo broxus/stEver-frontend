@@ -97,7 +97,7 @@ function FormTab({
                             readOnly
                             title={type === StakingType.Stake ? 'You receive stEVER' : 'You spend EVER'}
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
-                            price={type === StakingType.Stake ? staking.exchangeRate : staking.exchangeRate}
+                            price={type === StakingType.Stake ? staking.exchangeRate ?? "0" : staking.exchangeRate ?? "0"}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
                         {staking?.isFetching ?

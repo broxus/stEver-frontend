@@ -4,7 +4,7 @@ import {
     Flex, Heading, Label, Link, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
-import { sliceAddress } from '@broxus/js-utils'
+import { makeArray, sliceAddress } from '@broxus/js-utils'
 import { generatePath, NavLink } from 'react-router-dom'
 
 import { Pagination } from '@/components/common/Pagination'
@@ -111,12 +111,12 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
     )
 }
 
-type Props = {
+type DepoolsListItemType = {
     idx: number;
     pool: any;
 }
 
-export function DepoolsListItem({ pool }: Props): JSX.Element {
+export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
     const { wallet } = useTvmWalletContext()
 
     return (
@@ -215,5 +215,6 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
         </Observer>
     )
 }
+
 
 export const TabelDepoolsDashboard = observer(TabelDepoolsDashboardInner)
