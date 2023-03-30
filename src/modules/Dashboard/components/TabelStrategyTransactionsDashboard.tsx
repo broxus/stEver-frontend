@@ -31,23 +31,11 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
     const strategyTransactions = useStore(StrategiesTransactionsStore)
 
-    // const [elNavWrap, setElNavWrap] = React.useState<Element>()
-
-    // React.useEffect(() => {
-    //     const elTabsId = document.getElementById('tabs-withdraw')
-    //     const elNavWrap = elTabsId!.querySelector('.uk-tabs-nav-wrap')
-
-    //     console.log(elNavWrap)
-    //     if (elNavWrap) {
-    //         setElNavWrap(elNavWrap)
-    //     }
-    // }, [])
-
     return (
         <Observer>
             {() => (
                 <PanelLoader loading={strategyTransactions.isFetching}>
-                    <Tile type="default" size="xsmall">
+                    <Tile type="default" className="uk-padding-remove">
                         <table className="uk-table uk-table-divider uk-width-1-1 table">
                             <Media query={{ minWidth: 640 }}>
                                 <TransactionsListHeader strategyTransactions={strategyTransactions} />

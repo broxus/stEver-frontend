@@ -8,7 +8,6 @@ import {
 
 import { RateChange } from '@/components/common/RateChange'
 
-import './ChartStrategy.scss'
 import { Observer, observer } from 'mobx-react-lite'
 
 import { useStore } from '@/hooks/useStore'
@@ -22,6 +21,7 @@ import BigNumber from 'bignumber.js'
 import { Link, useParams } from 'react-router-dom'
 import { Params, appRoutes } from '@/routes'
 
+import './ChartStrategy.scss'
 
 function ChartStrategyInner(): JSX.Element {
 
@@ -115,7 +115,7 @@ function ChartStrategyInner(): JSX.Element {
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
-                <Breadcrumb>
+                <Breadcrumb className="uk-margin-remove">
                     <Breadcrumb.Item>
                         <Link to={appRoutes.dashboard.path}>Dashboard</Link>
                     </Breadcrumb.Item>
@@ -124,7 +124,7 @@ function ChartStrategyInner(): JSX.Element {
                     </Breadcrumb.Item>
                 </Breadcrumb>
 
-                <Heading component="h2">
+                <Heading component="h2" className="uk-margin-remove">
                     Strategy {sliceAddress(id)}
                 </Heading>
                 {/* 

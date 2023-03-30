@@ -1,25 +1,15 @@
 .chartDashboard {
     &__container {
-        &--chartBoard {
-            display: grid;
-            gap: 16px;
-            grid-template-columns: 284px 1fr;
+        ul {
+            padding-bottom: 12px;
+        }
 
-            &__chart {
-                background: #fff;
-            }
+        h2 {
+            padding-bottom: 32px;
+        }
 
-            &__info {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                justify-content: space-between;
-
-                &--item {
-                    background: #fff;
-                    height: 100%;
-                }
-            }
+        >div {
+            min-height: 400px;
         }
     }
 }

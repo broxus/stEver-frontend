@@ -33,7 +33,7 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
         <Observer>
             {() => (
                 <PanelLoader loading={strategyWithdraw.isFetching}>
-                    <Tile type="default" size="xsmall">
+                    <Tile type="default" className="uk-padding-remove">
                         <table className="uk-table uk-table-divider uk-width-1-1 table">
                             <Media query={{ minWidth: 640 }}>
                                 <TransactionsListHeader strategyWithdraw={strategyWithdraw} />

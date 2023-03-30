@@ -33,7 +33,7 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
             <Observer>
                 {() => (
                     <PanelLoader loading={tabelDepools.isFetching}>
-                        <Tile type="default" size="xsmall">
+                        <Tile type="default" className="uk-padding-remove">
                             <table className="uk-table uk-table-divider uk-width-1-1 table">
                                 <Media query={{ minWidth: 640 }}>
                                     <DepoolsListHeader tabelDepools={tabelDepools} />
@@ -199,7 +199,6 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
                 <>
                     <Flex justifyContent="between">
                         <DownloadCsv
-
                             filename="DePools.csv"
                             keys={[
                                 'depool',

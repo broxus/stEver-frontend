@@ -88,9 +88,9 @@ function ChartDashboardInner(): JSX.Element {
             const abbreviated = abbreviateNumber(price)
             const value = abbreviated.substring(0, abbreviated.length - 1)
             const unit = abbreviateNumber(price).slice(-1)
-            return `$${formattedAmount(value)}${unit}`
+            return `Ever ${formattedAmount(value)}${unit}`
         }
-        return `$${formattedAmount(price, undefined, {
+        return `Ever ${formattedAmount(price, undefined, {
             precision: 1,
         })}`
     }
@@ -99,16 +99,16 @@ function ChartDashboardInner(): JSX.Element {
     return (
         <div className="chartDashboard">
             <Flex flexDirection="column" className="chartDashboard__container">
-                <Heading component="h2">
+                <Heading component="h2" className="uk-margin-remove">
                     General information
                 </Heading>
 
                 <Grid gap="xsmall" match>
-                    <Width size="1-4">
+                    <Width size="1-3">
                         <Observer>
                             {() => (
                                 <Grid gap="xsmall" childWidth={1}>
-                                    <Tile type="default" size="xsmall">
+                                    <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
@@ -116,8 +116,9 @@ function ChartDashboardInner(): JSX.Element {
                                                     decimals={ST_EVER_DECIMALS}
                                                     value={dashboard?.strategyMainInfo?.tvl}
                                                     symbol='EVER'
+                                                    className='total'
                                                 />
-                                                <br />
+
                                                 <span>
                                                     ~<FormattedCurrencyValue
                                                         value={
@@ -132,38 +133,39 @@ function ChartDashboardInner(): JSX.Element {
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
-                                    <Tile type="default" size="xsmall">
+                                    <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Current price</Text>
                                             <Text>
                                                 <FormattedTokenAmount
                                                     value={new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
                                                     symbol="EVER"
+                                                    className='total'
                                                 />
-                                                <br />
+
                                                 <span>
                                                     ~<FormattedCurrencyValue
                                                         value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
                                                     />
                                                 </span>
-                                            </Text> 
+                                            </Text>
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
-                                    <Tile type="default" size="xsmall">
+                                    <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>APY</Text>
-                                            <Text>
+                                            <Text className='total'>
                                                 {new BigNumber(dashboard?.strategyMainInfo?.apy).times(100).toFixed(2)}
                                                 %
                                             </Text>
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
-                                    <Tile type="default" size="xsmall">
+                                    <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Holders</Text>
-                                            <Text>
+                                            <Text className='total'>
                                                 {dashboard?.strategyMainInfo?.holders}
                                             </Text>
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
@@ -173,7 +175,7 @@ function ChartDashboardInner(): JSX.Element {
                             )}
                         </Observer>
                     </Width>
-                    <Width size="3-4">
+                    <Width size="2-3">
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
                             <Text component='h5' className="uk-margin-remove uk-padding-small">
                                 TVL
@@ -183,13 +185,14 @@ function ChartDashboardInner(): JSX.Element {
                             <Observer>
                                 {() => (
                                     <Chart
-                                        height={480} width={1000} style={{ height: '100%' }}
+                                        height={400} width={1000} style={{ height: '100%' }}
                                         ref={chart}
                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                     >
                                         <Chart.Series
                                             ref={series}
                                             type="Area"
+                                            // title={"Wawer"}
                                             data={dashboard.tvlCharts}
                                             lineColor="#2B63F1"
 

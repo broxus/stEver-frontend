@@ -10,7 +10,6 @@ import BigNumber from 'bignumber.js'
 
 function RoundsBalancesStrategyInner(): JSX.Element {
     const dashboard = useStore(ChartStore)
-    console.log(dashboard.strategyRounds?.rounds)
     return (
         <>
             <Flex flexDirection="column">
@@ -26,7 +25,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                 return (
                                     <Width size="1-3">
                                         <Tile type='default' size='xsmall'>
-                                            <Text>Round {e[0]} </Text>
+                                            <Text className="uk-margin-remove">Round {e[0]} </Text>
                                             <FormattedTokenAmount
                                                 decimals={ST_EVER_DECIMALS}
                                                 value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}

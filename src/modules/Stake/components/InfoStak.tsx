@@ -20,7 +20,7 @@ export function InfoStakInner(): JSX.Element {
         <Observer>
             {() => (
                 <Flex flexDirection="column" justifyContent="center">
-                    <Flex justifyContent="center">
+                    <Flex justifyContent="center" className={"uk-margin-bottom"}>
                         <Heading component="h1">
                             Stake your EVERs
                         </Heading>

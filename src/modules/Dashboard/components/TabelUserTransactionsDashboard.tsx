@@ -28,13 +28,13 @@ import { createPortal } from 'react-dom'
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
     const userTransactions = useStore(UserTransactionsStore)
-    console.log(userTransactions.transactions)
+
     return (
         <>
             <Observer>
                 {() => (
                     <PanelLoader loading={userTransactions.isFetching}>
-                        <Tile type="default" size="xsmall">
+                        <Tile type="default" className="uk-padding-remove">
                             <table className="uk-table uk-table-divider uk-width-1-1 table">
                                 <Media query={{ minWidth: 640 }}>
                                     <TransactionsListHeader userTransactions={userTransactions} />

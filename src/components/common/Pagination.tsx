@@ -59,11 +59,11 @@ export const Pagination = React.memo(({
     }, [currentPage])
 
     return (
-        <div className={classNames('pagination', 'uk-margin-small', className)}>
+        <div className={classNames('pagination', 'uk-margin-remove', className)}>
             <Flex justifyContent="between">
                 <Flex justifyContent="right">
                     <AmountInput
-                        className="pagination__input uk-margin-small-right"
+                        className="pagination__input uk-margin-small-right uk-margin-remove"
                         inputMode="decimal"
                         readOnly
                         type="text"
@@ -72,12 +72,12 @@ export const Pagination = React.memo(({
                         onKeyUp={onKeyUp}
                         showMaxButton={false}
                     />
-                    <Text className="uk-margin-small-right">
+                    <Text className="uk-margin-small-right uk-margin-remove">
                         page of {" "}{totalPages}
                     </Text>
                     <Card>
                         <Button
-                            className="uk-margin-small-right" type="default" onClick={onPrev}
+                            className="uk-margin-small-right uk-margin-remove" type="default" onClick={onPrev}
                             disabled={disabled || currentPage === 1}
                         >
                             <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
