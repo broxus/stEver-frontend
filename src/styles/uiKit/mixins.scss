@@ -112,14 +112,26 @@
 @mixin hook-label-success() {
     color: #398A39;
     background: #DEF1DE;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
 }
 
 @mixin hook-label-warning() {
     background: #FEF2CD;
     color: #B28501;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
 }
 
 @mixin hook-label-danger() {
     background: #F7D7DD;
     color: #A53045;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
 }

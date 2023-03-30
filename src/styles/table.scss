@@ -1,5 +1,6 @@
 .table {
     padding: 0 25px;
+
     th {
         border-bottom: 1px solid #e4e5ea;
         font-weight: 500;
@@ -13,6 +14,12 @@
 
     td {
         border-bottom: 1px solid #e4e5ea;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: #000000;
     }
 }
 
