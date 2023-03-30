@@ -1,0 +1,20 @@
+.round {
+    display: grid;
+    gap: 4px;
+    p {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #8B909A;
+    }
+
+    span {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.1px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: #000000;
+    }
+}

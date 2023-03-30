@@ -6,7 +6,7 @@ import { useStore } from '@/hooks/useStore'
 import { FormattedTokenAmount } from '@broxus/react-components'
 import { ST_EVER_DECIMALS } from '@/config'
 import BigNumber from 'bignumber.js'
-
+import "./RoundsBalancesStrategy.scss"
 
 function RoundsBalancesStrategyInner(): JSX.Element {
     const dashboard = useStore(ChartStore)
@@ -24,7 +24,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                     return undefined
                                 return (
                                     <Width size="1-3">
-                                        <Tile type='default' size='xsmall'>
+                                        <Tile type='secondary' size='xsmall' className="round">
                                             <Text className="uk-margin-remove">Round {e[0]} </Text>
                                             <FormattedTokenAmount
                                                 decimals={ST_EVER_DECIMALS}

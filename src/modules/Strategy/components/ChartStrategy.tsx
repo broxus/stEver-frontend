@@ -145,7 +145,7 @@ function ChartStrategyInner(): JSX.Element {
                         <Observer>
                             {() => (
                                 <Grid gap="xsmall" childWidth={1}>
-                                    <Tile type="default" size="xsmall">
+                                    <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
@@ -153,8 +153,9 @@ function ChartStrategyInner(): JSX.Element {
                                                     decimals={ST_EVER_DECIMALS}
                                                     value={dashboard?.strategyMainInfo?.tvl}
                                                     symbol='EVER'
+                                                    className='total'
                                                 />
-                                                <br />
+
                                                 <span>
                                                     ~<FormattedCurrencyValue
                                                         value={
@@ -169,28 +170,28 @@ function ChartStrategyInner(): JSX.Element {
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
-                                    <Tile type="default" size="xsmall">
-                                        <Grid gap="xsmall" childWidth={1}>
-                                            <Text>Fee</Text>
-                                            <Text>{dashboard.strategyDetails?.validatorRewardFraction}%</Text>
-                                        </Grid>
-                                    </Tile>
                                 </Grid>
                             )}
                         </Observer>
                     </Width>
                     <Width size="3-4">
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
+                            <Text component='h5' className="uk-margin-remove uk-padding-small">
+                                TVL
+                            </Text>
+                        </Tile>
+                        <Tile type="default" size="xsmall" className="uk-padding-remove">
                             <Observer>
                                 {() => (
                                     <Chart
-                                        height={480} width={1000} style={{ height: '100%' }}
+                                        height={400} width={1000} style={{ height: '100%' }}
                                         ref={chart}
                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                     >
                                         <Chart.Series
                                             ref={series}
                                             type="Area"
+                                            // title={"Wawer"}
                                             data={dashboard.tvlCharts}
                                             lineColor="#2B63F1"
 
