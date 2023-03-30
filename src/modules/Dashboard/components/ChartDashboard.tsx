@@ -104,7 +104,7 @@ function ChartDashboardInner(): JSX.Element {
                 </Heading>
 
                 <Grid gap="xsmall" match>
-                    <Width size="1-3">
+                    <Width size="1-4">
                         <Observer>
                             {() => (
                                 <Grid gap="xsmall" childWidth={1}>
@@ -175,7 +175,7 @@ function ChartDashboardInner(): JSX.Element {
                             )}
                         </Observer>
                     </Width>
-                    <Width size="2-3">
+                    <Width size="3-4">
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
                             <Text component='h5' className="uk-margin-remove uk-padding-small">
                                 TVL
