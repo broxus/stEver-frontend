@@ -70,10 +70,10 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left">Strategy</th>
-                <th className="uk-text-left">Transaction</th>
-                <th className="uk-text-left">Value, EVER</th>
-                <th className="uk-text-right">
+                <th className="uk-text-left uk-width-small">Strategy</th>
+                <th className="uk-text-left uk-width-small">Transaction</th>
+                <th className="uk-text-left uk-width-small">Value, EVER</th>
+                <th className="uk-text-right uk-width-small">
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
@@ -105,7 +105,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left">
+                <td className="uk-text-left uk-width-small">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
                         id: pool.strategy,
                     })}
@@ -113,20 +113,20 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         {sliceAddress(pool.strategy)}
                     </NavLink>
                 </td>
-                <td className="uk-text-left">
+                <td className="uk-text-left uk-width-small">
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
                             {sliceAddress(pool.transactionHash)}
                         </ExplorerTransactionLink>
                     </Link>
                 </td>
-                <td className="uk-text-left">
+                <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.amount}
                     />
                 </td>
-                <td className="uk-text-right">
+                <td className="uk-text-right uk-width-small">
                     <Flex flexDirection='column'>
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
@@ -166,7 +166,7 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
     return (
         <Observer>
             {() => (
-                <Flex justifyContent="between">
+                <Flex justifyContent="between" className="pagination-container">
                     <DownloadCsv
                         filename="PendingsWithdrawStrategy.csv"
                         keys={[

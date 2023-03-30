@@ -71,10 +71,10 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left">User</th>
-                <th className="uk-text-left">Transaction</th>
-                <th className="uk-text-left">Type</th>
-                <th className="uk-text-left">
+                <th className="uk-text-left uk-width-small">User</th>
+                <th className="uk-text-left uk-width-small">Transaction</th>
+                <th className="uk-text-left uk-width-small">Type</th>
+                <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
@@ -89,7 +89,7 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                         )}
                     </Observer>
                 </th>
-                <th className="uk-text-right">
+                <th className="uk-text-right uk-width-small">
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
@@ -121,16 +121,16 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>{sliceAddress(pool.userAddress)}</ExplorerAccountLink></Link></td>
-                <td className="uk-text-left"><Link><ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath='transactions' txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
-                <td className="uk-text-left">{pool.kind}</td>
-                <td className="uk-text-left">
+                <td className="uk-text-left uk-width-small"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>{sliceAddress(pool.userAddress)}</ExplorerAccountLink></Link></td>
+                <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath='transactions' txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
+                <td className="uk-text-left uk-width-small">{pool.kind}</td>
+                <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.amount}
                     />
                 </td>
-                <td className="uk-text-right">
+                <td className="uk-text-right uk-width-small">
                     <Flex flexDirection='column'>
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
@@ -169,7 +169,7 @@ export function DepoolsListPagination({ userTransactions }: TransactionsListPagi
     return (
         <Observer>
             {() => (
-                <Flex justifyContent="between">
+                <Flex justifyContent="between"  className="pagination-container">
                     <DownloadCsv
                         filename="TransactionsUser.csv"
                         keys={[
