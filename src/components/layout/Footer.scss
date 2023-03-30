@@ -70,7 +70,10 @@
             .btn {
                 margin: 0 0 12px;
                 width: 100%;
-                &:last-child { margin-bottom: 0; }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -79,6 +82,7 @@
             flex-direction: row;
         }
     }
+
     @media only screen and (min-width: 960px) {
         padding-top: 64px;
 
@@ -132,8 +136,11 @@
             }
         }
     }
+
     @media only screen and (min-width: 1200px) {
-        &__wrapper { gap: 100px; }
+        &__wrapper {
+            gap: 100px;
+        }
     }
 }
 
@@ -163,15 +170,26 @@
         width: 50%;
 
         &-title {
+            margin-bottom: 12px;
+        }
+
+        a {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
             line-height: 20px;
-            margin-bottom: 16px;
+            letter-spacing: 0.1px;
+            color: #8B909A;
         }
     }
 
     &__list {
         li {
             margin-bottom: 12px;
-            &:last-child { margin-bottom: 0; }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
 
             a {
                 color: rgb(255 255 255 / 56%);
@@ -192,6 +210,7 @@
                 }
 
                 &[href] {
+
                     &.active,
                     &:hover {
                         color: #fff;
@@ -200,6 +219,7 @@
             }
         }
     }
+
     @media only screen and (min-width: $breakpoint-medium) {
         margin-left: -30px;
         row-gap: 30px;
@@ -222,14 +242,27 @@
 }
 
 .footer-subnav {
+    a {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #8B909A;
+    }
+    
     ul {
         align-items: center;
         display: flex;
         justify-content: flex-start;
 
+
         li {
             margin-right: 32px;
-            &:last-child { margin-right: 0; }
+
+            &:last-child {
+                margin-right: 0;
+            }
 
             a {
                 color: rgb(255 255 255 / 56%);
@@ -241,7 +274,9 @@
                 transition-property: color;
 
                 &.active,
-                &:hover { color: #fff; }
+                &:hover {
+                    color: #fff;
+                }
             }
         }
     }
@@ -280,12 +315,17 @@
     flex-wrap: wrap;
     gap: 8px;
     justify-content: flex-end;
-    > * { width: 100%; }
+
+    >* {
+        width: 100%;
+    }
+
     @media only screen and (min-width: $breakpoint-medium) {
         flex-wrap: nowrap;
         gap: 10px;
         justify-content: flex-start;
     }
+
     @media only screen and (min-width: 960px) {
         flex-wrap: wrap;
     }

@@ -76,9 +76,9 @@ export function Footer(): JSX.Element {
                     <nav className="footer-nav">
                         <div className="footer-nav__col">
                             <Text component="h6" className="footer-nav__col-title">
-                                {intl.formatMessage({ id: 'FOOTER_NAV_HEADER_OUR_ERVICES' })}
+                                {intl.formatMessage({ id: 'FOOTER_NAV_HEADER_PRODUCT' })}
                             </Text>
-                            <List>
+                            <List className='uk-margin-remove'>
                                 <Tile size="xsmall" className="uk-padding-remove">
                                     <Link to={appRoutes.dashboard.path}>
                                         <LinkText type="text">
@@ -88,13 +88,6 @@ export function Footer(): JSX.Element {
                                         </LinkText>
                                     </Link>
                                 </Tile>
-                                {/* <Tile size="xsmall" className="uk-padding-remove">
-                                    <LinkText type="text">
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_NAV_PRODUCT_LINK_DOCS',
-                                        })}
-                                    </LinkText>
-                                </Tile> */}
                                 <Tile size="xsmall" className="uk-padding-remove">
                                     <Link to={appRoutes.home.path}>
                                         <LinkText type="text">
@@ -104,36 +97,15 @@ export function Footer(): JSX.Element {
                                         </LinkText>
                                     </Link>
                                 </Tile>
-                                {/* <Tile size="xsmall" className="uk-padding-remove">
-                                    <LinkText type="text">
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_NAV_PRODUCT_LINK_BECOME_A_VALIDATOR',
-                                        })}
-                                    </LinkText>
-                                </Tile> */}
                             </List>
-                            {/* <ul className="footer-nav__list">
-                                <li>
-                                    <a
-                                        href="https://drive.google.com/u/0/uc?id=1V9rDRD6ltXTNwxmWqDw3ey3-SYTQX2mN&view?usp=sharing"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        {intl.formatMessage({
-                                            id: 'FOOTER_NAV_PRODUCT_LINK_DASHBOARD',
-                                        })}
-                                    </a>
-                                </li>
-                            </ul> */}
-
                         </div>
                         <div className="footer-nav__col">
                             <Text component="h6" className="footer-nav__col-title">
                                 {intl.formatMessage({
-                                    id: 'FOOTER_NAV_HEADER_OUR_ERVICES',
+                                    id: 'FOOTER_NAV_HEADER_OUR_SERVICES',
                                 })}
                             </Text>
-                            <List>
+                            <List className='uk-margin-remove'>
                                 <Tile size="xsmall" className="uk-padding-remove">
                                     <LinkText type="text" href="https://octusbridge.io/">
                                         {intl.formatMessage({
@@ -163,9 +135,6 @@ export function Footer(): JSX.Element {
                                     </LinkText>
                                 </Tile>
                             </List>
-                            {/* <ul className="footer-nav__list">
- 
-                            </ul> */}
                         </div>
                     </nav>
                     <div className="footer__right">
@@ -239,7 +208,7 @@ export function Footer(): JSX.Element {
                     <div className="footer__sub">
                         <LinkText
                             type="text"
-                            // className="footer-copyright"
+                            className="footer-copyright"
                             dangerouslySetInnerHTML={{
                                 __html: intl.formatMessage({
                                     id: 'FOOTER_COPYRIGHTS',
