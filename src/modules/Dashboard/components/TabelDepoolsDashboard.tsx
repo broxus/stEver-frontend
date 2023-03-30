@@ -101,7 +101,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 onSwitch={onSwitchOrdering}
                                 positionLeft={true}
                             >
-                                TVL
+                                TVL, EVER
                             </OrderingSwitcher>
                         )}
                     </Observer>
