@@ -9,25 +9,16 @@ import { DeviceNav } from '@/components/layout/DeviceNav'
 
 import { Drawer, DrawerRef } from '../common/Drawer'
 
+import "./Header.scss"
 
 export function HeaderDrawer(): JSX.Element {
     const intl = useIntl()
-    // const wallet = useWallet()
 
     const drawer = React.useRef<DrawerRef | null>(null)
 
     const collapse = () => {
         drawer.current?.collapse()
     }
-
-    React.useEffect(() => {
-        // const connectionDisposer = reaction(() => wallet.isConnected, () => {
-        //     collapse()
-        // })
-        // return () => {
-        //     connectionDisposer?.()
-        // }
-    }, [])
 
     return (
         <Observer>
@@ -51,17 +42,13 @@ export function HeaderDrawer(): JSX.Element {
                     <Component className="device-drawer-content-inner">
                         <div className="device-drawer-header">
                             <div className="logo">
-                                <Logo ratio={0.9} />
+                                <Logo ratio={1} />
                             </div>
 
                             <div className="device-drawer-header-inner">
-                                {/* {wallet.isConnected && (
-                                    <EverWallet showDisconnectButton={false} />
-                                )} */}
-
                                 <Button
-                                    type="default"
-                                    className="btn-close-drawer"
+                                    type='text'
+                                    className="btn-open-drawer"
                                     onClick={collapse}
                                 >
                                     <Icon icon="close" />
@@ -69,22 +56,6 @@ export function HeaderDrawer(): JSX.Element {
                             </div>
                         </div>
                         <DeviceNav onNavigate={collapse} />
-                        <div className="device-drawer-footer">
-                            {/* <Button
-                                block
-                                size="md"
-                                type={wallet.isConnected ? 'secondary' : 'primary'}
-                                onClick={wallet.isConnected
-                                    ? wallet.disconnect
-                                    : wallet.connect}
-                            >
-                                {intl.formatMessage({
-                                    id: wallet.isConnected
-                                        ? 'WALLET_DISCONNECT_BTN_TEXT'
-                                        : 'EVER_WALLET_CONNECT_BTN_TEXT',
-                                })}
-                            </Button> */}
-                        </div>
                     </Component>
                 </Drawer>
             )}

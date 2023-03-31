@@ -6,6 +6,7 @@ import { ChartStore } from '../../store/chartStore'
 import { useStore } from '@/hooks/useStore'
 import { DateTime } from 'luxon'
 import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
+import Media from 'react-media'
 
 function ChartTVLInner(): JSX.Element {
 
@@ -94,25 +95,29 @@ function ChartTVLInner(): JSX.Element {
         <>
             <Observer>
                 {() => (
-                    <Chart
-                        height={400} width={1000} style={{ height: '100%' }}
-                        ref={chartTvl}
-                        onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
-                    >
-                        {dashboard.isFetchingCharts && <Chart.Placeholder />}
-                        <Chart.Series
-                            ref={seriesTvl}
-                            type="Area"
-                            data={dashboard.tvlCharts}
-                            lineColor="#2B63F1"
+                    <>
+                        <Media query={{ minWidth: 640 }}>
+                            <Chart
+                                height={400} width={1000} style={{ height: '100%' }}
+                                ref={chartTvl}
+                                onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
+                            >
+                                {dashboard.isFetchingCharts && <Chart.Placeholder />}
+                                <Chart.Series
+                                    ref={seriesTvl}
+                                    type="Area"
+                                    data={dashboard.tvlCharts}
+                                    lineColor="#2B63F1"
 
-                            priceFormat={{
-                                formatter: usdPriceFormatter,
-                                type: 'custom',
-                            }}
-                            priceScaleId="right"
-                        />
-                    </Chart>
+                                    priceFormat={{
+                                        formatter: usdPriceFormatter,
+                                        type: 'custom',
+                                    }}
+                                    priceScaleId="right"
+                                />
+                            </Chart>
+                        </Media>
+                    </>
                 )}
             </Observer>
         </>

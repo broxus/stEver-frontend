@@ -41,7 +41,7 @@ export function Header(): JSX.Element {
                                     <Navbar.Left>
                                         <Navbar.Item>
                                             <Link to={appRoutes.home.makeUrl()} className="logo">
-                                                <Logo ratio={0.9} />
+                                                <Logo ratio={1} />
                                             </Link>
                                         </Navbar.Item>
                                     </Navbar.Left>
@@ -51,7 +51,6 @@ export function Header(): JSX.Element {
                                             <HeaderDrawer />
                                         </Navbar.Item>
                                     </Navbar.Right>
-
                                 </>
                             )}
                         </Observer>

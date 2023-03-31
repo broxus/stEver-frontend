@@ -322,9 +322,7 @@ function ChartDashboardInner(): JSX.Element {
                                                 )}
                                             </Observer>
                                         </Width>
-                                        <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                            <ChartTVL />
-                                        </Tile>
+                                        <ChartTVL />
                                     </>
                                 )}
                             </Observer>

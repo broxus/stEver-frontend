@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import { Nav } from '@broxus/react-uikit'
+import { Link, Nav } from '@broxus/react-uikit'
 
 import { appRoutes } from '@/routes'
 
@@ -28,20 +28,6 @@ export function DeviceNav({ onNavigate }: Props): JSX.Element {
                 <NavLink to={appRoutes.dashboard.makeUrl()} onClick={onNavigate}>
                     {intl.formatMessage({
                         id: 'NAV_LINK_TEXT_DASHBOARD',
-                    })}
-                </NavLink>
-            </Nav.Item>
-            <Nav.Item key="docs">
-                <NavLink to={appRoutes.docs.makeUrl()} onClick={onNavigate}>
-                    {intl.formatMessage({
-                        id: 'NAV_LINK_TEXT_DOCS',
-                    })}
-                </NavLink>
-            </Nav.Item>
-            <Nav.Item key="decomeValidator">
-                <NavLink to={appRoutes.decomeValidator.makeUrl()} onClick={onNavigate}>
-                    {intl.formatMessage({
-                        id: 'NAV_LINK_TEXT_BECOME_A_VLIDATOR',
                     })}
                 </NavLink>
             </Nav.Item>
