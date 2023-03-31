@@ -28,6 +28,7 @@
         letter-spacing: 0.1px;
         font-feature-settings: 'tnum' on, 'lnum' on;
         color: #000000;
+
         &:last-child {
             padding-right: 13px;
         }
@@ -36,8 +37,15 @@
             padding-left: 13px;
         }
     }
+    @media (max-width: 640px) {
+        padding: 0 0px;
+    }
 }
 
 .pagination-container {
     padding: 0 25px;
+}
+
+.listCard {
+    border-bottom: 1px solid #E4E5EA;
 }

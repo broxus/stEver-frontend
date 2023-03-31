@@ -18,6 +18,7 @@ import { RateChange } from '@/components/common/RateChange'
 import { ChartStore } from '../store/chartStore'
 import { ChartTVL } from './charts/ChartTVL'
 import { Placeholder } from '@/components/common/Placeholder'
+import Media from 'react-media'
 
 function ChartDashboardInner(): JSX.Element {
 
@@ -32,6 +33,7 @@ function ChartDashboardInner(): JSX.Element {
                 </Heading>
 
                 <Grid gap="xsmall" match>
+                <Media query={{ minWidth: 640 }}>
                     <Width size="1-4">
                         <Observer>
                             {() => (
@@ -167,6 +169,7 @@ function ChartDashboardInner(): JSX.Element {
                             )}
                         </Observer>
                     </Width>
+                </Media>
                     <Width size="3-4">
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
                             <Text component='h5' className="uk-margin-remove uk-padding-small">

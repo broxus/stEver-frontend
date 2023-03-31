@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Link, Tile,
+    Flex, Grid, Heading, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -44,11 +44,19 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                                     </Media>
                                     {userWithdraw.transactions?.map((pool, idx) => (
                                         <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                            <TransactionsListItem
-                                                key={pool.transactionHash}
-                                                idx={idx + 1}
-                                                pool={pool}
-                                            />
+                                            {matches => (matches ? (
+                                                <TransactionsListItem
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ) : (
+                                                <TransactionsListCard
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ))}
                                         </Media>
                                     ))}
                                 </table>
@@ -125,7 +133,13 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>{sliceAddress(pool.userAddress)}</ExplorerAccountLink></Link></td>
+                <td className="uk-text-left uk-width-small">
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
+                            {sliceAddress(pool.userAddress)}
+                        </ExplorerAccountLink>
+                    </Link>
+                </td>
                 <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
@@ -142,6 +156,60 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
         </tbody>
     )
 }
+
+type TransactionsListCardType = {
+    idx: number;
+    pool: any;
+}
+
+export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
+    const { wallet } = useTvmWalletContext()
+    return (
+        <Tile className="listCard uk-padding-small">
+            <Grid childWidth={1} gap='xsmall'>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>
+                        <Link>
+                            <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
+                                <Text className='uk-margin-auto-vertical' size='small'>
+                                    {sliceAddress(pool.userAddress)}
+                                </Text>
+                            </ExplorerAccountLink>
+                        </Link>
+                    </Text>
+                    <Text className='uk-margin-auto-vertical' size='small'>
+                        <FormattedTokenAmount
+                            decimals={ST_EVER_DECIMALS}
+                            value={pool.stAmount}
+                        />
+                    </Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>Transaction</Text>
+
+                    <Link>
+                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                            <Flex>
+                                <Text className='uk-margin-auto-vertical' size='small'>
+                                    {sliceAddress(pool.transactionHash)}
+                                </Text>
+                            </Flex>
+                        </ExplorerTransactionLink>
+                    </Link>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>Date & Time</Text>
+                    <Link>
+                        <Text className='uk-margin-auto-vertical' size='small'>
+                            <Date line time={pool.transactionTime * 1000} />
+                        </Text>
+                    </Link>
+                </Flex>
+            </Grid>
+        </Tile>
+    )
+}
+
 
 type TransactionsListPaginationType = {
     userWithdraw: UserWithdrawStore

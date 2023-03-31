@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Heading, Label, Link, Tile,
+    Flex, Grid, Heading, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { makeArray, sliceAddress } from '@broxus/js-utils'
@@ -44,11 +44,21 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                         </Media>
                                         {tabelDepools.depoolsStrategies?.map((pool, idx) => (
                                             <Media key={pool.depool} query={{ minWidth: 640 }}>
-                                                <DepoolsListItem
-                                                    key={pool.depool}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
+                                                {matches => (matches ? (
+                                                    <DepoolsListItem
+                                                        key={pool.depool}
+                                                        idx={idx + 1}
+                                                        pool={pool}
+                                                    />
+                                                ) : (
+                                                    <DepoolsListCard
+                                                        key={pool.depool}
+                                                        idx={idx + 1}
+                                                        pool={pool}
+                                                    />
+                                                ))}
+
+
                                             </Media>
                                         ))}
                                     </table>
@@ -60,7 +70,7 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                     </PanelLoader>
                 )}
             </Observer>
-        </Flex>
+        </Flex >
     )
 }
 
@@ -176,6 +186,75 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
         </tbody>
     )
 }
+
+
+type DepoolsListCardType = {
+    idx: number;
+    pool: any;
+}
+
+export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
+    const { wallet } = useTvmWalletContext()
+
+    return (
+        <Tile className="listCard uk-padding-small">
+            <Grid childWidth={1} gap='xsmall'>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical'>
+                        <NavLink to={generatePath(appRoutes.strategy.path, {
+                            id: pool.strategy,
+                        })}>
+                            {sliceAddress(pool.strategy)}
+                        </NavLink>
+                    </Text>
+                    <Text className='uk-margin-auto-vertical'>
+                        <Label
+                            type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
+                        >
+                            {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
+                        </Label>
+                    </Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>Fee</Text>
+                    <Text className='uk-margin-auto-vertical' size='small'>{pool.validatorFee}%</Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>Depool</Text>
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
+                            <Text className='uk-margin-auto-vertical' size='small'>
+                                {sliceAddress(pool.depool)}
+                            </Text>
+                        </ExplorerAccountLink>
+                    </Link>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>Owner</Text>
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
+                            <Flex>
+                                <Text className='uk-margin-auto-vertical' size='small'>
+                                    {sliceAddress(pool.owner)}
+                                </Text>
+                            </Flex>
+                        </ExplorerAccountLink>
+                    </Link>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical' size='small'>TVL, EVER</Text>
+                    <Text className='uk-margin-auto-vertical'>
+                        <FormattedTokenAmount
+                            decimals={ST_EVER_DECIMALS}
+                            value={pool.tvl}
+                        />
+                    </Text>
+                </Flex>
+            </Grid>
+        </Tile>
+    )
+}
+
 
 type DepoolsListPaginationType = {
     tabelDepools: TabelDepoolsStore
