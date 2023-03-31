@@ -18,17 +18,18 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                 <Heading component="h4">
                     Rounds balances
                 </Heading>
-                <Observer>
-                    {() => (
-                        <Grid gap="xsmall" match>
-                            {dashboard.strategyRounds ?
-                                dashboard.strategyRounds.rounds.map((e, i) => {
-                                    if (dashboard.strategyRounds?.rounds.length === i + 1)
-                                        return undefined
-                                    return (
-                                        <Media query={{ minWidth: 640 }}>
-                                            {matches => (matches ? (
-                                                <Width size="1-1">
+
+                <Media query={{ minWidth: 640 }}>
+                    {matches => (
+                        <Observer>
+                            {() => (
+                                <Grid gap="xsmall" match>
+                                    {dashboard.strategyRounds ?
+                                        dashboard.strategyRounds.rounds.map((e, i) => {
+                                            if (dashboard.strategyRounds?.rounds.length === i + 1)
+                                                return undefined
+                                            return (
+                                                <Width size={matches ? "1-3" : "1-1"}>
                                                     <Tile type='secondary' size='xsmall' className="round">
                                                         <Text className="uk-margin-remove">Round {e[0]} </Text>
                                                         <FormattedTokenAmount
@@ -38,88 +39,43 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                         />
                                                     </Tile>
                                                 </Width>
-                                            ) : (
-                                                <Width size="1-1">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">Round {e[0]} </Text>
-                                                        <FormattedTokenAmount
-                                                            decimals={ST_EVER_DECIMALS}
-                                                            value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}
-                                                            symbol='EVER'
-                                                        />
-                                                    </Tile>
-                                                </Width>
-                                            ))}
-                                        </Media>
-
-                                    )
-                                })
-                                :
-
-                                <>
-                                    <Media query={{ minWidth: 640 }}>
-                                        {matches => (matches ? (
-                                            <>
-                                                <Width size="1-3">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                                <Width size="1-3">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                                <Width size="1-3">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Width size="1-1">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                                <Width size="1-1">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                                <Width size="1-1">
-                                                    <Tile type='secondary' size='xsmall' className="round">
-                                                        <Text className="uk-margin-remove">
-                                                            <Placeholder height={20} width={100} />
-                                                        </Text>
-                                                        <Placeholder height={30} width={150} />
-                                                    </Tile>
-                                                </Width>
-                                            </>
-                                        ))}
-
-                                    </Media>
-                                </>
-                            }
-                        </Grid>
+                                            )
+                                        })
+                                        :
+                                        <>
+                                            <Width size={matches ? "1-3" : "1-1"}>
+                                                <Tile type='secondary' size='xsmall' className="round">
+                                                    <Text className="uk-margin-remove">
+                                                        <Placeholder height={20} width={100} />
+                                                    </Text>
+                                                    <Placeholder height={30} width={150} />
+                                                </Tile>
+                                            </Width>
+                                            <Width size={matches ? "1-3" : "1-1"}>
+                                                <Tile type='secondary' size='xsmall' className="round">
+                                                    <Text className="uk-margin-remove">
+                                                        <Placeholder height={20} width={100} />
+                                                    </Text>
+                                                    <Placeholder height={30} width={150} />
+                                                </Tile>
+                                            </Width>
+                                            <Width size={matches ? "1-3" : "1-1"}>
+                                                <Tile type='secondary' size='xsmall' className="round">
+                                                    <Text className="uk-margin-remove">
+                                                        <Placeholder height={20} width={100} />
+                                                    </Text>
+                                                    <Placeholder height={30} width={150} />
+                                                </Tile>
+                                            </Width>
+                                        </>
+                                    }
+                                </Grid>
+                            )}
+                        </Observer>
                     )}
-                </Observer>
+
+                </Media>
+
             </Flex>
         </>
     )
