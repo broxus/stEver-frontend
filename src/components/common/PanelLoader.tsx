@@ -24,8 +24,7 @@ export function PanelLoader({
             </div>
             {loading && (
                 <div className="panel-loader__loader">
-                    <ContentLoader slim />
-                    PPpp
+                    {/* <ContentLoader slim /> */}
                 </div>
             )}
         </div>

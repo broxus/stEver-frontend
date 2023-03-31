@@ -24,6 +24,7 @@ import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { createPortal } from 'react-dom'
+import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
@@ -35,21 +36,27 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                 {() => (
                     <PanelLoader loading={userTransactions.isFetching}>
                         <Tile type="default" className="uk-padding-remove">
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader userTransactions={userTransactions} />
-                                </Media>
-                                {userTransactions.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        <TransactionsListItem
-                                            key={pool.transactionHash}
-                                            idx={idx + 1}
-                                            pool={pool}
-                                        />
-                                    </Media>
-                                ))}
-                            </table>
-                            <DepoolsListPagination userTransactions={userTransactions} />
+                            {userTransactions.isFetching ?
+                                <PoolsListPlaceholder />
+                                :
+                                <>
+                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                        <Media query={{ minWidth: 640 }}>
+                                            <TransactionsListHeader userTransactions={userTransactions} />
+                                        </Media>
+                                        {userTransactions.transactions?.map((pool, idx) => (
+                                            <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                                <TransactionsListItem
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            </Media>
+                                        ))}
+                                    </table>
+                                    <DepoolsListPagination userTransactions={userTransactions} />
+                                </>
+                            }
                         </Tile>
                     </PanelLoader>
                 )}

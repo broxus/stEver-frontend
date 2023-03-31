@@ -19,6 +19,7 @@ import { ST_EVER_DECIMALS } from '@/config'
 import { ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -33,21 +34,28 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                 {() => (
                     <PanelLoader loading={tabelDepools.isFetching}>
                         <Tile type="default" className="uk-padding-remove">
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <DepoolsListHeader tabelDepools={tabelDepools} />
-                                </Media>
-                                {tabelDepools.depoolsStrategies?.map((pool, idx) => (
-                                    <Media key={pool.depool} query={{ minWidth: 640 }}>
-                                        <DepoolsListItem
-                                            key={pool.depool}
-                                            idx={idx + 1}
-                                            pool={pool}
-                                        />
-                                    </Media>
-                                ))}
-                            </table>
-                            <DepoolsListPagination tabelDepools={tabelDepools} />
+                            {tabelDepools.isFetching ?
+                                <PoolsListPlaceholder />
+                                :
+                                <>
+                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                        <Media query={{ minWidth: 640 }}>
+                                            <DepoolsListHeader tabelDepools={tabelDepools} />
+                                        </Media>
+                                        {tabelDepools.depoolsStrategies?.map((pool, idx) => (
+                                            <Media key={pool.depool} query={{ minWidth: 640 }}>
+                                                <DepoolsListItem
+                                                    key={pool.depool}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            </Media>
+                                        ))}
+                                    </table>
+                                    <DepoolsListPagination tabelDepools={tabelDepools} />
+                                </>
+                            }
+
                         </Tile>
                     </PanelLoader>
                 )}
@@ -63,8 +71,6 @@ type DepoolsListHeaderType = {
 export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
 
     const onSwitchOrdering = async (value: any) => {
-        console.log(value)
-
         tabelDepools.setState('ordering', value)
     }
 

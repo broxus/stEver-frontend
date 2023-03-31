@@ -24,6 +24,7 @@ import { Params, appRoutes } from '@/routes'
 
 import './ChartStrategy.scss'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { Placeholder } from '@/components/common/Placeholder'
 
 function ChartStrategyInner(): JSX.Element {
 
@@ -158,32 +159,53 @@ function ChartStrategyInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                <FormattedTokenAmount
-                                                    decimals={ST_EVER_DECIMALS}
-                                                    value={dashboard?.strategyMainInfo?.tvl}
-                                                    symbol='EVER'
-                                                    className='total'
-                                                />
+                                                {dashboard.isFetching ?
+                                                    <>
+                                                        <Placeholder height={30} width={100} />
+                                                        <span>
+                                                            <Placeholder height={20} width={35} />
+                                                        </span>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <FormattedTokenAmount
+                                                            decimals={ST_EVER_DECIMALS}
+                                                            value={dashboard?.strategyMainInfo?.tvl}
+                                                            symbol='EVER'
+                                                            className='total'
+                                                        />
 
-                                                <span>
-                                                    ~<FormattedCurrencyValue
-                                                        value={
-                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
-                                                                .times(dashboard.price)
-                                                                .integerValue()
-                                                                .toFixed()
-                                                        }
-                                                    />
-                                                </span>
+                                                        <span>
+                                                            ~<FormattedCurrencyValue
+                                                                value={
+                                                                    new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                        .times(dashboard.price)
+                                                                        .integerValue()
+                                                                        .toFixed()
+                                                                }
+                                                            />
+                                                        </span>
+                                                    </>
+                                                }
                                             </Text>
-                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
+                                            {dashboard.isFetching ?
+                                                <Placeholder height={20} width={35} />
+                                                :
+                                                <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
+                                            }
                                         </Grid>
                                     </Tile>
                                     <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Fee</Text>
                                             <Text className='total'>
-                                                {dashboard.strategyDetails?.validatorRewardFraction ?? 0}%
+                                                {dashboard.isFetching ?
+                                                    <>
+                                                        <Placeholder height={30} width={100} />
+                                                    </>
+                                                    :
+                                                    <>{dashboard.strategyDetails?.validatorRewardFraction ?? 0}%</>
+                                                }
                                             </Text>
                                         </Grid>
                                     </Tile>
@@ -205,6 +227,7 @@ function ChartStrategyInner(): JSX.Element {
                                         ref={chart}
                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                     >
+                                        {/* {dashboard.isFetchingCharts && <Chart.Placeholder />} */}
                                         <Chart.Series
                                             ref={series}
                                             type="Area"

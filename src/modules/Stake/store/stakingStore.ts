@@ -119,8 +119,10 @@ export class StakingStore extends AbstractStore<
     }
 
     public async getMainInfo(): Promise<void> {
+        this.setState("isFetching", true)
         const response = await StrategiesService.getStrategiesMain()
         this.setData('strategyMainInfo', response.data)
+        this.setState("isFetching", false)
     }
 
     public setAmount(value: string): void {

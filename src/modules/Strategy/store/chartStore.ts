@@ -20,10 +20,8 @@ type TabelDepoolsStoreData = {
 }
 
 type TabelDepoolsStoreState = {
-    pagination: {
-        from: number;
-        to: number;
-    };
+    isFetching?: boolean;
+    isFetchingCharts?: boolean;
 }
 
 export class ChartStore extends AbstractStore<
@@ -72,16 +70,19 @@ export class ChartStore extends AbstractStore<
         string: string,
         requestBody: TvlRequest
     }): Promise<void> {
+        this.setState("isFetchingCharts", true)
         const response = await StrategiesService.postStrategiesTvl(string, requestBody)
-
         const data = this._data.tvlCharts.concat(response ?? [])
         this.setData('tvlCharts', data)
+        this.setState("isFetchingCharts", true)
     }
 
 
     public async getMainInfo(string: string): Promise<void> {
+        this.setState("isFetching", true)
         const response = await StrategiesService.getStrategiesMain1(string)
         this.setData('strategyMainInfo', response.data)
+        this.setState("isFetching", false)
     }
 
 
@@ -118,5 +119,15 @@ export class ChartStore extends AbstractStore<
     @computed
     public get price() {
         return this._data.price
+    }
+
+    @computed
+    public get isFetchingCharts() {
+        return this._state.isFetchingCharts
+    }
+
+    @computed
+    public get isFetching() {
+        return this._state.isFetching
     }
 }

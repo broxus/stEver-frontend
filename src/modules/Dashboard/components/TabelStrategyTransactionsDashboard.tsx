@@ -26,6 +26,7 @@ import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
 import { createPortal } from 'react-dom'
+import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -36,22 +37,28 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
             {() => (
                 <PanelLoader loading={strategyTransactions.isFetching}>
                     <Tile type="default" className="uk-padding-remove">
-                        <table className="uk-table uk-table-divider uk-width-1-1 table">
-                            <Media query={{ minWidth: 640 }}>
-                                <TransactionsListHeader strategyTransactions={strategyTransactions} />
-                            </Media>
-                            {strategyTransactions.transactions?.map((pool, idx) => (
-                                <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                    <TransactionsListItem
-                                        key={pool.transactionHash}
-                                        idx={idx + 1}
-                                        pool={pool}
-                                    />
-                                </Media>
-                            ))}
+                        {strategyTransactions.isFetching ?
+                            <PoolsListPlaceholder />
+                            :
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <TransactionsListHeader strategyTransactions={strategyTransactions} />
+                                    </Media>
+                                    {strategyTransactions.transactions?.map((pool, idx) => (
+                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                            <TransactionsListItem
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        </Media>
+                                    ))}
 
-                        </table>
-                        <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                                </table>
+                                <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                            </>
+                        }
                     </Tile>
                 </PanelLoader>
             )}

@@ -22,6 +22,7 @@ import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
@@ -33,21 +34,26 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
             {() => (
                 <PanelLoader loading={userWithdraw.isFetching}>
                     <Tile type="default" className="uk-padding-remove">
-                        <table className="uk-table uk-table-divider uk-width-1-1 table">
-                            <Media query={{ minWidth: 640 }}>
-                                <TransactionsListHeader userWithdraw={userWithdraw} />
-                            </Media>
-                            {userWithdraw.transactions?.map((pool, idx) => (
-                                <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                    <TransactionsListItem
-                                        key={pool.transactionHash}
-                                        idx={idx + 1}
-                                        pool={pool}
-                                    />
-                                </Media>
-                            ))}
-
-                        </table>
+                        {userWithdraw.isFetching ?
+                            <PoolsListPlaceholder />
+                            :
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <TransactionsListHeader userWithdraw={userWithdraw} />
+                                    </Media>
+                                    {userWithdraw.transactions?.map((pool, idx) => (
+                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                            <TransactionsListItem
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        </Media>
+                                    ))}
+                                </table>
+                            </>
+                        }
                         <DepoolsListPagination userWithdraw={userWithdraw} />
                     </Tile>
                 </PanelLoader>
