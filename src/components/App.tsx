@@ -20,6 +20,7 @@ import { API_URL } from '@/config'
 
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
+import { ScrollManager } from './layout/ScrollManager'
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
@@ -37,30 +38,32 @@ export function App(): JSX.Element {
         >
             <TvmWalletProvider wallet={wallet}>
                 <Router>
-                    <div className="wrapper">
-                        <Header key="header" />
-                        <main className="main">
-                            <Switch>
-                                <Route exact path="/">
-                                    <Redirect exact to={appRoutes.stake.makeUrl()} />
-                                </Route>
+                    <ScrollManager>
+                        <div className="wrapper">
+                            <Header key="header" />
+                            <main className="main">
+                                <Switch>
+                                    <Route exact path="/">
+                                        <Redirect exact to={appRoutes.stake.makeUrl()} />
+                                    </Route>
 
-                                <Route path={appRoutes.stake.path}>
-                                    <StakPage />
-                                </Route>
+                                    <Route path={appRoutes.stake.path}>
+                                        <StakPage />
+                                    </Route>
 
-                                <Route path={appRoutes.dashboard.path}>
-                                    <DashboardPage />
-                                </Route>
+                                    <Route path={appRoutes.dashboard.path}>
+                                        <DashboardPage />
+                                    </Route>
 
-                                <Route path={appRoutes.strategy.path}>
-                                    <StrategyPage />
-                                </Route>
+                                    <Route path={appRoutes.strategy.path}>
+                                        <StrategyPage />
+                                    </Route>
 
-                            </Switch>
-                        </main>
-                        <Footer key="footer" />
-                    </div>
+                                </Switch>
+                            </main>
+                            <Footer key="footer" />
+                        </div>
+                    </ScrollManager>
                 </Router>
             </TvmWalletProvider>
         </IntlProvider>
