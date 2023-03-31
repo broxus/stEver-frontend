@@ -110,9 +110,9 @@ function ChartStrategyInner(): JSX.Element {
             const abbreviated = abbreviateNumber(price)
             const value = abbreviated.substring(0, abbreviated.length - 1)
             const unit = abbreviateNumber(price).slice(-1)
-            return `$${formattedAmount(value)}${unit}`
+            return `Ever ${formattedAmount(value)}${unit}`
         }
-        return `$${formattedAmount(price, undefined, {
+        return `Ever ${formattedAmount(price, undefined, {
             precision: 1,
         })}`
     }
