@@ -45,7 +45,7 @@ export function Header(): JSX.Element {
                                             </Link>
                                         </Navbar.Item>
                                     </Navbar.Left>
-                                    <TvmConnector />
+                                    {/* <TvmConnector /> */}
                                     <Navbar.Right>
                                         <Navbar.Item>
                                             <HeaderDrawer />

@@ -52,5 +52,12 @@
                 justify-content: center;
             }
         }
+
+        @media (max-width: 640px) {
+            margin-top: 0px;
+        }
+    }
+    @media (max-width: 640px) {
+        margin-bottom: 24px;
     }
 }
