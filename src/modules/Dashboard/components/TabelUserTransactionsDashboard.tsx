@@ -18,7 +18,7 @@ import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransact
 import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { ST_EVER_DECIMALS } from '@/config'
 import BigNumber from 'bignumber.js'
-import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
+import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
@@ -189,6 +189,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                         <Link>
                             <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
                                 <Text className='uk-margin-auto-vertical' size='small'>
+                                    <AccountIcon className='uk-margin-small-right' size={20} address={pool.userAddress} />
                                     {sliceAddress(pool.userAddress)}
                                 </Text>
                             </ExplorerAccountLink>
@@ -202,7 +203,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>Transaction</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Transaction</Text>
 
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
@@ -215,7 +216,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
                         Type
                     </Text>
                     <Text className='uk-margin-auto-vertical' size='small'>
@@ -223,7 +224,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>Date & Time</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Date & Time</Text>
                     <Link>
                         <Text className='uk-margin-auto-vertical' size='small'>
                             <Date line time={pool.transactionTime * 1000} />

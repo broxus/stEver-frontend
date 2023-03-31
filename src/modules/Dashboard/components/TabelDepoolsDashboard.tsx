@@ -16,7 +16,7 @@ import { appRoutes } from '@/routes'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
 import { ST_EVER_DECIMALS } from '@/config'
-import { ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
+import { AccountIcon, ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
@@ -200,11 +200,14 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical'>
+                    <Text className='uk-margin-auto-vertical listCard--title'>
                         <NavLink to={generatePath(appRoutes.strategy.path, {
                             id: pool.strategy,
                         })}>
-                            {sliceAddress(pool.strategy)}
+                            <Flex>
+                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
+                                {sliceAddress(pool.strategy)}
+                            </Flex>
                         </NavLink>
                     </Text>
                     <Text className='uk-margin-auto-vertical'>
@@ -216,11 +219,11 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>Fee</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Fee</Text>
                     <Text className='uk-margin-auto-vertical' size='small'>{pool.validatorFee}%</Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>Depool</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Depool</Text>
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
                             <Text className='uk-margin-auto-vertical' size='small'>
@@ -230,7 +233,7 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>Owner</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Owner</Text>
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
                             <Flex>
@@ -242,7 +245,7 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>TVL, EVER</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>TVL, EVER</Text>
                     <Text className='uk-margin-auto-vertical'>
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}

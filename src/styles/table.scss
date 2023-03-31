@@ -37,6 +37,7 @@
             padding-left: 13px;
         }
     }
+
     @media (max-width: 640px) {
         padding: 0 0px;
     }
@@ -48,4 +49,16 @@
 
 .listCard {
     border-bottom: 1px solid #E4E5EA;
+
+    &--title {
+        color: #A6AAB2;
+    }
+
+    .uk-formatted-token-amount {
+        span {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
 }
