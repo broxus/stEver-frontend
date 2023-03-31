@@ -170,6 +170,14 @@ function ChartStrategyInner(): JSX.Element {
                                             <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                         </Grid>
                                     </Tile>
+                                    <Tile type="secondary" size="xsmall">
+                                        <Grid gap="xsmall" childWidth={1}>
+                                            <Text>Fee</Text>
+                                            <Text className='total'>
+                                                {dashboard.strategyDetails?.validatorRewardFraction ?? 0}%
+                                            </Text>
+                                        </Grid>
+                                    </Tile>
                                 </Grid>
                             )}
                         </Observer>
