@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { Chart, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
+import { Chart, ExplorerAccountLink, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
 import {
     Breadcrumb,
     Card,
     Flex, Grid, Heading, Label, Text, Tile, Width,
+    Link as LinkText
 } from '@broxus/react-uikit'
 
 import { RateChange } from '@/components/common/RateChange'
@@ -22,6 +23,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Params, appRoutes } from '@/routes'
 
 import './ChartStrategy.scss'
+import { useTvmWalletContext } from '@broxus/react-modules'
 
 function ChartStrategyInner(): JSX.Element {
 
@@ -29,6 +31,7 @@ function ChartStrategyInner(): JSX.Element {
     const series = React.useRef<any>(null)
     const chart = React.useRef<any>(null)
     const { id } = useParams<Params>()
+    const { wallet } = useTvmWalletContext()
 
     const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
         if (logicalRange == null) {
@@ -127,20 +130,26 @@ function ChartStrategyInner(): JSX.Element {
                 <Heading component="h2" className="uk-margin-remove">
                     Strategy {sliceAddress(id)}
                 </Heading>
-                {/* 
-                <Card>
-                    <Label type={"success"}>
-                        High efficiency
-                    </Label>
-                    <Label>
-                        Strategy
-                    </Label>
-                    <Label>
-                        Owner
-                    </Label>
-                </Card> */}
 
-                <Grid gap="xsmall" match>
+                <Card className='chartDashboard--labels'>
+                    <Label
+                        type={dashboard?.strategyMainInfo?.priority === 'high' ? 'danger' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'success'}
+                    >
+                        {dashboard?.strategyMainInfo?.priority.charAt(0).toUpperCase() + dashboard?.strategyMainInfo?.priority.slice(1)} efficiency
+                    </Label>
+                    <ExplorerAccountLink
+                        baseUrl={wallet.network?.explorer?.baseUrl}
+                        address={id}>
+                        <Label>Strategy</Label>
+                    </ExplorerAccountLink>
+                    <ExplorerAccountLink
+                        baseUrl={wallet.network?.explorer?.baseUrl}
+                        address={dashboard?.strategyMainInfo?.owner}>
+                        <Label>Owner</Label>
+                    </ExplorerAccountLink>
+                </Card>
+
+                <Grid gap="xsmall" match className="chartDashboard--layout">
                     <Width size="1-4">
                         <Observer>
                             {() => (

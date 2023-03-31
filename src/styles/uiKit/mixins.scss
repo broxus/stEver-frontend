@@ -170,3 +170,12 @@
     line-height: 16px;
     letter-spacing: 0.2px;
 }
+
+@mixin hook-label() {
+    background: #E4E5EA;
+    color: #6C7078;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+}

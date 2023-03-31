@@ -5,11 +5,17 @@
         }
 
         h2 {
-            padding-bottom: 32px;
+            padding-bottom: 16px;
         }
+    }
 
-        >div {
-            min-height: 400px;
-        }
+    &--labels {
+        padding-bottom: 32px;
+        display: flex;
+        gap: 12px
+    }
+
+    &--layout {
+        min-height: 400px;
     }
 }
