@@ -16,7 +16,7 @@ import { appRoutes } from '@/routes'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
 import { ST_EVER_DECIMALS } from '@/config'
-import { ExplorerAccountLink, FormattedTokenAmount } from '@broxus/react-components'
+import { ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 
@@ -131,8 +131,28 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                     </NavLink>
                 </td>
                 <td className="uk-text-left uk-width-small">{pool.validatorFee}</td>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>{sliceAddress(pool.depool)}</ExplorerAccountLink> </Link></td>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>{sliceAddress(pool.owner)}</ExplorerAccountLink></Link></td>
+
+                <td className="uk-text-left uk-width-small">
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
+                            <Flex>
+                                {sliceAddress(pool.depool)}
+                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                            </Flex>
+                        </ExplorerAccountLink>
+                    </Link>
+                </td>
+                <td className="uk-text-left uk-width-small">
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
+                            <Flex>
+                                {sliceAddress(pool.owner)}
+                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} icon='externalLink' />
+                            </Flex>
+                        </ExplorerAccountLink>
+                    </Link>
+                </td>
+
                 <td className="uk-text-left uk-width-small">
                     <Label
                         type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}

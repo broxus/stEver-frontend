@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Chart, ExplorerAccountLink, FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
+import { Chart, ExplorerAccountLink, FormattedCurrencyValue, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import {
     Breadcrumb,
     Card,
@@ -140,12 +140,12 @@ function ChartStrategyInner(): JSX.Element {
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
                         address={id}>
-                        <Label>Strategy</Label>
+                        <Label>Strategy <Icon icon='externalLink' /></Label>
                     </ExplorerAccountLink>
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
                         address={dashboard?.strategyMainInfo?.owner}>
-                        <Label>Owner</Label>
+                        <Label>Owner <Icon icon='externalLink' /></Label>
                     </ExplorerAccountLink>
                 </Card>
 

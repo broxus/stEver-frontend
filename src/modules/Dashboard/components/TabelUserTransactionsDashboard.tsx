@@ -18,7 +18,7 @@ import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransact
 import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { ST_EVER_DECIMALS } from '@/config'
 import BigNumber from 'bignumber.js'
-import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
+import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
@@ -122,8 +122,24 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>{sliceAddress(pool.userAddress)}</ExplorerAccountLink></Link></td>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath='transactions' txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
+                <td className="uk-text-left uk-width-small">
+                    <Link>
+                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
+                            <Flex>
+                                {sliceAddress(pool.userAddress)}
+                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                            </Flex>
+                        </ExplorerAccountLink></Link></td>
+                <td className="uk-text-left uk-width-small">
+                    <Link>
+                        <ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath='transactions' txHash={pool.transactionHash}>
+                            <Flex>
+                                {sliceAddress(pool.transactionHash)}
+                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                            </Flex>
+                        </ExplorerTransactionLink>
+                    </Link>
+                </td>
                 <td className="uk-text-left uk-width-small">{pool.kind}</td>
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount

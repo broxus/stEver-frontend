@@ -19,7 +19,7 @@ import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
 import { NavLink, generatePath } from 'react-router-dom'
 import { appRoutes } from '@/routes'
-import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
+import { ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
@@ -117,7 +117,10 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                 <td className="uk-text-left uk-width-small">
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
-                            {sliceAddress(pool.transactionHash)}
+                            <Flex>
+                                {sliceAddress(pool.transactionHash)}
+                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                            </Flex>
                         </ExplorerTransactionLink>
                     </Link>
                 </td>
