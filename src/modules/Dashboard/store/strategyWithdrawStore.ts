@@ -46,7 +46,7 @@ export class StrategyWithdrawStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            isFetching: true
+            // isFetching: true
         }))
 
         reaction(
@@ -70,7 +70,7 @@ export class StrategyWithdrawStore extends AbstractStore<
     public async getTransactions(params: StrategiesWithdrawalsRequest): Promise<void> {
         const response = await StrategiesService.postStrategiesWithdrawalsSearch(params)
         this.setData('transactions', response.withdrawals)
-        this.setState('isFetching', false)
+        // this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

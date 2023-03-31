@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
-import { Navbar } from '@broxus/react-uikit'
+import { Flex, Navbar } from '@broxus/react-uikit'
 import { TvmConnector } from '@broxus/react-modules'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
@@ -38,22 +38,20 @@ export function Header(): JSX.Element {
                         <Observer>
                             {() => (
                                 <>
-                                    <Navbar.Item>
-                                        <Link to={appRoutes.home.makeUrl()} className="logo">
-                                            <Logo ratio={0.9} />
-                                        </Link>
-                                    </Navbar.Item>
-                                    <Navbar.Item
-                                        style={{
-                                            justifyContent: 'space-between',
-                                            paddingRight: 0,
-                                        }}
-                                    >
-                                        <TvmConnector />
-                                        <Navbar.Toggle icon>
+                                    <Navbar.Left>
+                                        <Navbar.Item>
+                                            <Link to={appRoutes.home.makeUrl()} className="logo">
+                                                <Logo ratio={0.9} />
+                                            </Link>
+                                        </Navbar.Item>
+                                    </Navbar.Left>
+                                    <TvmConnector />
+                                    <Navbar.Right>
+                                        <Navbar.Item>
                                             <HeaderDrawer />
-                                        </Navbar.Toggle>
-                                    </Navbar.Item>
+                                        </Navbar.Item>
+                                    </Navbar.Right>
+
                                 </>
                             )}
                         </Observer>

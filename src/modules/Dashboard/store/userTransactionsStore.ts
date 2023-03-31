@@ -43,7 +43,7 @@ export class UserTransactionsStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            isFetching: true,
+            // isFetching: true,
             filter: []
         }))
 
@@ -71,7 +71,7 @@ export class UserTransactionsStore extends AbstractStore<
     public async getTransactions(params: UsersTransactionsRequest): Promise<void> {
         const response = await StrategiesService.postUsersTransactionsSearch(params)
         this.setData('transactions', response.transactions)
-        this.setState("isFetching", false)
+        // this.setState("isFetching", false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

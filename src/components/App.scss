@@ -19,10 +19,10 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: space-between;
-    padding: 32px 16px;
+    padding: 32px 0;
     width: 100%;
 
     @media (min-width: $breakpoint-medium) {
-        padding: 48px 16px;
+        padding: 48px 0;
     }
 }
