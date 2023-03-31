@@ -21,7 +21,8 @@ type TabelDepoolsStoreData = {
 }
 
 type TabelDepoolsStoreState = {
-
+    isFetching?: boolean;
+    isFetchingCharts?: boolean;
 }
 
 export class ChartStore extends AbstractStore<
@@ -58,9 +59,11 @@ export class ChartStore extends AbstractStore<
     }
 
     public async getUsersTvlCharts(params: TvlRequest): Promise<void> {
+        this.setState("isFetchingCharts", true)
         const response = await UsersService.postUsersTvl(params)
         const data = this._data.tvlCharts.concat(response ?? [])
         this.setData('tvlCharts', data)
+        this.setState("isFetchingCharts", false)
     }
 
     public async getUsersPriceCharts(params: TvlRequest): Promise<void> {
@@ -82,8 +85,10 @@ export class ChartStore extends AbstractStore<
     }
 
     public async getMainInfo(): Promise<void> {
+        this.setState("isFetching", true)
         const response = await StrategiesService.getStrategiesMain()
         this.setData('strategyMainInfo', response.data)
+        this.setState("isFetching", false)
     }
 
 
@@ -127,6 +132,16 @@ export class ChartStore extends AbstractStore<
     @computed
     public get price() {
         return this._data.price
+    }
+
+    @computed
+    public get isFetchingCharts() {
+        return this._state.isFetchingCharts
+    }
+
+    @computed
+    public get isFetching() {
+        return this._state.isFetching
     }
 
 }

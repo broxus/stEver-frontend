@@ -99,6 +99,7 @@ function ChartTVLInner(): JSX.Element {
                         ref={chartTvl}
                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
                     >
+                        {dashboard.isFetchingCharts && <Chart.Placeholder />}
                         <Chart.Series
                             ref={seriesTvl}
                             type="Area"

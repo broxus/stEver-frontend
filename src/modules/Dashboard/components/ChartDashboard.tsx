@@ -17,6 +17,7 @@ import { RateChange } from '@/components/common/RateChange'
 
 import { ChartStore } from '../store/chartStore'
 import { ChartTVL } from './charts/ChartTVL'
+import { Placeholder } from '@/components/common/Placeholder'
 
 function ChartDashboardInner(): JSX.Element {
 
@@ -39,63 +40,127 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>TVL</Text>
                                             <Text>
-                                                <FormattedTokenAmount
-                                                    decimals={ST_EVER_DECIMALS}
-                                                    value={dashboard?.strategyMainInfo?.tvl}
-                                                    symbol='EVER'
-                                                    className='total'
-                                                />
+                                                {dashboard.isFetching ?
+                                                    <>
+                                                        <Placeholder height={30} width={100} />
+                                                        <span>
+                                                            <Placeholder height={20} width={35} />
+                                                        </span>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <FormattedTokenAmount
+                                                            decimals={ST_EVER_DECIMALS}
+                                                            value={dashboard?.strategyMainInfo?.tvl}
+                                                            symbol='EVER'
+                                                            className='total'
+                                                        />
 
-                                                <span>
-                                                    ~<FormattedCurrencyValue
-                                                        value={
-                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
-                                                                .times(dashboard.price)
-                                                                .integerValue()
-                                                                .toFixed()
-                                                        }
-                                                    />
-                                                </span>
+                                                        <span>
+                                                            ~<FormattedCurrencyValue
+                                                                value={
+                                                                    new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                        .times(dashboard.price)
+                                                                        .integerValue()
+                                                                        .toFixed()
+                                                                }
+                                                            />
+                                                        </span>
+                                                    </>
+                                                }
                                             </Text>
-                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
+                                            {dashboard.isFetching ?
+                                                <Placeholder height={20} width={35} />
+                                                :
+                                                <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
+                                            }
                                         </Grid>
                                     </Tile>
                                     <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Current price</Text>
                                             <Text>
-                                                <FormattedTokenAmount
-                                                    value={new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
-                                                    symbol="EVER"
-                                                    className='total'
-                                                />
+                                                {dashboard.isFetching ?
+                                                    <>
+                                                        <Placeholder height={30} width={100} />
+                                                        <span>
+                                                            <Placeholder height={20} width={35} />
+                                                        </span>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <FormattedTokenAmount
+                                                            value={new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
+                                                            symbol="EVER"
+                                                            className='total'
+                                                        />
 
-                                                <span>
-                                                    ~<FormattedCurrencyValue
-                                                        value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
-                                                    />
-                                                </span>
+                                                        <span>
+                                                            ~<FormattedCurrencyValue
+                                                                value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
+                                                            />
+                                                        </span>
+                                                    </>
+                                                }
                                             </Text>
-                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
+                                            {dashboard.isFetching ?
+                                                <Placeholder height={20} width={35} />
+                                                :
+                                                <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
+                                            }
                                         </Grid>
                                     </Tile>
                                     <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>APY</Text>
-                                            <Text className='total'>
-                                                {new BigNumber(dashboard?.strategyMainInfo?.apy).times(100).toFixed(2)}
-                                                %
-                                            </Text>
-                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
+                                            {dashboard.isFetching ?
+                                                <>
+                                                    <Text className='total'>
+                                                        <Placeholder height={30} width={100} />
+                                                        <span>
+                                                            <Placeholder height={20} width={35} />
+                                                        </span>
+                                                    </Text>
+                                                </>
+                                                :
+                                                <>
+                                                    <Text className='total'>
+                                                        {new BigNumber(dashboard?.strategyMainInfo?.apy).times(100).toFixed(2)}
+                                                        %
+                                                    </Text>
+                                                </>
+                                            }
+                                            {dashboard.isFetching ?
+                                                <Placeholder height={20} width={35} />
+                                                :
+                                                <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
+                                            }
                                         </Grid>
                                     </Tile>
                                     <Tile type="secondary" size="xsmall">
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Text>Holders</Text>
-                                            <Text className='total'>
-                                                {dashboard?.strategyMainInfo?.holders}
-                                            </Text>
-                                            <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
+                                            {dashboard.isFetching ?
+                                                <>
+                                                    <Text className='total'>
+                                                        <Placeholder height={30} width={100} />
+                                                        <span>
+                                                            <Placeholder height={20} width={35} />
+                                                        </span>
+                                                    </Text>
+                                                </>
+                                                :
+                                                <>
+                                                    <Text className='total'>
+                                                        {dashboard?.strategyMainInfo?.holders}
+                                                    </Text>
+                                                </>
+                                            }
+                                            {dashboard.isFetching ?
+                                                <Placeholder height={20} width={35} />
+                                                :
+                                                <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
+                                            }
                                         </Grid>
                                     </Tile>
                                 </Grid>
