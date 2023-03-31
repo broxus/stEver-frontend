@@ -16,85 +16,12 @@ import { useStore } from '@/hooks/useStore'
 import { RateChange } from '@/components/common/RateChange'
 
 import { ChartStore } from '../store/chartStore'
+import { ChartTVL } from './charts/ChartTVL'
 
 function ChartDashboardInner(): JSX.Element {
 
     const dashboard = useStore(ChartStore)
-    const series = React.useRef<any>(null)
-    const chart = React.useRef<any>(null)
 
-    const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
-        if (logicalRange == null) {
-            return
-        }
-        const barsInfo = series.current?.api().barsInLogicalRange(logicalRange)
-        if (
-            barsInfo?.barsBefore !== undefined
-            && Math.ceil(barsInfo.barsBefore) < 0
-            && barsInfo?.from !== undefined
-            && typeof barsInfo.from === 'number'
-        ) {
-            const from = (
-                barsInfo.from + (
-                    Math.ceil(barsInfo?.barsBefore) - 2
-                ) * 86400
-            )
-            dashboard.getUsersTvlCharts({
-                from,
-                to: barsInfo.from,
-            })
-        }
-    }, 50)
-
-    React.useEffect(() => {
-        dashboard.getUsersTvlCharts({
-            from: Math.floor(DateTime.local()
-                .minus({
-                    days: 30,
-                })
-                .toUTC(undefined, {
-                    keepLocalTime: false,
-                })
-                .toSeconds()),
-
-            to: Math.floor(DateTime.local()
-                .toUTC(undefined, {
-                    keepLocalTime: false,
-                })
-                .toSeconds()),
-        })
-    }, [])
-
-    React.useEffect(() => {
-        const bs = (chart.current?.timeScale().width() ?? 860) / 30
-        chart.current?.timeScale().applyOptions({
-            barSpacing: bs,
-            // minBarSpacing: bs,
-        })
-
-        chart.current?.priceScale('right').applyOptions({
-            scaleMargins: {
-                bottom: 0.025,
-                top: 0.1,
-            },
-        })
-    }, [chart.current])
-
-    function usdPriceFormatter(price: any): string {
-        if (price < 1e-8 || price < 0) {
-            return ''
-        }
-        if (price >= 1000) {
-            const abbreviated = abbreviateNumber(price)
-            const value = abbreviated.substring(0, abbreviated.length - 1)
-            const unit = abbreviateNumber(price).slice(-1)
-            return `Ever ${formattedAmount(value)}${unit}`
-        }
-        return `Ever ${formattedAmount(price, undefined, {
-            precision: 1,
-        })}`
-    }
-    console.log(dashboard?.strategyMainInfo)
 
     return (
         <div className="chartDashboard">
@@ -182,30 +109,7 @@ function ChartDashboardInner(): JSX.Element {
                             </Text>
                         </Tile>
                         <Tile type="default" size="xsmall" className="uk-padding-remove">
-                            <Observer>
-                                {() => (
-                                    <Chart
-                                        height={400} width={1000} style={{ height: '100%' }}
-                                        ref={chart}
-                                        onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
-                                    >
-                                        <Chart.Series
-                                            ref={series}
-                                            type="Area"
-                                            // title={"Wawer"}
-                                            data={dashboard.tvlCharts}
-                                            lineColor="#2B63F1"
-
-                                            priceFormat={{
-                                                formatter: usdPriceFormatter,
-                                                type: 'custom',
-                                            }}
-                                            priceScaleId="right"
-                                        />
-                                    </Chart>
-                                )}
-                            </Observer>
-
+                            <ChartTVL />
                         </Tile>
                     </Width>
                 </Grid>

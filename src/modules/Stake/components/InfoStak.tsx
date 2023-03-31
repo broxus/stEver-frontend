@@ -38,7 +38,7 @@ export function InfoStakInner(): JSX.Element {
                         </Tile>
                         <Tile className="uk-padding-remove">
                             <Text component="h4" className="uk-text-center uk-margin-remove">
-                                {new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).integerValue().toFixed()}
+                                {new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).toFixed(2)}
                                 %
                             </Text>
                             <Text className="uk-text-center uk-margin-remove">Average APY</Text>
