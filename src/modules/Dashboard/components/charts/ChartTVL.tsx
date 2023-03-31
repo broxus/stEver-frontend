@@ -117,6 +117,28 @@ function ChartTVLInner(): JSX.Element {
                                 />
                             </Chart>
                         </Media>
+                        <Media query={{ maxWidth: 640 }}>
+                            <Chart
+                                height={400} width={1000} style={{ height: '260px' }}
+                                ref={chartTvl}
+                                onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
+                            >
+                                {dashboard.isFetchingCharts && <Chart.Placeholder />}
+                                <Chart.Series
+                                    ref={seriesTvl}
+                                    type="Area"
+                                    data={dashboard.tvlCharts}
+                                    lineColor="#2B63F1"
+
+                                    priceFormat={{
+                                        formatter: usdPriceFormatter,
+                                        type: 'custom',
+                                    }}
+                                    priceScaleId="right"
+                                />
+                            </Chart>
+
+                        </Media>
                     </>
                 )}
             </Observer>
