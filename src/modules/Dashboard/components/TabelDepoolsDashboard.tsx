@@ -57,8 +57,6 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                                         pool={pool}
                                                     />
                                                 ))}
-
-
                                             </Media>
                                         ))}
                                     </table>
