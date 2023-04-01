@@ -131,7 +131,7 @@ type DepoolsListItemType = {
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
 
     return (
         <tbody className="uk-height-small">
@@ -192,7 +192,7 @@ type DepoolsListCardType = {
 }
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
 
     return (
         <Tile className="listCard uk-padding-small">

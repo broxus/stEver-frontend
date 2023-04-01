@@ -63,7 +63,7 @@ function FormTab({
     type,
     staking,
 }: FormTabType): JSX.Element {
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
 
     return (
         <Flex flexDirection="column" justifyContent="between">

@@ -1,4 +1,4 @@
-import { AbstractStore, useCurrenciesApi } from '@broxus/js-core'
+import { AbstractStore, useCurrenciesApi, useRpcClient, useRpcProvider } from '@broxus/js-core'
 import { uniqBy } from 'lodash'
 import { computed, makeObservable, reaction } from 'mobx'
 import { useParams } from 'react-router-dom'
@@ -30,6 +30,7 @@ export class ChartStore extends AbstractStore<
 > {
 
     protected params = useParams<Params>()
+    protected rpc = useRpcProvider()
 
     constructor() {
         super()
@@ -37,7 +38,7 @@ export class ChartStore extends AbstractStore<
         this.setData('tvlCharts', []);
 
         (async () => {
-            const contr = await Strategy.create(new Address(this.params.id))
+            const contr = await Strategy.create(new Address(this.params.id), this.rpc)
             this.setData('modelStrategy', contr)
         })()
 

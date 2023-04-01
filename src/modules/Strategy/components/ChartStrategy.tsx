@@ -33,7 +33,7 @@ function ChartStrategyInner(): JSX.Element {
     const series = React.useRef<any>(null)
     const chart = React.useRef<any>(null)
     const { id } = useParams<Params>()
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
 
     const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
         if (logicalRange == null) {

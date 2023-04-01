@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
-import { Flex, Navbar } from '@broxus/react-uikit'
+import { Button, Flex, Navbar } from '@broxus/react-uikit'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
@@ -11,9 +11,11 @@ import { appRoutes } from '@/routes'
 import { DesktopNav } from './DesktopNav'
 
 import './Header.scss'
-import { TvmConnector } from '../common/TvmConnector'
+import { TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
 
 export function Header(): JSX.Element {
+    const wallet = useTvmWalletContext()
+
     return (
         <header className="header">
             <Navbar className="uk-width-expand">
@@ -47,7 +49,17 @@ export function Header(): JSX.Element {
                                     </Navbar.Left>
                                     <Navbar.Right>
                                         <Navbar.Item>
-                                        <TvmConnector standalone />
+                                            {wallet.isConnected ?
+                                                <TvmConnector
+                                                    standalone
+                                                    showDropMenu={false}
+                                                />
+                                                :
+                                                <Button onClick={() => wallet.connect()}>
+                                                    Connect
+                                                </Button>
+                                            }
+
                                             <HeaderDrawer />
                                         </Navbar.Item>
                                     </Navbar.Right>

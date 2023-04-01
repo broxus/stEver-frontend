@@ -1,5 +1,5 @@
 import {
-    AbstractStore, TvmWalletService, useRpcClient, useWalletsCache,
+    AbstractStore, TvmWalletService, useRpcClient, useRpcProvider,
 } from '@broxus/js-core'
 import BigNumber from 'bignumber.js'
 import {
@@ -39,9 +39,9 @@ export class StakingStore extends AbstractStore<
     StakingStoreState
 > {
 
-    protected rpc = useRpcClient()
+    protected rpc = useRpcProvider()
 
-    protected walletsCache = useWalletsCache()
+    // protected walletsCache = useWalletsCache()
 
     constructor(
         public readonly wallet: TvmWalletService,
@@ -53,7 +53,7 @@ export class StakingStore extends AbstractStore<
         this.setState('depositStEverAmount', '0');
 
         (async () => {
-            const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG)
+            const contr = await Staking.create(ST_EVER_VAULT_ADDRESS_CONFIG, this.rpc)
             this.setData('modelStaking', contr)
         })()
 
@@ -65,24 +65,24 @@ export class StakingStore extends AbstractStore<
             { fireImmediately: false },
         )
 
-        reaction(
-            () => this._state.type,
-            async () => {
-                if (this._state.amount) this.estimateDepositStEverAmount(this._state.amount)
+        // reaction(
+        //     () => this._state.type,
+        //     async () => {
+        //         if (this._state.amount) this.estimateDepositStEverAmount(this._state.amount)
 
-                await this.walletsCache.resolve(
-                    this.wallet.address!,
-                    new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
-                ).then(e => {
-                    this.setData(
-                        'stBalance',
-                        e.balance ? e.balance : "0",
-                    )
+        //         await this.walletsCache.resolve(
+        //             this.wallet.address!,
+        //             new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
+        //         ).then(e => {
+        //             this.setData(
+        //                 'stBalance',
+        //                 e.balance ? e.balance : "0",
+        //             )
 
-                })
-            },
-            { fireImmediately: true },
-        )
+        //         })
+        //     },
+        //     { fireImmediately: true },
+        // )
 
         reaction(
             () => { },

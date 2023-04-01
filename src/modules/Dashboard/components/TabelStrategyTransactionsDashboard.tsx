@@ -134,7 +134,7 @@ type Props = {
 
 export function TransactionsListItem({ pool }: Props): JSX.Element {
 
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
 
     return (
         <tbody className="uk-height-small">
@@ -181,7 +181,7 @@ type TransactionsListCardType = {
 }
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
-    const { wallet } = useTvmWalletContext()
+    const wallet = useTvmWalletContext()
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>

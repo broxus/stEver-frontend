@@ -1,5 +1,5 @@
 import { ProviderContractWrapper } from '@broxus/js-core'
-import { Address, Transaction } from 'everscale-inpage-provider'
+import { Address, ProviderRpcClient, Transaction } from 'everscale-inpage-provider'
 import {
     computed, makeObservable,
 } from 'mobx'
@@ -23,16 +23,18 @@ export class Staking extends ProviderContractWrapper<
     public static Utils = StakingUtils
 
     constructor(
+        protected readonly connection: ProviderRpcClient,
         address: Address | string,
     ) {
-        super(address)
+        super(connection, address)
         makeObservable(this)
     }
 
     public static async create(
         address: Address | string,
+        connection: ProviderRpcClient,
     ): Promise<Staking> {
-        const staking = new Staking(address)
+        const staking = new Staking(connection, address)
         const details = await staking.getStakeDetails()
         staking.setData('details', details)
         return staking
