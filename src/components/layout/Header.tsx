@@ -3,7 +3,6 @@ import { Observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
 import { Flex, Navbar } from '@broxus/react-uikit'
-import { TvmConnector } from '@broxus/react-modules'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
@@ -12,6 +11,7 @@ import { appRoutes } from '@/routes'
 import { DesktopNav } from './DesktopNav'
 
 import './Header.scss'
+import { TvmConnector } from '../common/TvmConnector'
 
 export function Header(): JSX.Element {
     return (
@@ -47,7 +47,7 @@ export function Header(): JSX.Element {
                                     </Navbar.Left>
                                     <Navbar.Right>
                                         <Navbar.Item>
-                                        <TvmConnector />
+                                        <TvmConnector standalone />
                                             <HeaderDrawer />
                                         </Navbar.Item>
                                     </Navbar.Right>
