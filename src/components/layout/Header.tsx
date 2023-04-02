@@ -55,8 +55,12 @@ export function Header(): JSX.Element {
                                                     showDropMenu={false}
                                                 />
                                                 :
-                                                <Button onClick={() => wallet.connect()}>
-                                                    Connect
+                                                <Button
+                                                    type='default'
+                                                    className='button-connect'
+                                                    onClick={() => wallet.connect()}
+                                                >
+                                                    Connect wallet
                                                 </Button>
                                             }
 

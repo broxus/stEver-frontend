@@ -24,18 +24,41 @@
     }
 
     @media (max-width: 640px) {
-        // nav {
-        //     padding: 0 9px;
-        //     width: 100%;
-        //     .uk-wallet-connector {
-        //         .uk-position-relative {
-        //             display: none;
-        //         }
+        nav {
+            padding: 0 9px;
+            width: 100%;
+
+            .uk-wallet-account-icon {
+                width: 24px;
+            }
+
+            .uk-wallet-account-title {
+                font-size: 14px;
+            }
+
+            .uk-position-relative {
+                display: none;
+            }
+
+            .button-connect {
+                font-size: 14px;
+                letter-spacing: .6px;
+                line-height: 36px;
+                height: 36px;
+                padding: 0 16px;
+                font-weight: 500;
+            }
+        }
+
+        // .uk-wallet-connector {
+        //     .uk-position-relative {
+        //         display: none;
         //     }
         // }
     }
-
 }
+
+
 
 .btn-open-drawer {
     height: 28px;
