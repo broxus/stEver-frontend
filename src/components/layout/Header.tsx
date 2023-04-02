@@ -11,7 +11,7 @@ import { appRoutes } from '@/routes'
 import { DesktopNav } from './DesktopNav'
 
 import './Header.scss'
-import { TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
+import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
 
 export function Header(): JSX.Element {
     const wallet = useTvmWalletContext()
@@ -55,15 +55,15 @@ export function Header(): JSX.Element {
                                                     showDropMenu={false}
                                                 />
                                                 :
-                                                <Button
+                                                <ConnectButton
+                                                    key="connect"
+                                                    popupType="modal"
                                                     type='default'
                                                     className='button-connect'
-                                                    onClick={() => wallet.connect()}
-                                                >
+                                                    standalone>
                                                     Connect wallet
-                                                </Button>
+                                                </ConnectButton>
                                             }
-
                                             <HeaderDrawer />
                                         </Navbar.Item>
                                     </Navbar.Right>

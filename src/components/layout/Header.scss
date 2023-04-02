@@ -36,6 +36,20 @@
                 font-size: 14px;
             }
 
+            .uk-navbar-item{
+                gap: 8px
+            }
+
+            .uk-icon-material:not(.uk-icon-button) {
+                height: var(--icon-size, 28px);
+                min-width: var(--icon-size, 28px);
+                width: var(--icon-size, 28px);
+            }
+
+            .uk-copy-wrapper {
+                display: none;
+            }
+
             .uk-position-relative {
                 display: none;
             }

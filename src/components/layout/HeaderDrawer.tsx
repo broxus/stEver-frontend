@@ -30,7 +30,7 @@ export function HeaderDrawer(): JSX.Element {
                     /* eslint-disable-next-line react/no-unstable-nested-components */
                     trigger={({ expand }) => (
                         <Button
-                            type='text'
+                            type="link"
                             className="btn-open-drawer"
                             onClick={expand}
                         >
