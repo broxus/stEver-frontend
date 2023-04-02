@@ -35,6 +35,7 @@ export class ChartStore extends AbstractStore<
         makeObservable(this)
         this.setData('tvlCharts', [])
         this.setData('priceCharts', [])
+        
         reaction(
             () => { },
             async () => {

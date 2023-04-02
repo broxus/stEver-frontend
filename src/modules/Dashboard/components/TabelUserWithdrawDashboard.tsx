@@ -11,7 +11,7 @@ import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import { PanelLoader } from '@/components/common/PanelLoader'
 import {
-    Direction, UserWithdrawalColumn, UserWithdrawalResponse,
+    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
 
 import { UserWithdrawStore } from '../store/userWithdrawStore'
@@ -26,9 +26,7 @@ import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
-
     const userWithdraw = useStore(UserWithdrawStore)
-
     return (
         <Observer>
             {() => (
@@ -78,6 +76,16 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
 
     const onSwitchOrdering = async (value: any) => {
         userWithdraw.setState('ordering', value)
+
+        userWithdraw.getTransactions({
+            limit: userWithdraw.pagination.limit,
+            offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
+            ordering: value,
+            userAddress: null,
+            status: UsersWithdrawalsStatus.PENDING,
+            amountGe: undefined,
+            amountLe: undefined,
+        })
     }
 
     return (
@@ -223,12 +231,30 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
             ...userWithdraw.pagination,
             currentPage: userWithdraw.pagination.currentPage + 1,
         })
+        userWithdraw.getTransactions({
+            limit: userWithdraw.pagination.limit,
+            offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
+            ordering: userWithdraw.ordering,
+            userAddress: null,
+            status: UsersWithdrawalsStatus.PENDING,
+            amountGe: undefined,
+            amountLe: undefined,
+        })
     }
 
     const onPrevPage = async () => {
         userWithdraw.setState('pagination', {
             ...userWithdraw.pagination,
             currentPage: userWithdraw.pagination.currentPage - 1,
+        })
+        userWithdraw.getTransactions({
+            limit: userWithdraw.pagination.limit,
+            offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
+            ordering: userWithdraw.ordering,
+            userAddress: null,
+            status: UsersWithdrawalsStatus.PENDING,
+            amountGe: undefined,
+            amountLe: undefined,
         })
     }
 

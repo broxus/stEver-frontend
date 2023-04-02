@@ -10,15 +10,15 @@ import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import { PanelLoader } from '@/components/common/PanelLoader'
 import {
-    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn,
+    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus,
 } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
-import { NavLink, generatePath } from 'react-router-dom'
-import { appRoutes } from '@/routes'
+import { NavLink, generatePath, useParams } from 'react-router-dom'
+import { Params, appRoutes } from '@/routes'
 import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
@@ -77,9 +77,18 @@ type TransactionsListHeaderType = {
 }
 
 export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHeaderType): JSX.Element {
+    const { id } = useParams<Params>()
 
     const onSwitchOrdering = async (value: any) => {
         strategyWithdraw.setState('ordering', value)
+
+        strategyWithdraw.getTransactions({
+            limit: strategyWithdraw.pagination.limit,
+            offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
+            ordering: value,
+            status: StrategiesWithdrawalsStatus.PENDING,
+            strategy: id,
+        })
     }
 
     return (
@@ -216,10 +225,19 @@ type TransactionsListPaginationType = {
 
 export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPaginationType): JSX.Element {
 
+    const { id } = useParams<Params>()
+
     const onNextPage = async () => {
         strategyWithdraw.setState('pagination', {
             ...strategyWithdraw.pagination,
             currentPage: strategyWithdraw.pagination.currentPage + 1,
+        })
+        strategyWithdraw.getTransactions({
+            limit: strategyWithdraw.pagination.limit,
+            offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
+            ordering: strategyWithdraw.ordering,
+            status: StrategiesWithdrawalsStatus.PENDING,
+            strategy: id,
         })
     }
 
@@ -227,6 +245,13 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
         strategyWithdraw.setState('pagination', {
             ...strategyWithdraw.pagination,
             currentPage: strategyWithdraw.pagination.currentPage - 1,
+        })
+        strategyWithdraw.getTransactions({
+            limit: strategyWithdraw.pagination.limit,
+            offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
+            ordering: strategyWithdraw.ordering,
+            status: StrategiesWithdrawalsStatus.PENDING,
+            strategy: id,
         })
     }
 

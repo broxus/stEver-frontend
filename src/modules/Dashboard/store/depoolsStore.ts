@@ -48,10 +48,7 @@ export class TabelDepoolsStore extends AbstractStore<
         }))
 
         reaction(
-            () => [
-                this._state.ordering,
-                this._state.pagination,
-            ],
+            () => { },
             async () => {
                 this.getDepoolsStrategies({
                     depool: null,
@@ -60,7 +57,7 @@ export class TabelDepoolsStore extends AbstractStore<
                     ordering: this._state.ordering,
                     validatorFeeGe: null,
                     validatorFeeLe: null,
-                }) 
+                })
             },
             { fireImmediately: true },
         )
@@ -68,10 +65,10 @@ export class TabelDepoolsStore extends AbstractStore<
 
     public async getDepoolsStrategies(params: StrategiesRequest): Promise<void> {
         // debugger
-        // this.setState("isFetching", true)
+        this.setState("isFetching", true)
         const response = await StrategiesService.postStrategiesSearch(params)
         this.setData('depoolsStrategies', response.strategies)
-        // this.setState("isFetching", false)
+        this.setState("isFetching", false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

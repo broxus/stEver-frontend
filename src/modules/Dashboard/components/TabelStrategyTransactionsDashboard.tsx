@@ -18,8 +18,8 @@ import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
-import { NavLink, generatePath } from 'react-router-dom'
-import { appRoutes } from '@/routes'
+import { NavLink, generatePath, useParams } from 'react-router-dom'
+import { Params, appRoutes } from '@/routes'
 import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
@@ -65,9 +65,9 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
                                     ))}
 
                                 </table>
-                                <DepoolsListPagination strategyTransactions={strategyTransactions} />
                             </>
                         }
+                        <DepoolsListPagination strategyTransactions={strategyTransactions} />
                     </Tile>
                 </PanelLoader>
             )}
@@ -81,8 +81,19 @@ type TransactionsListHeaderType = {
 
 export function TransactionsListHeader({ strategyTransactions }: TransactionsListHeaderType): JSX.Element {
 
+    const { id } = useParams<Params>()
+
+
     const onSwitchOrdering = async (value: any) => {
         strategyTransactions.setState('ordering', value)
+
+        strategyTransactions.getTransactions({
+            kind: strategyTransactions.filter.length === 2 ? undefined : strategyTransactions.filter[0],
+            limit: strategyTransactions.pagination.limit,
+            offset: strategyTransactions.pagination.currentPage * strategyTransactions.pagination.limit,
+            ordering: strategyTransactions.ordering,
+            strategy: id,
+        })
     }
 
     return (
@@ -241,11 +252,19 @@ type TransactionsListPaginationType = {
 }
 
 export function DepoolsListPagination({ strategyTransactions }: TransactionsListPaginationType): JSX.Element {
+    const { id } = useParams<Params>()
 
     const onNextPage = async () => {
         strategyTransactions.setState('pagination', {
             ...strategyTransactions.pagination,
             currentPage: strategyTransactions.pagination.currentPage + 1,
+        })
+        strategyTransactions.getTransactions({
+            kind: strategyTransactions.filter.length === 2 ? undefined : strategyTransactions.filter[0],
+            limit: strategyTransactions.pagination.limit,
+            offset: strategyTransactions.pagination.currentPage * strategyTransactions.pagination.limit,
+            ordering: strategyTransactions.ordering,
+            strategy: id,
         })
     }
 
@@ -253,6 +272,13 @@ export function DepoolsListPagination({ strategyTransactions }: TransactionsList
         strategyTransactions.setState('pagination', {
             ...strategyTransactions.pagination,
             currentPage: strategyTransactions.pagination.currentPage - 1,
+        })
+        strategyTransactions.getTransactions({
+            kind: strategyTransactions.filter.length === 2 ? undefined : strategyTransactions.filter[0],
+            limit: strategyTransactions.pagination.limit,
+            offset: strategyTransactions.pagination.currentPage * strategyTransactions.pagination.limit,
+            ordering: strategyTransactions.ordering,
+            strategy: id,
         })
     }
 
@@ -302,10 +328,19 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
 
     const current = React.useRef<SystemTransactionsKind[]>([])
     const strategyTransactions = useStore(StrategiesTransactionsStore)
+    const { id } = useParams<Params>()
 
     const onChange = (e: SystemTransactionsKind[]) => {
         current.current = e
         strategyTransactions.setState("filter", e)
+
+        strategyTransactions.getTransactions({
+            kind: e.length === 2 ? undefined : e[0],
+            limit: strategyTransactions.pagination.limit,
+            offset: (strategyTransactions.pagination.currentPage + 1) * strategyTransactions.pagination.limit,
+            ordering: strategyTransactions.ordering,
+            strategy: id,
+        })
     }
 
     const options = [

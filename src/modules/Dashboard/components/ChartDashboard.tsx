@@ -1,29 +1,37 @@
 import * as React from 'react'
-import { Chart, FormattedCurrencyValue, FormattedTokenAmount, NativeScrollArea } from '@broxus/react-components'
+
+import BigNumber from 'bignumber.js'
+import { Observer, observer } from 'mobx-react-lite'
+
 import {
-    Flex, Grid, Heading, Text, Tile, Width,
+    Flex,
+    Grid,
+    Heading,
+    Text,
+    Tile,
+    Width,
 } from '@broxus/react-uikit'
 
+import {
+    FormattedCurrencyValue,
+    FormattedTokenAmount,
+} from '@broxus/react-components'
 
-import './ChartDashboard.scss'
-import { Observer, observer } from 'mobx-react-lite'
-import { abbreviateNumber, debounce, formattedAmount, makeArray } from '@broxus/js-utils'
-import { DateTime } from 'luxon'
-import BigNumber from 'bignumber.js'
+import Media from 'react-media'
+
+import { ChartStore } from '../store/chartStore'
+import { ChartTVL } from './charts/ChartTVL'
+import { Placeholder } from '@/components/common/Placeholder'
 
 import { ST_EVER_DECIMALS } from '@/config'
 import { useStore } from '@/hooks/useStore'
 import { RateChange } from '@/components/common/RateChange'
 
-import { ChartStore } from '../store/chartStore'
-import { ChartTVL } from './charts/ChartTVL'
-import { Placeholder } from '@/components/common/Placeholder'
-import Media from 'react-media'
+import './ChartDashboard.scss'
 
 function ChartDashboardInner(): JSX.Element {
 
     const dashboard = useStore(ChartStore)
-
 
     return (
         <div className="chartDashboard">
@@ -31,8 +39,6 @@ function ChartDashboardInner(): JSX.Element {
                 <Heading component="h2" className="uk-margin-remove">
                     General information
                 </Heading>
-
-
                 <Media query={{ minWidth: 640 }}>
                     {matches => (matches ? (
                         <Grid gap="xsmall" match>

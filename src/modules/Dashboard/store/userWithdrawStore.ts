@@ -42,14 +42,11 @@ export class UserWithdrawStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            // isFetching: true
+            isFetching: true
         }))
 
         reaction(
-            () => [
-                this._state.ordering,
-                this._state.pagination,
-            ],
+            () => { },
             async () => {
                 this.getTransactions({
                     limit: this._state.pagination.limit,
@@ -66,9 +63,10 @@ export class UserWithdrawStore extends AbstractStore<
     }
 
     public async getTransactions(params: UsersWithdrawalsRequest): Promise<void> {
+        this.setState('isFetching', true)
         const response = await UsersService.postUsersWithdrawalsSearch(params)
         this.setData('transactions', response.withdrawals)
-        // this.setState('isFetching', false)
+        this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

@@ -60,10 +60,10 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                             </Media>
                                         ))}
                                     </table>
-                                    <DepoolsListPagination tabelDepools={tabelDepools} />
+
                                 </>
                             }
-
+                            <DepoolsListPagination tabelDepools={tabelDepools} />
                         </Tile>
                     </PanelLoader>
                 )}
@@ -80,6 +80,15 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
 
     const onSwitchOrdering = async (value: any) => {
         tabelDepools.setState('ordering', value)
+
+        tabelDepools.getDepoolsStrategies({
+            depool: null,
+            limit: tabelDepools.pagination.limit,
+            offset: tabelDepools.pagination.currentPage * tabelDepools.pagination.limit,
+            ordering: value,
+            validatorFeeGe: null,
+            validatorFeeLe: null,
+        })
     }
 
     return (
@@ -268,12 +277,28 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
             ...tabelDepools.pagination,
             currentPage: tabelDepools.pagination.currentPage + 1,
         })
+        tabelDepools.getDepoolsStrategies({
+            depool: null,
+            limit: tabelDepools.pagination.limit,
+            offset: tabelDepools.pagination.currentPage  * tabelDepools.pagination.limit,
+            ordering: tabelDepools.ordering,
+            validatorFeeGe: null,
+            validatorFeeLe: null,
+        })
     }
 
     const onPrevPage = async () => {
         tabelDepools.setState('pagination', {
             ...tabelDepools.pagination,
             currentPage: tabelDepools.pagination.currentPage - 1,
+        })
+        tabelDepools.getDepoolsStrategies({
+            depool: null,
+            limit: tabelDepools.pagination.limit,
+            offset: tabelDepools.pagination.currentPage * tabelDepools.pagination.limit,
+            ordering: tabelDepools.ordering,
+            validatorFeeGe: null,
+            validatorFeeLe: null,
         })
     }
 

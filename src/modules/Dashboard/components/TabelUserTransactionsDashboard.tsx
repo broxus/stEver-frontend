@@ -62,9 +62,9 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                             </Media>
                                         ))}
                                     </table>
-                                    <DepoolsListPagination userTransactions={userTransactions} />
                                 </>
                             }
+                            <DepoolsListPagination userTransactions={userTransactions} />
                         </Tile>
                     </PanelLoader>
                 )}
@@ -81,6 +81,16 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
 
     const onSwitchOrdering = async (value: any) => {
         userTransactions.setState('ordering', value)
+
+        userTransactions.getTransactions({
+            from: null,
+            kind: userTransactions.filter.length === 2 ? undefined : userTransactions.filter[0],
+            limit: userTransactions.pagination.limit,
+            offset: userTransactions.pagination.currentPage * userTransactions.pagination.limit,
+            ordering: value,
+            to: null,
+            userAddress: null,
+        })
     }
 
     return (
@@ -133,7 +143,7 @@ type Props = {
 export function TransactionsListItem({ pool }: Props): JSX.Element {
 
     const wallet = useTvmWalletContext()
-    
+
     return (
         <tbody className="uk-height-small">
             <tr>
@@ -248,12 +258,30 @@ export function DepoolsListPagination({ userTransactions }: TransactionsListPagi
             ...userTransactions.pagination,
             currentPage: userTransactions.pagination.currentPage + 1,
         })
+        userTransactions.getTransactions({
+            from: null,
+            kind: userTransactions.filter.length === 2 ? undefined : userTransactions.filter[0],
+            limit: userTransactions.pagination.limit,
+            offset: userTransactions.pagination.currentPage * userTransactions.pagination.limit,
+            ordering: userTransactions.ordering,
+            to: null,
+            userAddress: null,
+        })
     }
 
     const onPrevPage = async () => {
         userTransactions.setState('pagination', {
             ...userTransactions.pagination,
             currentPage: userTransactions.pagination.currentPage - 1,
+        })
+        userTransactions.getTransactions({
+            from: null,
+            kind: userTransactions.filter.length === 2 ? undefined : userTransactions.filter[0],
+            limit: userTransactions.pagination.limit,
+            offset: userTransactions.pagination.currentPage * userTransactions.pagination.limit,
+            ordering: userTransactions.ordering,
+            to: null,
+            userAddress: null,
         })
     }
 
@@ -307,6 +335,16 @@ function TransactionUserListFilterInner(): JSX.Element {
     const onChange = (e: UserTransactionsKind[]) => {
         current.current = e
         userTransactions.setState("filter", e)
+
+        userTransactions.getTransactions({
+            from: null,
+            kind: e.length === 2 ? undefined : e[0],
+            limit: userTransactions.pagination.limit,
+            offset: userTransactions.pagination.currentPage * userTransactions.pagination.limit,
+            ordering: userTransactions.ordering,
+            to: null,
+            userAddress: null,
+        })
     }
 
     const options = [

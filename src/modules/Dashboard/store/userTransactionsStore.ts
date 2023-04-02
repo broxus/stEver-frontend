@@ -43,16 +43,12 @@ export class UserTransactionsStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            // isFetching: true,
+            isFetching: true,
             filter: []
         }))
 
         reaction(
-            () => [
-                this._state.ordering,
-                this._state.pagination,
-                this._state.filter,
-            ],
+            () => { },
             async () => {
                 this.getTransactions({
                     from: null,
@@ -69,9 +65,10 @@ export class UserTransactionsStore extends AbstractStore<
     }
 
     public async getTransactions(params: UsersTransactionsRequest): Promise<void> {
+        this.setState("isFetching", true)
         const response = await StrategiesService.postUsersTransactionsSearch(params)
         this.setData('transactions', response.transactions)
-        // this.setState("isFetching", false)
+        this.setState("isFetching", false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,
@@ -102,4 +99,8 @@ export class UserTransactionsStore extends AbstractStore<
         return this._state.isFetching
     }
 
+    @computed
+    public get filter() {
+        return this._state.filter
+    }
 }
