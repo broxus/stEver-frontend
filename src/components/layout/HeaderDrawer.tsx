@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Observer } from 'mobx-react-lite'
+import { Observer, observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
 import { Button, Icon } from '@broxus/react-uikit'
 
@@ -11,7 +11,7 @@ import { Drawer, DrawerRef } from '../common/Drawer'
 
 import "./Header.scss"
 
-export function HeaderDrawer(): JSX.Element {
+ function HeaderDrawerInner(): JSX.Element {
     const intl = useIntl()
 
     const drawer = React.useRef<DrawerRef | null>(null)
@@ -62,3 +62,5 @@ export function HeaderDrawer(): JSX.Element {
         </Observer>
     )
 }
+
+export const HeaderDrawer = observer(HeaderDrawerInner)

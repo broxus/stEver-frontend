@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Observer } from 'mobx-react-lite'
+import { Observer, observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
 import { Button, Flex, Navbar } from '@broxus/react-uikit'
@@ -13,7 +13,7 @@ import { DesktopNav } from './DesktopNav'
 import './Header.scss'
 import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
 
-export function Header(): JSX.Element {
+export function HeaderInner(): JSX.Element {
     const wallet = useTvmWalletContext()
 
     return (
@@ -76,3 +76,5 @@ export function Header(): JSX.Element {
         </header>
     )
 }
+
+export const Header = observer(HeaderInner)

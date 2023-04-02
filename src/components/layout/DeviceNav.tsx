@@ -8,13 +8,14 @@ import { appRoutes } from '@/routes'
 import './DeviceNav.scss'
 import { ConnectButton, useTvmWalletContext } from '@broxus/react-modules'
 import { Icon } from '@broxus/react-components'
+import { observer } from 'mobx-react-lite'
 
 type Props = {
     onNavigate?: () => void;
 }
 
 
-export function DeviceNav({ onNavigate }: Props): JSX.Element {
+function DeviceNavInner({ onNavigate }: Props): JSX.Element {
     const intl = useIntl()
     const wallet = useTvmWalletContext()
 
@@ -36,10 +37,18 @@ export function DeviceNav({ onNavigate }: Props): JSX.Element {
                     </NavLink>
                 </Nav.Item>
             </Nav>
-            <Button type='default' className='logout' onClick={() => wallet.disconnect()}>
-                <Icon icon="logout" />
-                Log out
-            </Button>
+            {wallet.isConnected ?
+                <Button type='default' className='logout' onClick={() => wallet.disconnect()}>
+                    <Icon icon="logout" />
+                    Log out
+                </Button>
+                :
+                <Button type='default' className='logout' onClick={() => wallet.connect()}>
+                    Connect wallet
+                </Button>
+            }
         </>
     )
 }
+
+export const DeviceNav = observer(DeviceNavInner)
