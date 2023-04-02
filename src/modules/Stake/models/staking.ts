@@ -62,7 +62,7 @@ export class Staking extends ProviderContractWrapper<
 
     public async getTokenWallet(address: Address, owner: Address): Promise<Address> {
         return Staking.Utils._getTokenWallet(address, owner)
-    }
+    } 
 
     public async transfer(address: Address, sender: Address, params: {
         amount: string | number;
