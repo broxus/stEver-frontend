@@ -27,6 +27,7 @@ import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
 import { createPortal } from 'react-dom'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
+import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
@@ -38,7 +39,13 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
                 <PanelLoader loading={strategyTransactions.isFetching}>
                     <Tile type="default" className="uk-padding-remove">
                         {strategyTransactions.isFetching ?
-                            <PoolsListPlaceholder />
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => matches ?
+                                    (<PoolsListPlaceholder />)
+                                    :
+                                    (<PoolsListMobilePlaceholder />)
+                                }
+                            </Media>
                             :
                             <>
                                 <table className="uk-table uk-table-divider uk-width-1-1 table">

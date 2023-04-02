@@ -25,6 +25,7 @@ import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { createPortal } from 'react-dom'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
+import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
 
@@ -37,7 +38,13 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                     <PanelLoader loading={userTransactions.isFetching}>
                         <Tile type="default" className="uk-padding-remove">
                             {userTransactions.isFetching ?
-                                <PoolsListPlaceholder />
+                                <Media query={{ minWidth: 640 }}>
+                                    {matches => matches ?
+                                        (<PoolsListPlaceholder />)
+                                        :
+                                        (<PoolsListMobilePlaceholder />)
+                                    }
+                                </Media>
                                 :
                                 <>
                                     <table className="uk-table uk-table-divider uk-width-1-1 table">

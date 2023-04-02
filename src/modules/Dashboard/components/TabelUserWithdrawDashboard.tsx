@@ -23,6 +23,7 @@ import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
+import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
@@ -33,7 +34,13 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                 <PanelLoader loading={userWithdraw.isFetching}>
                     <Tile type="default" className="uk-padding-remove">
                         {userWithdraw.isFetching ?
-                            <PoolsListPlaceholder />
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => matches ?
+                                    (<PoolsListPlaceholder />)
+                                    :
+                                    (<PoolsListMobilePlaceholder />)
+                                }
+                            </Media>
                             :
                             <>
                                 <table className="uk-table uk-table-divider uk-width-1-1 table">

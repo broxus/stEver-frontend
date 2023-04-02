@@ -20,6 +20,7 @@ import { AccountIcon, ExplorerAccountLink, FormattedTokenAmount, Icon } from '@b
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
+import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -35,7 +36,13 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                     <PanelLoader loading={tabelDepools.isFetching}>
                         <Tile type="default" className="uk-padding-remove">
                             {tabelDepools.isFetching ?
-                                <PoolsListPlaceholder />
+                                <Media query={{ minWidth: 640 }}>
+                                    {matches => matches ?
+                                        (<PoolsListPlaceholder />)
+                                        :
+                                        (<PoolsListMobilePlaceholder />)
+                                    }
+                                </Media>
                                 :
                                 <>
                                     <table className="uk-table uk-table-divider uk-width-1-1 table">
@@ -280,7 +287,7 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
         tabelDepools.getDepoolsStrategies({
             depool: null,
             limit: tabelDepools.pagination.limit,
-            offset: tabelDepools.pagination.currentPage  * tabelDepools.pagination.limit,
+            offset: tabelDepools.pagination.currentPage * tabelDepools.pagination.limit,
             ordering: tabelDepools.ordering,
             validatorFeeGe: null,
             validatorFeeLe: null,
