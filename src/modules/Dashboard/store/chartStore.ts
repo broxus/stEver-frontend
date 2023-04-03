@@ -35,6 +35,8 @@ export class ChartStore extends AbstractStore<
         makeObservable(this)
         this.setData('tvlCharts', [])
         this.setData('priceCharts', [])
+        this.setData('apyCharts', [])
+        this.setData('holdersCharts', [])
         
         reaction(
             () => { },
@@ -113,7 +115,7 @@ export class ChartStore extends AbstractStore<
     public get apyCharts() {
         return uniqBy(this._data.apyCharts, 'timestamp').map<any>((item => ({
             time: (item.timestamp),
-            value: parseFloat(new BigNumber(item.apy ?? 0).shiftedBy(-ST_EVER_DECIMALS).toFixed()),
+            value: parseFloat(new BigNumber(item.apy).times(100).toFixed(2)),
         }))).reverse()
     }
 
@@ -121,7 +123,7 @@ export class ChartStore extends AbstractStore<
     public get holdersCharts() {
         return uniqBy(this._data.holdersCharts, 'timestamp').map<any>((item => ({
             time: (item.timestamp),
-            value: parseFloat(new BigNumber(item.holder ?? 0).shiftedBy(-ST_EVER_DECIMALS).toFixed()),
+            value: parseFloat(new BigNumber(item.holder ?? 0).toFixed()),
         }))).reverse()
     }
 

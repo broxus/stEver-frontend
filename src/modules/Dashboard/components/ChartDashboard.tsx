@@ -28,6 +28,9 @@ import { useStore } from '@/hooks/useStore'
 import { RateChange } from '@/components/common/RateChange'
 
 import './ChartDashboard.scss'
+import { ChartAPY } from './charts/ChartAPY'
+import { ChartPrice } from './charts/ChartPrice'
+import { ChartHolders } from './charts/ChartHolders'
 
 function ChartDashboardInner(): JSX.Element {
 
@@ -185,6 +188,9 @@ function ChartDashboardInner(): JSX.Element {
                                 </Tile>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
                                     <ChartTVL />
+                                    {/* <ChartAPY /> */}
+                                    {/* <ChartPrice /> */}
+                                    {/* <ChartHolders/> */}
                                 </Tile>
                             </Width>
                         </Grid>
