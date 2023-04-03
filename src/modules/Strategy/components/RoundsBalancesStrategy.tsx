@@ -9,6 +9,7 @@ import BigNumber from 'bignumber.js'
 import "./RoundsBalancesStrategy.scss"
 import { Placeholder } from '@/components/common/Placeholder'
 import Media from 'react-media'
+import { RateChange } from '@/components/common/RateChange'
 
 function RoundsBalancesStrategyInner(): JSX.Element {
     const dashboard = useStore(ChartStore)
@@ -32,11 +33,19 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                 <Width size={matches ? "1-3" : "1-1"}>
                                                     <Tile type='secondary' size='xsmall' className="round">
                                                         <Text className="uk-margin-remove">Round {e[0]} </Text>
-                                                        <FormattedTokenAmount
-                                                            decimals={ST_EVER_DECIMALS}
-                                                            value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}
-                                                            symbol='EVER'
-                                                        />
+                                                        <Flex justifyContent='between'>
+                                                            <FormattedTokenAmount
+                                                                decimals={ST_EVER_DECIMALS}
+                                                                value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}
+                                                                symbol='EVER'
+                                                            />
+                                                            {dashboard.strategyMainInfo.tvlDeltaNextRound &&
+                                                                i === 2 &&
+                                                                <RateChange size="sm" currency="" value={
+                                                                    new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                                                } />
+                                                            }
+                                                        </Flex>
                                                     </Tile>
                                                 </Width>
                                             )

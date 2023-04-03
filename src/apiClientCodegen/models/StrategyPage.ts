@@ -18,5 +18,9 @@ export type StrategyPage = {
      * tvlDelta
      */
     tvlDelta: string;
+    /**
+     * tvlDeltaNextRound
+     */
+    tvlDeltaNextRound?: string;
 };
 

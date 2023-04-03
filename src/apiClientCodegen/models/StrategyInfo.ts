@@ -19,7 +19,7 @@ export type StrategyInfo = {
     /**
      * tvlDeltaNextRound
      */
-    tvlDeltaNextRound: string;
+    tvlDeltaNextRound?: string;
     validatorFee: number;
 };
 
