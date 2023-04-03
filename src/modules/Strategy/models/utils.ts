@@ -8,6 +8,7 @@ export abstract class StrategyUtils {
     public static async _getStrategyDetails(address: Address): Promise<StrategyDePool> {
         const contract = StEverStrategyDePool(address)
         const { value0 } = await contract.methods.getDetails({ answerId: 0 }).call()
+
         return value0
     }
 

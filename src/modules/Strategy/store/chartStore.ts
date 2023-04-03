@@ -7,7 +7,7 @@ import {
     StrategiesService, StrategyPage, TvlRequest, TvlResponse,
 } from '@/apiClientCodegen'
 import { Params } from '@/routes'
-import { Strategy } from '../models/staking'
+import { Strategy } from '../models/strategy'
 import { Address } from 'everscale-inpage-provider'
 import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
 import { WEVERRootAddress } from '@/config'
