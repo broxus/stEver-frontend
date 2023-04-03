@@ -68,11 +68,12 @@ function FormTab({
 
     return (
         <Flex flexDirection="column" justifyContent="between">
-            <Observer>
-                {() => (
-                    <Media query={{ minWidth: 768 }}>
-                        {match => (
-                            <>
+
+            <Media query={{ minWidth: 768 }}>
+                {match => (
+                    <>
+                        <Observer>
+                            {() => (
                                 <TextInput
                                     autoFocus
                                     placeholder="0"
@@ -89,12 +90,13 @@ function FormTab({
                                     borderButtom
                                     showMaxButton={match}
                                 />
-                            </>
-                        )}
-                    </Media>
-
+                            )}
+                        </Observer>
+                    </>
                 )}
-            </Observer>
+            </Media>
+
+
             <Observer>
                 {() => (
                     <>
