@@ -60,7 +60,8 @@ function TextInputInner({
                 <Text size="small" component="p" className="uk-margin-remove">{title}</Text>
                 {readOnly && (
                     <Text size="small" component="p" className="uk-margin-remove">
-                        ≈
+                        1 EVER ≈
+                        {' '}
                         {price}
                         {' '}
                         {currency}
