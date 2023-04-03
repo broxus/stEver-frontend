@@ -23,7 +23,7 @@ export function StEverTokenWalletRoot(
 ): Contract<RootAbi> {
     return new provider.Contract(TokenRootAbi, resolveTvmAddress(address))
 }
-
+ 
 export function StEverTokenWallet(
     address: Address,
     provider = useRpcClient(),
