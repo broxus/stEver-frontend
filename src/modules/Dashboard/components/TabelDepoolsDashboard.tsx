@@ -21,6 +21,8 @@ import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
+import { RateChange } from '@/components/common/RateChange'
+import BigNumber from 'bignumber.js'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -195,6 +197,12 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         decimals={ST_EVER_DECIMALS}
                         value={pool.tvl}
                     />
+                    <br />
+                    {pool?.tvlDeltaNextRound &&
+                        <RateChange size="sm" currency="" value={
+                            new BigNumber(pool?.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                        } />
+                    }
                 </td>
             </tr>
         </tbody>

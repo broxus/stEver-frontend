@@ -11,6 +11,7 @@ type RateChangeProps = {
     displayPercents?: boolean;
     size?: 'sm';
     value: string;
+    currency?: string;
 }
 
 function getDirection(value: BigNumber.Value): number {
@@ -30,6 +31,7 @@ export function RateChange({
     displayPercents = true,
     size,
     value,
+    currency = "%"
 }: RateChangeProps): JSX.Element {
     const dir = getDirection(value)
     return (
@@ -41,7 +43,7 @@ export function RateChange({
             })}
         >
             {formattedAmount(value, undefined, { preserve: true })}
-            {displayPercents && '%'}
+            {displayPercents && currency}
         </div>
     )
 }
