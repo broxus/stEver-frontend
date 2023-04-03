@@ -25,6 +25,7 @@ export type TextInputProps = {
     price?: string;
     currency?: string;
     borderButtom?: boolean;
+    showMaxButton?: boolean
 }
 
 function TextInputInner({
@@ -44,6 +45,7 @@ function TextInputInner({
     price,
     currency,
     borderButtom,
+    showMaxButton = false
 }: TextInputProps): JSX.Element {
 
     const _onChange = (_: string): void => {
@@ -73,7 +75,7 @@ function TextInputInner({
                 inputMode={inputMode}
                 value={value}
                 disabled={disabled}
-                showMaxButton={!readOnly}
+                showMaxButton={showMaxButton}
                 maxValue={maxValue}
                 readOnly={readOnly}
                 onBlur={onBlur}

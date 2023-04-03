@@ -15,6 +15,7 @@ import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
 import { ST_EVER_DECIMALS } from '@/config'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import Media from 'react-media'
 
 
 function FormStakInner(): JSX.Element {
@@ -69,21 +70,29 @@ function FormTab({
         <Flex flexDirection="column" justifyContent="between">
             <Observer>
                 {() => (
-                    <TextInput
-                        autoFocus
-                        placeholder="0"
-                        value={staking.amount}
-                        onChange={e => staking.setAmount(e)}
-                        disabled={!wallet.isConnected}
-                        maxValue={staking.maxAmount}
-                        inputMode="numeric"
-                        readOnly={false}
-                        title={type === StakingType.Stake ? 'You spend EVER' : 'You receive stEVER'}
-                        iconUrl={
-                            type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
-                        }
-                        borderButtom
-                    />
+                    <Media query={{ minWidth: 768 }}>
+                        {match => (
+                            <>
+                                <TextInput
+                                    autoFocus
+                                    placeholder="0"
+                                    value={staking.amount}
+                                    onChange={e => staking.setAmount(e)}
+                                    disabled={!wallet.isConnected}
+                                    maxValue={staking.maxAmount}
+                                    inputMode="numeric"
+                                    readOnly={false}
+                                    title={type === StakingType.Stake ? 'You spend EVER' : 'You receive stEVER'}
+                                    iconUrl={
+                                        type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
+                                    }
+                                    borderButtom
+                                    showMaxButton={match}
+                                />
+                            </>
+                        )}
+                    </Media>
+
                 )}
             </Observer>
             <Observer>
@@ -101,7 +110,7 @@ function FormTab({
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
                         {staking?.isFetching ?
-                            <Button  disabled={staking?.isFetching} type="primary" className="uk-width-1-1">
+                            <Button disabled={staking?.isFetching} type="primary" className="uk-width-1-1">
                                 Loading...
                             </Button>
                             :
