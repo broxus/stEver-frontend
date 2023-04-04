@@ -55,25 +55,25 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                             <Width size={matches ? "1-3" : "1-1"}>
                                                 <Tile type='secondary' size='xsmall' className="round">
                                                     <Text className="uk-margin-remove">
-                                                        <Placeholder height={20} width={100} />
+                                                        <Placeholder height={16} width={100} />
                                                     </Text>
-                                                    <Placeholder height={30} width={150} />
+                                                    <Placeholder height={26} width={150} />
                                                 </Tile>
                                             </Width>
                                             <Width size={matches ? "1-3" : "1-1"}>
                                                 <Tile type='secondary' size='xsmall' className="round">
                                                     <Text className="uk-margin-remove">
-                                                        <Placeholder height={20} width={100} />
+                                                        <Placeholder height={16} width={100} />
                                                     </Text>
-                                                    <Placeholder height={30} width={150} />
+                                                    <Placeholder height={26} width={150} />
                                                 </Tile>
                                             </Width>
                                             <Width size={matches ? "1-3" : "1-1"}>
                                                 <Tile type='secondary' size='xsmall' className="round">
                                                     <Text className="uk-margin-remove">
-                                                        <Placeholder height={20} width={100} />
+                                                        <Placeholder height={16} width={100} />
                                                     </Text>
-                                                    <Placeholder height={30} width={150} />
+                                                    <Placeholder height={26} width={150} />
                                                 </Tile>
                                             </Width>
                                         </>
