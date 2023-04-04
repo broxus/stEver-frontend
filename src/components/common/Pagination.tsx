@@ -63,7 +63,7 @@ export const Pagination = React.memo(({
             <Flex justifyContent="between">
                 <Flex justifyContent="right">
                     <AmountInput
-                        className="pagination__input uk-margin-small-right"
+                        className="pagination__input uk-margin-small-right uk-text-small"
                         inputMode="decimal"
                         readOnly
                         type="text"
@@ -72,7 +72,7 @@ export const Pagination = React.memo(({
                         onKeyUp={onKeyUp}
                         showMaxButton={false}
                     />
-                    <Text className="uk-margin-small-right uk-margin-auto-vertical ">
+                    <Text className="uk-margin-small-right uk-margin-auto-vertical uk-text-small">
                         page of {" "}{totalPages}
                     </Text>
                     <Card>
