@@ -9,3 +9,7 @@ $global-color: #000;
 $global-link-color: #2B63F1;
 $global-xsmall-gutter: 8px;
 $global-margin: 16px;
+
+:root {
+    $navbar-nav-item-font-size: var(--global-small-font-size);
+}

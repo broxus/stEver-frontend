@@ -13,12 +13,12 @@ export function DesktopNav(): JSX.Element {
     const expandIcon = React.useMemo(() => <Icon icon="arrowDown" className="nav__arrow" />, [])
 
     return (
-        <Navbar.Nav className="uk-width-expand">
+        <Navbar.Nav className="uk-width-expand desktop-nav">
             <Nav.Item>
                 <NavLink key="stake" to={appRoutes.stake.makeUrl()}>
                     {intl.formatMessage({
                         id: 'NAV_LINK_TEXT_STAKE',
-                    })}
+                    })} 
                 </NavLink>
             </Nav.Item>
             <Nav.Item>
