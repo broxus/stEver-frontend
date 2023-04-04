@@ -45,16 +45,6 @@
     line-height: normal;
     padding-right: 30px;
 
-    &:hover {
-        background-color: #FFFFFF !important;
-        color: #4D4F55 !important;
-    }
-
-    &:active {
-        background-color: #FFFFFF !important;
-        color: #4D4F55 !important;
-    }
-
     &::before {
         border: 5px solid transparent;
         content: '';
@@ -67,6 +57,16 @@
         border-top-color: #000;
         top: 14.5px;
     }
+}
+
+@mixin hook-button-secondary-hover() {
+    background-color: #FFFFFF;
+    color: #4D4F55;
+}
+
+@mixin hook-button-secondary-active() {
+    background-color: #FFFFFF ;
+    color: #4D4F55;
 }
 
 @mixin hook-tile-default() {
