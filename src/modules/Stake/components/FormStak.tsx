@@ -110,8 +110,8 @@ function FormTab({
                             price={type === StakingType.Stake ? staking.exchangeRate ?? "0" : staking.exchangeRate ?? "0"}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
-                        {staking?.isFetching ?
-                            <Button disabled={staking?.isFetching} type="primary" className="uk-width-1-1">
+                        {staking?.isFetchingForm ?
+                            <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
                                 Loading...
                             </Button>
                             :

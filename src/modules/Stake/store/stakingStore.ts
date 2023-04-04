@@ -26,6 +26,7 @@ type StakingStoreState = {
     type: StakingType;
     depositStEverAmount: string;
     isFetching?: boolean;
+    isFetchingForm?: boolean;
 }
 
 type StakingStoreData = {
@@ -146,7 +147,7 @@ export class StakingStore extends AbstractStore<
     public get type(): StakingType {
         return this._state.type
     }
-
+ 
     @computed
     public get amount(): string | undefined {
         return this._state.amount
@@ -190,8 +191,14 @@ export class StakingStore extends AbstractStore<
         return this._state.isFetching
     }
 
+    @computed
+    public get isFetchingForm(): boolean | undefined {
+        return this._state.isFetchingForm
+    }
+    
+
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState("isFetchingForm", true)
         const amount = parseCurrency(value, ST_EVER_DECIMALS) || '0'
         if (this._state.type === StakingType.Stake) {
             this.setState('depositStEverAmount', await this._data.modelStaking.getDepositStEverAmount(amount))
@@ -199,7 +206,7 @@ export class StakingStore extends AbstractStore<
         else {
             this.setState('depositStEverAmount', await this._data.modelStaking.getWithdrawEverAmount(amount))
         }
-        this.setState("isFetching", false)
+        this.setState("isFetchingForm", false)
     }
 
 
