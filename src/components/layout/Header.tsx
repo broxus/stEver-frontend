@@ -37,9 +37,9 @@ export function HeaderInner(): JSX.Element {
                                             showDropMenu={false}
                                         />
                                         <Button type='default'
-                                            style={{ padding: "0px 10px" }}
+                                            style={{ padding: "0px 5px" }}
                                             onClick={() => wallet.disconnect()}>
-                                            <Icon icon="logout" />
+                                            <Icon className='iconLogout' icon="logout" />
                                         </Button>
                                     </>
                                 }
