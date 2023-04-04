@@ -29,21 +29,23 @@ export function HeaderInner(): JSX.Element {
                                 </Link>
                                 <DesktopNav />
                             </Navbar.Left>
-                            <Navbar.Right className="header-switchers" component={Navbar.Item}>
-                                {wallet.isConnected &&
-                                    <>
+                            <Observer>
+                                {() => (
+                                    <Navbar.Right className="header-switchers" component={Navbar.Item}>
                                         <TvmConnector
                                             standalone
                                             showDropMenu={false}
                                         />
-                                        <Button type='default'
-                                            style={{ padding: "0px 5px" }}
-                                            onClick={() => wallet.disconnect()}>
-                                            <Icon className='iconLogout' icon="logout" />
-                                        </Button>
-                                    </>
-                                }
-                            </Navbar.Right>
+                                        {wallet.isConnected &&
+                                            <Button type='default'
+                                                style={{ padding: "0px 5px" }}
+                                                onClick={() => wallet.disconnect()}>
+                                                <Icon className='iconLogout' icon="logout" />
+                                            </Button>
+                                        }
+                                    </Navbar.Right>
+                                )}
+                            </Observer>
                         </>
                     )}
                 </Media>
