@@ -69,7 +69,7 @@ function ChartDashboardInner(): JSX.Element {
                                                                     className='total'
                                                                 />
 
-                                                                <span>
+                                                                <span className='uk-margin-auto-vertical'>
                                                                     ~<FormattedCurrencyValue
                                                                         value={
                                                                             new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
