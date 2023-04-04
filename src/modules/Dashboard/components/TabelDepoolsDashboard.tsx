@@ -69,10 +69,20 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                             </Media>
                                         ))}
                                     </table>
-
+                                    {!tabelDepools.depoolsStrategies?.length &&
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                            </Flex>
+                                        </Tile>
+                                    }
                                 </>
                             }
-                            <DepoolsListPagination tabelDepools={tabelDepools} />
+                            {tabelDepools.depoolsStrategies?.length ?
+                                <DepoolsListPagination tabelDepools={tabelDepools} />
+                                :
+                                undefined
+                            }
                         </Tile>
                     </PanelLoader>
                 )}

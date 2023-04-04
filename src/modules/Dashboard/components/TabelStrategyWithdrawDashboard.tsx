@@ -67,11 +67,21 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
                                             ))}
                                         </Media>
                                     ))}
-
                                 </table>
+                                {!strategyWithdraw.transactions?.length &&
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        </Flex>
+                                    </Tile>
+                                }
                             </>
                         }
-                        <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
+                        {strategyWithdraw.transactions?.length ?
+                            <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
+                            :
+                            undefined
+                        }
                     </Tile>
                 </PanelLoader>
             )}

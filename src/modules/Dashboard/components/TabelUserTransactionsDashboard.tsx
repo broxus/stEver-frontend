@@ -69,9 +69,20 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                             </Media>
                                         ))}
                                     </table>
+                                    {!userTransactions.transactions?.length &&
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                            </Flex>
+                                        </Tile>
+                                    }
                                 </>
                             }
-                            <DepoolsListPagination userTransactions={userTransactions} />
+                            {userTransactions.transactions?.length ?
+                                <DepoolsListPagination userTransactions={userTransactions} />
+                                :
+                                undefined
+                            }
                         </Tile>
                     </PanelLoader>
                 )}

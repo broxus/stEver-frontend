@@ -28,6 +28,9 @@ import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePla
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
     const userWithdraw = useStore(UserWithdrawStore)
+
+    console.log("====")
+    console.log(userWithdraw.transactions)
     return (
         <Observer>
             {() => (
@@ -65,9 +68,20 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                                         </Media>
                                     ))}
                                 </table>
+                                {!userWithdraw.transactions?.length &&
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        </Flex>
+                                    </Tile>
+                                }
                             </>
                         }
-                        <DepoolsListPagination userWithdraw={userWithdraw} />
+                        {userWithdraw.transactions?.length ?
+                            <DepoolsListPagination userWithdraw={userWithdraw} />
+                            :
+                            undefined
+                        }
                     </Tile>
                 </PanelLoader>
             )}

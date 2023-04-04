@@ -70,15 +70,26 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
 
                                         </Media>
                                     ))}
-
                                 </table>
+                                {!strategyTransactions.transactions?.length &&
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        </Flex>
+                                    </Tile>
+                                }
                             </>
                         }
-                        <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                        {strategyTransactions.transactions?.length ?
+                            <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                            :
+                            undefined
+                        }
                     </Tile>
-                </PanelLoader>
-            )}
-        </Observer>
+                </PanelLoader >
+            )
+            }
+        </Observer >
     )
 }
 
