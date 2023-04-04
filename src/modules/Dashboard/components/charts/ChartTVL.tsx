@@ -47,9 +47,9 @@ function ChartTVLInner(): JSX.Element {
             const abbreviated = abbreviateNumber(price)
             const value = abbreviated.substring(0, abbreviated.length - 1)
             const unit = abbreviateNumber(price).slice(-1)
-            return `Ever ${formattedAmount(value)}${unit}`
+            return `${formattedAmount(value)}${unit}`
         }
-        return `Ever ${formattedAmount(price, undefined, {
+        return `${formattedAmount(price, undefined, {
             precision: 1,
         })}`
     }
@@ -108,7 +108,7 @@ function ChartTVLInner(): JSX.Element {
                                     type="Area"
                                     data={dashboard.tvlCharts}
                                     lineColor="#2B63F1"
-
+                                    title={"EVER"}
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
@@ -129,7 +129,7 @@ function ChartTVLInner(): JSX.Element {
                                     type="Area"
                                     data={dashboard.tvlCharts}
                                     lineColor="#2B63F1"
-
+                                    title={"EVER"}
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
