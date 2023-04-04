@@ -19,6 +19,16 @@
     color: #2b63f1;
 }
 
+@mixin hook-button-default-hover() {
+    background: #DAE4FD;
+    color: #214BB7;
+}
+
+@mixin hook-button-default-active() {
+    background: #B1C5FA;
+    color: #183784;
+}
+
 @mixin hook-button-primary() {
     background: #2b63f1;
     color: #fff;
@@ -142,6 +152,7 @@
 @mixin hook-label-misc() {
     .uk-label {
         padding: 4px 8px;
+
         .uk-icon {
             margin: auto 0;
             margin-left: 7px;
