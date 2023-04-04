@@ -202,7 +202,7 @@ function ChartStrategyInner(): JSX.Element {
                                                 <Grid gap="xsmall" childWidth={1}>
                                                     <Text>Fee</Text>
                                                     <Text className='total'>
-                                                        {dashboard.isFetching ?
+                                                        {!dashboard.strategyDetails?.validatorRewardFraction ?
                                                             <>
                                                                 <Placeholder height={30} width={100} />
                                                             </>

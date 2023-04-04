@@ -75,7 +75,7 @@ export class ChartStore extends AbstractStore<
         const response = await StrategiesService.postStrategiesTvl(string, requestBody)
         const data = this._data.tvlCharts.concat(response ?? [])
         this.setData('tvlCharts', data)
-        this.setState("isFetchingCharts", true)
+        this.setState("isFetchingCharts", false)
     }
 
 
