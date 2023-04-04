@@ -79,7 +79,6 @@ function FormTab({
                                     placeholder="0"
                                     value={staking.amount}
                                     onChange={e => staking.setAmount(e)}
-                                    disabled={!wallet.isConnected}
                                     maxValue={staking.maxAmount}
                                     inputMode="numeric"
                                     readOnly={false}
