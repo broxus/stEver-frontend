@@ -5,7 +5,7 @@
 
 .tabelTabs {
     .uk-tabs-top .uk-tabs-nav::before {
-        width: 174px !important;
+        width: 144px !important;
     }
 
     .uk-tabs-nav-wrap {
@@ -14,5 +14,11 @@
 
     .uk-tabs-nav {
         margin-bottom: 16px;
+    }
+    .uk-tabs-tab + .uk-tabs-tab {
+        margin: 0 0 0 4px;
+    }
+    .uk-tabs-tab-btn {
+        font-size: 14px;
     }
 }
