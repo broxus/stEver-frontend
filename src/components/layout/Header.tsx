@@ -12,6 +12,7 @@ import { DesktopNav } from './DesktopNav'
 
 import './Header.scss'
 import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
+import { Icon } from '@broxus/react-components'
 
 export function HeaderInner(): JSX.Element {
     const wallet = useTvmWalletContext()
@@ -29,7 +30,19 @@ export function HeaderInner(): JSX.Element {
                                 <DesktopNav />
                             </Navbar.Left>
                             <Navbar.Right className="header-switchers" component={Navbar.Item}>
-                                <TvmConnector standalone />
+                                {wallet.isConnected &&
+                                    <>
+                                        <TvmConnector
+                                            standalone
+                                            showDropMenu={false}
+                                        />
+                                        <Button type='default'
+                                            style={{ padding: "0px 10px" }}
+                                            onClick={() => wallet.disconnect()}>
+                                            <Icon icon="logout" />
+                                        </Button>
+                                    </>
+                                }
                             </Navbar.Right>
                         </>
                     )}
