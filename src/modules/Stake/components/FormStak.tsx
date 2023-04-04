@@ -115,7 +115,7 @@ function FormTab({
                                 Loading...
                             </Button>
                             :
-                            <Button htmlType="submit" disabled={!wallet.isConnected} type="primary" className="uk-width-1-1">
+                            <Button htmlType="submit" disabled={!wallet.isConnected || !staking.amount || staking.amount === "0" } type="primary" className="uk-width-1-1">
                                 {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
                             </Button>
                         }
