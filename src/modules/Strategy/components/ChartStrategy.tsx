@@ -232,7 +232,7 @@ function ChartStrategyInner(): JSX.Element {
                                                         ref={chart}
                                                         onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                                     >
-                                                        {/* {dashboard.isFetchingCharts && <Chart.Placeholder />} */}
+                                                        {dashboard.isFetchingCharts && <Chart.Placeholder />}
                                                         <Chart.Series
                                                             ref={series}
                                                             type="Area"
