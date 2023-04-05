@@ -133,7 +133,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Priority
+                                Distribution priority
                             </OrderingSwitcher>
                         )}
                     </Observer>
