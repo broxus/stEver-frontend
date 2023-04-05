@@ -23,6 +23,7 @@ import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 import { RateChange } from '@/components/common/RateChange'
 import BigNumber from 'bignumber.js'
+import { Placeholder } from '@/components/common/Placeholder'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
 
@@ -32,6 +33,11 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
         <Flex flexDirection="column">
             <Heading component="h4">
                 Participating depools
+                {!tabelDepools.isFetching ?
+                    <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
+                    :
+                    <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                }
             </Heading>
             <Observer>
                 {() => (

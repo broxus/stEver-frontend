@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { useProvider } from '@/hooks/useStore'
+import { useProvider, useStore } from '@/hooks/useStore'
 import './DashboardPage.scss'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
@@ -15,7 +15,9 @@ import { TabelStrategyTransactionsDashboard, TransactionStrtegyListFilter } from
 import { TabelUserWithdrawDashboard } from '../components/TabelUserWithdrawDashboard'
 import { TabelStrategyWithdrawDashboard } from '../components/TabelStrategyWithdrawDashboard'
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
-import { Flex, Heading, Tabs } from '@broxus/react-uikit'
+import { Flex, Heading, Label, Tabs } from '@broxus/react-uikit'
+import { Placeholder } from '@/components/common/Placeholder'
+import { Observer } from 'mobx-react-lite'
 
 export default function DashboardPage(): JSX.Element {
 
@@ -29,16 +31,19 @@ export default function DashboardPage(): JSX.Element {
 
     const ChartProvider = useProvider(ChartStore)
 
-    const [state, setState] = React.useState("Users")
+
+    const [stateTransaction, setStateTransaction] = React.useState("Users")
+    const [stateWithdraw, setStateWithdraw] = React.useState("Users")
 
     const TabExtraContent = () => {
-        if (state === "Strategies") {
-            return (
-                <TransactionStrtegyListFilter />
-            )
-        } else {
+        if (stateTransaction === "Users") {
             return (
                 <TransactionUserListFilter />
+            )
+        } else {
+
+            return (
+                <TransactionStrtegyListFilter />
             )
         }
     }
@@ -54,66 +59,119 @@ export default function DashboardPage(): JSX.Element {
             </TabelDepoolsProvider>
 
             <Flex flexDirection="column" className="tabelTabs">
-                <Heading component="h4">
-                    Transactions
-                </Heading>
                 <UserTransactionsProvider>
-                    <StrategiesTransactionsProvider>
-                        <Tabs
-                            defaultActiveKey="1"
-                            id="tabs-withdraw"
-                            onChange={(e) => {
-                                setState(e)
-                            }}
-                            tabBarExtraContent={
-                                {
-                                    right: <TabExtraContent />
-                                }
+                    {userTransactions => (
+                        <StrategiesTransactionsProvider>
+                            {strategyTransactions => (
+                                <Observer>
+                                    {() => (
+                                        <>
+                                            <Heading component="h4">
+                                                Transactions
+                                                {stateTransaction === "Users" ?
+                                                    (
+                                                        !userTransactions.isFetching ?
+                                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{userTransactions.pagination.totalCount}</Label>
+                                                            :
+                                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                                    )
+                                                    :
+                                                    (
+                                                        !strategyTransactions.isFetching ?
+                                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyTransactions.pagination.totalCount}</Label>
+                                                            :
+                                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                                    )
+                                                }
+                                            </Heading>
+                                            <Tabs
+                                                defaultActiveKey="1"
+                                                id="tabs-withdraw"
+                                                onChange={(e) => {
+                                                    setStateTransaction(e)
+                                                }}
+                                                tabBarExtraContent={
+                                                    {
+                                                        right: <TabExtraContent />
+                                                    }
+                                                }
+                                                items={[
+                                                    {
+                                                        label: 'Users',
+                                                        key: 'Users',
+                                                        children: <TabelUserTransactionsDashboard />
+                                                    },
+                                                    {
+                                                        label: 'Strategies',
+                                                        key: 'Strategies',
+                                                        children: <TabelStrategyTransactionsDashboard />
+                                                    },
+                                                ]}
+                                            />
+                                        </>
+                                    )}
+                                </Observer>
+                            )
                             }
-                            items={[
-                                {
-                                    label: 'Users',
-                                    key: 'Users',
-                                    children: <TabelUserTransactionsDashboard />
-                                },
-                                {
-                                    label: 'Strategies',
-                                    key: 'Strategies',
-                                    children: <TabelStrategyTransactionsDashboard />
-                                },
-                            ]}
-                        />
-                    </StrategiesTransactionsProvider>
+                        </StrategiesTransactionsProvider>
+                    )}
                 </UserTransactionsProvider>
             </Flex>
+            <UserWithdrawProvider>
+                {userWithdraw => (
+                    <StrategyWithdrawProvider>
+                        {strategyWithdraw => (
+                            <Observer>
+                                {() => (
+                                    <>
+                                        <Flex flexDirection="column" className="tabelTabs">
+                                            <Heading component="h4">
+                                                Pending withdrawals
+                                                {stateWithdraw === "Users" ?
+                                                    (
+                                                        !userWithdraw.isFetching ?
+                                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{userWithdraw.pagination.totalCount}</Label>
+                                                            :
+                                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                                    )
+                                                    :
+                                                    (
+                                                        !strategyWithdraw.isFetching ?
+                                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyWithdraw.pagination.totalCount}</Label>
+                                                            :
+                                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                                    )
+                                                }
+                                            </Heading>
+                                            <Tabs
+                                                defaultActiveKey="1"
+                                                id="tabs-withdraw"
+                                                onChange={(e) => {
+                                                    setStateWithdraw(e)
+                                                }}
+                                                items={[
+                                                    {
+                                                        label: 'Users',
+                                                        key: 'Users',
+                                                        children: <TabelUserWithdrawDashboard />
 
-            <Flex flexDirection="column" className="tabelTabs">
-                <Heading component="h4">
-                    Pending withdrawals
-                </Heading>
-                <Tabs
-                    defaultActiveKey="1"
-                    id="tabs-withdraw"
-                    items={[
-                        {
-                            label: 'Users',
-                            key: 'Users',
-                            children: <UserWithdrawProvider>
-                                <TabelUserWithdrawDashboard />
-                            </UserWithdrawProvider>
-                        },
-                        {
-                            label: 'Strategies',
-                            key: 'Strategies',
-                            children: <StrategyWithdrawProvider>
-                                <TabelStrategyWithdrawDashboard />
-                            </StrategyWithdrawProvider>
-                        },
-                    ]}
-                />
-            </Flex>
+                                                    },
+                                                    {
+                                                        label: 'Strategies',
+                                                        key: 'Strategies',
+                                                        children: <TabelStrategyWithdrawDashboard />
 
-
+                                                    },
+                                                ]}
+                                            />
+                                        </Flex>
+                                    </>
+                                )}
+                            </Observer>
+                        )}
+                    </StrategyWithdrawProvider>
+                )}
+            </UserWithdrawProvider>
         </div>
     )
 }

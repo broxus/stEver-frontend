@@ -10,7 +10,9 @@ import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/componen
 import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
 import { TabelStrategyWithdrawDashboard } from '@/modules/Dashboard/components/TabelStrategyWithdrawDashboard'
 import { RoundsBalancesStrategy } from '../components/RoundsBalancesStrategy'
-import { Flex, Heading } from '@broxus/react-uikit'
+import { Flex, Heading, Label } from '@broxus/react-uikit'
+import { Placeholder } from '@/components/common/Placeholder'
+import { Observer } from 'mobx-react-lite'
 
 export default function StrategyPage(): JSX.Element {
     const ChartProvider = useProvider(ChartStore)
@@ -25,20 +27,49 @@ export default function StrategyPage(): JSX.Element {
             </ChartProvider>
 
             <Flex flexDirection="column" className="tabelTabs">
-                <Heading component="h4">
-                    Transactions
-                </Heading>
                 <StrategiesTransactionsProvider>
-                    <TabelStrategyTransactionsDashboard />
+                    {strategyTransactions => (
+                        <Observer>
+                            {() => (
+                                <>
+                                    <Heading component="h4">
+                                        Transactions
+                                        {!strategyTransactions.isFetching ?
+                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyTransactions.pagination.totalCount}</Label>
+                                            :
+                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                        }
+                                    </Heading>
+                                    <TabelStrategyTransactionsDashboard />
+                                </>
+                            )}
+                        </Observer>
+
+                    )}
+
                 </StrategiesTransactionsProvider>
             </Flex>
 
             <Flex flexDirection="column" className="tabelTabs">
-                <Heading component="h4">
-                    Pending withdrawals
-                </Heading>
                 <StrategyWithdrawProvider>
-                    <TabelStrategyWithdrawDashboard />
+                    {strategyWithdraw => (
+                        <Observer>
+                            {() => (
+                                <>
+                                    <Heading component="h4">
+                                        Pending withdrawals
+                                        {!strategyWithdraw.isFetching ?
+                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyWithdraw.pagination.totalCount}</Label>
+                                            :
+                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
+                                        }
+                                    </Heading>
+                                    <TabelStrategyWithdrawDashboard />
+                                </>
+                            )}
+                        </Observer>
+                    )}
+
                 </StrategyWithdrawProvider>
             </Flex>
         </div>

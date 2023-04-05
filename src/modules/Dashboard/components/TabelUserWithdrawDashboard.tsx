@@ -29,8 +29,6 @@ import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePla
 function TabelUserWithdrawDashboardInner(): JSX.Element {
     const userWithdraw = useStore(UserWithdrawStore)
 
-    console.log("====")
-    console.log(userWithdraw.transactions)
     return (
         <Observer>
             {() => (
