@@ -82,7 +82,7 @@ function FormTab({
                                     maxValue={staking.maxAmount}
                                     inputMode="numeric"
                                     readOnly={false}
-                                    title={type === StakingType.Stake ? 'You spend EVER' : 'You receive stEVER'}
+                                    title={type === StakingType.Stake ? 'You spend EVER' : 'You spend stEVER'}
                                     iconUrl={
                                         type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
                                     }
@@ -105,7 +105,7 @@ function FormTab({
                             disabled={false}
                             inputMode="numeric"
                             readOnly
-                            title={type === StakingType.Stake ? 'You receive stEVER' : 'You spend EVER'}
+                            title={type === StakingType.Stake ? 'You receive stEVER' : 'You receive EVER'}
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
                             price={type === StakingType.Stake ? staking.exchangeRate ?? "0" : staking.exchangeRate ?? "0"}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
