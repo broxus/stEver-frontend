@@ -89,7 +89,7 @@ export default function DashboardPage(): JSX.Element {
 
             <Flex flexDirection="column" className="tabelTabs">
                 <Heading component="h4">
-                    Pendings withdraw
+                    Pending withdrawals
                 </Heading>
                 <Tabs
                     defaultActiveKey="1"

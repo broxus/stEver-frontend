@@ -23,7 +23,7 @@ export default function StrategyPage(): JSX.Element {
                 <ChartStrategy />
                 <RoundsBalancesStrategy />
             </ChartProvider>
-            
+
             <Flex flexDirection="column" className="tabelTabs">
                 <Heading component="h4">
                     Transactions
@@ -35,7 +35,7 @@ export default function StrategyPage(): JSX.Element {
 
             <Flex flexDirection="column" className="tabelTabs">
                 <Heading component="h4">
-                    Pendings withdraw
+                    Pending withdrawals
                 </Heading>
                 <StrategyWithdrawProvider>
                     <TabelStrategyWithdrawDashboard />
