@@ -12,7 +12,7 @@ function ChartPriceInner(): JSX.Element {
     const seriesPrice = React.useRef<any>(null)
     const chartPrice = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
-
+ 
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -45,11 +45,11 @@ function ChartPriceInner(): JSX.Element {
             const abbreviated = abbreviateNumber(price)
             const value = abbreviated.substring(0, abbreviated.length - 1)
             const unit = abbreviateNumber(price).slice(-1)
-            return `${formattedAmount(value)}${unit}%`
+            return `${formattedAmount(value)}${unit}`
         }
         return `${formattedAmount(price, undefined, {
             precision: 1,
-        })}%`
+        })}`
     }
 
 
@@ -106,12 +106,12 @@ function ChartPriceInner(): JSX.Element {
                                     type="Area"
                                     data={dashboard.priceCharts}
                                     lineColor="#2B63F1"
-
+                                    priceScaleId="right"
+                                    title='EVER'
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
                                     }}
-                                    priceScaleId="right"
                                 />
                             </Chart>
                         </Media>
@@ -126,13 +126,13 @@ function ChartPriceInner(): JSX.Element {
                                     ref={seriesPrice}
                                     type="Area"
                                     data={dashboard.priceCharts}
+                                    title='EVER'
                                     lineColor="#2B63F1"
-
+                                    priceScaleId="right"
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
                                     }}
-                                    priceScaleId="right"
                                 />
                             </Chart>
 
