@@ -100,7 +100,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer" }}  size="xsmall"
+                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Price)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -136,7 +136,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer" }}  size="xsmall"
+                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.APY)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -200,7 +200,10 @@ function ChartDashboardInner(): JSX.Element {
                             <Width size="3-4">
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
                                     <Text component='h5' className="uk-margin-remove uk-padding-small">
-                                        TVL
+                                        {activeChart === Charts.TVL && <>TVL</>}
+                                        {activeChart === Charts.Price && <>Current price</>}
+                                        {activeChart === Charts.APY && <>APY</>}
+                                        {activeChart === Charts.Holders && <>Holders</>}
                                     </Text>
                                 </Tile>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
