@@ -87,7 +87,7 @@ function FormTab({
                                         type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
                                     }
                                     borderButtom
-                                    showMaxButton={match}
+                                    showMaxButton={match && wallet.isConnected}
                                 />
                             )}
                         </Observer>
