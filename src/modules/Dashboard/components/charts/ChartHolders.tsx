@@ -107,7 +107,6 @@ function ChartHoldersInner(): JSX.Element {
                                     type="Area"
                                     data={dashboard.holdersCharts}
                                     lineColor="#2B63F1"
-                                    title={"EVER"}
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
@@ -128,7 +127,6 @@ function ChartHoldersInner(): JSX.Element {
                                     type="Area"
                                     data={dashboard.holdersCharts}
                                     lineColor="#2B63F1"
-                                    title={"EVER"}
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',

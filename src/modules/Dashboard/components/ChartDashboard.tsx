@@ -32,9 +32,18 @@ import { ChartAPY } from './charts/ChartAPY'
 import { ChartPrice } from './charts/ChartPrice'
 import { ChartHolders } from './charts/ChartHolders'
 
+enum Charts {
+    TVL = "TVL",
+    Price = "Price",
+    APY = "APY",
+    Holders = "Holders",
+}
+
 function ChartDashboardInner(): JSX.Element {
 
     const dashboard = useStore(ChartStore)
+
+    const [activeChart, setActiveChart] = React.useState<Charts>(Charts.TVL)
 
     return (
         <div className="chartDashboard">
@@ -49,13 +58,15 @@ function ChartDashboardInner(): JSX.Element {
                                 <Observer>
                                     {() => (
                                         <Grid gap="xsmall" childWidth={1}>
-                                            <Tile type="secondary" size="xsmall">
+                                            <Tile type={activeChart === Charts.TVL ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                                onClick={() => setActiveChart(Charts.TVL)}
+                                            >
                                                 <Grid gap="xsmall" childWidth={1}>
                                                     <Text>TVL</Text>
                                                     <Text>
                                                         {dashboard.isFetching ?
                                                             <>
-                                                                <Placeholder height={30} width={100} />
+                                                                <Placeholder height={25} width={100} />
                                                                 <span>
                                                                     <Placeholder height={20} width={35} />
                                                                 </span>
@@ -83,19 +94,21 @@ function ChartDashboardInner(): JSX.Element {
                                                         }
                                                     </Text>
                                                     {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
+                                                        <Placeholder height={17} width={35} />
                                                         :
                                                         <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type="secondary" size="xsmall">
+                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer" }}  size="xsmall"
+                                                onClick={() => setActiveChart(Charts.Price)}
+                                            >
                                                 <Grid gap="xsmall" childWidth={1}>
                                                     <Text>Current price</Text>
                                                     <Text>
                                                         {dashboard.isFetching ?
                                                             <>
-                                                                <Placeholder height={30} width={100} />
+                                                                <Placeholder height={25} width={100} />
                                                                 <span>
                                                                     <Placeholder height={20} width={35} />
                                                                 </span>
@@ -117,19 +130,21 @@ function ChartDashboardInner(): JSX.Element {
                                                         }
                                                     </Text>
                                                     {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
+                                                        <Placeholder height={17} width={35} />
                                                         :
                                                         <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type="secondary" size="xsmall">
+                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer" }}  size="xsmall"
+                                                onClick={() => setActiveChart(Charts.APY)}
+                                            >
                                                 <Grid gap="xsmall" childWidth={1}>
                                                     <Text>APY</Text>
                                                     {dashboard.isFetching ?
                                                         <>
                                                             <Text className='total'>
-                                                                <Placeholder height={30} width={100} />
+                                                                <Placeholder height={25} width={100} />
                                                                 <span>
                                                                     <Placeholder height={20} width={35} />
                                                                 </span>
@@ -144,21 +159,23 @@ function ChartDashboardInner(): JSX.Element {
                                                         </>
                                                     }
                                                     {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
+                                                        <Placeholder height={17} width={35} />
                                                         :
                                                         <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type="secondary" size="xsmall">
+                                            <Tile type={activeChart === Charts.Holders ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                                onClick={() => setActiveChart(Charts.Holders)}
+                                            >
                                                 <Grid gap="xsmall" childWidth={1}>
                                                     <Text>Holders</Text>
                                                     {dashboard.isFetching ?
                                                         <>
                                                             <Text className='total'>
-                                                                <Placeholder height={30} width={100} />
+                                                                <Placeholder height={25} width={100} />
                                                                 <span>
-                                                                    <Placeholder height={20} width={35} />
+                                                                    <Placeholder height={18} width={35} />
                                                                 </span>
                                                             </Text>
                                                         </>
@@ -170,7 +187,7 @@ function ChartDashboardInner(): JSX.Element {
                                                         </>
                                                     }
                                                     {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
+                                                        <Placeholder height={17} width={35} />
                                                         :
                                                         <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
                                                     }
@@ -187,10 +204,10 @@ function ChartDashboardInner(): JSX.Element {
                                     </Text>
                                 </Tile>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                    <ChartTVL />
-                                    {/* <ChartAPY /> */}
-                                    {/* <ChartPrice /> */}
-                                    {/* <ChartHolders/> */}
+                                    {activeChart === Charts.TVL && <ChartTVL />}
+                                    {activeChart === Charts.Price && <ChartPrice />}
+                                    {activeChart === Charts.APY && <ChartAPY />}
+                                    {activeChart === Charts.Holders && <ChartHolders />}
                                 </Tile>
                             </Width>
                         </Grid>

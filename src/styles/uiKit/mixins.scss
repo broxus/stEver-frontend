@@ -82,14 +82,47 @@
 @mixin hook-tile-primary() {
     background: #ecf1fe;
     border-left: 4px #2b63f1 solid;
+    padding: 16px 24px;
+    padding-left: 20px;
+
 
     p {
-        color: #2b63f1;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.6px;
+        color: #2B63F1;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .total {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0.1px;
+        font-feature-settings: 'tnum' on, 'lnum' on;
+        color: #2B63F1;
 
         span {
-            font-size: 12px;
             font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: 0.1px;
+            font-feature-settings: 'tnum' on, 'lnum' on;
+            color: #2B63F1;
+        }
+    }
+
+    .uk-formatted-currency-value {
+        span {
+            font-weight: 400;
+            font-size: 12px;
             line-height: 16px;
+            letter-spacing: 0.1px;
+            font-feature-settings: 'tnum' on, 'lnum' on;
+            color: #2B63F1;
         }
     }
 }
@@ -97,7 +130,6 @@
 @mixin hook-tile-secondary() {
     background: #fff;
     padding: 16px 24px;
-
 
     p {
         font-weight: 500;
