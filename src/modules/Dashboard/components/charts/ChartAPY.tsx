@@ -17,7 +17,7 @@ function ChartAPYInner(): JSX.Element {
         if (logicalRange == null) {
             return
         }
-        const barsInfo = chartAPY.current?.api().barsInLogicalRange(logicalRange)
+        const barsInfo = seriesAPY.current?.api().barsInLogicalRange(logicalRange)
         if (
             barsInfo?.barsBefore !== undefined
             && Math.ceil(barsInfo.barsBefore) < 0

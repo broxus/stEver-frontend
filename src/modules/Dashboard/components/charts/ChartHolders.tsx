@@ -15,10 +15,12 @@ function ChartHoldersInner(): JSX.Element {
 
 
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
+        console.log("---")
+        console.log(logicalRange) 
         if (logicalRange == null) {
             return
         }
-        const barsInfo = chartHolders.current?.api().barsInLogicalRange(logicalRange)
+        const barsInfo = seriesHolders.current?.api().barsInLogicalRange(logicalRange)
         if (
             barsInfo?.barsBefore !== undefined
             && Math.ceil(barsInfo.barsBefore) < 0

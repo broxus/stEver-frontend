@@ -17,7 +17,7 @@ function ChartPriceInner(): JSX.Element {
         if (logicalRange == null) {
             return
         }
-        const barsInfo = chartPrice.current?.api().barsInLogicalRange(logicalRange)
+        const barsInfo = seriesPrice.current?.api().barsInLogicalRange(logicalRange)
         if (
             barsInfo?.barsBefore !== undefined
             && Math.ceil(barsInfo.barsBefore) < 0
