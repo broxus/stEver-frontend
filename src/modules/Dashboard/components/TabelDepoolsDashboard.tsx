@@ -203,7 +203,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
 
                 <td className="uk-text-left uk-width-small">
                     <Label
-                        type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
+                        type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
                     >
                         {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
                     </Label>
