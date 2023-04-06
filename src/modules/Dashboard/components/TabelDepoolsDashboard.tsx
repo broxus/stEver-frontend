@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
+    Drop,
     Flex, Grid, Heading, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
@@ -134,6 +135,30 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 onSwitch={onSwitchOrdering}
                             >
                                 Distribution priority
+                                <Drop
+                                    trigger={['hover']}
+                                    placement="bottom-right"
+                                    overlay={(
+                                        <Tile type="default" size="xsmall">
+                                            <Text component="p">
+                                                Stakes are distributed first to low fee and low amount of EVER. If a lot of tokens are unstaked, low priority validators may not receive tokens.
+                                            </Text>
+                                        </Tile>
+                                    )}
+                                >
+                                    <Link
+                                        type="text"
+                                    >
+                                        <svg style={{
+                                            marginTop: "-4px",
+                                            marginLeft: "5px"
+                                        }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM7.2 3.40002H8.8V5.00002H7.2V3.40002ZM7.2 6.59998H8.8V12.6H7.2V6.59998Z" fill="#C6C9CF" />
+                                        </svg>
+
+                                    </Link>
+
+                                </Drop>
                             </OrderingSwitcher>
                         )}
                     </Observer>
