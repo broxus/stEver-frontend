@@ -36,7 +36,7 @@ function ChartPriceInner(): JSX.Element {
         }
 
     }, 50)
-
+ 
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -47,9 +47,7 @@ function ChartPriceInner(): JSX.Element {
             const unit = abbreviateNumber(price).slice(-1)
             return `${formattedAmount(value)}${unit}`
         }
-        return `${formattedAmount(price, undefined, {
-            precision: 1,
-        })}`
+        return price
     }
 
 
@@ -128,7 +126,6 @@ function ChartPriceInner(): JSX.Element {
                                     data={dashboard.priceCharts}
                                     title='EVER'
                                     lineColor="#2B63F1"
-                                    priceScaleId="right"
                                     priceFormat={{
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
