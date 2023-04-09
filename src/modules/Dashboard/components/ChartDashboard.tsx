@@ -274,7 +274,7 @@ function ChartDashboardInner(): JSX.Element {
                                                             :
                                                             <>
                                                                 <FormattedTokenAmount
-                                                                    value={new BigNumber(dashboard?.strategyMainInfo?.price).toFixed(2)}
+                                                                    value={new BigNumber(dashboard?.strategyMainInfo?.price).toString()}
                                                                     symbol="EVER"
                                                                     className='total'
                                                                 />
