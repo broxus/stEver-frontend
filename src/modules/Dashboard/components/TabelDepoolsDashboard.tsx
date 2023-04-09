@@ -275,7 +275,7 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Text>
                     <Text className='uk-margin-auto-vertical'>
                         <Label
-                            type={pool.priority === 'high' ? 'danger' : pool.priority === 'medium' ? 'warning' : 'success'}
+                            type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
                         >
                             {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
                         </Label>
