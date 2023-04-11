@@ -16,7 +16,6 @@ import { Direction, SystemTransactionColumn, SystemTransactionResponse, SystemTr
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
-import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
 import { NavLink, generatePath, useParams } from 'react-router-dom'
 import { Params, appRoutes } from '@/routes'
@@ -25,7 +24,6 @@ import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
-import { createPortal } from 'react-dom'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
@@ -117,7 +115,9 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left uk-width-small">Strategy</th>
+                {!id &&
+                    <th className="uk-text-left uk-width-small">Strategy</th>
+                }
                 <th className="uk-text-left uk-width-small">Transaction</th>
                 <th className="uk-text-left uk-width-small">Type</th>
                 <th className="uk-text-left uk-width-small">
@@ -164,18 +164,21 @@ type Props = {
 export function TransactionsListItem({ pool }: Props): JSX.Element {
 
     const wallet = useTvmWalletContext()
+    const { id } = useParams<Params>()
 
     return (
         <tbody className="uk-height-small">
             <tr>
-                <td className="uk-text-left uk-width-small">
-                    <NavLink to={generatePath(appRoutes.strategy.path, {
-                        id: pool.strategy,
-                    })}
-                    >
-                        {sliceAddress(pool.strategy)}
-                    </NavLink>
-                </td>
+                {!id &&
+                    <td className="uk-text-left uk-width-small">
+                        <NavLink to={generatePath(appRoutes.strategy.path, {
+                            id: pool.strategy,
+                        })}
+                        >
+                            {sliceAddress(pool.strategy)}
+                        </NavLink>
+                    </td>
+                }
                 <td className="uk-text-left uk-width-small">
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
@@ -211,24 +214,29 @@ type TransactionsListCardType = {
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
     const wallet = useTvmWalletContext()
+    const { id } = useParams<Params>()
+
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>
-                        <NavLink to={generatePath(appRoutes.strategy.path, {
-                            id: pool.strategy,
-                        })}
-                        >
-                            <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
-                            {sliceAddress(pool.strategy)}
-                        </NavLink>
-                    </Text>
+                    {!id &&
+                        <Text className='uk-margin-auto-vertical' size='small'>
+                            <NavLink to={generatePath(appRoutes.strategy.path, {
+                                id: pool.strategy,
+                            })}
+                            >
+                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
+                                {sliceAddress(pool.strategy)}
+                            </NavLink>
+                        </Text>
+                    }
                     <Text className='uk-margin-auto-vertical' size='small'>
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount}
                         />
+                        {id && " EVER"}
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
