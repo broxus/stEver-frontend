@@ -10,7 +10,8 @@ import { Params } from '@/routes'
 import { Strategy } from '../models/strategy'
 import { Address } from 'everscale-inpage-provider'
 import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
-import { WEVERRootAddress } from '@/config'
+import { ST_EVER_DECIMALS, WEVERRootAddress } from '@/config'
+import BigNumber from 'bignumber.js'
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
