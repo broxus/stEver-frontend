@@ -135,7 +135,7 @@ function ChartStrategyInner(): JSX.Element {
 
                 <Card className='chartDashboard--labels'>
                     <Label
-                        type={dashboard?.strategyMainInfo?.priority === 'high' ? 'danger' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'success'}
+                        type={dashboard?.strategyMainInfo?.priority === 'high' ? 'success' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'danger'}
                     >
                         {dashboard?.strategyMainInfo?.priority.charAt(0).toUpperCase() + dashboard?.strategyMainInfo?.priority.slice(1)} efficiency
                     </Label>
