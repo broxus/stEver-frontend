@@ -110,6 +110,7 @@ function ChartPriceInner(): JSX.Element {
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
                                     }}
+                                    lineType={0}
                                 />
                             </Chart>
                         </Media>
@@ -130,6 +131,7 @@ function ChartPriceInner(): JSX.Element {
                                         formatter: usdPriceFormatter,
                                         type: 'custom',
                                     }}
+                                    lineType={0}
                                 />
                             </Chart>
 

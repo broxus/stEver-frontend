@@ -112,6 +112,7 @@ function ChartAPYInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
                         </Media>
@@ -133,6 +134,7 @@ function ChartAPYInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
 

@@ -114,6 +114,7 @@ function ChartHoldersInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
                         </Media>
@@ -134,6 +135,7 @@ function ChartHoldersInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
 

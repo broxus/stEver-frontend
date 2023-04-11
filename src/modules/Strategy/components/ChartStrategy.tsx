@@ -245,6 +245,7 @@ function ChartStrategyInner(): JSX.Element {
                                                                 type: 'custom',
                                                             }}
                                                             priceScaleId="right"
+                                                            lineType={0}
                                                         />
                                                     </Chart>
                                                 </Media>
@@ -339,6 +340,7 @@ function ChartStrategyInner(): JSX.Element {
                                                             type: 'custom',
                                                         }}
                                                         priceScaleId="right"
+                                                        lineType={0}
                                                     />
                                                 </Chart>
                                             </Tile>

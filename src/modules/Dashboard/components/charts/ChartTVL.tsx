@@ -114,6 +114,7 @@ function ChartTVLInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
                         </Media>
@@ -135,6 +136,7 @@ function ChartTVLInner(): JSX.Element {
                                         type: 'custom',
                                     }}
                                     priceScaleId="right"
+                                    lineType={0}
                                 />
                             </Chart>
 
