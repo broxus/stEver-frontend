@@ -26,7 +26,7 @@
     "dependencies": {
         "@broxus/js-core": "^0.2.0",
         "@broxus/js-utils": "^1.1.0",
-        "@broxus/react-components": "^0.2.2",
+        "@broxus/react-components": "^0.2.4",
         "@broxus/react-modules": "^0.2.0",
         "@broxus/react-uikit": "^0.2.2",
         "@broxus/stylelint-config": "^1.1.0",
