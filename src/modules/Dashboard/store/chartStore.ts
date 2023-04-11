@@ -108,7 +108,7 @@ export class ChartStore extends AbstractStore<
     public get priceCharts() {
         return uniqBy(this._data.priceCharts, 'timestamp').map<any>((item => ({
             time: (item.timestamp),
-            value: parseFloat(new BigNumber(item.price ?? 0).toFixed(3)),
+            value: parseFloat(new BigNumber(item.price ?? 0).toFixed(4)),
         }))).reverse()
     }
 
