@@ -35,6 +35,7 @@ export function HeaderInner(): JSX.Element {
                                         <TvmConnector
                                             standalone
                                             showDropMenu={false}
+                                            
                                         />
                                         {wallet.isConnected &&
                                             <Button type='default'
