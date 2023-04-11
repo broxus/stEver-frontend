@@ -72,7 +72,6 @@ export class ChartStore extends AbstractStore<
     public async getUsersPriceCharts(params: TvlRequest): Promise<void> {
         const response = await UsersService.postUsersPrice(params)
         const data = this._data.priceCharts.concat(response ?? [])
-        console.log(data)
         this.setData('priceCharts', data)
     }
 

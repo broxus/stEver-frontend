@@ -12,7 +12,7 @@ function ChartPriceInner(): JSX.Element {
     const seriesPrice = React.useRef<any>(null)
     const chartPrice = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
- 
+
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -36,7 +36,7 @@ function ChartPriceInner(): JSX.Element {
         }
 
     }, 50)
- 
+
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -88,58 +88,34 @@ function ChartPriceInner(): JSX.Element {
     }, [])
 
     return (
-        <>
-            <Observer>
-                {() => (
-                    <>
-                        <Media query={{ minWidth: 640 }}>
-                            <Chart
-                                height={400} width={1000} style={{ height: '100%' }}
-                                ref={chartPrice}
-                                onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
-                            >
-                                {dashboard.isFetchingCharts && <Chart.Placeholder />}
-                                <Chart.Series
-                                    ref={seriesPrice}
-                                    type="Area"
-                                    data={dashboard.priceCharts}
-                                    lineColor="#2B63F1"
-                                    priceScaleId="right"
-                                    title='EVER'
-                                    priceFormat={{
-                                        formatter: usdPriceFormatter,
-                                        type: 'custom',
-                                    }}
-                                    lineType={0}
-                                />
-                            </Chart>
-                        </Media>
-                        <Media query={{ maxWidth: 640 }}>
-                            <Chart
-                                height={400} width={1000} style={{ height: '260px' }}
-                                ref={chartPrice}
-                                onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
-                            >
-                                {dashboard.isFetchingCharts && <Chart.Placeholder />}
-                                <Chart.Series
-                                    ref={seriesPrice}
-                                    type="Area"
-                                    data={dashboard.priceCharts}
-                                    title='EVER'
-                                    lineColor="#2B63F1"
-                                    priceFormat={{
-                                        formatter: usdPriceFormatter,
-                                        type: 'custom',
-                                    }}
-                                    lineType={0}
-                                />
-                            </Chart>
-
-                        </Media>
-                    </>
-                )}
-            </Observer>
-        </>
+        <Media query={{ minWidth: 640 }}>
+            {matches => (
+                <Observer>
+                    {() => (
+                        <Chart
+                            height={400} width={1000} style={{ height: matches ? '100%' : '260px' }}
+                            ref={chartPrice}
+                            onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
+                        >
+                            {dashboard.isFetchingCharts && <Chart.Placeholder />}
+                            <Chart.Series
+                                ref={seriesPrice}
+                                type="Area"
+                                data={dashboard.priceCharts}
+                                lineColor="#2B63F1"
+                                title={"EVER"}
+                                priceFormat={{
+                                    formatter: usdPriceFormatter,
+                                    type: 'custom',
+                                }}
+                                priceScaleId="right"
+                                lineType={0}
+                            />
+                        </Chart>
+                    )}
+                </Observer>
+            )}
+        </Media>
     )
 }
 

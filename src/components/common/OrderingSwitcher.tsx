@@ -25,7 +25,6 @@ export function OrderingSwitcher<T>({
     positionLeft
 }: Props<any>): JSX.Element {
     const onClick = () => {
-        console.log(value.direction)
         onSwitch?.({
             column,
             direction: value.direction === descending ? ascending : descending,
