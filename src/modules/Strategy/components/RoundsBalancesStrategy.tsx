@@ -34,16 +34,24 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                     <Tile type='secondary' size='xsmall' className="round">
                                                         <Text className="uk-margin-remove">Round {e[0]} </Text>
                                                         <Flex justifyContent='between'>
-                                                            <FormattedTokenAmount
-                                                                decimals={ST_EVER_DECIMALS}
-                                                                value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}
-                                                                symbol='EVER'
-                                                            />
                                                             {dashboard.strategyMainInfo.tvlDeltaNextRound &&
-                                                                i === 2 &&
-                                                                <RateChange size="sm" currency="" value={
-                                                                    new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
-                                                                } />
+                                                                i === 2 ?
+                                                                <>
+                                                                    <FormattedTokenAmount
+                                                                        decimals={ST_EVER_DECIMALS}
+                                                                        value={new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).plus(e[1].stake).plus(dashboard.strategyRounds?.rounds[0][1].stake ?? 0).toFixed()}
+                                                                        symbol='EVER'
+                                                                    />
+                                                                    <RateChange size="sm" currency="" value={
+                                                                        new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                                                    } />
+                                                                </>
+                                                                :
+                                                                <FormattedTokenAmount
+                                                                    decimals={ST_EVER_DECIMALS}
+                                                                    value={new BigNumber(e[1].stake).minus(e[1].validatorStake).toFixed()}
+                                                                    symbol='EVER'
+                                                                />
                                                             }
                                                         </Flex>
                                                     </Tile>
