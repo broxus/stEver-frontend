@@ -2,7 +2,7 @@ import * as React from 'react'
 import BigNumber from 'bignumber.js'
 import classNames from 'classnames'
 
-import { formattedAmount } from '@/utils/formatted-amount'
+import { formattedAmount } from '@/utils'
 
 import './RateChange.scss'
 

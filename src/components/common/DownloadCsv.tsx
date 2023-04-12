@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 
-import { useCsv } from '@/utils/useCsv'
-import { useDownload } from '@/utils/useDownload'
+import { useDownload, useCsv } from '@/utils'
 
 import './DownloadCsv.scss'
 import { Link } from '@broxus/react-uikit'

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { debounce } from '@/utils/debounce'
+import { debounce } from '@/utils'
 
 
 export function log(message?: any, ...optionalParams: any[]): void {

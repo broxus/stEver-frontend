@@ -1,7 +1,7 @@
 import * as React from 'react'
 import BigNumber from 'bignumber.js'
 
-import { truncateDecimals } from '@/utils/truncate-decimals'
+import { truncateDecimals } from '@/utils'
 
 type FieldShape = {
     onBlur?: React.FocusEventHandler<HTMLInputElement>;

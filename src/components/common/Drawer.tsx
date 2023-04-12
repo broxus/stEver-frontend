@@ -7,7 +7,7 @@ import { useForceUpdate } from '@/hooks/useForceUpdate'
 
 
 import './Drawer.scss'
-import { tuple } from '@/utils/tuple'
+import { tuple } from '@/utils'
 
 
 export type DrawerRef = {

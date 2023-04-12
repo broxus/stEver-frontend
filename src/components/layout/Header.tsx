@@ -2,26 +2,26 @@ import * as React from 'react'
 import { Observer, observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
-import { Button, Flex, Navbar } from '@broxus/react-uikit'
+import { useIntl } from 'react-intl'
+import { Button, Navbar } from '@broxus/react-uikit'
+import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
+import { Icon } from '@broxus/react-components'
 
 import { HeaderDrawer } from '@/components/layout/HeaderDrawer'
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
-import { DesktopNav } from './DesktopNav'
-
 import './Header.scss'
-import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
-import { Icon } from '@broxus/react-components'
+import { DesktopNav } from './DesktopNav'
 
 export function HeaderInner(): JSX.Element {
     const wallet = useTvmWalletContext()
-
+    const intl = useIntl()
     return (
         <header className="header">
             <Navbar className="uk-width-expand">
                 <Media query={{ minWidth: 768 }}>
-                    {match => match && (
+                    {match => match ?
                         <>
                             <Navbar.Left className="uk-width-expand">
                                 <Link to={appRoutes.home.makeUrl()} className="logo">
@@ -35,7 +35,7 @@ export function HeaderInner(): JSX.Element {
                                         <TvmConnector
                                             standalone
                                             showDropMenu={false}
-                                            
+
                                         />
                                         {wallet.isConnected &&
                                             <Button type='default'
@@ -48,11 +48,7 @@ export function HeaderInner(): JSX.Element {
                                 )}
                             </Observer>
                         </>
-                    )}
-                </Media>
-
-                <Media query={{ maxWidth: 767 }}>
-                    {match => match && (
+                        :
                         <Observer>
                             {() => (
                                 <>
@@ -77,7 +73,9 @@ export function HeaderInner(): JSX.Element {
                                                     type='default'
                                                     className='button-connect'
                                                     standalone>
-                                                    Connect wallet
+                                                    {intl.formatMessage({
+                                                        id: 'CONNECT_WALLET',
+                                                    })}
                                                 </ConnectButton>
                                             }
                                             <HeaderDrawer />
@@ -86,7 +84,7 @@ export function HeaderInner(): JSX.Element {
                                 </>
                             )}
                         </Observer>
-                    )}
+                    }
                 </Media>
             </Navbar>
         </header>

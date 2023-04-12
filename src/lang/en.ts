@@ -24,4 +24,8 @@ export default {
     FOOTER_WALLET_INSTALLATION_LINK_TEXT: 'Install EVER Wallet',
 
     FOOTER_MAKE_A_DEPOSIT_LINK_TEXT: 'Make a deposit',
+
+    CONNECT_WALLET: 'Connect wallet',
+    LOG_OUT_WALLET: 'Log out',
+
 }

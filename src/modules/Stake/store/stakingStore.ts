@@ -9,7 +9,7 @@ import { formattedTokenAmount } from '@broxus/js-utils'
 import { Address } from 'everscale-inpage-provider'
 
 import { StEverVaultDetails } from '@/abi/types'
-import { parseCurrency } from '@/utils/parseCurrency'
+import { parseCurrency } from '@/utils'
 import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS, ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG } from '@/config'
 import { MainPage, StrategiesService } from '@/apiClientCodegen'
 

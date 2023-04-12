@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Grid, Heading, Link, Text, Tile,
+    Flex, Grid, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -15,7 +15,6 @@ import {
 } from '@/apiClientCodegen'
 
 import { UserWithdrawStore } from '../store/userWithdrawStore'
-import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
 import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'

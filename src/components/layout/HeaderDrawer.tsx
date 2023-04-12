@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Observer, observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
+import { Observer, observer } from 'mobx-react-lite'
 import { Button, Icon } from '@broxus/react-uikit'
 
 import { Component } from '@/components/common/Component'
@@ -11,15 +11,11 @@ import { Drawer, DrawerRef } from '../common/Drawer'
 
 import "./Header.scss"
 
- function HeaderDrawerInner(): JSX.Element {
-    const intl = useIntl()
-
+function HeaderDrawerInner(): JSX.Element {
     const drawer = React.useRef<DrawerRef | null>(null)
-
     const collapse = () => {
         drawer.current?.collapse()
     }
-
     return (
         <Observer>
             {() => (

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import { Icon, Nav, Navbar } from '@broxus/react-uikit'
+import { Nav, Navbar } from '@broxus/react-uikit'
 
 import { appRoutes } from '@/routes'
 
@@ -9,16 +9,14 @@ import './DesktopNav.scss'
 
 export function DesktopNav(): JSX.Element {
     const intl = useIntl()
-
-    const expandIcon = React.useMemo(() => <Icon icon="arrowDown" className="nav__arrow" />, [])
-
+    // const expandIcon = React.useMemo(() => <Icon icon="arrowDown" className="nav__arrow" />, [])
     return (
         <Navbar.Nav className="uk-width-expand desktop-nav">
             <Nav.Item>
                 <NavLink key="stake" to={appRoutes.stake.makeUrl()}>
                     {intl.formatMessage({
                         id: 'NAV_LINK_TEXT_STAKE',
-                    })} 
+                    })}
                 </NavLink>
             </Nav.Item>
             <Nav.Item>

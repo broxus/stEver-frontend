@@ -1,24 +1,22 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import { Button, Link, Nav } from '@broxus/react-uikit'
+import { Button, Nav } from '@broxus/react-uikit'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import { observer } from 'mobx-react-lite'
+import { Icon } from '@broxus/react-components'
 
 import { appRoutes } from '@/routes'
 
 import './DeviceNav.scss'
-import { ConnectButton, useTvmWalletContext } from '@broxus/react-modules'
-import { Icon } from '@broxus/react-components'
-import { observer } from 'mobx-react-lite'
 
 type Props = {
     onNavigate?: () => void;
 }
 
-
 function DeviceNavInner({ onNavigate }: Props): JSX.Element {
     const intl = useIntl()
     const wallet = useTvmWalletContext()
-
     return (
         <>
             <Nav className="device-nav" modifiers={['divider']}>
@@ -40,11 +38,15 @@ function DeviceNavInner({ onNavigate }: Props): JSX.Element {
             {wallet.isConnected ?
                 <Button type='default' className='logout' onClick={() => wallet.disconnect()}>
                     <Icon icon="logout" />
-                    Log out
+                    {intl.formatMessage({
+                        id: 'LOG_OUT_WALLET',
+                    })}
                 </Button>
                 :
                 <Button type='default' className='logout' onClick={() => wallet.connect()}>
-                    Connect wallet
+                    {intl.formatMessage({
+                        id: 'CONNECT_WALLET',
+                    })}
                 </Button>
             }
         </>
