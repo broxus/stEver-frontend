@@ -17,7 +17,7 @@ import './Footer.scss'
 export function Footer(): JSX.Element {
     const intl = useIntl()
     const history = useHistory();
-    const wallet = useTvmWalletContext()
+    // const wallet = useTvmWalletContext()
     const toolbar = (
         <div className="toolbar">
             {/* {wallet.isConnected ? */}

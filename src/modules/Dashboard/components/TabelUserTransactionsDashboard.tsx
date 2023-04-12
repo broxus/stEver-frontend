@@ -12,7 +12,6 @@ import { sliceAddress } from '@broxus/js-utils'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { PanelLoader } from '@/components/common/PanelLoader'
 import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind } from '@/apiClientCodegen'
 
 import { UserTransactionsStore } from '../store/userTransactionsStore'
@@ -35,56 +34,54 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
         <>
             <Observer>
                 {() => (
-                    <PanelLoader loading={userTransactions.isFetching}>
-                        <Tile type="default" className="uk-padding-remove">
-                            {userTransactions.isFetching ?
-                                <Media query={{ minWidth: 640 }}>
-                                    {matches => matches ?
-                                        (<PoolsListPlaceholder />)
-                                        :
-                                        (<PoolsListMobilePlaceholder />)
-                                    }
-                                </Media>
-                                :
-                                <>
-                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                        <Media query={{ minWidth: 640 }}>
-                                            <TransactionsListHeader userTransactions={userTransactions} />
+                    <Tile type="default" className="uk-padding-remove">
+                        {userTransactions.isFetching ?
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => matches ?
+                                    (<PoolsListPlaceholder />)
+                                    :
+                                    (<PoolsListMobilePlaceholder />)
+                                }
+                            </Media>
+                            :
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <TransactionsListHeader userTransactions={userTransactions} />
+                                    </Media>
+                                    {userTransactions.transactions?.map((pool, idx) => (
+                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                            {matches => (matches ? (
+                                                <TransactionsListItem
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ) : (
+                                                <TransactionsListCard
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ))}
                                         </Media>
-                                        {userTransactions.transactions?.map((pool, idx) => (
-                                            <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                                {matches => (matches ? (
-                                                    <TransactionsListItem
-                                                        key={pool.transactionHash}
-                                                        idx={idx + 1}
-                                                        pool={pool}
-                                                    />
-                                                ) : (
-                                                    <TransactionsListCard
-                                                        key={pool.transactionHash}
-                                                        idx={idx + 1}
-                                                        pool={pool}
-                                                    />
-                                                ))}
-                                            </Media>
-                                        ))}
-                                    </table>
-                                    {!userTransactions.transactions?.length &&
-                                        <Tile className="empty-list">
-                                            <Flex justifyContent="center">
-                                                <Text className="uk-margin-auto-vertical">The list is empty.</Text>
-                                            </Flex>
-                                        </Tile>
-                                    }
-                                </>
-                            }
-                            {userTransactions.transactions?.length ?
-                                <DepoolsListPagination userTransactions={userTransactions} />
-                                :
-                                undefined
-                            }
-                        </Tile>
-                    </PanelLoader>
+                                    ))}
+                                </table>
+                                {!userTransactions.transactions?.length &&
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        </Flex>
+                                    </Tile>
+                                }
+                            </>
+                        }
+                        {userTransactions.transactions?.length ?
+                            <DepoolsListPagination userTransactions={userTransactions} />
+                            :
+                            undefined
+                        }
+                    </Tile>
                 )}
             </Observer>
         </>

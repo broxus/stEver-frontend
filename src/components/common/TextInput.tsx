@@ -1,11 +1,11 @@
 import * as React from 'react'
+import { observer } from 'mobx-react-lite'
 import { Flex, Text } from '@broxus/react-uikit'
 import { TokenAmountInput } from '@broxus/react-components'
 import classNames from 'classnames'
 
-import './TextInput.scss'
-import { observer } from 'mobx-react-lite'
 import { ST_EVER_DECIMALS } from '@/config'
+import './TextInput.scss'
 
 export type TextInputProps = {
     autoFocus?: boolean;
@@ -47,11 +47,9 @@ function TextInputInner({
     borderButtom,
     showMaxButton = false
 }: TextInputProps): JSX.Element {
-
     const _onChange = (_: string): void => {
         onChange?.(_)
     }
-
     return (
         <Flex
             flexDirection="column" className={classNames(borderButtom && 'text-input-border-buttom', 'text-input-container')}
@@ -68,7 +66,6 @@ function TextInputInner({
                     </Text>
                 )}
             </Flex>
-
             <TokenAmountInput
                 autoFocus={autoFocus}
                 placeholder={placeholder}

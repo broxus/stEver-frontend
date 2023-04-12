@@ -23,8 +23,10 @@ export function DownloadCsv({
     const download = useDownload(csv, filename, 'text/csv')
 
     return (
-        <Link  className="uk-margin-auto-vertical downloadCsv" onClick={download}>
-            Export
-        </Link> 
+        <Link className="uk-margin-auto-vertical downloadCsv" onClick={download}>
+            {intl.formatMessage({
+                id: 'EXPORT',
+            })}
+        </Link>
     )
 }

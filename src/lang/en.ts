@@ -27,5 +27,7 @@ export default {
 
     CONNECT_WALLET: 'Connect wallet',
     LOG_OUT_WALLET: 'Log out',
+    PAGE_OF: 'page of',
+    EXPORT: 'Export',
 
 }

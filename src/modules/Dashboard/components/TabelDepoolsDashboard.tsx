@@ -12,7 +12,6 @@ import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
 import { Direction, StrategyColumn } from '@/apiClientCodegen'
-import { PanelLoader } from '@/components/common/PanelLoader'
 import { appRoutes } from '@/routes'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
@@ -42,56 +41,54 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
             </Heading>
             <Observer>
                 {() => (
-                    <PanelLoader loading={tabelDepools.isFetching}>
-                        <Tile type="default" className="uk-padding-remove">
-                            {tabelDepools.isFetching ?
-                                <Media query={{ minWidth: 640 }}>
-                                    {matches => matches ?
-                                        (<PoolsListPlaceholder />)
-                                        :
-                                        (<PoolsListMobilePlaceholder />)
-                                    }
-                                </Media>
-                                :
-                                <>
-                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                        <Media query={{ minWidth: 640 }}>
-                                            <DepoolsListHeader tabelDepools={tabelDepools} />
+                    <Tile type="default" className="uk-padding-remove">
+                        {tabelDepools.isFetching ?
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => matches ?
+                                    (<PoolsListPlaceholder />)
+                                    :
+                                    (<PoolsListMobilePlaceholder />)
+                                }
+                            </Media>
+                            :
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <DepoolsListHeader tabelDepools={tabelDepools} />
+                                    </Media>
+                                    {tabelDepools.depoolsStrategies?.map((pool, idx) => (
+                                        <Media key={pool.depool} query={{ minWidth: 640 }}>
+                                            {matches => (matches ? (
+                                                <DepoolsListItem
+                                                    key={pool.depool}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ) : (
+                                                <DepoolsListCard
+                                                    key={pool.depool}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ))}
                                         </Media>
-                                        {tabelDepools.depoolsStrategies?.map((pool, idx) => (
-                                            <Media key={pool.depool} query={{ minWidth: 640 }}>
-                                                {matches => (matches ? (
-                                                    <DepoolsListItem
-                                                        key={pool.depool}
-                                                        idx={idx + 1}
-                                                        pool={pool}
-                                                    />
-                                                ) : (
-                                                    <DepoolsListCard
-                                                        key={pool.depool}
-                                                        idx={idx + 1}
-                                                        pool={pool}
-                                                    />
-                                                ))}
-                                            </Media>
-                                        ))}
-                                    </table>
-                                    {!tabelDepools.depoolsStrategies?.length &&
-                                        <Tile className="empty-list">
-                                            <Flex justifyContent="center">
-                                                <Text className="uk-margin-auto-vertical">The list is empty.</Text>
-                                            </Flex>
-                                        </Tile>
-                                    }
-                                </>
-                            }
-                            {tabelDepools.depoolsStrategies?.length ?
-                                <DepoolsListPagination tabelDepools={tabelDepools} />
-                                :
-                                undefined
-                            }
-                        </Tile>
-                    </PanelLoader>
+                                    ))}
+                                </table>
+                                {!tabelDepools.depoolsStrategies?.length &&
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        </Flex>
+                                    </Tile>
+                                }
+                            </>
+                        }
+                        {tabelDepools.depoolsStrategies?.length ?
+                            <DepoolsListPagination tabelDepools={tabelDepools} />
+                            :
+                            undefined
+                        }
+                    </Tile>
                 )}
             </Observer>
         </Flex >

@@ -1,13 +1,16 @@
 import * as React from 'react'
-import { useIntl } from 'react-intl'
 import classNames from 'classnames'
+import { useIntl } from 'react-intl'
 import {
-    Button, Card, Flex, Text,
+    Button,
+    Card,
+    Flex,
+    Text,
 } from '@broxus/react-uikit'
 import { AmountInput } from '@broxus/react-components'
 
 import './Pagination.scss'
-import { DownloadCsv } from './DownloadCsv'
+
 
 export type PaginationProps = {
     className?: string;
@@ -28,13 +31,11 @@ export const Pagination = React.memo(({
     onPrev,
     onSubmit,
 }: PaginationProps): JSX.Element => {
-
     const [value, setValue] = React.useState<string>(currentPage.toString())
-
+    const intl = useIntl()
     const onChange = (_: string): void => {
         setValue?.(_)
     }
-
     const onKeyUp: React.KeyboardEventHandler<HTMLInputElement> = event => {
         if (event.keyCode === 13) {
             let newPage = parseInt(value, 10)
@@ -53,11 +54,9 @@ export const Pagination = React.memo(({
             onSubmit?.(newPage)
         }
     }
-
     React.useEffect(() => {
         setValue(currentPage.toString())
     }, [currentPage])
-
     return (
         <div className={classNames('pagination', className)}>
             <Flex justifyContent="between">
@@ -73,7 +72,9 @@ export const Pagination = React.memo(({
                         showMaxButton={false}
                     />
                     <Text className="uk-margin-small-right uk-margin-auto-vertical uk-text-small">
-                        page of {" "}{totalPages}
+                        {intl.formatMessage({
+                            id: 'PAGE_OF',
+                        })}{" "}{totalPages}
                     </Text>
                     <Card>
                         <Button

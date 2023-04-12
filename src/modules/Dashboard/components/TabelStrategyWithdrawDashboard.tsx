@@ -8,7 +8,6 @@ import { sliceAddress } from '@broxus/js-utils'
 
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { PanelLoader } from '@/components/common/PanelLoader'
 import {
     StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus,
 } from '@/apiClientCodegen'
@@ -34,56 +33,54 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
     return (
         <Observer>
             {() => (
-                <PanelLoader loading={strategyWithdraw.isFetching}>
-                    <Tile type="default" className="uk-padding-remove">
-                        {strategyWithdraw.isFetching ?
-                            <Media query={{ minWidth: 640 }}>
-                                {matches => matches ?
-                                    (<PoolsListPlaceholder />)
-                                    :
-                                    (<PoolsListMobilePlaceholder />)
-                                }
-                            </Media>
-                            :
-                            <>
-                                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                    <Media query={{ minWidth: 640 }}>
-                                        <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
+                <Tile type="default" className="uk-padding-remove">
+                    {strategyWithdraw.isFetching ?
+                        <Media query={{ minWidth: 640 }}>
+                            {matches => matches ?
+                                (<PoolsListPlaceholder />)
+                                :
+                                (<PoolsListMobilePlaceholder />)
+                            }
+                        </Media>
+                        :
+                        <>
+                            <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                <Media query={{ minWidth: 640 }}>
+                                    <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
+                                </Media>
+                                {strategyWithdraw.transactions?.map((pool, idx) => (
+                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                        {matches => (matches ? (
+                                            <TransactionsListItem
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        ) : (
+                                            <TransactionsListCard
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        ))}
                                     </Media>
-                                    {strategyWithdraw.transactions?.map((pool, idx) => (
-                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                            {matches => (matches ? (
-                                                <TransactionsListItem
-                                                    key={pool.transactionHash}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ) : (
-                                                <TransactionsListCard
-                                                    key={pool.transactionHash}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ))}
-                                        </Media>
-                                    ))}
-                                </table>
-                                {!strategyWithdraw.transactions?.length &&
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
-                                        </Flex>
-                                    </Tile>
-                                }
-                            </>
-                        }
-                        {strategyWithdraw.transactions?.length ?
-                            <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
-                            :
-                            undefined
-                        }
-                    </Tile>
-                </PanelLoader>
+                                ))}
+                            </table>
+                            {!strategyWithdraw.transactions?.length &&
+                                <Tile className="empty-list">
+                                    <Flex justifyContent="center">
+                                        <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                    </Flex>
+                                </Tile>
+                            }
+                        </>
+                    }
+                    {strategyWithdraw.transactions?.length ?
+                        <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
+                        :
+                        undefined
+                    }
+                </Tile>
             )}
         </Observer>
     )

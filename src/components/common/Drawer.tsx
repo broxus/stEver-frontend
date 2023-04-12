@@ -1,13 +1,11 @@
 import * as React from 'react'
 import classNames from 'classnames'
+import { useForceUpdate } from '@/hooks/useForceUpdate'
 import RcDrawer from 'rc-drawer'
 import type { GetContainer } from 'rc-util/lib/PortalWrapper'
-
-import { useForceUpdate } from '@/hooks/useForceUpdate'
-
+import { tuple } from '@/utils'
 
 import './Drawer.scss'
-import { tuple } from '@/utils'
 
 
 export type DrawerRef = {
@@ -20,25 +18,19 @@ export type DrawerRef = {
 const DrawerContext = React.createContext<DrawerRef | null>(null)
 
 type EventType = React.KeyboardEvent | React.MouseEvent
-
 type LevelMove = number | [number, number]
-
 const PlacementTypes = tuple('top', 'right', 'bottom', 'left')
 type PlacementType = typeof PlacementTypes[number]
-
 const SizeTypes = tuple('default', 'large')
 type SizeType = typeof SizeTypes[number]
-
 type TriggerArguments = {
     collapse: () => void;
     expand: () => void;
     isOpen: boolean;
 }
-
 export interface PushState {
     distance: string | number;
 }
-
 export interface DrawerProps {
     afterVisibleChange?: (visible: boolean) => void;
     animation?: 'push' | 'reveal';
@@ -74,9 +66,7 @@ export interface DrawerProps {
     zIndex?: number;
     onClose?: (event: EventType) => void;
 }
-
 const defaultPushState: PushState = { distance: 180 }
-
 
 export const Drawer = React.forwardRef<DrawerRef, DrawerProps>((props, ref): JSX.Element => {
     const {

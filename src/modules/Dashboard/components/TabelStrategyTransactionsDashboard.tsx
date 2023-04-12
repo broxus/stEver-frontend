@@ -11,7 +11,6 @@ import { sliceAddress } from '@broxus/js-utils'
 
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { PanelLoader } from '@/components/common/PanelLoader'
 import { Direction, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
@@ -34,57 +33,55 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
     return (
         <Observer>
             {() => (
-                <PanelLoader loading={strategyTransactions.isFetching}>
-                    <Tile type="default" className="uk-padding-remove">
-                        {strategyTransactions.isFetching ?
-                            <Media query={{ minWidth: 640 }}>
-                                {matches => matches ?
-                                    (<PoolsListPlaceholder />)
-                                    :
-                                    (<PoolsListMobilePlaceholder />)
-                                }
-                            </Media>
-                            :
-                            <>
-                                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                    <Media query={{ minWidth: 640 }}>
-                                        <TransactionsListHeader strategyTransactions={strategyTransactions} />
-                                    </Media>
-                                    {strategyTransactions.transactions?.map((pool, idx) => (
-                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                            {matches => (matches ? (
-                                                <TransactionsListItem
-                                                    key={pool.transactionHash}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ) : (
-                                                <TransactionsListCard
-                                                    key={pool.transactionHash}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ))}
+                <Tile type="default" className="uk-padding-remove">
+                    {strategyTransactions.isFetching ?
+                        <Media query={{ minWidth: 640 }}>
+                            {matches => matches ?
+                                (<PoolsListPlaceholder />)
+                                :
+                                (<PoolsListMobilePlaceholder />)
+                            }
+                        </Media>
+                        :
+                        <>
+                            <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                <Media query={{ minWidth: 640 }}>
+                                    <TransactionsListHeader strategyTransactions={strategyTransactions} />
+                                </Media>
+                                {strategyTransactions.transactions?.map((pool, idx) => (
+                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                        {matches => (matches ? (
+                                            <TransactionsListItem
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        ) : (
+                                            <TransactionsListCard
+                                                key={pool.transactionHash}
+                                                idx={idx + 1}
+                                                pool={pool}
+                                            />
+                                        ))}
 
-                                        </Media>
-                                    ))}
-                                </table>
-                                {!strategyTransactions.transactions?.length &&
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
-                                        </Flex>
-                                    </Tile>
-                                }
-                            </>
-                        }
-                        {strategyTransactions.transactions?.length ?
-                            <DepoolsListPagination strategyTransactions={strategyTransactions} />
-                            :
-                            undefined
-                        }
-                    </Tile>
-                </PanelLoader >
+                                    </Media>
+                                ))}
+                            </table>
+                            {!strategyTransactions.transactions?.length &&
+                                <Tile className="empty-list">
+                                    <Flex justifyContent="center">
+                                        <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                    </Flex>
+                                </Tile>
+                            }
+                        </>
+                    }
+                    {strategyTransactions.transactions?.length ?
+                        <DepoolsListPagination strategyTransactions={strategyTransactions} />
+                        :
+                        undefined
+                    }
+                </Tile>
             )
             }
         </Observer >
