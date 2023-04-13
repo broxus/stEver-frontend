@@ -29,5 +29,11 @@ export default {
     LOG_OUT_WALLET: 'Log out',
     PAGE_OF: 'page of',
     EXPORT: 'Export',
+    GENERAL_INFORMATION: 'General information',
+    TVL: 'TVL',
+    CURRENT_PRICE: 'Current price',
+    APY: 'APY',
+    HOLDERS: 'Holders',
+    
 
 }

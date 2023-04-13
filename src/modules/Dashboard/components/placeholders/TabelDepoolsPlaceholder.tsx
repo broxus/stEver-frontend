@@ -1,6 +1,5 @@
 import * as React from 'react'
-
-import { Placeholder, Placeholder as PlaceholderBase } from '@/components/common/Placeholder'
+import { Placeholder, Placeholder as PlaceholderBase } from '@/components/common/Placeholder';
 import { makeArray } from '@broxus/js-utils';
 import { getUniqueId } from 'everscale-inpage-provider/dist/utils';
 

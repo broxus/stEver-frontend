@@ -1,9 +1,8 @@
 import * as React from 'react'
-
-import { Placeholder, Placeholder as PlaceholderBase } from '@/components/common/Placeholder'
+import { Flex, Grid, Text, Tile } from '@broxus/react-uikit';
+import { Placeholder, Placeholder as PlaceholderBase } from '@/components/common/Placeholder';
 import { makeArray } from '@broxus/js-utils';
 import { getUniqueId } from 'everscale-inpage-provider/dist/utils';
-import { Flex, Grid, Text, Tile } from '@broxus/react-uikit';
 
 type Props = {
     rowsCount?: number;

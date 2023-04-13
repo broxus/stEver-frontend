@@ -1,12 +1,14 @@
-import { useStore } from '@/hooks/useStore'
-import { Observer, observer } from 'mobx-react-lite'
 import * as React from 'react'
-import { ChartStore } from '../../store/chartStore'
 import { debounce } from 'lodash'
 import { DateTime } from 'luxon'
 import Media from 'react-media'
+import { Observer, observer } from 'mobx-react-lite'
+
 import { Chart } from '@broxus/react-components'
 import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
+
+import { ChartStore } from '../../store/chartStore'
+import { useStore } from '@/hooks/useStore'
 
 function ChartHoldersInner(): JSX.Element {
     const seriesHolders = React.useRef<any>(null)

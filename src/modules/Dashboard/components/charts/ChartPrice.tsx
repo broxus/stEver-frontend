@@ -1,18 +1,20 @@
-import { useStore } from '@/hooks/useStore'
-import { Observer, observer } from 'mobx-react-lite'
 import * as React from 'react'
-import { ChartStore } from '../../store/chartStore'
 import { debounce } from 'lodash'
-import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
 import { DateTime } from 'luxon'
 import Media from 'react-media'
+import { Observer, observer } from 'mobx-react-lite'
+
 import { Chart } from '@broxus/react-components'
+import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
+
+import { ChartStore } from '../../store/chartStore'
+import { useStore } from '@/hooks/useStore'
+
 
 function ChartPriceInner(): JSX.Element {
     const seriesPrice = React.useRef<any>(null)
     const chartPrice = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
-
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -36,7 +38,6 @@ function ChartPriceInner(): JSX.Element {
         }
 
     }, 50)
-
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -49,8 +50,6 @@ function ChartPriceInner(): JSX.Element {
         }
         return price
     }
-
-
     React.useEffect(() => {
         const bs = (chartPrice.current?.timeScale().width() ?? 860) / 30
         chartPrice.current?.timeScale().applyOptions({
@@ -65,8 +64,6 @@ function ChartPriceInner(): JSX.Element {
             },
         })
     }, [chartPrice.current])
-
-
     React.useEffect(() => {
         dashboard.getUsersPriceCharts({
             from: Math.floor(DateTime.local()
@@ -86,7 +83,6 @@ function ChartPriceInner(): JSX.Element {
         })
 
     }, [])
-
     return (
         <Media query={{ minWidth: 640 }}>
             {matches => (

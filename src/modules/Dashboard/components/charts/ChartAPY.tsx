@@ -1,18 +1,19 @@
-import { Observer, observer } from 'mobx-react-lite'
 import * as React from 'react'
-import { ChartStore } from '../../store/chartStore'
-import { useStore } from '@/hooks/useStore'
 import { debounce } from 'lodash'
-import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
 import { DateTime } from 'luxon'
 import Media from 'react-media'
+import { Observer, observer } from 'mobx-react-lite'
+
 import { Chart } from '@broxus/react-components'
+import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
+
+import { ChartStore } from '../../store/chartStore'
+import { useStore } from '@/hooks/useStore'
 
 function ChartAPYInner(): JSX.Element {
     const seriesAPY = React.useRef<any>(null)
     const chartAPY = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
-
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -36,7 +37,6 @@ function ChartAPYInner(): JSX.Element {
         }
 
     }, 50)
-
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -51,15 +51,11 @@ function ChartAPYInner(): JSX.Element {
             precision: 1,
         })}%`
     }
-
-
     React.useEffect(() => {
         const bs = (chartAPY.current?.timeScale().width() ?? 860) / 30
         chartAPY.current?.timeScale().applyOptions({
             barSpacing: bs,
-            // minBarSpacing: bs,
         })
-
         chartAPY.current?.priceScale('right').applyOptions({
             scaleMargins: {
                 bottom: 0.025,
@@ -67,8 +63,6 @@ function ChartAPYInner(): JSX.Element {
             },
         })
     }, [chartAPY.current])
-
-
     React.useEffect(() => {
         dashboard.getUsersAPYCharts({
             from: Math.floor(DateTime.local()
@@ -88,7 +82,6 @@ function ChartAPYInner(): JSX.Element {
         })
 
     }, [])
-
     return (
         <Media query={{ minWidth: 640 }}>
             {matches => (

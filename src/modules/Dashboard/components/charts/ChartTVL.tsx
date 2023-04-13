@@ -1,20 +1,19 @@
-import { Chart } from '@broxus/react-components'
-import { debounce } from 'lodash'
-import { Observer, observer } from 'mobx-react-lite'
 import * as React from 'react'
+import { debounce } from 'lodash'
+import { DateTime } from 'luxon'
+import Media from 'react-media'
+import { Observer, observer } from 'mobx-react-lite'
+
+import { Chart } from '@broxus/react-components'
+import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
+
 import { ChartStore } from '../../store/chartStore'
 import { useStore } from '@/hooks/useStore'
-import { DateTime } from 'luxon'
-import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
-import Media from 'react-media'
 
 function ChartTVLInner(): JSX.Element {
-
     const chartTvl = React.useRef<any>(null)
     const seriesTvl = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
-
-
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -38,7 +37,6 @@ function ChartTVLInner(): JSX.Element {
         }
 
     }, 50)
-
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -53,15 +51,11 @@ function ChartTVLInner(): JSX.Element {
             precision: 1,
         })}`
     }
-
-
     React.useEffect(() => {
         const bs = (chartTvl.current?.timeScale().width() ?? 860) / 30
         chartTvl.current?.timeScale().applyOptions({
             barSpacing: bs,
-            // minBarSpacing: bs,
         })
-
         chartTvl.current?.priceScale('right').applyOptions({
             scaleMargins: {
                 bottom: 0.025,
@@ -69,8 +63,6 @@ function ChartTVLInner(): JSX.Element {
             },
         })
     }, [chartTvl.current])
-
-
     React.useEffect(() => {
         dashboard.getUsersTvlCharts({
             from: Math.floor(DateTime.local()
@@ -90,7 +82,6 @@ function ChartTVLInner(): JSX.Element {
         })
 
     }, [])
-
     return (
         <Media query={{ minWidth: 640 }}>
             {matches => (
