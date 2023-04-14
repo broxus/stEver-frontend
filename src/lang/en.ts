@@ -73,5 +73,8 @@ export default {
     YOU_RECEIVE_STEVER: 'You receive stEVER',
     STAKE_YOUR_EVERS: 'Stake your EVERs',
     EFFICIENCY: 'efficiency',
-    ROUNDS_BALANCES: ' Rounds balances'
+    ROUNDS_BALANCES: ' Rounds balances',
+
+    MANUAL: 'Manual',
+    YOUR_STAKED_TOTAL: 'Your 1 118 547 stEVER withdrawal is being processed. This may take up to 36 hours.'
 }

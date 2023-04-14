@@ -14,6 +14,95 @@
 
 }
 
+@mixin hook-button-text() {
+    background: #000000;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+@mixin hook-button-text-hover() {
+    background: #000000;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+@mixin hook-button-text-active() {
+    background: #000000;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #FFFFFF;
+    background: #fff0;
+    padding: 12px 20px;
+    margin-right: 12px;
+}
+
+
+@mixin hook-button-tertiary() {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #000000;
+    background: #fff0;
+    border: 1px solid rgba(5, 10, 46, 0.16);
+    padding: 12px 20px;
+    text-decoration: none;
+}
+
+@mixin hook-button-tertiary-hover() {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    background: #fff0;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #000000!important;
+    border: 1px solid rgba(5, 10, 46, 0.16);
+    padding: 12px 20px;
+    text-decoration: none!important;
+}
+
+@mixin hook-button-tertiary-active() {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.25px;
+    color: #000000!important;
+    border: 1px solid rgba(5, 10, 46, 0.16);
+    padding: 12px 20px;
+    text-decoration: none!important;
+}
+
+
 @mixin hook-button-default() {
     background: #ecf1fe;
     color: #2b63f1;
@@ -65,7 +154,7 @@
 }
 
 @mixin hook-button-secondary-active() {
-    background-color: #FFFFFF ;
+    background-color: #FFFFFF;
     color: #4D4F55;
 }
 
@@ -169,6 +258,18 @@
             font-feature-settings: 'tnum' on, 'lnum' on;
             color: #000000;
         }
+    }
+}
+
+@mixin hook-tile-muted() {
+    background: linear-gradient(270.13deg, #FFF3CD 0%, #DEF1DE 100%), #F0BB1C;
+    max-width: 440px;
+    margin: auto;
+    padding: 24px;
+    margin-top: 40px;
+    @media (max-width: 640px) {
+        margin-top: 0;
+        margin-bottom: 40px;
     }
 }
 
