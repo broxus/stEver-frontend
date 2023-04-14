@@ -16,11 +16,12 @@ import { convertCurrency } from '@/utils/convertCurrency'
 import { ST_EVER_DECIMALS } from '@/config'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import Media from 'react-media'
+import { useIntl } from 'react-intl'
 
 
 function FormStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
-
+    const intl = useIntl()
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         staking.submit()
         e.preventDefault()
@@ -39,12 +40,16 @@ function FormStakInner(): JSX.Element {
                     onChange={e => staking.setType(e)}
                     items={[
                         {
-                            label: 'Stake',
+                            label: intl.formatMessage({
+                                id: 'STAKE',
+                            }),
                             key: `${StakingType.Stake}`,
                             children: <FormTab type={StakingType.Stake} staking={staking} />,
                         },
                         {
-                            label: 'Unstake',
+                            label: intl.formatMessage({
+                                id: 'UNSTAKE',
+                            }),
                             key: `${StakingType.Unstake}`,
                             children: <FormTab type={StakingType.Unstake} staking={staking} />,
                         },
@@ -65,7 +70,7 @@ function FormTab({
     staking,
 }: FormTabType): JSX.Element {
     const wallet = useTvmWalletContext()
-
+    const intl = useIntl()
     return (
         <Flex flexDirection="column" justifyContent="between">
 
@@ -82,7 +87,15 @@ function FormTab({
                                     maxValue={staking.maxAmount}
                                     inputMode="numeric"
                                     readOnly={false}
-                                    title={type === StakingType.Stake ? 'You spend EVER' : 'You spend stEVER'}
+                                    title={type === StakingType.Stake ?
+                                        intl.formatMessage({
+                                            id: 'YOU_SPEND_EVER',
+                                        })
+                                        :
+                                        intl.formatMessage({
+                                            id: 'YOU_SPEND_STEVER',
+                                        })
+                                    }
                                     iconUrl={
                                         type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
                                     }
@@ -105,14 +118,24 @@ function FormTab({
                             disabled={false}
                             inputMode="numeric"
                             readOnly
-                            title={type === StakingType.Stake ? 'You receive stEVER' : 'You receive EVER'}
+                            title={type === StakingType.Stake ?
+                                intl.formatMessage({
+                                    id: 'YOU_RECEIVE_STEVER',
+                                })
+                                :
+                                intl.formatMessage({
+                                    id: 'YOU_RECEIVE_EVER',
+                                })
+                            }
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
                             price={type === StakingType.Stake ? staking.exchangeRate ?? "0" : staking.exchangeRate ?? "0"}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
                         {staking?.isFetchingForm ?
                             <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
-                                Loading...
+                                {intl.formatMessage({
+                                    id: 'LOADING',
+                                })}
                             </Button>
                             :
                             <Button
@@ -123,7 +146,14 @@ function FormTab({
                                 type="primary"
                                 className="uk-width-1-1"
                             >
-                                {type === StakingType.Stake ? 'Stake EVER' : 'Unstake EVER'}
+                                {type === StakingType.Stake ?
+                                    `${intl.formatMessage({
+                                        id: 'STAKE',
+                                    })} EVER`
+                                    :
+                                    `${intl.formatMessage({
+                                        id: 'UNSTAKE',
+                                    })} EVER`}
                             </Button>
                         }
                     </>

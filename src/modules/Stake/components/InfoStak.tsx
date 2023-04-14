@@ -14,17 +14,20 @@ import { StakingStore } from '../store/stakingStore'
 import { FormattedTokenAmount } from '@broxus/react-components'
 import { Placeholder } from '@/components/common/Placeholder'
 import Media from 'react-media'
+import { useIntl } from 'react-intl'
 
 export function InfoStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
-
+    const intl = useIntl()
     return (
         <Observer>
             {() => (
                 <Flex flexDirection="column" justifyContent="center">
                     <Flex justifyContent="center" className={"uk-margin-bottom"}>
                         <Heading component="h1">
-                            Stake your EVERs
+                            {intl.formatMessage({
+                                id: 'STAKE_YOUR_EVERS',
+                            })}
                         </Heading>
                     </Flex>
 
@@ -42,7 +45,11 @@ export function InfoStakInner(): JSX.Element {
                                     }
 
                                 </Text>
-                                <Text className="uk-text-center uk-margin-remove">EVER staked</Text>
+                                <Text className="uk-text-center uk-margin-remove">
+                                    EVER {intl.formatMessage({
+                                        id: 'EVER_STAKED',
+                                    })}
+                                </Text>
                             </Tile>
                             <Tile className="uk-padding-remove">
                                 <Text component="h4" className="uk-text-center uk-margin-remove">
@@ -52,7 +59,11 @@ export function InfoStakInner(): JSX.Element {
                                         <>{new BigNumber(staking?.strategyMainInfo?.apy ?? 0).times(100).toFixed(2)} %</>
                                     }
                                 </Text>
-                                <Text className="uk-text-center uk-margin-remove">Average APY</Text>
+                                <Text className="uk-text-center uk-margin-remove">
+                                    {intl.formatMessage({
+                                        id: 'AVERAGE_APY',
+                                    })}
+                                </Text>
                             </Tile>
                             <Tile className="uk-padding-remove">
                                 <Text component="h4" className="uk-text-center uk-margin-remove">
@@ -63,9 +74,12 @@ export function InfoStakInner(): JSX.Element {
                                             {staking?.strategyMainInfo?.holders ?? 0}
                                         </>
                                     }
-
                                 </Text>
-                                <Text className="uk-text-center uk-margin-remove">Holders</Text>
+                                <Text className="uk-text-center uk-margin-remove">
+                                    {intl.formatMessage({
+                                        id: 'HOLDERS',
+                                    })}
+                                </Text>
                             </Tile>
                         </Flex>
                     </Media>
