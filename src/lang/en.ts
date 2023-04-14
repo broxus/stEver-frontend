@@ -58,4 +58,18 @@ export default {
     USERS: 'Users',
     STRATEGIES: 'Strategies',
     PENDING_WITHDRAWALS: 'Pending withdrawals',
+    EVER_STAKED: 'EVER staked',
+    AVERAGE_APY: ' Average APY',
+    DEPOSITS_ARE_CREDITED: 'Deposits are credited instantly and your money immediately begins to generate a profit. Withdrawals may take up to 36 hours. After a withdrawal, EVER is credited to your account.',
+    THE_PRICE_OF: 'The price of 1 EVER is less than 1 stEVER, so for 1 EVER you get less than 1 stEVER.',
+    AFTER_YOU_UMSTAKE: 'After you unstake, you will get the opposite; more EVER than stEVER, because 1 stEVER is worth more than 1 EVER.',
+    STAKE: 'Stake',
+    UNSTAKE: 'Unstake',
+    YOU_SPENDD_EVER: 'You spend EVER',
+    YOU_SPENDD_STEVER: 'You spend stEVER',
+    LOADING: 'Loading...',
+
+    YOU_RECEIVE_EVER: 'You receive EVER',
+    YOU_RECEIVE_STEVER: 'You receive stEVER',
+    STAKE_YOUR_EVERS: 'Stake your EVERs',
 }
