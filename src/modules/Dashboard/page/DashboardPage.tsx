@@ -18,8 +18,10 @@ import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStor
 import { Flex, Heading, Label, Tabs } from '@broxus/react-uikit'
 import { Placeholder } from '@/components/common/Placeholder'
 import { Observer } from 'mobx-react-lite'
+import { useIntl } from 'react-intl'
 
 export default function DashboardPage(): JSX.Element {
+    const intl = useIntl()
 
     const TabelDepoolsProvider = useProvider(TabelDepoolsStore)
 
@@ -67,7 +69,9 @@ export default function DashboardPage(): JSX.Element {
                                     {() => (
                                         <>
                                             <Heading component="h4">
-                                                Transactions
+                                                {intl.formatMessage({
+                                                    id: 'TRANSACTIONS',
+                                                })}
                                                 {stateTransaction === "Users" ?
                                                     (
                                                         !userTransactions.isFetching ?
@@ -97,12 +101,16 @@ export default function DashboardPage(): JSX.Element {
                                                 }
                                                 items={[
                                                     {
-                                                        label: 'Users',
+                                                        label: intl.formatMessage({
+                                                            id: 'USERS',
+                                                        }),
                                                         key: 'Users',
                                                         children: <TabelUserTransactionsDashboard />
                                                     },
                                                     {
-                                                        label: 'Strategies',
+                                                        label: intl.formatMessage({
+                                                            id: 'STRATEGIES',
+                                                        }),
                                                         key: 'Strategies',
                                                         children: <TabelStrategyTransactionsDashboard />
                                                     },
@@ -126,7 +134,9 @@ export default function DashboardPage(): JSX.Element {
                                     <>
                                         <Flex flexDirection="column" className="tabelTabs">
                                             <Heading component="h4">
-                                                Pending withdrawals
+                                                {intl.formatMessage({
+                                                    id: 'PENDING_WITHDRAWALS',
+                                                })}
                                                 {stateWithdraw === "Users" ?
                                                     (
                                                         !userWithdraw.isFetching ?
@@ -151,13 +161,17 @@ export default function DashboardPage(): JSX.Element {
                                                 }}
                                                 items={[
                                                     {
-                                                        label: 'Users',
+                                                        label: intl.formatMessage({
+                                                            id: 'USERS',
+                                                        }),
                                                         key: 'Users',
                                                         children: <TabelUserWithdrawDashboard />
 
                                                     },
                                                     {
-                                                        label: 'Strategies',
+                                                        label: intl.formatMessage({
+                                                            id: 'STRATEGIES',
+                                                        }),
                                                         key: 'Strategies',
                                                         children: <TabelStrategyWithdrawDashboard />
 

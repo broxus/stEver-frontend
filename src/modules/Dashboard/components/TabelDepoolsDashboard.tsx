@@ -24,15 +24,17 @@ import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePla
 import { RateChange } from '@/components/common/RateChange'
 import BigNumber from 'bignumber.js'
 import { Placeholder } from '@/components/common/Placeholder'
+import { useIntl } from 'react-intl'
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
-
     const tabelDepools = useStore(TabelDepoolsStore)
-
+    const intl = useIntl()
     return (
         <Flex flexDirection="column">
             <Heading component="h4">
-                Participating depools
+                {intl.formatMessage({
+                    id: 'PARTICIPATING_DEPOOLS',
+                })}
                 {!tabelDepools.isFetching ?
                     <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
                     :
@@ -77,7 +79,11 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                 {!tabelDepools.depoolsStrategies?.length &&
                                     <Tile className="empty-list">
                                         <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                            <Text className="uk-margin-auto-vertical">
+                                                {intl.formatMessage({
+                                                    id: 'THE_LIST_IS_EMPTY',
+                                                })}
+                                            </Text>
                                         </Flex>
                                     </Tile>
                                 }
@@ -100,7 +106,7 @@ type DepoolsListHeaderType = {
 }
 
 export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
-
+    const intl = useIntl()
     const onSwitchOrdering = async (value: any) => {
         tabelDepools.setState('ordering', value)
 
@@ -117,10 +123,26 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left uk-width-small">Strategy</th>
-                <th className="uk-text-left uk-width-small">Validator fee</th>
-                <th className="uk-text-left uk-width-small">Depool</th>
-                <th className="uk-text-left uk-width-small">Owner</th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'STRATEGY',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'VALIDATOR_FEE',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'DEPOOL',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'OWNER',
+                    })}
+                </th>
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -131,14 +153,18 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Distribution priority
+                                {intl.formatMessage({
+                                    id: 'DISTRIBUTION_PRIORITY',
+                                })}
                                 <Drop
                                     trigger={['hover']}
                                     placement="bottom-right"
                                     overlay={(
                                         <Tile type="default" size="xsmall">
                                             <Text component="p">
-                                                Stakes are distributed first to low fee and low amount of EVER. If a lot of tokens are unstaked, low priority validators may not receive tokens.
+                                                {intl.formatMessage({
+                                                    id: 'STAKES_ARE_DISTRIBUTED',
+                                                })}
                                             </Text>
                                         </Tile>
                                     )}
@@ -171,7 +197,9 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 onSwitch={onSwitchOrdering}
                                 positionLeft={true}
                             >
-                                TVL, EVER
+                                {intl.formatMessage({
+                                    id: 'TVL_EVER',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -255,7 +283,7 @@ type DepoolsListCardType = {
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
     const wallet = useTvmWalletContext()
-
+    const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
@@ -279,11 +307,19 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Fee</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'FEE',
+                        })}
+                    </Text>
                     <Text className='uk-margin-auto-vertical' size='small'>{pool.validatorFee}%</Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Depool</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'DEPOOL',
+                        })}
+                    </Text>
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
                             <Text className='uk-margin-auto-vertical' size='small'>
@@ -293,7 +329,11 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Owner</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'OWNER',
+                        })}
+                    </Text>
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
                             <Flex>
@@ -305,7 +345,11 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>TVL, EVER</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'TVL_EVER',
+                        })}
+                    </Text>
                     <Text className='uk-margin-auto-vertical'>
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}

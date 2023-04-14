@@ -25,11 +25,11 @@ import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
+import { useIntl } from 'react-intl'
 
 export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
-
     const strategyTransactions = useStore(StrategiesTransactionsStore)
-
+    const intl = useIntl()
     return (
         <Observer>
             {() => (
@@ -70,7 +70,11 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
                             {!strategyTransactions.transactions?.length &&
                                 <Tile className="empty-list">
                                     <Flex justifyContent="center">
-                                        <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        <Text className="uk-margin-auto-vertical">
+                                            {intl.formatMessage({
+                                                id: 'THE_LIST_IS_EMPTY',
+                                            })}
+                                        </Text>
                                     </Flex>
                                 </Tile>
                             }
@@ -93,13 +97,10 @@ type TransactionsListHeaderType = {
 }
 
 export function TransactionsListHeader({ strategyTransactions }: TransactionsListHeaderType): JSX.Element {
-
     const { id } = useParams<Params>()
-
-
+    const intl = useIntl()
     const onSwitchOrdering = async (value: any) => {
         strategyTransactions.setState('ordering', value)
-
         strategyTransactions.getTransactions({
             kind: strategyTransactions.filter.length === 2 ? undefined : strategyTransactions.filter[0],
             limit: strategyTransactions.pagination.limit,
@@ -108,15 +109,26 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
             strategy: id,
         })
     }
-
     return (
         <thead className="uk-height-small">
             <tr>
                 {!id &&
-                    <th className="uk-text-left uk-width-small">Strategy</th>
+                    <th className="uk-text-left uk-width-small">
+                        {intl.formatMessage({
+                            id: 'STRATEGY',
+                        })}
+                    </th>
                 }
-                <th className="uk-text-left uk-width-small">Transaction</th>
-                <th className="uk-text-left uk-width-small">Type</th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'TRANSACTION',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'TYPE',
+                    })}
+                </th>
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -127,7 +139,9 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                                 value={{ column: strategyTransactions.ordering.column, direction: strategyTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Value, EVER
+                                {intl.formatMessage({
+                                    id: 'VALUE_EVER',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -143,7 +157,9 @@ export function TransactionsListHeader({ strategyTransactions }: TransactionsLis
                                 onSwitch={onSwitchOrdering}
                                 positionLeft={true}
                             >
-                                Date & Time
+                                {intl.formatMessage({
+                                    id: 'DATE_TIME',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -159,10 +175,8 @@ type Props = {
 }
 
 export function TransactionsListItem({ pool }: Props): JSX.Element {
-
     const wallet = useTvmWalletContext()
     const { id } = useParams<Params>()
-
     return (
         <tbody className="uk-height-small">
             <tr>
@@ -212,7 +226,7 @@ type TransactionsListCardType = {
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
     const wallet = useTvmWalletContext()
     const { id } = useParams<Params>()
-
+    const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
@@ -237,7 +251,11 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Transaction</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'TRANSACTION',
+                        })}
+                    </Text>
 
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
@@ -251,14 +269,20 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                 </Flex>
                 <Flex justifyContent='between'>
                     <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        Type
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
                     </Text>
                     <Text className='uk-margin-auto-vertical' size='small'>
                         {pool.kind}
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Date & Time</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'DATE_TIME',
+                        })}
+                    </Text>
                     <Link>
                         <Text className='uk-margin-auto-vertical' size='small'>
                             <Date line time={pool.transactionTime * 1000} />
@@ -352,7 +376,7 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
     const current = React.useRef<SystemTransactionsKind[]>([])
     const strategyTransactions = useStore(StrategiesTransactionsStore)
     const { id } = useParams<Params>()
-
+    const intl = useIntl()
     const onChange = (e: SystemTransactionsKind[]) => {
         current.current = e
         strategyTransactions.setState("filter", e)
@@ -368,11 +392,15 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
 
     const options = [
         {
-            label: 'Strategy deposit',
+            label: intl.formatMessage({
+                id: 'STRATEGY_DEPOSIT',
+            }),
             value: SystemTransactionsKind.DEPOSIT,
         },
         {
-            label: 'Strategy withdraw',
+            label: intl.formatMessage({
+                id: 'STRATEGY_WITHDRAW',
+            }),
             value: SystemTransactionsKind.WITHDRAWAL,
         }
     ]
@@ -382,7 +410,11 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
             placement="bottom-right"
             overlay={(
                 <Tile type="default" size="xsmall">
-                    <Text component="h6">Type</Text>
+                    <Text component="h6">
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
+                    </Text>
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
@@ -392,7 +424,9 @@ function TransactionStrtegyListFilterInner(): JSX.Element {
             )}
         >
             <Button type='secondary'>
-                Type
+                {intl.formatMessage({
+                    id: 'TYPE',
+                })}
             </Button>
         </Drop>
     )

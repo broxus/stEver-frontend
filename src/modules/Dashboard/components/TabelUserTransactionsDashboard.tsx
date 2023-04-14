@@ -25,11 +25,11 @@ import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { createPortal } from 'react-dom'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
+import { useIntl } from 'react-intl'
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
-
     const userTransactions = useStore(UserTransactionsStore)
-
+    const intl = useIntl()
     return (
         <>
             <Observer>
@@ -70,7 +70,11 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                 {!userTransactions.transactions?.length &&
                                     <Tile className="empty-list">
                                         <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                            <Text className="uk-margin-auto-vertical">
+                                                {intl.formatMessage({
+                                                    id: 'THE_LIST_IS_EMPTY',
+                                                })}
+                                            </Text>
                                         </Flex>
                                     </Tile>
                                 }
@@ -93,10 +97,8 @@ type TransactionsListHeaderType = {
 }
 
 export function TransactionsListHeader({ userTransactions }: TransactionsListHeaderType): JSX.Element {
-
     const onSwitchOrdering = async (value: any) => {
         userTransactions.setState('ordering', value)
-
         userTransactions.getTransactions({
             from: null,
             kind: userTransactions.filter.length === 2 ? undefined : userTransactions.filter[0],
@@ -107,13 +109,26 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
             userAddress: null,
         })
     }
+    const intl = useIntl()
 
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left uk-width-small">User</th>
-                <th className="uk-text-left uk-width-small">Transaction</th>
-                <th className="uk-text-left uk-width-small">Type</th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'USER',
+                    })} User
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'TRANSACTION',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'TYPE',
+                    })}
+                </th>
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -124,7 +139,9 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Value, EVER
+                                {intl.formatMessage({
+                                    id: 'VALUE_EVER',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -140,7 +157,9 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 onSwitch={onSwitchOrdering}
                                 positionLeft={true}
                             >
-                                Date & Time
+                                {intl.formatMessage({
+                                    id: 'DATE_TIME',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -206,7 +225,7 @@ type TransactionsListCardType = {
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
     const wallet = useTvmWalletContext()
-
+    const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
@@ -243,14 +262,20 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                 </Flex>
                 <Flex justifyContent='between'>
                     <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        Type
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
                     </Text>
                     <Text className='uk-margin-auto-vertical' size='small'>
                         {pool.kind}
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Date & Time</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'DATE_TIME',
+                        })}
+                    </Text>
                     <Link>
                         <Text className='uk-margin-auto-vertical' size='small'>
                             <Date line time={pool.transactionTime * 1000} />
@@ -346,6 +371,7 @@ function TransactionUserListFilterInner(): JSX.Element {
 
     const current = React.useRef<UserTransactionsKind[]>([])
     const userTransactions = useStore(UserTransactionsStore)
+    const intl = useIntl()
 
     const onChange = (e: UserTransactionsKind[]) => {
         current.current = e
@@ -364,11 +390,15 @@ function TransactionUserListFilterInner(): JSX.Element {
 
     const options = [
         {
-            label: 'User deposit',
+            label: intl.formatMessage({
+                id: 'USER_DEPOSIT',
+            }),
             value: UserTransactionsKind.DEPOSIT,
         },
         {
-            label: 'User withdraw',
+            label: intl.formatMessage({
+                id: 'USER_WITHDRAW',
+            }),
             value: UserTransactionsKind.WITHDRAWAL,
         }
     ]
@@ -378,7 +408,11 @@ function TransactionUserListFilterInner(): JSX.Element {
             placement="bottom-right"
             overlay={(
                 <Tile type="default" size="xsmall">
-                    <Text component="h6">Type</Text>
+                    <Text component="h6">
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
+                    </Text>
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
@@ -388,7 +422,9 @@ function TransactionUserListFilterInner(): JSX.Element {
             )}
         >
             <Button type='secondary'>
-                Type
+                {intl.formatMessage({
+                    id: 'TYPE',
+                })}
             </Button>
         </Drop>
     )

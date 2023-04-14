@@ -22,11 +22,12 @@ import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
+import { useIntl } from 'react-intl'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
     const userWithdraw = useStore(UserWithdrawStore)
-
+    const intl = useIntl()
     return (
         <Observer>
             {() => (
@@ -66,7 +67,11 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                             {!userWithdraw.transactions?.length &&
                                 <Tile className="empty-list">
                                     <Flex justifyContent="center">
-                                        <Text className="uk-margin-auto-vertical">The list is empty.</Text>
+                                        <Text className="uk-margin-auto-vertical">
+                                            {intl.formatMessage({
+                                                id: 'THE_LIST_IS_EMPTY',
+                                            })}
+                                        </Text>
                                     </Flex>
                                 </Tile>
                             }
@@ -91,7 +96,6 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
 
     const onSwitchOrdering = async (value: any) => {
         userWithdraw.setState('ordering', value)
-
         userWithdraw.getTransactions({
             limit: userWithdraw.pagination.limit,
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
@@ -102,12 +106,21 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
             amountLe: undefined,
         })
     }
+    const intl = useIntl()
 
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left uk-width-small">User</th>
-                <th className="uk-text-left uk-width-small">Transaction</th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'USER',
+                    })}
+                </th>
+                <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'TRANSACTION',
+                    })}
+                </th>
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -118,7 +131,9 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
                             >
-                                Value, stEver
+                                {intl.formatMessage({
+                                    id: 'VALUE_STEVER',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -134,7 +149,9 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 onSwitch={onSwitchOrdering}
                                 positionLeft={true}
                             >
-                                Date & Time
+                                {intl.formatMessage({
+                                    id: 'DATE_TIME',
+                                })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
@@ -187,6 +204,7 @@ type TransactionsListCardType = {
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
     const wallet = useTvmWalletContext()
+    const intl = useIntl()
 
     return (
         <Tile className="listCard uk-padding-small">
@@ -210,7 +228,11 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Text>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Transaction</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'TRANSACTION',
+                        })}
+                    </Text>
 
                     <Link>
                         <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
@@ -223,7 +245,11 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     </Link>
                 </Flex>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Date & Time</Text>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'DATE_TIME',
+                        })}
+                    </Text>
                     <Link>
                         <Text className='uk-margin-auto-vertical' size='small'>
                             <Date line time={pool.transactionTime * 1000} />
