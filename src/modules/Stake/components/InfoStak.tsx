@@ -46,7 +46,7 @@ export function InfoStakInner(): JSX.Element {
 
                                 </Text>
                                 <Text className="uk-text-center uk-margin-remove">
-                                    EVER {intl.formatMessage({
+                                    {intl.formatMessage({
                                         id: 'EVER_STAKED',
                                     })}
                                 </Text>

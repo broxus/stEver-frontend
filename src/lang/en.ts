@@ -65,8 +65,8 @@ export default {
     AFTER_YOU_UMSTAKE: 'After you unstake, you will get the opposite; more EVER than stEVER, because 1 stEVER is worth more than 1 EVER.',
     STAKE: 'Stake',
     UNSTAKE: 'Unstake',
-    YOU_SPENDD_EVER: 'You spend EVER',
-    YOU_SPENDD_STEVER: 'You spend stEVER',
+    YOU_SPEND_EVER: 'You spend EVER',
+    YOU_SPEND_STEVER: 'You spend stEVER',
     LOADING: 'Loading...',
 
     YOU_RECEIVE_EVER: 'You receive EVER',
