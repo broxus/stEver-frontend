@@ -10,14 +10,18 @@ import "./RoundsBalancesStrategy.scss"
 import { Placeholder } from '@/components/common/Placeholder'
 import Media from 'react-media'
 import { RateChange } from '@/components/common/RateChange'
+import { useIntl } from 'react-intl'
 
 function RoundsBalancesStrategyInner(): JSX.Element {
     const dashboard = useStore(ChartStore)
+    const intl = useIntl()
     return (
         <>
             <Flex flexDirection="column">
                 <Heading component="h4">
-                    Rounds balances
+                    {intl.formatMessage({
+                        id: 'ROUNDS_BALANCES',
+                    })}
                 </Heading>
 
                 <Media query={{ minWidth: 640 }}>

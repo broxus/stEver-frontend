@@ -72,4 +72,6 @@ export default {
     YOU_RECEIVE_EVER: 'You receive EVER',
     YOU_RECEIVE_STEVER: 'You receive stEVER',
     STAKE_YOUR_EVERS: 'Stake your EVERs',
+    EFFICIENCY: 'efficiency',
+    ROUNDS_BALANCES: ' Rounds balances'
 }

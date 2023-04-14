@@ -26,9 +26,10 @@ import './ChartStrategy.scss'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Placeholder } from '@/components/common/Placeholder'
 import Media from 'react-media'
+import { useIntl } from 'react-intl'
 
 function ChartStrategyInner(): JSX.Element {
-
+    const intl = useIntl()
     const dashboard = useStore(ChartStore)
     const series = React.useRef<any>(null)
     const chart = React.useRef<any>(null)
@@ -122,45 +123,72 @@ function ChartStrategyInner(): JSX.Element {
             <Flex flexDirection="column" className="chartDashboard__container">
                 <Breadcrumb className="uk-margin-remove">
                     <Breadcrumb.Item>
-                        <Link to={appRoutes.dashboard.path}>Dashboard</Link>
+                        <Link to={appRoutes.dashboard.path}>
+                            {intl.formatMessage({
+                                id: 'NAV_LINK_TEXT_DASHBOARD',
+                            })}
+                        </Link>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
-                        <a>Strategy {sliceAddress(id)}</a>
+                        <a>
+                            {intl.formatMessage({
+                                id: 'STRATEGY',
+                            })} {sliceAddress(id)}
+                        </a>
                     </Breadcrumb.Item>
                 </Breadcrumb>
 
                 <Heading component="h2" className="uk-margin-remove">
-                    Strategy {sliceAddress(id)}
+                    {intl.formatMessage({
+                        id: 'STRATEGY',
+                    })}  {sliceAddress(id)}
                 </Heading>
 
                 <Card className='chartDashboard--labels'>
                     <Label
                         type={dashboard?.strategyMainInfo?.priority === 'high' ? 'success' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'danger'}
                     >
-                        {dashboard?.strategyMainInfo?.priority.charAt(0).toUpperCase() + dashboard?.strategyMainInfo?.priority.slice(1)} efficiency
+                        {dashboard?.strategyMainInfo?.priority.charAt(0).toUpperCase() + dashboard?.strategyMainInfo?.priority.slice(1)}
+                        {intl.formatMessage({
+                            id: 'EFFICIENCY',
+                        })}
                     </Label>
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
                         address={id}>
-                        <Label>Strategy <Icon icon='externalLink' /></Label>
+                        <Label>
+                            {intl.formatMessage({
+                                id: 'STRATEGY',
+                            })}
+                            <Icon icon='externalLink' />
+                        </Label>
                     </ExplorerAccountLink>
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
                         address={dashboard?.strategyMainInfo?.owner}>
-                        <Label>Owner <Icon icon='externalLink' /></Label>
+                        <Label>
+                            {intl.formatMessage({
+                                id: 'OWNER',
+                            })}
+                            <Icon icon='externalLink' />
+                        </Label>
                     </ExplorerAccountLink>
                 </Card>
 
                 <Media query={{ minWidth: 640 }}>
-                    {matches => (matches ? (
+                    {matches => (
                         <Grid gap="xsmall" match className="chartDashboard--layout">
-                            <Width size="1-4">
+                            <Width size={matches ? "1-4" : "1-1"}>
                                 <Observer>
                                     {() => (
                                         <Grid gap="xsmall" childWidth={1}>
                                             <Tile type="secondary" size="xsmall">
                                                 <Grid gap="xsmall" childWidth={1}>
-                                                    <Text>TVL</Text>
+                                                    <Text>
+                                                        {intl.formatMessage({
+                                                            id: 'TVL',
+                                                        })}
+                                                    </Text>
                                                     <Text>
                                                         {dashboard.isFetching ?
                                                             <>
@@ -200,7 +228,11 @@ function ChartStrategyInner(): JSX.Element {
                                             </Tile>
                                             <Tile type="secondary" size="xsmall">
                                                 <Grid gap="xsmall" childWidth={1}>
-                                                    <Text>Fee</Text>
+                                                    <Text>
+                                                        {intl.formatMessage({
+                                                            id: 'FEE',
+                                                        })}
+                                                    </Text>
                                                     <Text className='total'>
                                                         {!dashboard.strategyDetails?.validatorRewardFraction ?
                                                             <>
@@ -216,140 +248,43 @@ function ChartStrategyInner(): JSX.Element {
                                     )}
                                 </Observer>
                             </Width>
-                            <Width size="3-4">
+                            <Width size={matches ? "3-4" : "1-1"}>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
                                     <Text component='h5' className="uk-margin-remove uk-padding-small">
-                                        TVL
+                                        {intl.formatMessage({
+                                            id: 'TVL',
+                                        })}
                                     </Text>
                                 </Tile>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
                                     <Observer>
                                         {() => (
-                                            <>
-                                                <Media query={{ minWidth: 640 }}>
-                                                    <Chart
-                                                        height={400} width={1000} style={{ height: '100%' }}
-                                                        ref={chart}
-                                                        onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
-                                                    >
-                                                        {dashboard.isFetchingCharts && <Chart.Placeholder />}
-                                                        <Chart.Series
-                                                            ref={series}
-                                                            title={"EVER"}
-                                                            type="Area"
-                                                            data={dashboard.tvlCharts}
-                                                            lineColor="#2B63F1"
-
-                                                            priceFormat={{
-                                                                formatter: usdPriceFormatter,
-                                                                type: 'custom',
-                                                            }}
-                                                            priceScaleId="right"
-                                                            lineType={0}
-                                                        />
-                                                    </Chart>
-                                                </Media>
-                                            </>
+                                            <Chart
+                                                height={400} width={1000} style={{ height: matches ? '100%' : '260px' }}
+                                                ref={chart}
+                                                onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
+                                            >
+                                                {dashboard.isFetchingCharts && <Chart.Placeholder />}
+                                                <Chart.Series
+                                                    ref={series}
+                                                    type="Area"
+                                                    data={dashboard.tvlCharts}
+                                                    lineColor="#2B63F1"
+                                                    title={"EVER"}
+                                                    priceFormat={{
+                                                        formatter: usdPriceFormatter,
+                                                        type: 'custom',
+                                                    }}
+                                                    priceScaleId="right"
+                                                    lineType={0}
+                                                />
+                                            </Chart>
                                         )}
                                     </Observer>
                                 </Tile>
                             </Width>
                         </Grid>
-                    ) : (
-                        <>
-                            <Observer>
-                                {() => (
-                                    <>
-                                        <Width size="1-1">
-                                            <Tile type="secondary" size="xsmall" className="uk-margin-small-bottom">
-                                                <Grid gap="xsmall" childWidth={1}>
-                                                    <Text>TVL</Text>
-                                                    <Text>
-                                                        {dashboard.isFetching ?
-                                                            <>
-                                                                <Placeholder height={30} width={100} />
-                                                                <span>
-                                                                    <Placeholder height={20} width={35} />
-                                                                </span>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <FormattedTokenAmount
-                                                                    decimals={ST_EVER_DECIMALS}
-                                                                    value={dashboard?.strategyMainInfo?.tvl}
-                                                                    symbol='EVER'
-                                                                    className='total'
-                                                                />
-
-                                                                <span>
-                                                                    ~<FormattedCurrencyValue
-                                                                        value={
-                                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
-                                                                                .times(dashboard.price)
-                                                                                .integerValue()
-                                                                                .toFixed()
-                                                                        }
-                                                                    />
-                                                                </span>
-                                                            </>
-                                                        }
-                                                    </Text>
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
-                                                    }
-                                                </Grid>
-                                            </Tile>
-                                            <Tile type="secondary" size="xsmall" className="uk-margin-small-bottom">
-                                                <Grid gap="xsmall" childWidth={1}>
-                                                    <Text>Fee</Text>
-                                                    <Text className='total'>
-                                                        {dashboard.isFetching ?
-                                                            <>
-                                                                <Placeholder height={30} width={100} />
-                                                            </>
-                                                            :
-                                                            <>{dashboard.strategyDetails?.validatorRewardFraction ?? 0}%</>
-                                                        }
-                                                    </Text>
-                                                </Grid>
-                                            </Tile>
-                                        </Width>
-                                        <Width size="1-1">
-                                            <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                                <Text component='h5' className="uk-margin-remove uk-padding-small">
-                                                    TVL
-                                                </Text>
-                                            </Tile>
-                                            <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                                <Chart
-                                                    height={400} width={1000} style={{ height: '260px' }}
-                                                    ref={chart}
-                                                    onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
-                                                >
-                                                    {/* {dashboard.isFetchingCharts && <Chart.Placeholder />} */}
-                                                    <Chart.Series
-                                                        ref={series}
-                                                        type="Area"
-                                                        data={dashboard.tvlCharts}
-                                                        lineColor="#2B63F1"
-                                                        title={"EVER"}
-                                                        priceFormat={{
-                                                            formatter: usdPriceFormatter,
-                                                            type: 'custom',
-                                                        }}
-                                                        priceScaleId="right"
-                                                        lineType={0}
-                                                    />
-                                                </Chart>
-                                            </Tile>
-                                        </Width>
-                                    </>
-                                )}
-                            </Observer>
-                        </>
-                    ))}
+                    )}
                 </Media>
             </Flex>
         </div >
