@@ -71,7 +71,6 @@ export class StakingStore extends AbstractStore<
             () => this._state.type,
             async () => {
                 if (this._state.amount) this.estimateDepositStEverAmount(this._state.amount)
-
                 await this.walletsCache.resolve(
                     this.wallet.address!,
                     new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
@@ -178,7 +177,7 @@ export class StakingStore extends AbstractStore<
         return this._data.strategyMainInfo
     }
 
-    @computed
+    @computed 
     public get exchangeRate(): string | undefined {
         if (!this.stakeDetails) return undefined
         const { stEverSupply, totalAssets } = this.stakeDetails

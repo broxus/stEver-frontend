@@ -19,6 +19,8 @@ import { Flex, Heading, Label, Tabs } from '@broxus/react-uikit'
 import { Placeholder } from '@/components/common/Placeholder'
 import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
+import { MyWithdrawStore } from '../store/myWithdrawStore'
+import { TabelMyWithdraw } from '../components/TabelMyWithdraw'
 
 export default function DashboardPage(): JSX.Element {
     const intl = useIntl()
@@ -32,6 +34,8 @@ export default function DashboardPage(): JSX.Element {
     const StrategyWithdrawProvider = useProvider(StrategyWithdrawStore)
 
     const ChartProvider = useProvider(ChartStore)
+
+    const MyWithdrawProvider = useProvider(MyWithdrawStore)
 
 
     const [stateTransaction, setStateTransaction] = React.useState("Users")
@@ -52,6 +56,10 @@ export default function DashboardPage(): JSX.Element {
 
     return (
         <div className="container container--large dashboard">
+            <MyWithdrawProvider>
+                <TabelMyWithdraw />
+            </MyWithdrawProvider>
+
             <ChartProvider>
                 <ChartDashboard />
             </ChartProvider>

@@ -19,11 +19,30 @@ import { useIntl } from 'react-intl'
 import { NavLink, useHistory } from 'react-router-dom'
 import { generatePath } from '@broxus/js-core'
 import { appRoutes } from '@/routes'
+import { MyWithdrawStore } from '@/modules/Dashboard/store/myWithdrawStore'
+import { UsersWithdrawalsStatus } from '@/apiClientCodegen'
+import { useTvmWalletContext } from '@broxus/react-modules'
 
 export function InfoStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
     const intl = useIntl()
     const history = useHistory();
+    const myWithdraw = useStore(MyWithdrawStore)
+    const wallet = useTvmWalletContext()
+
+    React.useEffect(() => {
+        if (wallet.isConnected)
+            myWithdraw.getTransactions({
+                limit: myWithdraw.pagination.limit,
+                offset: myWithdraw.pagination.currentPage * myWithdraw.pagination.limit,
+                ordering: myWithdraw.ordering,
+                userAddress: wallet.address?.toString(),
+                status: UsersWithdrawalsStatus.PENDING,
+                amountGe: undefined,
+                amountLe: undefined,
+            })
+    }, [wallet.isConnected])
+
     return (
         <Observer>
             {() => (
@@ -90,29 +109,33 @@ export function InfoStakInner(): JSX.Element {
                             </Flex>
                         </Media>
                     </Flex>
-                    <Tile type='muted'>
-                        <Width size='1-1'>
-                            <Text component='h5' align='center'>
-                                {intl.formatMessage({
-                                    id: 'YOUR_STAKED_TOTAL',
-                                })}
-                            </Text>
-                            <Flex justifyContent='center'>
-                                <Button
-                                    onClick={() => history.push(appRoutes.dashboard.path)}
-                                    type='text'>
+                    {myWithdraw.transactions?.length ?
+                        <Tile type='muted'>
+                            <Width size='1-1'>
+                                <Text component='h5' align='center'>
                                     {intl.formatMessage({
-                                        id: 'TRANSACTIONS',
+                                        id: 'YOUR_STAKED_TOTAL',
                                     })}
-                                </Button>
-                                <Button type='tertiary'>
-                                    {intl.formatMessage({
-                                        id: 'MANUAL',
-                                    })}
-                                </Button>
-                            </Flex>
-                        </Width>
-                    </Tile>
+                                </Text>
+                                <Flex justifyContent='center'>
+                                    <Button
+                                        onClick={() => history.push(appRoutes.dashboard.path)}
+                                        type='text'>
+                                        {intl.formatMessage({
+                                            id: 'TRANSACTIONS',
+                                        })}
+                                    </Button>
+                                    <Button type='tertiary'>
+                                        {intl.formatMessage({
+                                            id: 'MANUAL',
+                                        })}
+                                    </Button>
+                                </Flex>
+                            </Width>
+                        </Tile>
+                        :
+                        undefined
+                    }
                 </>
             )}
 
