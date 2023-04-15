@@ -10,7 +10,7 @@ import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import {
-    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UsersWithdrawalsStatus,
+    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
 
 import { UserWithdrawStore } from '../store/userWithdrawStore'
@@ -94,7 +94,7 @@ type TransactionsListHeaderType = {
 
 export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderType): JSX.Element {
 
-    const onSwitchOrdering = async (value: any) => {
+    const onSwitchOrdering = async (value: UserWithdrawalsOrdering) => {
         userWithdraw.setState('ordering', value)
         userWithdraw.getTransactions({
             limit: userWithdraw.pagination.limit,
@@ -199,7 +199,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
 
 type TransactionsListCardType = {
     idx: number;
-    pool: any;
+    pool: UserWithdrawalResponse;
 }
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {

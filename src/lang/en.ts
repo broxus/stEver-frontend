@@ -77,5 +77,9 @@ export default {
 
     MANUAL: 'Manual',
     YOUR_STAKED_TOTAL: 'Your 1 118 547 stEVER withdrawal is being processed. This may take up to 36 hours.',
-    YOUR_PENDING_WITHDRAWALS: 'Your pending withdrawals'
+    YOUR_PENDING_WITHDRAWALS: 'Your pending withdrawals',
+    HASH: 'Hash',
+    AMOUNT_STEVER: 'Amount, stEVER',
+    MINIMUM_YOU_RECEIVE: 'Minimum you receive, EVER',
+    CREATION_TIME: 'Creation time',
 }

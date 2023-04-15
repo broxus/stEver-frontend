@@ -11,7 +11,7 @@ import { sliceAddress } from '@broxus/js-utils'
 
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { Direction, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind } from '@/apiClientCodegen'
+import { Direction, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
@@ -99,7 +99,7 @@ type TransactionsListHeaderType = {
 export function TransactionsListHeader({ strategyTransactions }: TransactionsListHeaderType): JSX.Element {
     const { id } = useParams<Params>()
     const intl = useIntl()
-    const onSwitchOrdering = async (value: any) => {
+    const onSwitchOrdering = async (value: SystemTransactionsOrdering) => {
         strategyTransactions.setState('ordering', value)
         strategyTransactions.getTransactions({
             kind: strategyTransactions.filter.length === 2 ? undefined : strategyTransactions.filter[0],
@@ -220,7 +220,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
 
 type TransactionsListCardType = {
     idx: number;
-    pool: any;
+    pool: SystemTransactionResponse;
 }
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {

@@ -11,7 +11,7 @@ import { generatePath, NavLink } from 'react-router-dom'
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
-import { Direction, StrategyColumn } from '@/apiClientCodegen'
+import { Direction, StrategiesOrdering, StrategyColumn, StrategyInfo } from '@/apiClientCodegen'
 import { appRoutes } from '@/routes'
 
 import { TabelDepoolsStore } from '../store/depoolsStore'
@@ -107,7 +107,7 @@ type DepoolsListHeaderType = {
 
 export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.Element {
     const intl = useIntl()
-    const onSwitchOrdering = async (value: any) => {
+    const onSwitchOrdering = async (value: StrategiesOrdering) => {
         tabelDepools.setState('ordering', value)
 
         tabelDepools.getDepoolsStrategies({
@@ -211,7 +211,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
 
 type DepoolsListItemType = {
     idx: number;
-    pool: any;
+    pool: StrategyInfo;
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
@@ -278,7 +278,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
 
 type DepoolsListCardType = {
     idx: number;
-    pool: any;
+    pool: StrategyInfo;
 }
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {

@@ -56,13 +56,13 @@ export default function DashboardPage(): JSX.Element {
 
     return (
         <div className="container container--large dashboard">
-            <MyWithdrawProvider>
-                <TabelMyWithdraw />
-            </MyWithdrawProvider>
-
             <ChartProvider>
                 <ChartDashboard />
             </ChartProvider>
+
+            <MyWithdrawProvider>
+                <TabelMyWithdraw />
+            </MyWithdrawProvider>
 
             <TabelDepoolsProvider>
                 <TabelDepoolsDashboard />

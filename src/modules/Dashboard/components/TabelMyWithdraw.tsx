@@ -1,31 +1,34 @@
 import * as React from 'react'
-import Media from 'react-media'
-import {
-    Drop,
-    Flex, Grid, Heading, Label, Link, Text, Tile,
-} from '@broxus/react-uikit'
-import { Observer, observer } from 'mobx-react-lite'
-import { makeArray, sliceAddress } from '@broxus/js-utils'
-import { generatePath, NavLink } from 'react-router-dom'
 
-import { Pagination } from '@/components/common/Pagination'
-import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
-import { Direction, StrategyColumn, UsersWithdrawalsStatus } from '@/apiClientCodegen'
-import { appRoutes } from '@/routes'
-
-import { TabelDepoolsStore } from '../store/depoolsStore'
-import { ST_EVER_DECIMALS } from '@/config'
-import { AccountIcon, ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { useIntl } from 'react-intl'
+import { observer } from 'mobx-react-lite'
+import { generatePath, NavLink } from 'react-router-dom'
+import { appRoutes } from '@/routes'
+import { sliceAddress } from '@broxus/js-utils'
+import { UserWithdrawalResponse, UsersWithdrawalsStatus } from '@/apiClientCodegen'
+import { ST_EVER_DECIMALS } from '@/config'
+import { FormattedTokenAmount } from '@broxus/react-components'
+import { AccountIcon } from '@broxus/react-components'
+import { ExplorerAccountLink } from '@broxus/react-components'
+import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { Pagination } from '@/components/common/Pagination'
+import { MyWithdrawStore } from '../store/myWithdrawStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
-import { RateChange } from '@/components/common/RateChange'
-import BigNumber from 'bignumber.js'
-import { Placeholder } from '@/components/common/Placeholder'
-import { useIntl } from 'react-intl'
-import { MyWithdrawStore } from '../store/myWithdrawStore'
+
+import { Flex } from '@broxus/react-uikit'
+import { Grid } from '@broxus/react-uikit'
+import { Heading } from '@broxus/react-uikit'
+import { Label } from '@broxus/react-uikit'
+import { Link } from '@broxus/react-uikit'
+import { Text } from '@broxus/react-uikit'
+import { Tile } from '@broxus/react-uikit'
+
+import { Observer } from 'mobx-react-lite'
+import Media from 'react-media'
 
 export function TabelMyWithdrawInner(): JSX.Element {
     const myWithdraw = useStore(MyWithdrawStore)
@@ -68,7 +71,7 @@ export function TabelMyWithdrawInner(): JSX.Element {
                             <>
                                 <table className="uk-table uk-table-divider uk-width-1-1 table">
                                     <Media query={{ minWidth: 640 }}>
-                                        <DepoolsListHeader myWithdraw={myWithdraw} />
+                                        <DepoolsListHeader />
                                     </Media>
                                     {myWithdraw.transactions?.map((pool, idx) => (
                                         <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
@@ -113,111 +116,32 @@ export function TabelMyWithdrawInner(): JSX.Element {
     )
 }
 
-type DepoolsListHeaderType = {
-    myWithdraw: MyWithdrawStore
-}
-
-export function DepoolsListHeader({ myWithdraw }: DepoolsListHeaderType): JSX.Element {
+export function DepoolsListHeader(): JSX.Element {
     const intl = useIntl()
     const wallet = useTvmWalletContext()
-
-    const onSwitchOrdering = async (value: any) => {
-        myWithdraw.setState('ordering', value)
-
-        myWithdraw.getTransactions({
-            limit: myWithdraw.pagination.limit,
-            offset: myWithdraw.pagination.currentPage * myWithdraw.pagination.limit,
-            ordering: myWithdraw.ordering,
-            userAddress: wallet.address?.toString(),
-            status: UsersWithdrawalsStatus.PENDING,
-            amountGe: undefined,
-            amountLe: undefined,
-        })
-    }
 
     return (
         <thead className="uk-height-small">
             <tr>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
-                        id: 'STRATEGY',
+                        id: 'HASH',
                     })}
                 </th>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
-                        id: 'VALIDATOR_FEE',
+                        id: 'AMOUNT_STEVER',
                     })}
                 </th>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
-                        id: 'DEPOOL',
+                        id: 'MINIMUM_YOU_RECEIVE',
                     })}
-                </th>
-                <th className="uk-text-left uk-width-small">
-                    {intl.formatMessage({
-                        id: 'OWNER',
-                    })}
-                </th>
-                <th className="uk-text-left uk-width-small">
-                    <Observer>
-                        {() => (
-                            <OrderingSwitcher<Direction>
-                                ascending={Direction.ASC}
-                                descending={Direction.DESC}
-                                column={StrategyColumn.PRIORITY}
-                                value={{ column: myWithdraw.ordering.column, direction: myWithdraw.ordering.direction }}
-                                onSwitch={onSwitchOrdering}
-                            >
-                                {intl.formatMessage({
-                                    id: 'DISTRIBUTION_PRIORITY',
-                                })}
-                                <Drop
-                                    trigger={['hover']}
-                                    placement="bottom-right"
-                                    overlay={(
-                                        <Tile type="default" size="xsmall">
-                                            <Text component="p">
-                                                {intl.formatMessage({
-                                                    id: 'STAKES_ARE_DISTRIBUTED',
-                                                })}
-                                            </Text>
-                                        </Tile>
-                                    )}
-                                >
-                                    <Link
-                                        type="text"
-                                    >
-                                        <svg style={{
-                                            marginTop: "-4px",
-                                            marginLeft: "5px"
-                                        }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM7.2 3.40002H8.8V5.00002H7.2V3.40002ZM7.2 6.59998H8.8V12.6H7.2V6.59998Z" fill="#C6C9CF" />
-                                        </svg>
-
-                                    </Link>
-
-                                </Drop>
-                            </OrderingSwitcher>
-                        )}
-                    </Observer>
                 </th>
                 <th className="uk-text-right uk-width-small">
-                    <Observer>
-                        {() => (
-                            <OrderingSwitcher<Direction>
-                                ascending={Direction.ASC}
-                                descending={Direction.DESC}
-                                column={StrategyColumn.TVL}
-                                value={{ column: myWithdraw.ordering.column, direction: myWithdraw.ordering.direction }}
-                                onSwitch={onSwitchOrdering}
-                                positionLeft={true}
-                            >
-                                {intl.formatMessage({
-                                    id: 'TVL_EVER',
-                                })}
-                            </OrderingSwitcher>
-                        )}
-                    </Observer>
+                    {intl.formatMessage({
+                        id: 'CREATION_TIME',
+                    })}
                 </th>
             </tr>
         </thead>
@@ -226,64 +150,37 @@ export function DepoolsListHeader({ myWithdraw }: DepoolsListHeaderType): JSX.El
 
 type DepoolsListItemType = {
     idx: number;
-    pool: any;
+    pool: UserWithdrawalResponse;
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
-    const wallet = useTvmWalletContext()
-
     return (
         <tbody className="uk-height-small">
             <tr>
                 <td className="uk-text-left uk-width-small">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
-                        id: pool.strategy,
+                        id: pool.transactionHash,
                     })}
                     >
-                        {sliceAddress(pool.strategy)}
+                        {sliceAddress(pool.transactionHash)}
                     </NavLink>
                 </td>
-                <td className="uk-text-left uk-width-small">{pool.validatorFee}</td>
-
                 <td className="uk-text-left uk-width-small">
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
-                            <Flex>
-                                {sliceAddress(pool.depool)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
-                            </Flex>
-                        </ExplorerAccountLink>
-                    </Link>
-                </td>
-                <td className="uk-text-left uk-width-small">
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
-                            <Flex>
-                                {sliceAddress(pool.owner)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} icon='externalLink' />
-                            </Flex>
-                        </ExplorerAccountLink>
-                    </Link>
-                </td>
-
-                <td className="uk-text-left uk-width-small">
-                    <Label
-                        type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
-                    >
-                        {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
-                    </Label>
-                </td>
-                <td className="uk-text-right uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
-                        value={pool.tvl}
+                        value={pool.stAmount ?? 0}
                     />
-                    <br />
-                    {pool?.tvlDeltaNextRound &&
-                        <RateChange size="sm" currency="" value={
-                            new BigNumber(pool?.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
-                        } />
-                    }
+                </td>
+                <td className="uk-text-left uk-width-small">
+                    <FormattedTokenAmount
+                        decimals={ST_EVER_DECIMALS}
+                        value={pool.amount ?? 0}
+                    />
+                </td>
+                <td className="uk-text-right uk-width-small">
+                    <Flex flexDirection='column'>
+                        <Date time={pool.transactionTime * 1000} />
+                    </Flex>
                 </td>
             </tr>
         </tbody>
@@ -293,7 +190,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
 
 type DepoolsListCardType = {
     idx: number;
-    pool: any;
+    pool: UserWithdrawalResponse;
 }
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
@@ -305,72 +202,43 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                 <Flex justifyContent='between'>
                     <Text className='uk-margin-auto-vertical listCard--title'>
                         <NavLink to={generatePath(appRoutes.strategy.path, {
-                            id: pool.strategy,
-                        })}>
-                            <Flex>
-                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
-                                {sliceAddress(pool.strategy)}
-                            </Flex>
-                        </NavLink>
-                    </Text>
-                    <Text className='uk-margin-auto-vertical'>
-                        <Label
-                            type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
+                            id: pool.transactionHash,
+                        })}
                         >
-                            {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
-                        </Label>
-                    </Text>
-                </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        {intl.formatMessage({
-                            id: 'FEE',
-                        })}
-                    </Text>
-                    <Text className='uk-margin-auto-vertical' size='small'>{pool.validatorFee}%</Text>
-                </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        {intl.formatMessage({
-                            id: 'DEPOOL',
-                        })}
-                    </Text>
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
-                            <Text className='uk-margin-auto-vertical' size='small'>
-                                {sliceAddress(pool.depool)}
-                            </Text>
-                        </ExplorerAccountLink>
-                    </Link>
-                </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        {intl.formatMessage({
-                            id: 'OWNER',
-                        })}
-                    </Text>
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
-                            <Flex>
-                                <Text className='uk-margin-auto-vertical' size='small'>
-                                    {sliceAddress(pool.owner)}
-                                </Text>
-                            </Flex>
-                        </ExplorerAccountLink>
-                    </Link>
-                </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
-                        {intl.formatMessage({
-                            id: 'TVL_EVER',
-                        })}
+                            {sliceAddress(pool.transactionHash)}
+                        </NavLink>
                     </Text>
                     <Text className='uk-margin-auto-vertical'>
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
-                            value={pool.tvl}
+                            value={pool.stAmount ?? 0}
                         />
                     </Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'MINIMUM_YOU_RECEIVE',
+                        })}
+                    </Text>
+                    <Text className='uk-margin-auto-vertical' size='small'>
+                        <FormattedTokenAmount
+                            decimals={ST_EVER_DECIMALS}
+                            value={pool.amount ?? 0}
+                        />
+                    </Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'CREATION_TIME',
+                        })}
+                    </Text>
+                    <Link>
+                        <Flex flexDirection='column'>
+                            <Date time={pool.transactionTime * 1000} />
+                        </Flex>
+                    </Link>
                 </Flex>
             </Grid>
         </Tile>

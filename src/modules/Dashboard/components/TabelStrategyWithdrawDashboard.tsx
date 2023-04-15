@@ -9,7 +9,7 @@ import { sliceAddress } from '@broxus/js-utils'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import {
-    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus,
+    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus, StrategyWithdrawalsOrdering,
 } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 
@@ -97,7 +97,7 @@ type TransactionsListHeaderType = {
 export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHeaderType): JSX.Element {
     const { id } = useParams<Params>()
     const intl = useIntl()
-    const onSwitchOrdering = async (value: any) => {
+    const onSwitchOrdering = async (value: StrategyWithdrawalsOrdering) => {
         strategyWithdraw.setState('ordering', value)
 
         strategyWithdraw.getTransactions({
@@ -204,7 +204,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
 
 type TransactionsListCardType = {
     idx: number;
-    pool: any;
+    pool: StrategyWithdrawalResponse;
 }
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
@@ -230,7 +230,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                     <Text className='uk-margin-auto-vertical' size='small'>
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
-                            value={pool.stAmount}
+                            value={pool.amount}
                         />
                         {id && " EVER"}
                     </Text>

@@ -12,7 +12,7 @@ import { sliceAddress } from '@broxus/js-utils'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind } from '@/apiClientCodegen'
+import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering } from '@/apiClientCodegen'
 
 import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { ST_EVER_DECIMALS } from '@/config'
@@ -97,7 +97,7 @@ type TransactionsListHeaderType = {
 }
 
 export function TransactionsListHeader({ userTransactions }: TransactionsListHeaderType): JSX.Element {
-    const onSwitchOrdering = async (value: any) => {
+    const onSwitchOrdering = async (value: UserTransactionsOrdering) => {
         userTransactions.setState('ordering', value)
         userTransactions.getTransactions({
             from: null,
@@ -220,7 +220,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
 
 type TransactionsListCardType = {
     idx: number;
-    pool: any;
+    pool: UserTransactionResponse;
 }
 
 export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.Element {
