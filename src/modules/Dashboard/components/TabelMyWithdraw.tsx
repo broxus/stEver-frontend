@@ -10,8 +10,6 @@ import { sliceAddress } from '@broxus/js-utils'
 import { UserWithdrawalResponse, UsersWithdrawalsStatus } from '@/apiClientCodegen'
 import { ST_EVER_DECIMALS } from '@/config'
 import { FormattedTokenAmount } from '@broxus/react-components'
-import { AccountIcon } from '@broxus/react-components'
-import { ExplorerAccountLink } from '@broxus/react-components'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { Pagination } from '@/components/common/Pagination'
@@ -19,7 +17,7 @@ import { MyWithdrawStore } from '../store/myWithdrawStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 
-import { Flex } from '@broxus/react-uikit'
+import { Button, Flex } from '@broxus/react-uikit'
 import { Grid } from '@broxus/react-uikit'
 import { Heading } from '@broxus/react-uikit'
 import { Label } from '@broxus/react-uikit'
@@ -143,6 +141,7 @@ export function DepoolsListHeader(): JSX.Element {
                         id: 'CREATION_TIME',
                     })}
                 </th>
+                <th className="uk-text-right uk-width-small" />
             </tr>
         </thead>
     )
@@ -182,8 +181,18 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
+                <td className="uk-text-right uk-width-small">
+                    <Button style={{
+                        padding: "6px 10px",
+                        fontSize: "14px",
+                        lineHeight: "normal",
+                        fontWeight: 400
+                    }} type='default'>
+                        Cancel
+                    </Button>
+                </td>
             </tr>
-        </tbody>
+        </tbody >
     )
 }
 
