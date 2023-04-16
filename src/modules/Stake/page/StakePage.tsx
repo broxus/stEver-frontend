@@ -11,7 +11,7 @@ export default function StakPage(): JSX.Element {
 
     const wallet = useTvmWallet()
     const StakingProvider = useProvider(StakingStore, wallet)
-    const MyWithdrawProvider = useProvider(MyWithdrawStore)
+    const MyWithdrawProvider = useProvider(MyWithdrawStore, wallet)
 
 
     return (

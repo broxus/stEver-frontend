@@ -21,9 +21,11 @@ import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
 import { MyWithdrawStore } from '../store/myWithdrawStore'
 import { TabelMyWithdraw } from '../components/TabelMyWithdraw'
+import { useTvmWallet } from '@/utils'
 
 export default function DashboardPage(): JSX.Element {
     const intl = useIntl()
+    const wallet = useTvmWallet()
 
     const TabelDepoolsProvider = useProvider(TabelDepoolsStore)
 
@@ -35,7 +37,7 @@ export default function DashboardPage(): JSX.Element {
 
     const ChartProvider = useProvider(ChartStore)
 
-    const MyWithdrawProvider = useProvider(MyWithdrawStore)
+    const MyWithdrawProvider = useProvider(MyWithdrawStore, wallet)
 
 
     const [stateTransaction, setStateTransaction] = React.useState("Users")

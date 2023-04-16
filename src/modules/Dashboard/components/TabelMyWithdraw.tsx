@@ -20,7 +20,6 @@ import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePla
 import { Button, Flex } from '@broxus/react-uikit'
 import { Grid } from '@broxus/react-uikit'
 import { Heading } from '@broxus/react-uikit'
-import { Label } from '@broxus/react-uikit'
 import { Link } from '@broxus/react-uikit'
 import { Text } from '@broxus/react-uikit'
 import { Tile } from '@broxus/react-uikit'
@@ -116,7 +115,6 @@ export function TabelMyWithdrawInner(): JSX.Element {
 
 export function DepoolsListHeader(): JSX.Element {
     const intl = useIntl()
-    const wallet = useTvmWalletContext()
 
     return (
         <thead className="uk-height-small">
@@ -153,8 +151,10 @@ type DepoolsListItemType = {
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
+    const myWithdraw = useStore(MyWithdrawStore)
+
     return (
-        <tbody className="uk-height-small">
+        <tbody className="uk-height-small" >
             <tr>
                 <td className="uk-text-left uk-width-small">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
@@ -187,7 +187,11 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         fontSize: "14px",
                         lineHeight: "normal",
                         fontWeight: 400
-                    }} type='default'>
+                    }} type='default'
+                        onClick={() => {
+                            myWithdraw.removePendingWithdraw(pool.nonce)
+                        }}
+                    >
                         Cancel
                     </Button>
                 </td>
@@ -203,7 +207,6 @@ type DepoolsListCardType = {
 }
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
-    const wallet = useTvmWalletContext()
     const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
