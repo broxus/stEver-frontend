@@ -66,7 +66,7 @@ function ChartDashboardInner(): JSX.Element {
                                                         {intl.formatMessage({
                                                             id: 'TVL',
                                                         })}
-                                                    </Text>
+                                                    </Text> 
                                                     <Text>
                                                         {dashboard.isFetching ?
                                                             <>
