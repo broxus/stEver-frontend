@@ -28,6 +28,7 @@ import { ChartPrice } from './charts/ChartPrice'
 import { ChartTVL } from './charts/ChartTVL'
 
 import './ChartDashboard.scss'
+import { ChartUntapped } from './charts/ChartUntapped'
 
 
 enum Charts {
@@ -277,7 +278,7 @@ function ChartDashboardInner(): JSX.Element {
                                     {activeChart === Charts.Price && <ChartPrice />}
                                     {activeChart === Charts.APY && <ChartAPY />}
                                     {activeChart === Charts.Holders && <ChartHolders />}
-                                    {activeChart === Charts.Untapped && <ChartHolders />}
+                                    {activeChart === Charts.Untapped && <ChartUntapped />}
 
                                 </Tile>
                             </Width>

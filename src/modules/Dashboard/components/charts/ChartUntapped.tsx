@@ -30,7 +30,7 @@ function ChartUntappedInner(): JSX.Element {
                     Math.ceil(barsInfo?.barsBefore) - 2
                 ) * 86400
             )
-            dashboard.getUsersTvlCharts({
+            dashboard.getUsersUntappedCharts({
                 from,
                 to: barsInfo.from,
             })
@@ -64,7 +64,7 @@ function ChartUntappedInner(): JSX.Element {
         })
     }, [chartUntapped.current])
     React.useEffect(() => {
-        dashboard.getUsersTvlCharts({
+        dashboard.getUsersUntappedCharts({
             from: Math.floor(DateTime.local()
                 .minus({
                     days: 30,
@@ -96,7 +96,7 @@ function ChartUntappedInner(): JSX.Element {
                             <Chart.Series
                                 ref={seriesUntapped}
                                 type="Area"
-                                data={dashboard.tvlCharts}
+                                data={dashboard.untappedCharts}
                                 lineColor="#2B63F1"
                                 title={"EVER"}
                                 priceFormat={{

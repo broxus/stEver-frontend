@@ -98,8 +98,8 @@ export class ChartStore extends AbstractStore<
     public async getUsersUntappedCharts(params: TvlRequest): Promise<void> {
         this.setState("isFetchingCharts", true)
         const response = await UsersService.postUsersAvailableAssets(params)
-        // const data = this._data.holdersCharts.concat(response ?? [])
-        // this.setData('untappedCharts', data)
+        const data = this._data.untappedCharts.concat(response ?? [])
+        this.setData('untappedCharts', data)
         this.setState("isFetchingCharts", false)
     }
 
@@ -141,6 +141,14 @@ export class ChartStore extends AbstractStore<
         return uniqBy(this._data.holdersCharts, 'timestamp').map<any>((item => ({
             time: (item.timestamp),
             value: parseFloat(new BigNumber(item.holder ?? 0).toFixed()),
+        }))).reverse()
+    }
+
+    @computed
+    public get untappedCharts() {
+        return uniqBy(this._data.untappedCharts, 'timestamp').map<any>((item => ({
+            time: (item.timestamp),
+            value: parseFloat(new BigNumber(item.price ?? 0).shiftedBy(-ST_EVER_DECIMALS).toFixed()),
         }))).reverse()
     }
 
