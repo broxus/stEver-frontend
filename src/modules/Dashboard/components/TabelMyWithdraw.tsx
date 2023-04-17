@@ -119,22 +119,22 @@ export function DepoolsListHeader(): JSX.Element {
     return (
         <thead className="uk-height-small">
             <tr>
-                <th className="uk-text-left uk-width-small">
+                <th className="uk-text-left uk-width-medium">
                     {intl.formatMessage({
                         id: 'HASH',
                     })}
                 </th>
-                <th className="uk-text-left uk-width-small">
+                <th className="uk-text-left uk-width-medium">
                     {intl.formatMessage({
                         id: 'AMOUNT_STEVER',
                     })}
                 </th>
-                <th className="uk-text-left uk-width-small">
+                <th className="uk-text-left uk-width-medium">
                     {intl.formatMessage({
                         id: 'MINIMUM_YOU_RECEIVE',
                     })}
                 </th>
-                <th className="uk-text-right uk-width-small">
+                <th className="uk-text-right uk-width-large">
                     {intl.formatMessage({
                         id: 'CREATION_TIME',
                     })}
@@ -156,7 +156,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
     return (
         <tbody className="uk-height-small" >
             <tr>
-                <td className="uk-text-left uk-width-small">
+                <td className="uk-text-left uk-width-medium">
                     <NavLink to={generatePath(appRoutes.strategy.path, {
                         id: pool.transactionHash,
                     })}
@@ -164,24 +164,24 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         {sliceAddress(pool.transactionHash)}
                     </NavLink>
                 </td>
-                <td className="uk-text-left uk-width-small">
+                <td className="uk-text-left uk-width-medium">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.stAmount ?? 0}
                     />
                 </td>
-                <td className="uk-text-left uk-width-small">
+                <td className="uk-text-left uk-width-medium">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.amount ?? 0}
                     />
                 </td>
-                <td className="uk-text-right uk-width-small">
+                <td className="uk-text-right uk-width-large">
                     <Flex flexDirection='column'>
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
-                <td className="uk-text-right uk-width-small">
+                <td className="uk-text-right uk-width-auto">
                     <Button style={{
                         padding: "6px 10px",
                         fontSize: "14px",
