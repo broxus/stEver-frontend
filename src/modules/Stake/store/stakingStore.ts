@@ -96,25 +96,30 @@ export class StakingStore extends AbstractStore<
 
     public async submit(): Promise<void> {
         if (this.amount && this.wallet.account?.address) {
-            const amount = parseCurrency(this.amount, ST_EVER_DECIMALS)
-            if (this._state.type === StakingType.Stake) {
-                await this._data.modelStaking.deposit(amount, this.wallet.account.address)
-            }
-            else {
-                const address = await this._data.modelStaking.getTokenWallet(
-                    new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
-                    this.wallet.account.address,
-                )
-
-                const depositPayload = await this._data.modelStaking.encodeDepositPayload()
-                await this._data.modelStaking.transfer(address, this.wallet.account.address, {
-                    remainingGasTo: this.wallet.account?.address,
-                    deployWalletValue: 0,
-                    amount,
-                    notify: true,
-                    recipient: new Address(ST_EVER_VAULT_ADDRESS_CONFIG),
-                    payload: depositPayload,
-                })
+            try {
+                this.setState('isFetchingForm', true)
+                const amount = parseCurrency(this.amount, ST_EVER_DECIMALS)
+                if (this._state.type === StakingType.Stake) {
+                    await this._data.modelStaking.deposit(amount, this.wallet.account.address)
+                } else {
+                    const address = await this._data.modelStaking.getTokenWallet(
+                        new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
+                        this.wallet.account.address,
+                    )
+                    const depositPayload = await this._data.modelStaking.encodeDepositPayload()
+                    await this._data.modelStaking.transfer(address, this.wallet.account.address, {
+                        remainingGasTo: this.wallet.account?.address,
+                        deployWalletValue: 0,
+                        amount,
+                        notify: true,
+                        recipient: new Address(ST_EVER_VAULT_ADDRESS_CONFIG),
+                        payload: depositPayload,
+                    })
+                }
+                this.setState('amount', '')
+                this.setState('isFetchingForm', true)
+            } catch (e) {
+                this.setState('isFetchingForm', false)
             }
         }
     }
@@ -146,7 +151,7 @@ export class StakingStore extends AbstractStore<
     public get type(): StakingType {
         return this._state.type
     }
- 
+
     @computed
     public get amount(): string | undefined {
         return this._state.amount
@@ -177,7 +182,7 @@ export class StakingStore extends AbstractStore<
         return this._data.strategyMainInfo
     }
 
-    @computed 
+    @computed
     public get exchangeRate(): string | undefined {
         if (!this.stakeDetails) return undefined
         const { stEverSupply, totalAssets } = this.stakeDetails
@@ -194,7 +199,7 @@ export class StakingStore extends AbstractStore<
     public get isFetchingForm(): boolean | undefined {
         return this._state.isFetchingForm
     }
-    
+
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
         this.setState("isFetchingForm", true)

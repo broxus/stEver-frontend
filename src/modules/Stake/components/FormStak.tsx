@@ -141,7 +141,10 @@ function FormTab({
                             <Button
                                 htmlType="submit"
                                 disabled={
-                                    !wallet.isConnected || !staking.amount || staking.amount === "0" || +staking.amount > +staking.maxAmount
+                                    !wallet.isConnected
+                                    || !staking.amount
+                                    || staking.amount === "0"
+                                    || +staking.amount > +staking.maxAmount
                                 }
                                 type="primary"
                                 className="uk-width-1-1"
