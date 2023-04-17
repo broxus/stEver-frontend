@@ -4,13 +4,13 @@ import { computed, makeObservable, reaction } from 'mobx'
 import {
     Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersService, UsersWithdrawalsRequest, UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
-import { Dashboard } from '../models/staking';
+import { Dashboard } from '../models/dashboard';
 import { ST_EVER_VAULT_ADDRESS_CONFIG } from '@/config';
 import { Address } from 'everscale-inpage-provider';
 
 type UserTransactionsStoreData = {
     transactions: Array<UserWithdrawalResponse>;
-    modelStaking?: Dashboard;
+    modelDashboard: Dashboard;
 }
 
 type UserTransactionsDashboardPagination = {
@@ -56,7 +56,7 @@ export class MyWithdrawStore extends AbstractStore<
             () => { },
             async () => {
                 const contr = await Dashboard.create(ST_EVER_VAULT_ADDRESS_CONFIG, this.rpc)
-                this.setData('modelStaking', contr)
+                this.setData('modelDashboard', contr)
             },
             { fireImmediately: true },
         )
@@ -64,7 +64,7 @@ export class MyWithdrawStore extends AbstractStore<
 
 
     public async removePendingWithdraw(nonce: number): Promise<void> {
-        await this._data?.modelStaking?.removePendingWithdraw(nonce, this.wallet.account?.address as Address)
+        await this._data.modelDashboard.removePendingWithdraw(nonce, this.wallet.account?.address as Address)
     }
 
     public async getTransactions(params: UsersWithdrawalsRequest): Promise<void> {

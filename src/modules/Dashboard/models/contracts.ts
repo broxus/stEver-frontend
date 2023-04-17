@@ -16,17 +16,3 @@ export function stEverVaultContract(
 ): Contract<VaultAbi> {
     return new provider.Contract(StEverVaultAbi, resolveTvmAddress(address))
 }
-
-export function StEverTokenWalletRoot(
-    address: Address,
-    provider = useRpcClient(),
-): Contract<RootAbi> {
-    return new provider.Contract(TokenRootAbi, resolveTvmAddress(address))
-}
- 
-export function StEverTokenWallet(
-    address: Address,
-    provider = useRpcClient(),
-): Contract<WalletUpgradeableAbi> {
-    return new provider.Contract(TokenWalletUpgradeableAbi, resolveTvmAddress(address))
-}

@@ -1,26 +1,15 @@
 import { ProviderContractWrapper } from '@broxus/js-core'
-import { Address, ProviderRpcClient, Transaction } from 'everscale-inpage-provider'
-import {
-    computed, makeObservable,
-} from 'mobx'
+import { Address, ProviderRpcClient } from 'everscale-inpage-provider'
+import { makeObservable } from 'mobx'
+import { DashboardUtils } from './utils'
 
-import { StEverVaultDetails } from '@/abi/types'
-
-import { StakingUtils } from './utils'
-
-type StakingType = {
-    details?: StEverVaultDetails
-}
-
-const initState: StakingType = {
-
+type DashboardType = {
 }
 
 export class Dashboard extends ProviderContractWrapper<
-    StakingType
+    DashboardType
 > {
-
-    public static Utils = StakingUtils
+    public static Utils = DashboardUtils
 
     constructor(
         protected readonly connection: ProviderRpcClient,
@@ -38,14 +27,7 @@ export class Dashboard extends ProviderContractWrapper<
         return staking
     }
 
-
     public async removePendingWithdraw(nonce: number, owner: Address) {
         return Dashboard.Utils._removePendingWithdraw(this.address, owner, nonce)
     }
-
-    @computed
-    public get details(): StakingType['details'] {
-        return this._data.details
-    }
-
 }
