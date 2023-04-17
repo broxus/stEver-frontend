@@ -82,4 +82,6 @@ export default {
     AMOUNT_STEVER: 'Amount, stEVER',
     MINIMUM_YOU_RECEIVE: 'Minimum you receive, EVER',
     CREATION_TIME: 'Creation time',
+    
+    RATE: 'Rate',
 }

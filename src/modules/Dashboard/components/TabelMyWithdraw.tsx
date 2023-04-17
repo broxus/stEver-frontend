@@ -9,7 +9,7 @@ import { appRoutes } from '@/routes'
 import { sliceAddress } from '@broxus/js-utils'
 import { UserWithdrawalResponse, UsersWithdrawalsStatus } from '@/apiClientCodegen'
 import { ST_EVER_DECIMALS } from '@/config'
-import { FormattedTokenAmount } from '@broxus/react-components'
+import { AccountIcon, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { Pagination } from '@/components/common/Pagination'
@@ -208,24 +208,21 @@ type DepoolsListCardType = {
 
 export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
     const intl = useIntl()
+    const wallet = useTvmWalletContext()
+    const myWithdraw = useStore(MyWithdrawStore)
+
     return (
         <Tile className="listCard uk-padding-small">
             <Grid childWidth={1} gap='xsmall'>
                 <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title'>
-                        <NavLink to={generatePath(appRoutes.strategy.path, {
-                            id: pool.transactionHash,
-                        })}
-                        >
-                            {sliceAddress(pool.transactionHash)}
-                        </NavLink>
-                    </Text>
-                    <Text className='uk-margin-auto-vertical'>
-                        <FormattedTokenAmount
-                            decimals={ST_EVER_DECIMALS}
-                            value={pool.stAmount ?? 0}
-                        />
-                    </Text>
+                    <Link>
+                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                            <Flex>
+                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.userAddress} />
+                                {sliceAddress(pool.transactionHash)}
+                            </Flex>
+                        </ExplorerTransactionLink>
+                    </Link>
                 </Flex>
                 <Flex justifyContent='between'>
                     <Text className='uk-margin-auto-vertical listCard--title' size='small'>
@@ -237,20 +234,56 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount ?? 0}
+                        /></Text>
+                </Flex>
+                <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: 'AMOUNT_STEVER',
+                        })}
+                    </Text>
+                    <Text className='uk-margin-auto-vertical' size='small'>
+                        <FormattedTokenAmount
+                            decimals={ST_EVER_DECIMALS}
+                            value={pool.stAmount}
                         />
                     </Text>
                 </Flex>
+                {/* <Flex justifyContent='between'>
+                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                        {intl.formatMessage({
+                            id: "RATE",
+                        })}
+                    </Text>
+                    <Text className='uk-margin-auto-vertical' size='small'>{
+
+                    }</Text>
+                </Flex> */}
                 <Flex justifyContent='between'>
                     <Text className='uk-margin-auto-vertical listCard--title' size='small'>
                         {intl.formatMessage({
                             id: 'CREATION_TIME',
                         })}
                     </Text>
-                    <Link>
-                        <Flex flexDirection='column'>
-                            <Date time={pool.transactionTime * 1000} />
-                        </Flex>
-                    </Link>
+                    <Text className='uk-margin-auto-vertical' size='small'>
+                        <Date line time={pool.transactionTime * 1000} />
+                    </Text>
+                </Flex>
+                <Flex justifyContent='center'>
+                    <Button style={{
+                        padding: "8px 10px",
+                        fontSize: "14px",
+                        lineHeight: "normal",
+                        fontWeight: 400,
+                        width: '100%',
+                        marginTop: '8px'
+                    }} type='default'
+                        onClick={() => {
+                            myWithdraw.removePendingWithdraw(pool.nonce)
+                        }}
+                    >
+                        Cancel
+                    </Button>
                 </Flex>
             </Grid>
         </Tile>
