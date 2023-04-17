@@ -82,7 +82,9 @@ export default {
     AMOUNT_STEVER: 'Amount, stEVER',
     MINIMUM_YOU_RECEIVE: 'Minimum you receive, EVER',
     CREATION_TIME: 'Creation time',
-    
+
     RATE: 'Rate',
     UNTAPPED_EVER: 'Untapped EVER in vault',
+    NEXT_ROUND_TVL_EVER: 'Next round TVL, EVER',
+    CURRENT_ROUND_TVL_EVER: 'Current round TVL, EVER',
 }

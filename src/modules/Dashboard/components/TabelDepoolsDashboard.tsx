@@ -133,7 +133,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                         id: 'VALIDATOR_FEE',
                     })}
                 </th>
-                <th className="uk-text-left uk-width-small">
+                {/* <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
                         id: 'DEPOOL',
                     })}
@@ -142,7 +142,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                     {intl.formatMessage({
                         id: 'OWNER',
                     })}
-                </th>
+                </th> */}
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -198,11 +198,16 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 positionLeft={true}
                             >
                                 {intl.formatMessage({
-                                    id: 'TVL_EVER',
+                                    id: 'CURRENT_ROUND_TVL_EVER',
                                 })}
                             </OrderingSwitcher>
                         )}
                     </Observer>
+                </th>
+                <th className="uk-text-right uk-width-small">
+                    {intl.formatMessage({
+                        id: 'NEXT_ROUND_TVL_EVER',
+                    })}
                 </th>
             </tr>
         </thead>
@@ -230,7 +235,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                 </td>
                 <td className="uk-text-left uk-width-small">{pool.validatorFee}</td>
 
-                <td className="uk-text-left uk-width-small">
+                {/* <td className="uk-text-left uk-width-small">
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
                             <Flex>
@@ -249,7 +254,7 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                             </Flex>
                         </ExplorerAccountLink>
                     </Link>
-                </td>
+                </td> */}
 
                 <td className="uk-text-left uk-width-small">
                     <Label
@@ -262,6 +267,12 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.tvl}
+                    />
+                </td>
+                <td className="uk-text-right uk-width-small">
+                    <FormattedTokenAmount
+                        decimals={ST_EVER_DECIMALS}
+                        value={new BigNumber(pool.tvl).plus(pool?.tvlDeltaNextRound ?? 0).toFixed()}
                     />
                     <br />
                     {pool?.tvlDeltaNextRound &&
