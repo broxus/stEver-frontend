@@ -49,6 +49,8 @@ export type { UsersTransactionsResponse } from './models/UsersTransactionsRespon
 export type { UsersWithdrawalsRequest } from './models/UsersWithdrawalsRequest';
 export type { UsersWithdrawalsResponse } from './models/UsersWithdrawalsResponse';
 export { UsersWithdrawalsStatus } from './models/UsersWithdrawalsStatus';
+export type { UsersWithdrawalsSumRequest } from './models/UsersWithdrawalsSumRequest';
+export type { UsersWithdrawalsSumResponse } from './models/UsersWithdrawalsSumResponse';
 export { UserTransactionColumn } from './models/UserTransactionColumn';
 export type { UserTransactionResponse } from './models/UserTransactionResponse';
 export { UserTransactionsKind } from './models/UserTransactionsKind';

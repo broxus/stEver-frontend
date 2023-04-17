@@ -8,6 +8,7 @@ import type { StrategyPriority } from './StrategyPriority';
  * Strategy Page Info
  */
 export type StrategyPage = {
+    deleting: boolean;
     owner: string;
     priority: StrategyPriority;
     /**

@@ -10,6 +10,8 @@ import type { UsersDepositsRequest } from '../models/UsersDepositsRequest';
 import type { UsersDepositsResponse } from '../models/UsersDepositsResponse';
 import type { UsersWithdrawalsRequest } from '../models/UsersWithdrawalsRequest';
 import type { UsersWithdrawalsResponse } from '../models/UsersWithdrawalsResponse';
+import type { UsersWithdrawalsSumRequest } from '../models/UsersWithdrawalsSumRequest';
+import type { UsersWithdrawalsSumResponse } from '../models/UsersWithdrawalsSumResponse';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -54,6 +56,24 @@ export class UsersService {
     }
 
     /**
+     * Users withdrawals sum
+     * Get Users withdrawals sum.
+     * @param requestBody
+     * @returns UsersWithdrawalsSumResponse OK
+     * @throws ApiError
+     */
+    public static postUsersWithdrawalsSum(
+        requestBody: UsersWithdrawalsSumRequest,
+    ): CancelablePromise<UsersWithdrawalsSumResponse> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/withdrawals/sum',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
      * Users tvl search
      * Get users tvl data.
      * @param requestBody
@@ -84,6 +104,24 @@ export class UsersService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/users/price',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Vault available assets search
+     * Get Vault available assets data.
+     * @param requestBody
+     * @returns PriceResponse OK
+     * @throws ApiError
+     */
+    public static postUsersAvailableAssets(
+        requestBody: TvlRequest,
+    ): CancelablePromise<Array<PriceResponse>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/users/available_assets',
             body: requestBody,
             mediaType: 'application/json',
         });

@@ -14,6 +14,10 @@ export type MainPage = {
      * apyDelta
      */
     apyDelta: string;
+    /**
+     * availableAssets
+     */
+    availableAssets: string;
     holders: number;
     holdersDelta: number;
     /**

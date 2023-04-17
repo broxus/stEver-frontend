@@ -8,9 +8,11 @@ import type { StrategyPriority } from './StrategyPriority';
  * Strategy Info
  */
 export type StrategyInfo = {
+    deleting: boolean;
     depool: string;
     owner: string;
     priority: StrategyPriority;
+    stakeCurrentRound: string;
     strategy: string;
     /**
      * tvl

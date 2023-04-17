@@ -35,6 +35,7 @@ enum Charts {
     Price = "Price",
     APY = "APY",
     Holders = "Holders",
+    Untapped = "Untapped"
 }
 
 function ChartDashboardInner(): JSX.Element {
@@ -207,6 +208,35 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
+                                            <Tile type={activeChart === Charts.Untapped ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                                onClick={() => setActiveChart(Charts.Untapped)}
+                                            >
+                                                <Grid gap="xsmall" childWidth={1}>
+                                                    <Text>
+                                                        {intl.formatMessage({
+                                                            id: 'UNTAPPED_EVER',
+                                                        })}
+                                                    </Text>
+                                                    {dashboard.isFetching ?
+                                                        <>
+                                                            <Text className='total'>
+                                                                <Placeholder height={25} width={100} />
+                                                            </Text>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <Text className='total'>
+                                                                <FormattedTokenAmount
+                                                                    decimals={ST_EVER_DECIMALS}
+                                                                    value={dashboard?.strategyMainInfo?.availableAssets}
+                                                                    symbol='EVER'
+                                                                    className='total'
+                                                                />
+                                                            </Text>
+                                                        </>
+                                                    }
+                                                </Grid>
+                                            </Tile>
                                         </Grid>
                                     )}
                                 </Observer>
@@ -234,6 +264,12 @@ function ChartDashboardInner(): JSX.Element {
                                                 id: 'HOLDERS',
                                             })
                                         }
+                                        {activeChart === Charts.Untapped &&
+                                            intl.formatMessage({
+                                                id: 'UNTAPPED_EVER',
+                                            })
+                                        }
+
                                     </Text>
                                 </Tile>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
@@ -241,6 +277,8 @@ function ChartDashboardInner(): JSX.Element {
                                     {activeChart === Charts.Price && <ChartPrice />}
                                     {activeChart === Charts.APY && <ChartAPY />}
                                     {activeChart === Charts.Holders && <ChartHolders />}
+                                    {activeChart === Charts.Untapped && <ChartHolders />}
+
                                 </Tile>
                             </Width>
                         </Grid>

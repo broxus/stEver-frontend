@@ -116,7 +116,7 @@ export class StakingStore extends AbstractStore<
                         payload: depositPayload,
                     })
                 }
-                this.setState('amount', '')
+                this.setAmount('')
                 this.setState('isFetchingForm', true)
             } catch (e) {
                 this.setState('isFetchingForm', false)

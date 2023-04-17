@@ -84,4 +84,5 @@ export default {
     CREATION_TIME: 'Creation time',
     
     RATE: 'Rate',
+    UNTAPPED_EVER: 'Untapped EVER in vault',
 }
