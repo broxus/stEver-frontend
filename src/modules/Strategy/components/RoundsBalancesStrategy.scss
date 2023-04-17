@@ -1,6 +1,7 @@
 .round {
     display: grid;
     gap: 4px;
+
     p {
         font-weight: 400;
         font-size: 14px;
@@ -16,5 +17,12 @@
         letter-spacing: 0.1px;
         font-feature-settings: 'tnum' on, 'lnum' on;
         color: #000000;
+    }
+
+    &__rateChange {
+        div {
+            height: 15px;
+            margin-top: 3px;
+        }
     }
 }

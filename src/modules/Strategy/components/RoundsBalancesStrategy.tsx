@@ -37,7 +37,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                 <Width size={matches ? "1-3" : "1-1"}>
                                                     <Tile type='secondary' size='xsmall' className="round">
                                                         <Text className="uk-margin-remove">Round {e[0]} </Text>
-                                                        <Flex justifyContent='between'>
+                                                        <Flex>
                                                             {dashboard.strategyMainInfo.tvlDeltaNextRound &&
                                                                 i === 2 ?
                                                                 <>
@@ -46,9 +46,11 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                                         value={new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).plus(e[1].stake).plus(dashboard.strategyRounds?.rounds[0][1].stake ?? 0).toFixed()}
                                                                         symbol='EVER'
                                                                     />
-                                                                    <RateChange size="sm" currency="" value={
-                                                                        new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
-                                                                    } />
+                                                                    <div className='round__rateChange'>
+                                                                        <RateChange size="sm" currency="" className='uk-margin-small-left' value={
+                                                                            new BigNumber('9999999999').shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                                                        } />
+                                                                    </div>
                                                                 </>
                                                                 :
                                                                 <FormattedTokenAmount
@@ -97,7 +99,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
 
                 </Media>
 
-            </Flex>
+            </Flex >
         </>
     )
 }
