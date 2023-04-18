@@ -63,8 +63,16 @@ export class MyWithdrawStore extends AbstractStore<
     }
 
 
-    public async removePendingWithdraw(nonce: number): Promise<void> {
-        await this._data.modelDashboard.removePendingWithdraw(nonce, this.wallet.account?.address as Address)
+    public async removePendingWithdraw(nonce: number, idx: number): Promise<void> {
+        const _transactions = this._data.transactions
+        try {
+            _transactions[idx].status = UsersWithdrawalsStatus.CANCELLED
+            this.setData('transactions', _transactions)
+            await this._data.modelDashboard.removePendingWithdraw(nonce, this.wallet.account?.address as Address)
+        } catch {
+            _transactions[idx].status = UsersWithdrawalsStatus.PENDING
+            this.setData('transactions', _transactions)
+        }
     }
 
     public async getTransactions(params: UsersWithdrawalsRequest): Promise<void> {

@@ -45,7 +45,6 @@ export function TabelMyWithdrawInner(): JSX.Element {
             })
     }, [wallet.isConnected])
 
-    console.log(myWithdraw.isFetching)
     return (
         <Flex flexDirection="column">
             <Heading component="h4">
@@ -75,13 +74,13 @@ export function TabelMyWithdrawInner(): JSX.Element {
                                             {matches => (matches ? (
                                                 <DepoolsListItem
                                                     key={pool.transactionHash}
-                                                    idx={idx + 1}
+                                                    idx={idx}
                                                     pool={pool}
                                                 />
                                             ) : (
                                                 <DepoolsListCard
                                                     key={pool.transactionHash}
-                                                    idx={idx + 1}
+                                                    idx={idx}
                                                     pool={pool}
                                                 />
                                             ))}
@@ -150,7 +149,7 @@ type DepoolsListItemType = {
     pool: UserWithdrawalResponse;
 }
 
-export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
+export function DepoolsListItem({ pool, idx }: DepoolsListItemType): JSX.Element {
     const myWithdraw = useStore(MyWithdrawStore)
 
     return (
@@ -181,20 +180,28 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
-                <td className="uk-text-right uk-width-auto">
-                    <Button style={{
-                        padding: "6px 10px",
-                        fontSize: "14px",
-                        lineHeight: "normal",
-                        fontWeight: 400
-                    }} type='default'
-                        onClick={() => {
-                            myWithdraw.removePendingWithdraw(pool.nonce)
-                        }}
-                    >
-                        Cancel
-                    </Button>
-                </td>
+                <Observer>
+                    {() => (
+                        <td className="uk-text-right uk-width-auto">
+                            <Button
+                                style={{
+                                    padding: "6px 10px",
+                                    fontSize: "14px",
+                                    lineHeight: "normal",
+                                    fontWeight: 400
+                                }}
+                                type='default'
+                                disabled={pool.status === UsersWithdrawalsStatus.CANCELLED}
+                                onClick={() => {
+                                    myWithdraw.removePendingWithdraw(pool.nonce, idx)
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                        </td>
+                    )}
+                </Observer>
+
             </tr>
         </tbody >
     )
@@ -206,7 +213,7 @@ type DepoolsListCardType = {
     pool: UserWithdrawalResponse;
 }
 
-export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
+export function DepoolsListCard({ pool, idx }: DepoolsListCardType): JSX.Element {
     const intl = useIntl()
     const wallet = useTvmWalletContext()
     const myWithdraw = useStore(MyWithdrawStore)
@@ -270,16 +277,18 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     </Text>
                 </Flex>
                 <Flex justifyContent='center'>
-                    <Button style={{
-                        padding: "8px 10px",
-                        fontSize: "14px",
-                        lineHeight: "normal",
-                        fontWeight: 400,
-                        width: '100%',
-                        marginTop: '8px'
-                    }} type='default'
+                    <Button
+                        disabled={pool.status === UsersWithdrawalsStatus.CANCELLED}
+                        style={{
+                            padding: "8px 10px",
+                            fontSize: "14px",
+                            lineHeight: "normal",
+                            fontWeight: 400,
+                            width: '100%',
+                            marginTop: '8px'
+                        }} type='default'
                         onClick={() => {
-                            myWithdraw.removePendingWithdraw(pool.nonce)
+                            myWithdraw.removePendingWithdraw(pool.nonce, idx)
                         }}
                     >
                         Cancel
