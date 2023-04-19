@@ -76,7 +76,7 @@ export default {
     ROUNDS_BALANCES: ' Rounds balances',
 
     MANUAL: 'Manual',
-    YOUR_STAKED_TOTAL: 'Your 1 118 547 stEVER withdrawal is being processed. This may take up to 36 hours.',
+    YOUR_STAKED_TOTAL: 'stEVER withdrawal is being processed. This may take up to 36 hours.',
     YOUR_PENDING_WITHDRAWALS: 'Your pending withdrawals',
     HASH: 'Hash',
     AMOUNT_STEVER: 'Amount, stEVER',

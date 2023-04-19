@@ -36,6 +36,7 @@ export class Staking extends ProviderContractWrapper<
     ): Promise<Staking> {
         const staking = new Staking(connection, address)
         const details = await staking.getStakeDetails()
+        console.log(details)
         staking.setData('details', details)
         return staking
     }

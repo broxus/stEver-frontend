@@ -22,6 +22,7 @@ import { appRoutes } from '@/routes'
 import { MyWithdrawStore } from '@/modules/Dashboard/store/myWithdrawStore'
 import { UsersWithdrawalsStatus } from '@/apiClientCodegen'
 import { useTvmWalletContext } from '@broxus/react-modules'
+import { formattedTokenAmount } from '@broxus/js-utils'
 
 export function InfoStakInner(): JSX.Element {
     const staking = useStore(StakingStore)
@@ -109,13 +110,21 @@ export function InfoStakInner(): JSX.Element {
                             </Flex>
                         </Media>
                     </Flex>
-                    {myWithdraw.transactions?.length ?
+                    {myWithdraw.userSum ?
                         <Tile type='muted'>
                             <Width size='1-1'>
                                 <Text component='h5' align='center'>
+                                    Your
+                                    {' '}
+                                    {formattedTokenAmount(
+                                        myWithdraw.userSum,
+                                        ST_EVER_DECIMALS,
+                                    )}
+                                    {' '}
                                     {intl.formatMessage({
                                         id: 'YOUR_STAKED_TOTAL',
                                     })}
+
                                 </Text>
                                 <Flex justifyContent='center'>
                                     <Button

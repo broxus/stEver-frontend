@@ -4,7 +4,7 @@ import { TvmWalletProvider } from '@broxus/react-modules'
 import { IntlProvider } from 'react-intl'
 
 import { LocalizationContext } from '@/context/Localization'
-import { useTvmWallet, noop} from '@/utils'
+import { useTvmWallet, noop } from '@/utils'
 import { appRoutes } from '@/routes'
 import { OpenAPI } from '@/apiClientCodegen'
 import { API_URL } from '@/config'
@@ -18,12 +18,16 @@ import StrategyPage from '@/modules/Strategy/page/Strategy'
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
 import { ScrollManager } from './layout/ScrollManager'
+import { useProvider } from '@/hooks/useStore'
+import { ChartStore } from '@/modules/Dashboard/store/chartStore'
 
 OpenAPI.BASE = API_URL
 
 export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
     const wallet = useTvmWallet()
+    const ChartProvider = useProvider(ChartStore)
+
     return (
         <IntlProvider
             key="intl"
@@ -36,7 +40,9 @@ export function App(): JSX.Element {
                 <Router>
                     <ScrollManager>
                         <div className="wrapper">
-                            <Header key="header" />
+                            <ChartProvider>
+                                <Header key="header" />
+                            </ChartProvider>
                             <main className="main">
                                 <Switch>
                                     <Route exact path="/">

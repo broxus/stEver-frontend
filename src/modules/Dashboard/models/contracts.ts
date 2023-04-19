@@ -16,3 +16,10 @@ export function stEverVaultContract(
 ): Contract<VaultAbi> {
     return new provider.Contract(StEverVaultAbi, resolveTvmAddress(address))
 }
+
+export function stEverAccountContract(
+    address: Address,
+    provider = useRpcProvider(),
+): Contract<VaultAbi> {
+    return new provider.Contract(StEverVaultAbi, resolveTvmAddress(address))
+}

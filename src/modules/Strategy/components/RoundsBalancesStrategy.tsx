@@ -48,7 +48,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                                     />
                                                                     <div className='round__rateChange'>
                                                                         <RateChange size="sm" currency="" className='uk-margin-small-left' value={
-                                                                            new BigNumber('9999999999').shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                                                            new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
                                                                         } />
                                                                     </div>
                                                                 </>

@@ -30,4 +30,12 @@ export class Dashboard extends ProviderContractWrapper<
     public async removePendingWithdraw(nonce: number, owner: Address) {
         return Dashboard.Utils._removePendingWithdraw(this.address, owner, nonce)
     }
+
+    public async getAccountAddress(owner: Address) {
+        return Dashboard.Utils._getAccountAddress(this.address, owner)
+    }
+    public async getDetails(accountAddress: Address) {
+        return Dashboard.Utils._getDetails(accountAddress)
+    }
+
 }

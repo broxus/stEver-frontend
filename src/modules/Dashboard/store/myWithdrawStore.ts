@@ -11,6 +11,7 @@ import { Address } from 'everscale-inpage-provider';
 type UserTransactionsStoreData = {
     transactions: Array<UserWithdrawalResponse>;
     modelDashboard: Dashboard;
+    userSum?: string;
 }
 
 type UserTransactionsDashboardPagination = {
@@ -64,6 +65,10 @@ export class MyWithdrawStore extends AbstractStore<
 
 
     public async removePendingWithdraw(nonce: number, idx: number): Promise<void> {
+        const accountAddress = await this._data.modelDashboard.getAccountAddress(this.wallet.account?.address as Address)
+        console.log(accountAddress)
+        const details = await this._data.modelDashboard.getDetails(accountAddress)
+        console.log(details)
         const _transactions = this._data.transactions
         try {
             _transactions[idx].status = UsersWithdrawalsStatus.CANCELLED
@@ -79,6 +84,7 @@ export class MyWithdrawStore extends AbstractStore<
         this.setState('isFetching', true)
         const response = await UsersService.postUsersWithdrawalsSearch(params)
         this.setData('transactions', response.withdrawals)
+        this.setData('userSum', response.userSum)
         this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
@@ -110,4 +116,8 @@ export class MyWithdrawStore extends AbstractStore<
         return this._state.isFetching
     }
 
+    @computed
+    public get userSum() {
+        return this._data.userSum
+    }
 }

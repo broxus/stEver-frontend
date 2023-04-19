@@ -3,7 +3,7 @@ import { Observer, observer } from 'mobx-react-lite'
 import Media from 'react-media'
 import { Link } from 'react-router-dom'
 import { useIntl } from 'react-intl'
-import { Button, Navbar } from '@broxus/react-uikit'
+import { Button, Flex, Navbar, Text } from '@broxus/react-uikit'
 import { ConnectButton, TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
 import { Icon } from '@broxus/react-components'
 
@@ -13,10 +13,16 @@ import { appRoutes } from '@/routes'
 
 import './Header.scss'
 import { DesktopNav } from './DesktopNav'
+import libraryIcon from '../common/lib'
+import { useStore } from '@/hooks/useStore'
+import { ChartStore } from '@/modules/Dashboard/store/chartStore'
+import { Date } from '../common/Date'
 
 export function HeaderInner(): JSX.Element {
     const wallet = useTvmWalletContext()
     const intl = useIntl()
+    const dashboard = useStore(ChartStore)
+
     return (
         <header className="header">
             <Navbar className="uk-width-expand">
@@ -29,6 +35,46 @@ export function HeaderInner(): JSX.Element {
                                 </Link>
                                 <DesktopNav />
                             </Navbar.Left>
+                            <Navbar.Item>
+                                <Observer>
+                                    {() => (
+                                        <Flex className="nextDistribution">
+                                            {dashboard?.strategyMainInfo?.roundEnd &&
+                                                <>
+                                                    <Flex
+                                                        justifyContent='center'
+                                                        flexDirection='column'
+                                                    >
+                                                        <Icon
+                                                            //@ts-ignore
+                                                            lib={libraryIcon}
+                                                            //@ts-ignore
+                                                            icon='time'
+                                                        />
+                                                    </Flex>
+
+                                                    <Flex
+                                                        flexDirection='column'
+                                                    >
+                                                        <Text
+                                                            className='uk-margin-remove'
+                                                            component='p'
+                                                        >
+                                                            Next distribution
+                                                        </Text>
+                                                        <Text
+                                                            className='uk-margin-remove'
+                                                            component='p'
+                                                        >
+                                                            <Date line time={dashboard?.strategyMainInfo?.roundEnd * 1000} />
+                                                        </Text>
+                                                    </Flex>
+                                                </>
+                                            }
+                                        </Flex>
+                                    )}
+                                </Observer>
+                            </Navbar.Item>
                             <Observer>
                                 {() => (
                                     <Navbar.Right className="header-switchers" component={Navbar.Item}>

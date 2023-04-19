@@ -14,5 +14,22 @@ export abstract class DashboardUtils {
         })
     }
 
+    public static async _getAccountAddress(address: Address, sender: Address) {
+        const contract = stEverVaultContract(address)
+        const { value0 } = await contract.methods.getAccountAddress({
+            _user: sender,
+            answerId: 0,
+        }).call()
+        return value0
+    }
+
+    public static async _getDetails(address: Address) {
+        console.log(address)
+        const contract = stEverVaultContract(address)
+        const { value0 } = await contract.methods.getDetails({
+            answerId: 0,
+        }).call()
+        return value0
+    }
 
 }
