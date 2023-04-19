@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Grid, Link, Text, Tile,
+    Flex, Grid, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -122,6 +122,11 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                     })}
                 </th>
                 <th className="uk-text-left uk-width-small">
+                    {intl.formatMessage({
+                        id: 'STATUS',
+                    })}
+                </th>
+                <th className="uk-text-right uk-width-small">
                     <Observer>
                         {() => (
                             <OrderingSwitcher<Direction>
@@ -181,6 +186,14 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                     </Link>
                 </td>
                 <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
+                <td className="uk-text-left uk-width-small">
+                    <Label
+                        type={pool.status === UsersWithdrawalsStatus.DONE ? 'success'
+                            : pool.status === UsersWithdrawalsStatus.PENDING ? 'warning' : undefined}
+                    >
+                        {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                    </Label>
+                </td>
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}

@@ -56,7 +56,7 @@ export class StrategyWithdrawStore extends AbstractStore<
                     limit: this._state.pagination.limit,
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
-                    status: StrategiesWithdrawalsStatus.PENDING,
+                    // status: StrategiesWithdrawalsStatus.PENDING,
                     strategy: this.params.id,
                 })
             },

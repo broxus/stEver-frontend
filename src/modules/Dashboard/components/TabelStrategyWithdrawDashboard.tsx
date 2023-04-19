@@ -193,7 +193,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                 <td className="uk-text-left uk-width-small">
                     <Label
                         type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success' 
-                        : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : 'danger'}
+                        : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
                     >
                         {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
                     </Label>

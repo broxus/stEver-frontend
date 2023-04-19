@@ -4,7 +4,7 @@ import {
     Button,
     Checkbox,
     Drop,
-    Flex, Grid, Heading, Link, Text, Tile,
+    Flex, Grid, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -16,13 +16,11 @@ import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransact
 
 import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { ST_EVER_DECIMALS } from '@/config'
-import BigNumber from 'bignumber.js'
 import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
-import { createPortal } from 'react-dom'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 import { useIntl } from 'react-intl'
