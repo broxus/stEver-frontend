@@ -67,7 +67,7 @@ function ChartUntappedInner(): JSX.Element {
         dashboard.getUsersUntappedCharts({
             from: Math.floor(DateTime.local()
                 .minus({
-                    days: 30,
+                    days: 200,
                 })
                 .toUTC(undefined, {
                     keepLocalTime: false,

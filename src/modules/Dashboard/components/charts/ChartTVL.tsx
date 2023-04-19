@@ -14,6 +14,7 @@ function ChartTVLInner(): JSX.Element {
     const chartTvl = React.useRef<any>(null)
     const seriesTvl = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
+
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
         if (logicalRange == null) {
             return
@@ -37,6 +38,7 @@ function ChartTVLInner(): JSX.Element {
         }
 
     }, 50)
+
     function usdPriceFormatter(price: any): string {
         if (price < 1e-8 || price < 0) {
             return ''
@@ -63,11 +65,12 @@ function ChartTVLInner(): JSX.Element {
             },
         })
     }, [chartTvl.current])
+    
     React.useEffect(() => {
         dashboard.getUsersTvlCharts({
             from: Math.floor(DateTime.local()
                 .minus({
-                    days: 30,
+                    days: 200,
                 })
                 .toUTC(undefined, {
                     keepLocalTime: false,

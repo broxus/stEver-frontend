@@ -8,9 +8,9 @@ const container = document.getElementById('root')
 if (container != null) {
     const root = ReactDOM.createRoot(container)
     root.render(
-        // <React.StrictMode>
+        <React.StrictMode>
             <App />
-        // </React.StrictMode>,
+        </React.StrictMode>,
     )
 }
 
