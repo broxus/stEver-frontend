@@ -9,7 +9,7 @@ import { appRoutes } from '@/routes'
 import { sliceAddress } from '@broxus/js-utils'
 import { UserWithdrawalResponse, UsersWithdrawalsStatus } from '@/apiClientCodegen'
 import { ST_EVER_DECIMALS } from '@/config'
-import { AccountIcon, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
+import { AccountIcon, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { Pagination } from '@/components/common/Pagination'
@@ -151,17 +151,18 @@ type DepoolsListItemType = {
 
 export function DepoolsListItem({ pool, idx }: DepoolsListItemType): JSX.Element {
     const myWithdraw = useStore(MyWithdrawStore)
+    const wallet = useTvmWalletContext()
 
     return (
         <tbody className="uk-height-small" >
             <tr>
                 <td className="uk-text-left uk-width-medium">
-                    <NavLink to={generatePath(appRoutes.strategy.path, {
-                        id: pool.transactionHash,
-                    })}
-                    >
-                        {sliceAddress(pool.transactionHash)}
-                    </NavLink>
+                    <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                        <Flex>
+                            {sliceAddress(pool.transactionHash)}
+                            <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                        </Flex>
+                    </ExplorerTransactionLink>
                 </td>
                 <td className="uk-text-left uk-width-medium">
                     <FormattedTokenAmount
