@@ -4,11 +4,11 @@ import { Address, Contract } from 'everscale-inpage-provider'
 import { StEverVaultAbi } from '@/abi/StEverVault.abi'
 import { TokenWalletUpgradeableAbi } from '@/abi/TokenWalletUpgradeable.abi'
 import { TokenRootAbi } from '@/abi/TokenRoot.abi'
+import { StEverAccountAbi } from '@/abi/StEverAccount.abi'
+
 
 type VaultAbi = typeof StEverVaultAbi
-type RootAbi = typeof TokenRootAbi
-type WalletUpgradeableAbi = typeof TokenWalletUpgradeableAbi
-
+type AccountAbi = typeof StEverAccountAbi
 
 export function stEverVaultContract(
     address: Address,
@@ -20,6 +20,6 @@ export function stEverVaultContract(
 export function stEverAccountContract(
     address: Address,
     provider = useRpcProvider(),
-): Contract<VaultAbi> {
-    return new provider.Contract(StEverVaultAbi, resolveTvmAddress(address))
+): Contract<AccountAbi> {
+    return new provider.Contract(StEverAccountAbi, resolveTvmAddress(address))
 }

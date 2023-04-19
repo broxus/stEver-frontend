@@ -34,8 +34,8 @@ export class Dashboard extends ProviderContractWrapper<
     public async getAccountAddress(owner: Address) {
         return Dashboard.Utils._getAccountAddress(this.address, owner)
     }
-    public async getDetails(accountAddress: Address) {
-        return Dashboard.Utils._getDetails(accountAddress)
+    public async withdrawRequests(accountAddress: Address) {
+        return Dashboard.Utils._withdrawRequests(accountAddress)
     }
 
 }
