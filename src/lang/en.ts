@@ -87,4 +87,5 @@ export default {
     UNTAPPED_EVER: 'Untapped EVER in vault',
     NEXT_ROUND_TVL_EVER: 'Next round TVL, EVER',
     CURRENT_ROUND_TVL_EVER: 'Current round TVL, EVER',
+    STATUS: 'Status',
 }

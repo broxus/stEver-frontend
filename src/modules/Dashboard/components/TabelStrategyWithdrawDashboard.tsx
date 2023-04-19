@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Grid, Heading, Link, Text, Tile,
+    Flex, Grid, Heading, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
@@ -126,6 +126,11 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
                 </th>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
+                        id: 'STATUS',
+                    })}
+                </th>
+                <th className="uk-text-right uk-width-small">
+                    {intl.formatMessage({
                         id: 'VALUE_EVER',
                     })}
                 </th>
@@ -186,6 +191,14 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                     </Link>
                 </td>
                 <td className="uk-text-left uk-width-small">
+                    <Label
+                        type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success' 
+                        : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : 'danger'}
+                    >
+                        {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                    </Label>
+                </td>
+                <td className="uk-text-right uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.amount}
