@@ -28,6 +28,7 @@ export type MainPage = {
      * tvlDelta
      */
     priceDelta: string;
+    roundEnd: number;
     /**
      * tvl
      */

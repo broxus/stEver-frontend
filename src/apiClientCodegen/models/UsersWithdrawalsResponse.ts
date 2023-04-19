@@ -9,6 +9,7 @@ import type { UserWithdrawalResponse } from './UserWithdrawalResponse';
  */
 export type UsersWithdrawalsResponse = {
     totalCount: number;
+    userSum?: string;
     withdrawals: Array<UserWithdrawalResponse>;
 };
 
