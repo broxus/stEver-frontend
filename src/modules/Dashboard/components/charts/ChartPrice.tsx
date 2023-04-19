@@ -100,10 +100,10 @@ function ChartPriceInner(): JSX.Element {
                                 data={dashboard.priceCharts}
                                 lineColor="#2B63F1"
                                 title={"EVER"}
-                                priceFormat={{
-                                    formatter: usdPriceFormatter,
-                                    type: 'custom',
-                                }}
+                                // priceFormat={{
+                                //     formatter: usdPriceFormatter,
+                                //     type: 'custom',
+                                // }}
                                 priceScaleId="right"
                                 lineType={0}
                             />
