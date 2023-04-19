@@ -355,12 +355,13 @@ export function DepoolsListPagination({ myWithdraw }: DepoolsListPaginationType)
                         <DownloadCsv
                             filename="DePools.csv"
                             keys={[
-                                'depool',
-                                'owner',
-                                'priority',
-                                'strategy',
-                                'tvl',
-                                'validatorFee',
+                                'amount',
+                                'nonce',
+                                'stAmount',
+                                'status',
+                                'transactionHash',
+                                'transactionTime',
+                                'userAddress',
                             ]}
                             items={myWithdraw?.transactions?.map(page => [
                                 page.amount,
