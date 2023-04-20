@@ -101,7 +101,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: value,
             userAddress: null,
-            status: UsersWithdrawalsStatus.PENDING,
+            // status: UsersWithdrawalsStatus.PENDING,
             amountGe: undefined,
             amountLe: undefined,
         })
@@ -194,7 +194,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
                     </Label>
                 </td>
-                <td className="uk-text-left uk-width-small">
+                <td className="uk-text-right uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
                         value={pool.stAmount ?? 0}
@@ -290,7 +290,7 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            status: UsersWithdrawalsStatus.PENDING,
+            // status: UsersWithdrawalsStatus.PENDING,
             amountGe: undefined,
             amountLe: undefined,
         })
@@ -306,7 +306,7 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            status: UsersWithdrawalsStatus.PENDING,
+            // status: UsersWithdrawalsStatus.PENDING,
             amountGe: undefined,
             amountLe: undefined,
         })

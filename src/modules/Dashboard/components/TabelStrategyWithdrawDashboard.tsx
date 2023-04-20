@@ -104,7 +104,7 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: value,
-            status: StrategiesWithdrawalsStatus.PENDING,
+            // status: StrategiesWithdrawalsStatus.PENDING,
             strategy: id,
         })
     }
@@ -299,7 +299,7 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            status: StrategiesWithdrawalsStatus.PENDING,
+            // status: StrategiesWithdrawalsStatus.PENDING,
             strategy: id,
         })
     }
@@ -313,7 +313,7 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            status: StrategiesWithdrawalsStatus.PENDING,
+            // status: StrategiesWithdrawalsStatus.PENDING,
             strategy: id,
         })
     }
