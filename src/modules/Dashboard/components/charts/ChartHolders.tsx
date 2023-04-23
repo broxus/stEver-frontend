@@ -102,6 +102,41 @@ function ChartHoldersInner(): JSX.Element {
                             height={400} width={1000} style={{ height: matches ? '100%' : '260px' }}
                             ref={chartHolders}
                             onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
+                            layout={{
+                                textColor: "#8B909A",
+                                fontSize: 12,
+                                fontFamily: 'PT Root UI'
+                            }}
+                            rightPriceScale={{
+                                borderColor: "#E4E5EA",
+                                borderVisible: true,
+                                scaleMargins: {
+                                    bottom: 0.025,
+                                    top: 0.1,
+                                },
+                            }}
+                            timeScale={{
+                                borderColor: "#E4E5EA",
+                                borderVisible: true,
+                                fixRightEdge: true,
+                                rightBarStaysOnScroll: true,
+                                timeVisible: true,
+                                secondsVisible: true,
+                            }}
+                            crosshair={{
+                                vertLine: {
+                                    color: "#8B909A",
+                                    style: 4,
+                                    visible: true,
+                                    width: 1,
+                                },
+                                horzLine: {
+                                    color: "#8B909A",
+                                    style: 4,
+                                    visible: true,
+                                    width: 1,
+                                },
+                            }}
                         >
                             {dashboard.isFetchingCharts && <Chart.Placeholder />}
                             <Chart.Series

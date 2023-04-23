@@ -1,4 +1,4 @@
-import { ProviderContractWrapper } from '@broxus/js-core'
+import { TvmContractWrapper } from '@broxus/js-core'
 import { Address, ProviderRpcClient, Transaction } from 'everscale-inpage-provider'
 import {
     computed, makeObservable,
@@ -16,7 +16,7 @@ const initState: StakingType = {
 
 }
 
-export class Staking extends ProviderContractWrapper<
+export class Staking extends TvmContractWrapper<
     StakingType
 > {
 

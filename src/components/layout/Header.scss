@@ -100,6 +100,12 @@
     height: 28px;
     min-width: 28px;
     width: 28px;
+    background: #fff0;
+    color: #000;
+    &:hover{
+        background: #fff0;
+        color: #000;   
+    }
 
     i {
         font-size: 28px;

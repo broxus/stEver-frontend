@@ -1,4 +1,4 @@
-import { ProviderContractWrapper } from '@broxus/js-core'
+import { TvmContractWrapper } from '@broxus/js-core'
 import { Address, ProviderRpcClient } from 'everscale-inpage-provider'
 import { makeObservable } from 'mobx'
 import { DashboardUtils } from './utils'
@@ -6,7 +6,7 @@ import { DashboardUtils } from './utils'
 type DashboardType = {
 }
 
-export class Dashboard extends ProviderContractWrapper<
+export class Dashboard extends TvmContractWrapper<
     DashboardType
 > {
     public static Utils = DashboardUtils
