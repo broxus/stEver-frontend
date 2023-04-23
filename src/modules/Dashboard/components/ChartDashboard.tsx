@@ -57,7 +57,9 @@ function ChartDashboardInner(): JSX.Element {
                             <Width size={matches ? "1-4" : "1-1"}>
                                 <Observer>
                                     {() => (
-                                        <Grid gap="xsmall" childWidth={1}>
+                                        <Grid style={{
+                                            marginLeft: 0,
+                                        }} gap="xsmall" childWidth={1}>
                                             <Tile type={activeChart === Charts.TVL ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.TVL)}
                                             >
@@ -279,7 +281,6 @@ function ChartDashboardInner(): JSX.Element {
                                     {activeChart === Charts.APY && <ChartAPY />}
                                     {activeChart === Charts.Holders && <ChartHolders />}
                                     {activeChart === Charts.Untapped && <ChartUntapped />}
-
                                 </Tile>
                             </Width>
                         </Grid>
