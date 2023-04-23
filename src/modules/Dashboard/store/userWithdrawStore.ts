@@ -20,6 +20,7 @@ type UserTransactionsStoreState = {
     isFetching?: boolean;
     ordering: UserWithdrawalsOrdering
     pagination: UserTransactionsDashboardPagination;
+    filter: UsersWithdrawalsStatus[]
 }
 
 export class UserWithdrawStore extends AbstractStore<
@@ -42,7 +43,8 @@ export class UserWithdrawStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            isFetching: true
+            isFetching: true,
+            filter: []
         }))
 
         reaction(
@@ -97,4 +99,8 @@ export class UserWithdrawStore extends AbstractStore<
         return this._state.isFetching
     }
 
+    @computed
+    public get filter() {
+        return this._state.filter
+    }
 }

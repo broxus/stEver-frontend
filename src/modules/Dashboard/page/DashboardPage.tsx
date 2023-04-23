@@ -12,7 +12,7 @@ import { ChartDashboard } from '../components/ChartDashboard'
 import { TabelDepoolsDashboard } from '../components/TabelDepoolsDashboard'
 import { TabelUserTransactionsDashboard, TransactionUserListFilter } from '../components/TabelUserTransactionsDashboard'
 import { TabelStrategyTransactionsDashboard, TransactionStrtegyListFilter } from '../components/TabelStrategyTransactionsDashboard'
-import { TabelUserWithdrawDashboard } from '../components/TabelUserWithdrawDashboard'
+import { TabelUserWithdrawDashboard, WithdrawUserListFilter } from '../components/TabelUserWithdrawDashboard'
 import { TabelStrategyWithdrawDashboard } from '../components/TabelStrategyWithdrawDashboard'
 import { StrategiesTransactionsStore } from '../store/strategiesTransactionsStore'
 import { Flex, Heading, Label, Tabs } from '@broxus/react-uikit'
@@ -145,7 +145,7 @@ export default function DashboardPage(): JSX.Element {
                                         <Flex flexDirection="column" className="tabelTabs">
                                             <Heading component="h4">
                                                 {intl.formatMessage({
-                                                    id: 'PENDING_WITHDRAWALS',
+                                                    id: 'WITHDRAWALS',
                                                 })}
                                                 {stateWithdraw === "Users" ?
                                                     (
@@ -169,6 +169,11 @@ export default function DashboardPage(): JSX.Element {
                                                 onChange={(e) => {
                                                     setStateWithdraw(e)
                                                 }}
+                                                tabBarExtraContent={
+                                                    {
+                                                        right: <WithdrawUserListFilter />
+                                                    }
+                                                }
                                                 items={[
                                                     {
                                                         label: intl.formatMessage({

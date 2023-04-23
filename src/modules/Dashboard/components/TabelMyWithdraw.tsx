@@ -45,71 +45,77 @@ export function TabelMyWithdrawInner(): JSX.Element {
             })
     }, [wallet.isConnected])
 
-    return (
-        <Flex flexDirection="column">
-            <Heading component="h4">
-                {intl.formatMessage({
-                    id: 'YOUR_PENDING_WITHDRAWALS',
-                })}
-            </Heading>
-            <Observer>
-                {() => (
-                    <Tile type="default" className="uk-padding-remove">
-                        {myWithdraw.isFetching ?
-                            <Media query={{ minWidth: 640 }}>
-                                {matches => matches ?
-                                    (<PoolsListPlaceholder />)
-                                    :
-                                    (<PoolsListMobilePlaceholder />)
-                                }
-                            </Media>
-                            :
-                            <>
-                                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                    <Media query={{ minWidth: 640 }}>
-                                        <DepoolsListHeader />
-                                    </Media>
-                                    {myWithdraw.transactions?.map((pool, idx) => (
-                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                            {matches => (matches ? (
-                                                <DepoolsListItem
-                                                    key={pool.transactionHash}
-                                                    idx={idx}
-                                                    pool={pool}
-                                                />
-                                            ) : (
-                                                <DepoolsListCard
-                                                    key={pool.transactionHash}
-                                                    idx={idx}
-                                                    pool={pool}
-                                                />
-                                            ))}
+    if (myWithdraw.transactions?.length > 0) {
+        return (
+            < Flex flexDirection="column" >
+                <Heading component="h4">
+                    {intl.formatMessage({
+                        id: 'YOUR_PENDING_WITHDRAWALS',
+                    })}
+                </Heading>
+                <Observer>
+                    {() => (
+                        <Tile type="default" className="uk-padding-remove">
+                            {myWithdraw.isFetching ?
+                                <Media query={{ minWidth: 640 }}>
+                                    {matches => matches ?
+                                        (<PoolsListPlaceholder />)
+                                        :
+                                        (<PoolsListMobilePlaceholder />)
+                                    }
+                                </Media>
+                                :
+                                <>
+                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                        <Media query={{ minWidth: 640 }}>
+                                            <DepoolsListHeader />
                                         </Media>
-                                    ))}
-                                </table>
-                                {!myWithdraw.transactions?.length &&
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                }
-                            </>
-                        }
-                        {myWithdraw.transactions?.length ?
-                            <DepoolsListPagination myWithdraw={myWithdraw} />
-                            :
-                            undefined
-                        }
-                    </Tile>
-                )}
-            </Observer>
-        </Flex >
-    )
+                                        {myWithdraw.transactions?.map((pool, idx) => (
+                                            <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                                {matches => (matches ? (
+                                                    <DepoolsListItem
+                                                        key={pool.transactionHash}
+                                                        idx={idx}
+                                                        pool={pool}
+                                                    />
+                                                ) : (
+                                                    <DepoolsListCard
+                                                        key={pool.transactionHash}
+                                                        idx={idx}
+                                                        pool={pool}
+                                                    />
+                                                ))}
+                                            </Media>
+                                        ))}
+                                    </table>
+                                    {!myWithdraw.transactions?.length &&
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    }
+                                </>
+                            }
+                            {myWithdraw.transactions?.length ?
+                                <DepoolsListPagination myWithdraw={myWithdraw} />
+                                :
+                                undefined
+                            }
+                        </Tile>
+                    )}
+                </Observer>
+            </Flex >
+        )
+    } else {
+        return (
+            <></>
+        )
+    }
 }
 
 export function DepoolsListHeader(): JSX.Element {

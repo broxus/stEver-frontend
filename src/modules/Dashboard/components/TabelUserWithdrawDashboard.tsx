@@ -1,6 +1,9 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
+    Button,
+    Checkbox,
+    Drop,
     Flex, Grid, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
@@ -357,4 +360,75 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
     )
 }
 
+
+function WithdrawUserListFilterInner(): JSX.Element {
+    
+    const current = React.useRef<UsersWithdrawalsStatus[]>([])
+    const userWithdraw = useStore(UserWithdrawStore)
+    const intl = useIntl()
+
+    const onChange = (e: UsersWithdrawalsStatus[]) => {
+        current.current = e
+        userWithdraw.setState("filter", e)
+
+        userWithdraw.getTransactions({
+            limit: userWithdraw.pagination.limit,
+            offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
+            ordering: userWithdraw.ordering,
+            userAddress: null,
+            status: e,
+            amountGe: undefined,
+            amountLe: undefined,
+        })
+    }
+
+    const options = [
+        {
+            label: intl.formatMessage({
+                id: 'DONE',
+            }),
+            value: UsersWithdrawalsStatus.DONE,
+        },
+        {
+            label: intl.formatMessage({
+                id: 'PENDING',
+            }),
+            value: UsersWithdrawalsStatus.PENDING,
+        },
+        {
+            label: intl.formatMessage({
+                id: 'CANCELLED',
+            }),
+            value: UsersWithdrawalsStatus.CANCELLED,
+        }
+    ]
+    return (
+        <Drop
+            trigger={['hover']}
+            placement="bottom-right"
+            overlay={(
+                <Tile type="default" size="xsmall">
+                    <Text component="h6">
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
+                    </Text>
+                    <Checkbox.Group
+                        options={options}
+                        onChange={onChange}
+                        stack={true}
+                    />
+                </Tile>
+            )}
+        >
+            <Button type='secondary'>
+                {intl.formatMessage({
+                    id: 'TYPE',
+                })}
+            </Button>
+        </Drop>
+    )
+}
+
 export const TabelUserWithdrawDashboard = observer(TabelUserWithdrawDashboardInner)
+export const WithdrawUserListFilter = observer(WithdrawUserListFilterInner)

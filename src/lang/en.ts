@@ -88,4 +88,10 @@ export default {
     NEXT_ROUND_TVL_EVER: 'Next round TVL, EVER',
     CURRENT_ROUND_TVL_EVER: 'Current round TVL, EVER',
     STATUS: 'Status',
+
+    WITHDRAWALS: 'Withdrawals',
+    DONE: 'Done',
+    PENDING: 'Pending',
+    CANCELLED: 'Cancelled',
 }
+
