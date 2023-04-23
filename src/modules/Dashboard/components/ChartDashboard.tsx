@@ -60,7 +60,7 @@ function ChartDashboardInner(): JSX.Element {
                                         <Grid style={{
                                             marginLeft: 0,
                                         }} gap="xsmall" childWidth={1}>
-                                            <Tile type={activeChart === Charts.TVL ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                            <Tile type={activeChart === Charts.TVL ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px" }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.TVL)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -106,7 +106,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Price)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -146,7 +146,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.APY)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -179,7 +179,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Holders ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                            <Tile type={activeChart === Charts.Holders ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Holders)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -211,7 +211,7 @@ function ChartDashboardInner(): JSX.Element {
                                                     }
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Untapped ? "primary" : "secondary"} style={{ cursor: "pointer" }} size="xsmall"
+                                            <Tile type={activeChart === Charts.Untapped ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Untapped)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
