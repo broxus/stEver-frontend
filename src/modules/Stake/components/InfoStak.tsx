@@ -110,7 +110,7 @@ export function InfoStakInner(): JSX.Element {
                             </Flex>
                         </Media>
                     </Flex>
-                    {myWithdraw.userSum ?
+                    {myWithdraw.userSum !== "0" ?
                         <Tile type='muted'>
                             <Width size='1-1'>
                                 <Text component='h5' align='center'>
