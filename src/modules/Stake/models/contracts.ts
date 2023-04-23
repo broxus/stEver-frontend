@@ -9,7 +9,6 @@ type VaultAbi = typeof StEverVaultAbi
 type RootAbi = typeof TokenRootAbi
 type WalletUpgradeableAbi = typeof TokenWalletUpgradeableAbi
 
-
 export function stEverVaultContract(
     address: Address,
     provider = useRpcClient(),

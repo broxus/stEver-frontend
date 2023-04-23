@@ -149,6 +149,7 @@ function ChartStrategyInner(): JSX.Element {
                         type={dashboard?.strategyMainInfo?.priority === 'high' ? 'success' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'danger'}
                     >
                         {dashboard?.strategyMainInfo?.priority.charAt(0).toUpperCase() + dashboard?.strategyMainInfo?.priority.slice(1)}
+                        {' '}
                         {intl.formatMessage({
                             id: 'EFFICIENCY',
                         })}
