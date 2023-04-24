@@ -46,20 +46,20 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                         {e[0]}
                                                     </Text>
                                                     <Flex>
-                                                        {dashboard.strategyMainInfo.tvlDeltaNextRound
+                                                        {dashboard.strategyMainInfo?.tvlDeltaNextRound
                                                                 && i === 2
                                                             ? (
                                                                 <>
                                                                     <FormattedTokenAmount
                                                                         decimals={ST_EVER_DECIMALS}
-                                                                        value={new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).plus(e[1].stake).plus(dashboard.strategyRounds?.rounds[0][1].stake ?? 0).toFixed()}
+                                                                        value={new BigNumber(dashboard.strategyMainInfo?.tvlDeltaNextRound ?? 0).plus(e[1].stake).plus(dashboard.strategyRounds?.rounds[0][1].stake ?? 0).toFixed()}
                                                                         symbol="EVER"
                                                                     />
                                                                     <div className="round__rateChange">
                                                                         <RateChange
                                                                             size="sm" currency="" className="uk-margin-small-left"
                                                                             value={
-                                                                                new BigNumber(dashboard.strategyMainInfo.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                                                                new BigNumber(dashboard.strategyMainInfo?.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
                                                                             }
                                                                         />
                                                                     </div>
