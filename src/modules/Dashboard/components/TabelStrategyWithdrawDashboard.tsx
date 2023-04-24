@@ -72,17 +72,17 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
                                     ))}
                                 </table>
                                 {!strategyWithdraw.transactions?.length
-                                && (
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                )}
+                                    && (
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    )}
                             </>
                         )}
                     {strategyWithdraw.transactions?.length
@@ -251,11 +251,25 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                             </Text>
                         )}
                     <Text className="uk-margin-auto-vertical" size="small">
+                        <Label
+                            type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success'
+                                : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
+                        >
+                            {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                        </Label>
+                    </Text>
+                </Flex>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
+                        {intl.formatMessage({
+                            id: 'VALUE_EVER',
+                        })}
+                    </Text>
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount}
                         />
-                        {id && ' EVER'}
                     </Text>
                 </Flex>
                 <Flex justifyContent="between">

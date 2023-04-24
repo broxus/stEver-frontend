@@ -253,6 +253,7 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount}
                         />
+                        {' EVER'}
                     </Text>
                 </Flex>
                 <Flex justifyContent="between">

@@ -70,17 +70,17 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
                                     ))}
                                 </table>
                                 {!userWithdraw.transactions?.length
-                                && (
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                )}
+                                    && (
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    )}
                             </>
                         )}
                     {userWithdraw.transactions?.length
@@ -236,6 +236,21 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                                 </Text>
                             </ExplorerAccountLink>
                         </Link>
+                    </Text>
+                    <Text className="uk-margin-auto-vertical" size="small">
+                        <Label
+                            type={pool.status === UsersWithdrawalsStatus.DONE ? 'success'
+                                : pool.status === UsersWithdrawalsStatus.PENDING ? 'warning' : undefined}
+                        >
+                            {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                        </Label>
+                    </Text>
+                </Flex>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
+                        {intl.formatMessage({
+                            id: 'VALUE_STEVER',
+                        })}
                     </Text>
                     <Text className="uk-margin-auto-vertical" size="small">
                         <FormattedTokenAmount
