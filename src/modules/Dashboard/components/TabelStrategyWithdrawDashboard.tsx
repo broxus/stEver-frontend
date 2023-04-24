@@ -108,7 +108,7 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: value,
-            // status: StrategiesWithdrawalsStatus.PENDING,
+            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
             strategy: id,
         })
     }
@@ -323,7 +323,7 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            // status: StrategiesWithdrawalsStatus.PENDING,
+            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
             strategy: id,
         })
     }
@@ -337,7 +337,7 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            // status: StrategiesWithdrawalsStatus.PENDING,
+            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
             strategy: id,
         })
     }
@@ -400,7 +400,7 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            statuses: e,
+            statuses: e.length ? e : undefined,
             strategy: id,
         })
     }

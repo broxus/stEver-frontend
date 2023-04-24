@@ -105,7 +105,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: value,
             userAddress: null,
-            // status: UsersWithdrawalsStatus.PENDING,
+            statuses: userWithdraw.filter.length ? userWithdraw.filter : undefined,
             amountGe: undefined,
             amountLe: undefined,
         })
@@ -309,7 +309,7 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            // status: UsersWithdrawalsStatus.PENDING,
+            statuses: userWithdraw.filter.length ? userWithdraw.filter : undefined,
             amountGe: undefined,
             amountLe: undefined,
         })
@@ -325,7 +325,7 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            // status: UsersWithdrawalsStatus.PENDING,
+            statuses: userWithdraw.filter.length ? userWithdraw.filter : undefined,
             amountGe: undefined,
             amountLe: undefined,
         })
@@ -392,7 +392,7 @@ function WithdrawUserListFilterInner(): JSX.Element {
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            statuses: e,
+            statuses: e.length ? e : undefined,
             amountGe: undefined,
             amountLe: undefined,
         }) 
