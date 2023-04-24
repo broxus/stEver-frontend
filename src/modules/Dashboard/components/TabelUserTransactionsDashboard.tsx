@@ -118,8 +118,6 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                     {intl.formatMessage({
                         id: 'USER',
                     })}
-                    {' '}
-                    User
                 </th>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({

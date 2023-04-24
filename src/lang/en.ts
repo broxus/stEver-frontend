@@ -56,6 +56,7 @@ export default {
     USER_DEPOSIT: 'User deposit',
     VALUE_STEVER: 'Value, stEver',
     USERS: 'Users',
+    USER: 'User',
     STRATEGIES: 'Strategies',
     PENDING_WITHDRAWALS: 'Pending withdrawals',
     EVER_STAKED: 'EVER staked',
