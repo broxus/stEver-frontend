@@ -3,9 +3,9 @@ import { computed, makeObservable, reaction } from 'mobx'
 import { useParams } from 'react-router-dom'
 
 import {
-    Direction, StrategiesService, SystemTransactionColumn, SystemTransactionResponse, SystemTransactionsKind, SystemTransactionsOrdering, SystemsTransactionsRequest,
+    Direction, StrategiesService, SystemTransactionColumn, type SystemTransactionResponse, type SystemTransactionsKind, type SystemTransactionsOrdering, type SystemsTransactionsRequest,
 } from '@/apiClientCodegen'
-import { Params } from '@/routes'
+import { type Params } from '@/routes'
 
 type StrategiesTransactionsStoreData = {
     transactions: Array<SystemTransactionResponse>;
@@ -48,7 +48,7 @@ export class StrategiesTransactionsStore extends AbstractStore<
                 totalPages: 0,
             },
             isFetching: true,
-            filter: []
+            filter: [],
         }))
 
         reaction(
@@ -67,10 +67,10 @@ export class StrategiesTransactionsStore extends AbstractStore<
     }
 
     public async getTransactions(params: SystemsTransactionsRequest): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.postStrategiesTransactionsSearch(params)
         this.setData('transactions', response.transactions)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

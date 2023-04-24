@@ -5,26 +5,31 @@ import {
     Flex, Grid, Heading, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
-import { makeArray, sliceAddress } from '@broxus/js-utils'
+import { sliceAddress } from '@broxus/js-utils'
 import { generatePath, NavLink } from 'react-router-dom'
+import {
+    AccountIcon, ExplorerAccountLink, FormattedTokenAmount,
+} from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import BigNumber from 'bignumber.js'
+import { useIntl } from 'react-intl'
 
 import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
-import { Direction, StrategiesOrdering, StrategyColumn, StrategyInfo } from '@/apiClientCodegen'
+import {
+    Direction, type StrategiesOrdering, StrategyColumn, type StrategyInfo,
+} from '@/apiClientCodegen'
 import { appRoutes } from '@/routes'
-
-import { TabelDepoolsStore } from '../store/depoolsStore'
 import { ST_EVER_DECIMALS } from '@/config'
-import { AccountIcon, ExplorerAccountLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
-import { useTvmWalletContext } from '@broxus/react-modules'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+import { RateChange } from '@/components/common/RateChange'
+import { Placeholder } from '@/components/common/Placeholder'
+
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
-import { RateChange } from '@/components/common/RateChange'
-import BigNumber from 'bignumber.js'
-import { Placeholder } from '@/components/common/Placeholder'
-import { useIntl } from 'react-intl'
+import { TabelDepoolsStore } from '../store/depoolsStore'
+
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
     const tabelDepools = useStore(TabelDepoolsStore)
@@ -35,69 +40,66 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                 {intl.formatMessage({
                     id: 'PARTICIPATING_DEPOOLS',
                 })}
-                {!tabelDepools.isFetching ?
-                    <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
-                    :
-                    <Placeholder className="uk-margin-small-left" height={24} width={31} />
-                }
+                {!tabelDepools.isFetching
+                    ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
+                    : <Placeholder className="uk-margin-small-left" height={24} width={31} />}
             </Heading>
             <Observer>
                 {() => (
                     <Tile type="default" className="uk-padding-remove">
-                        {tabelDepools.isFetching ?
-                            <Media query={{ minWidth: 640 }}>
-                                {matches => matches ?
-                                    (<PoolsListPlaceholder />)
-                                    :
-                                    (<PoolsListMobilePlaceholder />)
-                                }
-                            </Media>
-                            :
-                            <>
-                                <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                    <Media query={{ minWidth: 640 }}>
-                                        <DepoolsListHeader tabelDepools={tabelDepools} />
-                                    </Media>
-                                    {tabelDepools.depoolsStrategies?.map((pool, idx) => (
-                                        <Media key={pool.depool} query={{ minWidth: 640 }}>
-                                            {matches => (matches ? (
-                                                <DepoolsListItem
-                                                    key={pool.depool}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ) : (
-                                                <DepoolsListCard
-                                                    key={pool.depool}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
-                                            ))}
+                        {tabelDepools.isFetching
+                            ? (
+                                <Media query={{ minWidth: 640 }}>
+                                    {matches => (matches
+                                        ? (<PoolsListPlaceholder />)
+                                        : (<PoolsListMobilePlaceholder />))}
+                                </Media>
+                            )
+                            : (
+                                <>
+                                    <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                        <Media query={{ minWidth: 640 }}>
+                                            <DepoolsListHeader tabelDepools={tabelDepools} />
                                         </Media>
-                                    ))}
-                                </table>
-                                {!tabelDepools.depoolsStrategies?.length &&
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                }
-                            </>
-                        }
-                        {tabelDepools.depoolsStrategies?.length ?
-                            <DepoolsListPagination tabelDepools={tabelDepools} />
-                            :
-                            undefined
-                        }
+                                        {tabelDepools.depoolsStrategies?.map((pool, idx) => (
+                                            <Media key={pool.depool} query={{ minWidth: 640 }}>
+                                                {matches => (matches ? (
+                                                    <DepoolsListItem
+                                                        key={pool.depool}
+                                                        idx={idx + 1}
+                                                        pool={pool}
+                                                    />
+                                                ) : (
+                                                    <DepoolsListCard
+                                                        key={pool.depool}
+                                                        idx={idx + 1}
+                                                        pool={pool}
+                                                    />
+                                                ))}
+                                            </Media>
+                                        ))}
+                                    </table>
+                                    {!tabelDepools.depoolsStrategies?.length
+                                    && (
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    )}
+                                </>
+                            )}
+                        {tabelDepools.depoolsStrategies?.length
+                            ? <DepoolsListPagination tabelDepools={tabelDepools} />
+                            : undefined}
                     </Tile>
                 )}
             </Observer>
-        </Flex >
+        </Flex>
     )
 }
 
@@ -172,11 +174,17 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                     <Link
                                         type="text"
                                     >
-                                        <svg style={{
-                                            marginTop: "-4px",
-                                            marginLeft: "5px"
-                                        }} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM7.2 3.40002H8.8V5.00002H7.2V3.40002ZM7.2 6.59998H8.8V12.6H7.2V6.59998Z" fill="#C6C9CF" />
+                                        <svg
+                                            style={{
+                                                marginTop: '-4px',
+                                                marginLeft: '5px',
+                                            }} width="16" height="16"
+                                            viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd" clipRule="evenodd" d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM7.2 3.40002H8.8V5.00002H7.2V3.40002ZM7.2 6.59998H8.8V12.6H7.2V6.59998Z"
+                                                fill="#C6C9CF"
+                                            />
                                         </svg>
 
                                     </Link>
@@ -195,7 +203,7 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                                 column={StrategyColumn.TVL}
                                 value={{ column: tabelDepools.ordering.column, direction: tabelDepools.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
-                                positionLeft={true}
+                                positionLeft
                             >
                                 {intl.formatMessage({
                                     id: 'CURRENT_ROUND_TVL_EVER',
@@ -275,11 +283,14 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                         value={new BigNumber(pool.tvl).plus(pool?.tvlDeltaNextRound ?? 0).toFixed()}
                     />
                     <br />
-                    {pool?.tvlDeltaNextRound &&
-                        <RateChange size="sm" currency="" value={
-                            new BigNumber(pool?.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
-                        } />
-                    }
+                    {pool?.tvlDeltaNextRound
+                        && (
+                            <RateChange
+                                size="sm" currency="" value={
+                                    new BigNumber(pool?.tvlDeltaNextRound ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()
+                                }
+                            />
+                        )}
                 </td>
             </tr>
         </tbody>
@@ -297,19 +308,20 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
     const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
-            <Grid childWidth={1} gap='xsmall'>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title'>
+            <Grid childWidth={1} gap="xsmall">
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title">
                         <NavLink to={generatePath(appRoutes.strategy.path, {
                             id: pool.strategy,
-                        })}>
+                        })}
+                        >
                             <Flex>
-                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
+                                <AccountIcon className="uk-margin-small-right" size={20} address={pool.strategy} />
                                 {sliceAddress(pool.strategy)}
                             </Flex>
                         </NavLink>
                     </Text>
-                    <Text className='uk-margin-auto-vertical'>
+                    <Text className="uk-margin-auto-vertical">
                         <Label
                             type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
                         >
@@ -317,30 +329,33 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                         </Label>
                     </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'FEE',
                         })}
                     </Text>
-                    <Text className='uk-margin-auto-vertical' size='small'>{pool.validatorFee}%</Text>
+                    <Text className="uk-margin-auto-vertical" size="small">
+                        {pool.validatorFee}
+                        %
+                    </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'DEPOOL',
                         })}
                     </Text>
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
-                            <Text className='uk-margin-auto-vertical' size='small'>
+                            <Text className="uk-margin-auto-vertical" size="small">
                                 {sliceAddress(pool.depool)}
                             </Text>
                         </ExplorerAccountLink>
                     </Link>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'OWNER',
                         })}
@@ -348,20 +363,20 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                     <Link>
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
                             <Flex>
-                                <Text className='uk-margin-auto-vertical' size='small'>
+                                <Text className="uk-margin-auto-vertical" size="small">
                                     {sliceAddress(pool.owner)}
                                 </Text>
                             </Flex>
                         </ExplorerAccountLink>
                     </Link>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'TVL_EVER',
                         })}
                     </Text>
-                    <Text className='uk-margin-auto-vertical'>
+                    <Text className="uk-margin-auto-vertical">
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.tvl}
@@ -420,35 +435,33 @@ export function DepoolsListPagination({ tabelDepools }: DepoolsListPaginationTyp
     return (
         <Observer>
             {() => (
-                <>
-                    <Flex justifyContent="between" className="pagination-container">
-                        <DownloadCsv
-                            filename="DePools.csv"
-                            keys={[
-                                'depool',
-                                'owner',
-                                'priority',
-                                'strategy',
-                                'tvl',
-                                'validatorFee',
-                            ]}
-                            items={tabelDepools?.depoolsStrategies?.map(page => [
-                                page.depool,
-                                page.owner,
-                                page.priority,
-                                page.strategy,
-                                page.validatorFee,
-                            ])}
-                        />
-                        <Pagination
-                            currentPage={tabelDepools.pagination.currentPage + 1}
-                            totalPages={tabelDepools.pagination.totalPages}
-                            onNext={onNextPage}
-                            onPrev={onPrevPage}
-                            onSubmit={onSubmitPage}
-                        />
-                    </Flex>
-                </>
+                <Flex justifyContent="between" className="pagination-container">
+                    <DownloadCsv
+                        filename="DePools.csv"
+                        keys={[
+                            'depool',
+                            'owner',
+                            'priority',
+                            'strategy',
+                            'tvl',
+                            'validatorFee',
+                        ]}
+                        items={tabelDepools?.depoolsStrategies?.map(page => [
+                            page.depool,
+                            page.owner,
+                            page.priority,
+                            page.strategy,
+                            page.validatorFee,
+                        ])}
+                    />
+                    <Pagination
+                        currentPage={tabelDepools.pagination.currentPage + 1}
+                        totalPages={tabelDepools.pagination.totalPages}
+                        onNext={onNextPage}
+                        onPrev={onPrevPage}
+                        onSubmit={onSubmitPage}
+                    />
+                </Flex>
 
             )}
         </Observer>

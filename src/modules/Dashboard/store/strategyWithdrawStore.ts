@@ -3,9 +3,9 @@ import { computed, makeObservable, reaction } from 'mobx'
 import { useParams } from 'react-router-dom'
 
 import {
-    Direction, StrategiesService, StrategiesWithdrawalsRequest, StrategiesWithdrawalsStatus, StrategyWithdrawalColumn, StrategyWithdrawalResponse, StrategyWithdrawalsOrdering,
+    Direction, StrategiesService, type StrategiesWithdrawalsRequest, type StrategiesWithdrawalsStatus, StrategyWithdrawalColumn, type StrategyWithdrawalResponse, type StrategyWithdrawalsOrdering,
 } from '@/apiClientCodegen'
-import { Params } from '@/routes'
+import { type Params } from '@/routes'
 
 type StrategiesTransactionsStoreData = {
     transactions: Array<StrategyWithdrawalResponse>;
@@ -22,6 +22,8 @@ type StrategiesTransactionsStoreState = {
     isFetching?: boolean;
     ordering: StrategyWithdrawalsOrdering
     pagination: StrategiesTransactionsDashboardPagination;
+    filter: StrategiesWithdrawalsStatus[]
+
 }
 
 export class StrategyWithdrawStore extends AbstractStore<
@@ -46,7 +48,8 @@ export class StrategyWithdrawStore extends AbstractStore<
                 totalCount: 0,
                 totalPages: 0,
             },
-            isFetching: true
+            isFetching: true,
+            filter: [],
         }))
 
         reaction(
@@ -97,6 +100,11 @@ export class StrategyWithdrawStore extends AbstractStore<
     @computed
     public get isFetching() {
         return this._state.isFetching
+    }
+
+    @computed
+    public get filter() {
+        return this._state.filter
     }
 
 }

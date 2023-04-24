@@ -31,7 +31,7 @@ export function RateChange({
     displayPercents = true,
     size,
     value,
-    currency = "%"
+    currency = '%',
 }: RateChangeProps): JSX.Element {
     const dir = getDirection(value)
     return (

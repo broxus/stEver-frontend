@@ -1,5 +1,5 @@
-import { resolveTvmAddress, useRpcClient, useRpcProvider } from '@broxus/js-core'
-import { Address, Contract } from 'everscale-inpage-provider'
+import { resolveTvmAddress, useRpcClient } from '@broxus/js-core'
+import { type Address, type Contract } from 'everscale-inpage-provider'
 
 import { StEverVaultAbi } from '@/abi/StEverVault.abi'
 import { TokenWalletUpgradeableAbi } from '@/abi/TokenWalletUpgradeable.abi'
@@ -22,7 +22,7 @@ export function StEverTokenWalletRoot(
 ): Contract<RootAbi> {
     return new provider.Contract(TokenRootAbi, resolveTvmAddress(address))
 }
- 
+
 export function StEverTokenWallet(
     address: Address,
     provider = useRpcClient(),

@@ -3,11 +3,11 @@
 
     th {
         border-bottom: 1px solid #e4e5ea;
-        font-weight: 500;
+        color: #8b909a;
         font-size: 14px;
-        line-height: 20px;
+        font-weight: 500;
         letter-spacing: 0.1px;
-        color: #8B909A;
+        line-height: 20px;
         padding-bottom: 12px;
         padding-top: 24px;
 
@@ -22,12 +22,12 @@
 
     td {
         border-bottom: 1px solid #e4e5ea;
-        font-weight: 300;
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.1px;
+        color: #000;
         font-feature-settings: 'tnum' on, 'lnum' on;
-        color: #000000;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.1px;
+        line-height: 20px;
 
         &:last-child {
             padding-right: 13px;
@@ -38,8 +38,8 @@
         }
     }
 
-    @media (max-width: 640px) {
-        padding: 0 0px;
+    @media (width <= 640px) {
+        padding: 0;
     }
 }
 
@@ -48,16 +48,16 @@
 }
 
 .listCard {
-    border-bottom: 1px solid #E4E5EA;
+    border-bottom: 1px solid #e4e5ea;
 
     &--title {
-        color: #A6AAB2;
+        color: #a6aab2;
     }
 
     .uk-formatted-token-amount {
         span {
-            font-weight: 400;
             font-size: 14px;
+            font-weight: 400;
             line-height: 20px;
         }
     }
@@ -65,7 +65,7 @@
 
 .empty-list {
     p {
+        color: #8b909a;
         font-size: 14px;
-        color: #8B909A;
     }
 }

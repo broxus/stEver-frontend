@@ -1,9 +1,9 @@
-import type { DecodedTransaction } from 'everscale-inpage-provider'
+import { type DecodedTransaction } from 'everscale-inpage-provider'
 
-import { StEverVaultAbi } from './StEverVault.abi'
-import { StEverAccountAbi } from './StEverAccount.abi'
-import { StrategyDePoolAbi } from './StrategyDePool.abi'
-import { DepoolStrategyFactoryAbi } from './DepoolStrategyFactory.abi'
+import { type StEverVaultAbi } from './StEverVault.abi'
+import { type StEverAccountAbi } from './StEverAccount.abi'
+import { type StrategyDePoolAbi } from './StrategyDePool.abi'
+import { type DepoolStrategyFactoryAbi } from './DepoolStrategyFactory.abi'
 
 
 export type StEverVaultDetails = DecodedTransaction<typeof StEverVaultAbi, 'getDetails'>['output']['value0']
@@ -13,4 +13,3 @@ export type WithdrawRequest = DecodedTransaction<typeof StEverAccountAbi, 'withd
 export type StrategyDePool = DecodedTransaction<typeof StrategyDePoolAbi, 'getDetails'>['output']['value0']
 export type GetDePoolInfo = DecodedTransaction<typeof DepoolStrategyFactoryAbi, 'getDePoolInfo'>['output']
 export type GetRounds = DecodedTransaction<typeof DepoolStrategyFactoryAbi, 'getRounds'>['output']
-

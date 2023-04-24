@@ -1,5 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import {
+    BrowserRouter as Router, Redirect, Route, Switch,
+} from 'react-router-dom'
 import { TvmWalletProvider } from '@broxus/react-modules'
 import { IntlProvider } from 'react-intl'
 
@@ -14,12 +16,12 @@ import './App.scss'
 import DashboardPage from '@/modules/Dashboard'
 import StakPage from '@/modules/Stake'
 import StrategyPage from '@/modules/Strategy/page/Strategy'
+import { useProvider } from '@/hooks/useStore'
+import { ChartStore } from '@/modules/Dashboard/store/chartStore'
 
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
 import { ScrollManager } from './layout/ScrollManager'
-import { useProvider } from '@/hooks/useStore'
-import { ChartStore } from '@/modules/Dashboard/store/chartStore'
 
 OpenAPI.BASE = API_URL
 

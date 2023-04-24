@@ -1,6 +1,7 @@
-import { Address } from 'everscale-inpage-provider'
+import { type Address } from 'everscale-inpage-provider'
 
-import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
+import { type GetDePoolInfo, type GetRounds, type StrategyDePool } from '@/abi/types'
+
 import { StEverDePoolStrategy, StEverStrategyDePool } from './contracts'
 
 export abstract class StrategyUtils {
@@ -25,4 +26,3 @@ export abstract class StrategyUtils {
     }
 
 }
-

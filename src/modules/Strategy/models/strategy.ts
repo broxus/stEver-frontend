@@ -1,10 +1,10 @@
 import { TvmContractWrapper } from '@broxus/js-core'
-import { Address, ProviderRpcClient, Transaction } from 'everscale-inpage-provider'
+import { type Address, type ProviderRpcClient } from 'everscale-inpage-provider'
 import {
     computed, makeObservable,
 } from 'mobx'
 
-import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
+import { type GetDePoolInfo, type GetRounds } from '@/abi/types'
 
 import { StrategyUtils } from './utils'
 
@@ -21,7 +21,7 @@ export class Strategy extends TvmContractWrapper<
     StrategyType
 > {
 
-    public static Utils  = StrategyUtils
+    public static Utils = StrategyUtils
 
     constructor(
         protected readonly connection: ProviderRpcClient,
@@ -40,7 +40,7 @@ export class Strategy extends TvmContractWrapper<
         const dePoolDetails = await staking.getDePoolDetails(details.dePool)
         const rounds = await staking.getRounds(details.dePool)
         staking.setData('details', dePoolDetails)
-        staking.setData("rounds", rounds)
+        staking.setData('rounds', rounds)
         return staking
     }
 
@@ -54,7 +54,8 @@ export class Strategy extends TvmContractWrapper<
 
     public async getRounds(address: Address) {
         return await Strategy.Utils._getRounds(address)
-    } 
+    }
+
     @computed
     public get details(): StrategyType['details'] {
         return this._data.details

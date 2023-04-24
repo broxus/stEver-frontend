@@ -35,20 +35,22 @@ function DeviceNavInner({ onNavigate }: Props): JSX.Element {
                     </NavLink>
                 </Nav.Item>
             </Nav>
-            {wallet.isConnected ?
-                <Button type='default' className='logout' onClick={() => wallet.disconnect()}>
-                    <Icon icon="logout" />
-                    {intl.formatMessage({
-                        id: 'LOG_OUT_WALLET',
-                    })}
-                </Button>
-                :
-                <Button type='default' className='logout' onClick={() => wallet.connect()}>
-                    {intl.formatMessage({
-                        id: 'CONNECT_WALLET',
-                    })}
-                </Button>
-            }
+            {wallet.isConnected
+                ? (
+                    <Button type="default" className="logout" onClick={() => wallet.disconnect()}>
+                        <Icon icon="logout" />
+                        {intl.formatMessage({
+                            id: 'LOG_OUT_WALLET',
+                        })}
+                    </Button>
+                )
+                : (
+                    <Button type="default" className="logout" onClick={() => wallet.connect()}>
+                        {intl.formatMessage({
+                            id: 'CONNECT_WALLET',
+                        })}
+                    </Button>
+                )}
         </>
     )
 }

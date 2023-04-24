@@ -83,7 +83,7 @@
         }
     }
 
-    @media only screen and (min-width: 960px) {
+    @media only screen and (width >= 960px) {
         padding-top: 64px;
 
         &__wrapper {
@@ -137,7 +137,7 @@
         }
     }
 
-    @media only screen and (min-width: 1200px) {
+    @media only screen and (width >= 1200px) {
         &__wrapper {
             gap: 100px;
         }
@@ -174,12 +174,12 @@
         }
 
         a {
+            color: #8b909a;
+            font-size: 14px;
             font-style: normal;
             font-weight: 300;
-            font-size: 14px;
-            line-height: 20px;
             letter-spacing: 0.1px;
-            color: #8B909A;
+            line-height: 20px;
         }
     }
 
@@ -210,7 +210,6 @@
                 }
 
                 &[href] {
-
                     &.active,
                     &:hover {
                         color: #fff;
@@ -243,12 +242,12 @@
 
 .footer-subnav {
     a {
+        color: #8b909a;
+        font-size: 14px;
         font-style: normal;
         font-weight: 300;
-        font-size: 14px;
-        line-height: 20px;
         letter-spacing: 0.1px;
-        color: #8B909A;
+        line-height: 20px;
     }
     
     ul {
@@ -281,7 +280,7 @@
         }
     }
 
-    @media only screen and (max-width: 959px) {
+    @media only screen and (width <= 959px) {
         margin: 20px 0;
     }
 }
@@ -326,7 +325,7 @@
         justify-content: flex-start;
     }
 
-    @media only screen and (min-width: 960px) {
+    @media only screen and (width >= 960px) {
         flex-wrap: wrap;
     }
 }

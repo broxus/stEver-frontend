@@ -2,7 +2,7 @@ import { AbstractStore } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
 
 import {
-    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersService, UsersWithdrawalsRequest, UsersWithdrawalsStatus,
+    Direction, UserWithdrawalColumn, type UserWithdrawalResponse, type UserWithdrawalsOrdering, UsersService, type UsersWithdrawalsRequest, type UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
 
 type UserTransactionsStoreData = {
@@ -44,7 +44,7 @@ export class UserWithdrawStore extends AbstractStore<
                 totalPages: 0,
             },
             isFetching: true,
-            filter: []
+            filter: [],
         }))
 
         reaction(
@@ -103,4 +103,5 @@ export class UserWithdrawStore extends AbstractStore<
     public get filter() {
         return this._state.filter
     }
+
 }

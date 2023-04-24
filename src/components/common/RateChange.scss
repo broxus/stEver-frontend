@@ -1,17 +1,17 @@
 .rate-change {
     color: #fff;
     display: inline-block;
+    font-feature-settings: 'tnum' on, 'lnum' on;
     font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
+
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    line-height: 18px;
     opacity: 0.7;
     padding-left: 20px;
     position: relative;
-
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 18px;
-    letter-spacing: 0.1px;
-    font-feature-settings: 'tnum' on, 'lnum' on;
 
     &::before {
         border: 5px solid transparent;

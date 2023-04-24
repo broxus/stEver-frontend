@@ -3,6 +3,9 @@ import {
     Button, Flex, Tabs, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import Media from 'react-media'
+import { useIntl } from 'react-intl'
 
 import { TextInput } from '@/components/common/TextInput'
 
@@ -14,9 +17,6 @@ import CoinStEverLogo from '@/assets/icons/StEVER.svg'
 import { formatCurrency } from '@/utils/formatCurrency'
 import { convertCurrency } from '@/utils/convertCurrency'
 import { ST_EVER_DECIMALS } from '@/config'
-import { useTvmWalletContext } from '@broxus/react-modules'
-import Media from 'react-media'
-import { useIntl } from 'react-intl'
 
 
 function FormStakInner(): JSX.Element {
@@ -76,35 +76,31 @@ function FormTab({
 
             <Media query={{ minWidth: 768 }}>
                 {match => (
-                    <>
-                        <Observer>
-                            {() => (
-                                <TextInput
-                                    autoFocus
-                                    placeholder="0"
-                                    value={staking.amount}
-                                    onChange={e => staking.setAmount(e)}
-                                    maxValue={staking.maxAmount}
-                                    inputMode="numeric"
-                                    readOnly={false}
-                                    title={type === StakingType.Stake ?
-                                        intl.formatMessage({
-                                            id: 'YOU_SPEND_EVER',
-                                        })
-                                        :
-                                        intl.formatMessage({
-                                            id: 'YOU_SPEND_STEVER',
-                                        })
-                                    }
-                                    iconUrl={
-                                        type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
-                                    }
-                                    borderButtom
-                                    showMaxButton={match && wallet.isConnected}
-                                />
-                            )}
-                        </Observer>
-                    </>
+                    <Observer>
+                        {() => (
+                            <TextInput
+                                autoFocus
+                                placeholder="0"
+                                value={staking.amount}
+                                onChange={e => staking.setAmount(e)}
+                                maxValue={staking.maxAmount}
+                                inputMode="numeric"
+                                readOnly={false}
+                                title={type === StakingType.Stake
+                                    ? intl.formatMessage({
+                                        id: 'YOU_SPEND_EVER',
+                                    })
+                                    : intl.formatMessage({
+                                        id: 'YOU_SPEND_STEVER',
+                                    })}
+                                iconUrl={
+                                    type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
+                                }
+                                borderButtom
+                                showMaxButton={match && wallet.isConnected}
+                            />
+                        )}
+                    </Observer>
                 )}
             </Media>
 
@@ -118,47 +114,46 @@ function FormTab({
                             disabled={false}
                             inputMode="numeric"
                             readOnly
-                            title={type === StakingType.Stake ?
-                                intl.formatMessage({
+                            title={type === StakingType.Stake
+                                ? intl.formatMessage({
                                     id: 'YOU_RECEIVE_STEVER',
                                 })
-                                :
-                                intl.formatMessage({
+                                : intl.formatMessage({
                                     id: 'YOU_RECEIVE_EVER',
-                                })
-                            }
+                                })}
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
-                            price={type === StakingType.Stake ? staking.exchangeRate ?? "0" : staking.exchangeRate ?? "0"}
+                            price={type === StakingType.Stake ? staking.exchangeRate ?? '0' : staking.exchangeRate ?? '0'}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
-                        {staking?.isFetchingForm ?
-                            <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
-                                {intl.formatMessage({
-                                    id: 'LOADING',
-                                })}
-                            </Button>
-                            :
-                            <Button
-                                htmlType="submit"
-                                disabled={
-                                    !wallet.isConnected
+                        {staking?.isFetchingForm
+                            ? (
+                                <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
+                                    {intl.formatMessage({
+                                        id: 'LOADING',
+                                    })}
+                                </Button>
+                            )
+                            : (
+                                <Button
+                                    htmlType="submit"
+                                    disabled={
+                                        !wallet.isConnected
                                     || !staking.amount
-                                    || staking.amount === "0"
+                                    || staking.amount === '0'
                                     || +staking.amount > +staking.maxAmount
-                                }
-                                type="primary"
-                                className="uk-width-1-1"
-                            >
-                                {type === StakingType.Stake ?
-                                    `${intl.formatMessage({
-                                        id: 'STAKE',
-                                    })} EVER`
-                                    :
-                                    `${intl.formatMessage({
-                                        id: 'UNSTAKE',
-                                    })} EVER`}
-                            </Button>
-                        }
+                                    }
+                                    type="primary"
+                                    className="uk-width-1-1"
+                                >
+                                    {type === StakingType.Stake
+                                        ? `${intl.formatMessage({
+                                            id: 'STAKE',
+                                        })} EVER`
+                                        : `${intl.formatMessage({
+                                            id: 'UNSTAKE',
+                                        })} EVER`}
+                                </Button>
+                            )}
                     </>
                 )}
             </Observer>

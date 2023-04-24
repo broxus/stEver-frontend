@@ -1,8 +1,9 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { useForceUpdate } from '@/hooks/useForceUpdate'
 import RcDrawer from 'rc-drawer'
-import type { GetContainer } from 'rc-util/lib/PortalWrapper'
+import { type GetContainer } from 'rc-util/lib/PortalWrapper'
+
+import { useForceUpdate } from '@/hooks/useForceUpdate'
 import { tuple } from '@/utils'
 
 import './Drawer.scss'

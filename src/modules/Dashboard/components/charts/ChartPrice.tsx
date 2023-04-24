@@ -3,12 +3,12 @@ import { debounce } from 'lodash'
 import { DateTime } from 'luxon'
 import Media from 'react-media'
 import { Observer, observer } from 'mobx-react-lite'
-
 import { Chart } from '@broxus/react-components'
 import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
 
-import { ChartStore } from '../../store/chartStore'
 import { useStore } from '@/hooks/useStore'
+
+import { ChartStore } from '../../store/chartStore'
 
 
 function ChartPriceInner(): JSX.Element {
@@ -93,12 +93,12 @@ function ChartPriceInner(): JSX.Element {
                             ref={chartPrice}
                             onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
                             layout={{
-                                textColor: "#8B909A",
+                                textColor: '#8B909A',
                                 fontSize: 12,
-                                fontFamily: 'PT Root UI'
+                                fontFamily: 'PT Root UI',
                             }}
                             rightPriceScale={{
-                                borderColor: "#E4E5EA",
+                                borderColor: '#E4E5EA',
                                 borderVisible: true,
                                 scaleMargins: {
                                     bottom: 0.025,
@@ -106,7 +106,7 @@ function ChartPriceInner(): JSX.Element {
                                 },
                             }}
                             timeScale={{
-                                borderColor: "#E4E5EA",
+                                borderColor: '#E4E5EA',
                                 borderVisible: true,
                                 fixRightEdge: true,
                                 rightBarStaysOnScroll: true,
@@ -115,13 +115,13 @@ function ChartPriceInner(): JSX.Element {
                             }}
                             crosshair={{
                                 vertLine: {
-                                    color: "#8B909A",
+                                    color: '#8B909A',
                                     style: 4,
                                     visible: true,
                                     width: 1,
                                 },
                                 horzLine: {
-                                    color: "#8B909A",
+                                    color: '#8B909A',
                                     style: 4,
                                     visible: true,
                                     width: 1,
@@ -134,7 +134,7 @@ function ChartPriceInner(): JSX.Element {
                                 type="Area"
                                 data={dashboard.priceCharts}
                                 lineColor="#2B63F1"
-                                title={"EVER"}
+                                title="EVER"
                                 // priceFormat={{
                                 //     formatter: usdPriceFormatter,
                                 //     type: 'custom',

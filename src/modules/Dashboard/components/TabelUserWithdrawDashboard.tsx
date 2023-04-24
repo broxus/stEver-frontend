@@ -8,24 +8,26 @@ import {
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
+import {
+    AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount,
+} from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import { useIntl } from 'react-intl'
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import {
-    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersWithdrawalsStatus,
+    Direction, UserWithdrawalColumn, type UserWithdrawalResponse, type UserWithdrawalsOrdering, UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
-
-import { UserWithdrawStore } from '../store/userWithdrawStore'
 import { ST_EVER_DECIMALS } from '@/config'
-import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount } from '@broxus/react-components'
-import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+
+import { UserWithdrawStore } from '../store/userWithdrawStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
-import { useIntl } from 'react-intl'
 
 
 function TabelUserWithdrawDashboardInner(): JSX.Element {
@@ -35,56 +37,55 @@ function TabelUserWithdrawDashboardInner(): JSX.Element {
         <Observer>
             {() => (
                 <Tile type="default" className="uk-padding-remove">
-                    {userWithdraw.isFetching ?
-                        <Media query={{ minWidth: 640 }}>
-                            {matches => matches ?
-                                (<PoolsListPlaceholder />)
-                                :
-                                (<PoolsListMobilePlaceholder />)
-                            }
-                        </Media>
-                        :
-                        <>
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader userWithdraw={userWithdraw} />
-                                </Media>
-                                {userWithdraw.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        {matches => (matches ? (
-                                            <TransactionsListItem
-                                                key={pool.transactionHash}
-                                                idx={idx + 1}
-                                                pool={pool}
-                                            />
-                                        ) : (
-                                            <TransactionsListCard
-                                                key={pool.transactionHash}
-                                                idx={idx + 1}
-                                                pool={pool}
-                                            />
-                                        ))}
+                    {userWithdraw.isFetching
+                        ? (
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => (matches
+                                    ? (<PoolsListPlaceholder />)
+                                    : (<PoolsListMobilePlaceholder />))}
+                            </Media>
+                        )
+                        : (
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <TransactionsListHeader userWithdraw={userWithdraw} />
                                     </Media>
-                                ))}
-                            </table>
-                            {!userWithdraw.transactions?.length &&
-                                <Tile className="empty-list">
-                                    <Flex justifyContent="center">
-                                        <Text className="uk-margin-auto-vertical">
-                                            {intl.formatMessage({
-                                                id: 'THE_LIST_IS_EMPTY',
-                                            })}
-                                        </Text>
-                                    </Flex>
-                                </Tile>
-                            }
-                        </>
-                    }
-                    {userWithdraw.transactions?.length ?
-                        <DepoolsListPagination userWithdraw={userWithdraw} />
-                        :
-                        undefined
-                    }
+                                    {userWithdraw.transactions?.map((pool, idx) => (
+                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                            {matches => (matches ? (
+                                                <TransactionsListItem
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ) : (
+                                                <TransactionsListCard
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ))}
+                                        </Media>
+                                    ))}
+                                </table>
+                                {!userWithdraw.transactions?.length
+                                && (
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">
+                                                {intl.formatMessage({
+                                                    id: 'THE_LIST_IS_EMPTY',
+                                                })}
+                                            </Text>
+                                        </Flex>
+                                    </Tile>
+                                )}
+                            </>
+                        )}
+                    {userWithdraw.transactions?.length
+                        ? <DepoolsListPagination userWithdraw={userWithdraw} />
+                        : undefined}
                 </Tile>
             )}
         </Observer>
@@ -155,7 +156,7 @@ export function TransactionsListHeader({ userWithdraw }: TransactionsListHeaderT
                                 column={UserWithdrawalColumn.CREATED_AT}
                                 value={{ column: userWithdraw.ordering.column, direction: userWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
-                                positionLeft={true}
+                                positionLeft
                             >
                                 {intl.formatMessage({
                                     id: 'DATE_TIME',
@@ -188,7 +189,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         </ExplorerAccountLink>
                     </Link>
                 </td>
-                <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
+                <td className="uk-text-left uk-width-small"><Link><ExplorerTransactionLink subPath="transactions" baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>{sliceAddress(pool.transactionHash)}</ExplorerTransactionLink></Link></td>
                 <td className="uk-text-left uk-width-small">
                     <Label
                         type={pool.status === UsersWithdrawalsStatus.DONE ? 'success'
@@ -204,7 +205,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                     />
                 </td>
                 <td className="uk-text-right uk-width-small">
-                    <Flex flexDirection='column'>
+                    <Flex flexDirection="column">
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
@@ -224,50 +225,50 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
 
     return (
         <Tile className="listCard uk-padding-small">
-            <Grid childWidth={1} gap='xsmall'>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+            <Grid childWidth={1} gap="xsmall">
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <Link>
                             <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
-                                <Text className='uk-margin-auto-vertical' size='small'>
-                                    <AccountIcon className='uk-margin-small-right' size={20} address={pool.userAddress} />
+                                <Text className="uk-margin-auto-vertical" size="small">
+                                    <AccountIcon className="uk-margin-small-right" size={20} address={pool.userAddress} />
                                     {sliceAddress(pool.userAddress)}
                                 </Text>
                             </ExplorerAccountLink>
                         </Link>
                     </Text>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.stAmount}
                         />
                     </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'TRANSACTION',
                         })}
                     </Text>
 
                     <Link>
-                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                        <ExplorerTransactionLink subPath="transactions" baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
                             <Flex>
-                                <Text className='uk-margin-auto-vertical' size='small'>
+                                <Text className="uk-margin-auto-vertical" size="small">
                                     {sliceAddress(pool.transactionHash)}
                                 </Text>
                             </Flex>
                         </ExplorerTransactionLink>
                     </Link>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'DATE_TIME',
                         })}
                     </Text>
                     <Link>
-                        <Text className='uk-margin-auto-vertical' size='small'>
+                        <Text className="uk-margin-auto-vertical" size="small">
                             <Date line time={pool.transactionTime * 1000} />
                         </Text>
                     </Link>
@@ -362,14 +363,14 @@ export function DepoolsListPagination({ userWithdraw }: TransactionsListPaginati
 
 
 function WithdrawUserListFilterInner(): JSX.Element {
-    
+
     const current = React.useRef<UsersWithdrawalsStatus[]>([])
     const userWithdraw = useStore(UserWithdrawStore)
     const intl = useIntl()
 
     const onChange = (e: UsersWithdrawalsStatus[]) => {
         current.current = e
-        userWithdraw.setState("filter", e)
+        userWithdraw.setState('filter', e)
 
         userWithdraw.getTransactions({
             limit: userWithdraw.pagination.limit,
@@ -400,7 +401,7 @@ function WithdrawUserListFilterInner(): JSX.Element {
                 id: 'CANCELLED',
             }),
             value: UsersWithdrawalsStatus.CANCELLED,
-        }
+        },
     ]
     return (
         <Drop
@@ -416,12 +417,12 @@ function WithdrawUserListFilterInner(): JSX.Element {
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
-                        stack={true}
+                        stack
                     />
                 </Tile>
             )}
         >
-            <Button type='secondary'>
+            <Button type="secondary">
                 {intl.formatMessage({
                     id: 'TYPE',
                 })}

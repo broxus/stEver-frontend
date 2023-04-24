@@ -74,20 +74,28 @@ export const Pagination = React.memo(({
                     <Text className="uk-margin-small-right uk-margin-auto-vertical uk-text-small">
                         {intl.formatMessage({
                             id: 'PAGE_OF',
-                        })}{" "}{totalPages}
+                        })}
+                        {' '}
+                        {totalPages}
                     </Text>
                     <Card>
                         <Button
                             className="uk-margin-small-right " type="default" onClick={onPrev}
                             disabled={disabled || currentPage === 1}
                         >
-                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 13L2 7L8 1" stroke="#2B63F1" stroke-width="1.6" />
+                            <svg
+                                width="9" height="14" viewBox="0 0 9 14"
+                                fill="none" xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M8 13L2 7L8 1" stroke="#2B63F1" strokeWidth="1.6" />
                             </svg>
                         </Button>
                         <Button type="default" onClick={onNext} disabled={disabled || !totalPages || currentPage === totalPages}>
-                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 1L7 7L1 13" stroke="#2B63F1" stroke-width="1.6" />
+                            <svg
+                                width="9" height="14" viewBox="0 0 9 14"
+                                fill="none" xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M1 1L7 7L1 13" stroke="#2B63F1" strokeWidth="1.6" />
                             </svg>
                         </Button>
                     </Card>

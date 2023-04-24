@@ -16,14 +16,30 @@
         width: 100%;
     }
 
-    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        -webkit-backdrop-filter: blur(64px);
-        backdrop-filter: blur(64px);
-        background: #fff;
-        box-shadow: 0 0 0 1px rgb(255 255 255 / 8%);
+    .nextDistribution {
+        color: #8b909a;
+        gap: 8px;
+
+        p {
+            color: #8b909a;
+            font-family: 'PT Root UI';
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            line-height: 16px;
+        }
+
+        time {
+            color: #8b909a;
+            font-family: 'PT Root UI';
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.1px;
+            line-height: 20px;
+        }
     }
 
-    @media (max-width: 640px) {
+    @media (width <= 640px) {
         nav {
             padding: 0 9px;
             width: 100%;
@@ -56,11 +72,11 @@
 
             .button-connect {
                 font-size: 14px;
-                letter-spacing: .6px;
-                line-height: 36px;
-                height: 36px;
-                padding: 0 16px;
                 font-weight: 500;
+                height: 36px;
+                letter-spacing: 0.6px;
+                line-height: 36px;
+                padding: 0 16px;
             }
         }
 
@@ -71,38 +87,23 @@
         // }
     }
 
-    .nextDistribution {
-        gap: 8px;
-        color: #8B909A;
-        p {
-            color: #8B909A;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.2px;
-            font-family: 'PT Root UI';
-        }
-
-        time {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: 0.1px;
-            color: #8B909A;
-            font-family: 'PT Root UI';
-        }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        -webkit-backdrop-filter: blur(64px);
+        backdrop-filter: blur(64px);
+        background: #fff;
+        box-shadow: 0 0 0 1px rgb(255 255 255 / 8%);
     }
 }
 
 
-
 .btn-open-drawer {
+    background: #fff0;
+    color: #000;
     height: 28px;
     min-width: 28px;
     width: 28px;
-    background: #fff0;
-    color: #000;
-    &:hover{
+
+    &:hover {
         background: #fff0;
         color: #000;   
     }
@@ -114,7 +115,7 @@
 
 .iconLogout {
     svg {
-        width: 31px;
         margin-top: -3px;
+        width: 31px;
     }
 }

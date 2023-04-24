@@ -8,40 +8,44 @@ import {
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
+import {
+    AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon,
+} from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import { useIntl } from 'react-intl'
 
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
-import { Direction, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering } from '@/apiClientCodegen'
-
-import { UserTransactionsStore } from '../store/userTransactionsStore'
+import {
+    Direction, UserTransactionColumn, type UserTransactionResponse, UserTransactionsKind, type UserTransactionsOrdering,
+} from '@/apiClientCodegen'
 import { ST_EVER_DECIMALS } from '@/config'
-import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
-import { useTvmWalletContext } from '@broxus/react-modules'
 import { Date } from '@/components/common/Date'
 import { formatDate } from '@/utils'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
+
+import { UserTransactionsStore } from '../store/userTransactionsStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
-import { useIntl } from 'react-intl'
+
 
 function TabelUserTransactionsDashboardInner(): JSX.Element {
     const userTransactions = useStore(UserTransactionsStore)
     const intl = useIntl()
     return (
-        <>
-            <Observer>
-                {() => (
-                    <Tile type="default" className="uk-padding-remove">
-                        {userTransactions.isFetching ?
+        <Observer>
+            {() => (
+                <Tile type="default" className="uk-padding-remove">
+                    {userTransactions.isFetching
+                        ? (
                             <Media query={{ minWidth: 640 }}>
-                                {matches => matches ?
-                                    (<PoolsListPlaceholder />)
-                                    :
-                                    (<PoolsListMobilePlaceholder />)
-                                }
+                                {matches => (matches
+                                    ? (<PoolsListPlaceholder />)
+                                    : (<PoolsListMobilePlaceholder />))}
                             </Media>
-                            :
+                        )
+                        : (
                             <>
                                 <table className="uk-table uk-table-divider uk-width-1-1 table">
                                     <Media query={{ minWidth: 640 }}>
@@ -51,10 +55,10 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                         <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
                                             {matches => (matches ? (
                                                 <TransactionsListItem
-                                                    key={pool.transactionHash}
-                                                    idx={idx + 1}
-                                                    pool={pool}
-                                                />
+                        key={pool.transactionHash}
+                        idx={idx + 1}
+                        pool={pool}
+                    />
                                             ) : (
                                                 <TransactionsListCard
                                                     key={pool.transactionHash}
@@ -65,28 +69,26 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                         </Media>
                                     ))}
                                 </table>
-                                {!userTransactions.transactions?.length &&
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                }
+                                {!userTransactions.transactions?.length
+                                    && (
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    )}
                             </>
-                        }
-                        {userTransactions.transactions?.length ?
-                            <DepoolsListPagination userTransactions={userTransactions} />
-                            :
-                            undefined
-                        }
-                    </Tile>
-                )}
-            </Observer>
-        </>
+                        )}
+                    {userTransactions.transactions?.length
+                        ? <DepoolsListPagination userTransactions={userTransactions} />
+                        : undefined}
+                </Tile>
+            )}
+        </Observer>
     )
 }
 
@@ -115,7 +117,9 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
                         id: 'USER',
-                    })} User
+                    })}
+                    {' '}
+                    User
                 </th>
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
@@ -153,7 +157,7 @@ export function TransactionsListHeader({ userTransactions }: TransactionsListHea
                                 column={UserTransactionColumn.CREATED_AT}
                                 value={{ column: userTransactions.ordering.column, direction: userTransactions.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
-                                positionLeft={true}
+                                positionLeft
                             >
                                 {intl.formatMessage({
                                     id: 'DATE_TIME',
@@ -184,17 +188,23 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
                             <Flex>
                                 {sliceAddress(pool.userAddress)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                                <Icon
+                                    className="uk-margin-auto-vertical uk-margin-small-left" ratio={0.6} type=""
+                                    icon="externalLink"
+                                />
                             </Flex>
                         </ExplorerAccountLink>
                     </Link>
                 </td>
                 <td className="uk-text-left uk-width-small">
                     <Link>
-                        <ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath='transactions' txHash={pool.transactionHash}>
+                        <ExplorerTransactionLink baseUrl={wallet.network?.explorer.baseUrl} subPath="transactions" txHash={pool.transactionHash}>
                             <Flex>
                                 {sliceAddress(pool.transactionHash)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                                <Icon
+                                    className="uk-margin-auto-vertical uk-margin-small-left" ratio={0.6} type=""
+                                    icon="externalLink"
+                                />
                             </Flex>
                         </ExplorerTransactionLink>
                     </Link>
@@ -207,7 +217,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                     />
                 </td>
                 <td className="uk-text-right uk-width-small">
-                    <Flex flexDirection='column'>
+                    <Flex flexDirection="column">
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
@@ -226,56 +236,56 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
     const intl = useIntl()
     return (
         <Tile className="listCard uk-padding-small">
-            <Grid childWidth={1} gap='xsmall'>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+            <Grid childWidth={1} gap="xsmall">
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <Link>
                             <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.userAddress}>
-                                <Text className='uk-margin-auto-vertical' size='small'>
-                                    <AccountIcon className='uk-margin-small-right' size={20} address={pool.userAddress} />
+                                <Text className="uk-margin-auto-vertical" size="small">
+                                    <AccountIcon className="uk-margin-small-right" size={20} address={pool.userAddress} />
                                     {sliceAddress(pool.userAddress)}
                                 </Text>
                             </ExplorerAccountLink>
                         </Link>
                     </Text>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount}
                         />
                     </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>Transaction</Text>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">Transaction</Text>
 
                     <Link>
-                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                        <ExplorerTransactionLink subPath="transactions" baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
                             <Flex>
-                                <Text className='uk-margin-auto-vertical' size='small'>
+                                <Text className="uk-margin-auto-vertical" size="small">
                                     {sliceAddress(pool.transactionHash)}
                                 </Text>
                             </Flex>
                         </ExplorerTransactionLink>
                     </Link>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'TYPE',
                         })}
                     </Text>
-                    <Text className='uk-margin-auto-vertical' size='small'>
+                    <Text className="uk-margin-auto-vertical" size="small">
                         {pool.kind}
                     </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'DATE_TIME',
                         })}
                     </Text>
                     <Link>
-                        <Text className='uk-margin-auto-vertical' size='small'>
+                        <Text className="uk-margin-auto-vertical" size="small">
                             <Date line time={pool.transactionTime * 1000} />
                         </Text>
                     </Link>
@@ -373,7 +383,7 @@ function TransactionUserListFilterInner(): JSX.Element {
 
     const onChange = (e: UserTransactionsKind[]) => {
         current.current = e
-        userTransactions.setState("filter", e)
+        userTransactions.setState('filter', e)
 
         userTransactions.getTransactions({
             from: null,
@@ -398,7 +408,7 @@ function TransactionUserListFilterInner(): JSX.Element {
                 id: 'USER_WITHDRAW',
             }),
             value: UserTransactionsKind.WITHDRAWAL,
-        }
+        },
     ]
     return (
         <Drop
@@ -414,12 +424,12 @@ function TransactionUserListFilterInner(): JSX.Element {
                     <Checkbox.Group
                         options={options}
                         onChange={onChange}
-                        stack={true}
+                        stack
                     />
                 </Tile>
             )}
         >
-            <Button type='secondary'>
+            <Button type="secondary">
                 {intl.formatMessage({
                     id: 'TYPE',
                 })}

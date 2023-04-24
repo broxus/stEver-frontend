@@ -2,21 +2,21 @@ import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { Link, useHistory } from 'react-router-dom'
 import {
-    Link as LinkText, List, Flex, Button, Tile, Text
+    Link as LinkText, List, Flex, Button, Tile, Text,
 } from '@broxus/react-uikit'
-import { useTvmWalletContext } from '@broxus/react-modules'
+import { Icon } from '@broxus/react-components'
 
 import { Logo } from '@/components/layout/Logo'
 import { appRoutes } from '@/routes'
 
-import { Icon } from '@broxus/react-components'
+
 import libraryIcon from '../common/lib'
 
 import './Footer.scss'
 
 export function Footer(): JSX.Element {
     const intl = useIntl()
-    const history = useHistory();
+    const history = useHistory()
     // const wallet = useTvmWalletContext()
     const toolbar = (
         <div className="toolbar">
@@ -38,7 +38,7 @@ export function Footer(): JSX.Element {
                 href="https://everwallet.net/"
                 rel="noopener noreferrer"
                 target="_blank"
-                type='default'
+                type="default"
             >
                 {intl.formatMessage({
                     id: 'FOOTER_WALLET_INSTALLATION_LINK_TEXT',
@@ -62,7 +62,7 @@ export function Footer(): JSX.Element {
                             <Text component="h6" className="footer-nav__col-title">
                                 {intl.formatMessage({ id: 'FOOTER_NAV_HEADER_PRODUCT' })}
                             </Text>
-                            <List className='uk-margin-remove'>
+                            <List className="uk-margin-remove">
                                 <Tile size="xsmall" className="uk-padding-remove">
                                     <Link to={appRoutes.dashboard.path}>
                                         <LinkText type="text">
@@ -89,7 +89,7 @@ export function Footer(): JSX.Element {
                                     id: 'FOOTER_NAV_HEADER_OUR_SERVICES',
                                 })}
                             </Text>
-                            <List className='uk-margin-remove'>
+                            <List className="uk-margin-remove">
                                 <Tile size="xsmall" className="uk-padding-remove">
                                     <LinkText type="text" href="https://octusbridge.io/">
                                         {intl.formatMessage({
@@ -137,10 +137,10 @@ export function Footer(): JSX.Element {
                             >
 
                                 <Icon
-                                    //@ts-ignore
+                                    // @ts-ignore
                                     lib={libraryIcon}
-                                    //@ts-ignore
-                                    icon='discord'
+                                    // @ts-ignore
+                                    icon="discord"
                                 />
                             </LinkText>
                         </Tile>

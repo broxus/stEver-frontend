@@ -9,9 +9,11 @@ import { StrategiesTransactionsStore } from '@/modules/Dashboard/store/strategie
 import { TabelStrategyTransactionsDashboard } from '@/modules/Dashboard/components/TabelStrategyTransactionsDashboard'
 import { StrategyWithdrawStore } from '@/modules/Dashboard/store/strategyWithdrawStore'
 import { TabelStrategyWithdrawDashboard } from '@/modules/Dashboard/components/TabelStrategyWithdrawDashboard'
-import { RoundsBalancesStrategy } from '../components/RoundsBalancesStrategy'
-import { Flex, Heading, Label } from '@broxus/react-uikit'
 import { Placeholder } from '@/components/common/Placeholder'
+
+import { RoundsBalancesStrategy } from '../components/RoundsBalancesStrategy'
+
+import { Flex, Heading, Label } from '@broxus/react-uikit'
 import { Observer } from 'mobx-react-lite'
 import { useIntl } from 'react-intl'
 
@@ -37,11 +39,9 @@ export default function StrategyPage(): JSX.Element {
                                         {intl.formatMessage({
                                             id: 'TRANSACTIONS',
                                         })}
-                                        {!strategyTransactions.isFetching ?
-                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyTransactions.pagination.totalCount}</Label>
-                                            :
-                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
-                                        }
+                                        {!strategyTransactions.isFetching
+                                            ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{strategyTransactions.pagination.totalCount}</Label>
+                                            : <Placeholder className="uk-margin-small-left" height={24} width={31} />}
                                     </Heading>
                                     <TabelStrategyTransactionsDashboard />
                                 </>
@@ -63,11 +63,9 @@ export default function StrategyPage(): JSX.Element {
                                         {intl.formatMessage({
                                             id: 'PENDING_WITHDRAWALS',
                                         })}
-                                        {!strategyWithdraw.isFetching ?
-                                            <Label style={{ marginTop: "-5px" }} className="uk-margin-small-left">{strategyWithdraw.pagination.totalCount}</Label>
-                                            :
-                                            <Placeholder className="uk-margin-small-left" height={24} width={31} />
-                                        }
+                                        {!strategyWithdraw.isFetching
+                                            ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{strategyWithdraw.pagination.totalCount}</Label>
+                                            : <Placeholder className="uk-margin-small-left" height={24} width={31} />}
                                     </Heading>
                                     <TabelStrategyWithdrawDashboard />
                                 </>

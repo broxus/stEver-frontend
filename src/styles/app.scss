@@ -9,24 +9,24 @@ h6 {
 
 
 h1 {
-    font-family: 'NeueFaktum', sans-serif;
     color: #000;
+    font-family: NeueFaktum, sans-serif;
     font-feature-settings: 'ss10' on;
     font-size: 44px;
     font-style: normal;
     font-weight: 600;
     line-height: 48px;
     text-align: center;
-    @media (max-width: 640px) {
-        font-weight: 600;
+    @media (width <= 640px) {
         font-size: 28px;
+        font-weight: 600;
         line-height: 32px;
     }
 }
 
 h2 {
-    font-family: 'NeueFaktum', sans-serif;
     color: #000;
+    font-family: NeueFaktum, sans-serif;
     font-feature-settings: 'ss10' on;
     font-size: 28px;
     font-style: normal;
@@ -35,8 +35,8 @@ h2 {
 }
 
 h3 {
-    font-family: 'NeueFaktum', sans-serif;
     color: #000;
+    font-family: NeueFaktum, sans-serif;
     font-feature-settings: 'ss10' on;
     font-size: 28px;
     font-style: normal;
@@ -45,8 +45,8 @@ h3 {
 }
 
 h4 {
-    font-family: 'NeueFaktum', sans-serif;
     color: #000;
+    font-family: NeueFaktum, sans-serif;
     font-feature-settings: 'ss10' on;
     font-size: 24px;
     font-style: normal;
@@ -55,8 +55,8 @@ h4 {
 }
 
 h5 {
-    font-family: 'NeueFaktum', sans-serif;
     color: #000;
+    font-family: NeueFaktum, sans-serif;
     font-feature-settings: 'ss10' on;
     font-size: 18px;
     font-style: normal;
@@ -212,13 +212,13 @@ body {
 
 
 @font-face {
-    font-family: 'NeueFaktum';
+    font-family: NeueFaktum;
     font-style: normal;
     font-weight: 500;
     src: local('NeueFaktum-Medium'), url('../assets/fonts/NeueFaktum-Medium.woff') format('woff');
 }
 @font-face {
-    font-family: 'NeueFaktum';
+    font-family: NeueFaktum;
     font-style: normal;
     font-weight: 600;
     src: local('NeueFaktum-SemiBold'), url('../assets/fonts/NeueFaktum-SemiBold.woff') format('woff');

@@ -3,8 +3,8 @@
     justify-content: space-between;
 
     span {
-        font-family: 'NeueFaktum', sans-serif;
         color: #000;
+        font-family: NeueFaktum, sans-serif;
         font-feature-settings: 'ss10' on;
         font-size: 24px;
         font-style: normal;
@@ -15,90 +15,90 @@
 }
 
 @mixin hook-button-text() {
-    background: #000000;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
     align-items: center;
-    text-align: center;
+    background: #000;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 0.25px;
-    color: #FFFFFF;
-    padding: 12px 20px;
+    line-height: 20px;
     margin-right: 12px;
+    padding: 12px 20px;
+    text-align: center;
 }
 
 @mixin hook-button-text-hover() {
-    background: #000000;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
     align-items: center;
-    text-align: center;
+    background: #000;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 0.25px;
-    color: #FFFFFF;
-    padding: 12px 20px;
+    line-height: 20px;
     margin-right: 12px;
+    padding: 12px 20px;
+    text-align: center;
 }
 
 @mixin hook-button-text-active() {
-    background: #000000;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
     align-items: center;
-    text-align: center;
-    letter-spacing: 0.25px;
-    color: #FFFFFF;
+    background: #000;
     background: #fff0;
-    padding: 12px 20px;
+    color: #fff;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 20px;
     margin-right: 12px;
+    padding: 12px 20px;
+    text-align: center;
 }
 
 
 @mixin hook-button-tertiary() {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
     align-items: center;
-    text-align: center;
-    letter-spacing: 0.25px;
-    color: #000000;
     background: #fff0;
-    border: 1px solid rgba(5, 10, 46, 0.16);
+    border: 1px solid rgb(5 10 46 / 16%);
+    color: #000;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 20px;
     padding: 12px 20px;
+    text-align: center;
     text-decoration: none;
 }
 
 @mixin hook-button-tertiary-hover() {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
-    background: #fff0;
     align-items: center;
-    text-align: center;
+    background: #fff0;
+    border: 1px solid rgb(5 10 46 / 16%);
+    color: #000!important;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 0.25px;
-    color: #000000!important;
-    border: 1px solid rgba(5, 10, 46, 0.16);
+    line-height: 20px;
     padding: 12px 20px;
+    text-align: center;
     text-decoration: none!important;
 }
 
 @mixin hook-button-tertiary-active() {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    display: flex;
     align-items: center;
-    text-align: center;
+    border: 1px solid rgb(5 10 46 / 16%);
+    color: #000!important;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
     letter-spacing: 0.25px;
-    color: #000000!important;
-    border: 1px solid rgba(5, 10, 46, 0.16);
+    line-height: 20px;
     padding: 12px 20px;
+    text-align: center;
     text-decoration: none!important;
 }
 
@@ -109,12 +109,12 @@
 }
 
 @mixin hook-button-default-hover() {
-    background: #DAE4FD;
-    color: #214BB7;
+    background: #dae4fd;
+    color: #214bb7;
 }
 
 @mixin hook-button-default-active() {
-    background: #B1C5FA;
+    background: #b1c5fa;
     color: #183784;
 }
 
@@ -124,14 +124,14 @@
 }
 
 @mixin hook-button-secondary() {
-    background: #FFFFFF;
-    border: 1px solid #E4E5EA;
-    font-weight: 500;
+    background: #fff;
+    border: 1px solid #e4e5ea;
+    color: #4d4f55;
     font-size: 14px;
+    font-weight: 500;
     letter-spacing: 0.2px;
-    color: #4D4F55;
-    padding: 8px 14px;
     line-height: normal;
+    padding: 8px 14px;
     padding-right: 30px;
 
     &::before {
@@ -149,13 +149,13 @@
 }
 
 @mixin hook-button-secondary-hover() {
-    background-color: #FFFFFF;
-    color: #4D4F55;
+    background-color: #fff;
+    color: #4d4f55;
 }
 
 @mixin hook-button-secondary-active() {
-    background-color: #FFFFFF;
-    color: #4D4F55;
+    background-color: #fff;
+    color: #4d4f55;
 }
 
 @mixin hook-tile-default() {
@@ -176,42 +176,42 @@
 
 
     p {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: 0.6px;
-        color: #2B63F1;
+        color: #2b63f1;
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
+        font-size: 12px;
+        font-weight: 500;
+        justify-content: space-between;
+        letter-spacing: 0.6px;
+        line-height: 16px;
     }
 
     .total {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-        letter-spacing: 0.1px;
+        color: #2b63f1;
         font-feature-settings: 'tnum' on, 'lnum' on;
-        color: #2B63F1;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.1px;
+        line-height: 22px;
 
         span {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            letter-spacing: 0.1px;
+            color: #2b63f1;
             font-feature-settings: 'tnum' on, 'lnum' on;
-            color: #2B63F1;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.1px;
+            line-height: 22px;
         }
     }
 
     .uk-formatted-currency-value {
         span {
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.1px;
+            color: #2b63f1;
             font-feature-settings: 'tnum' on, 'lnum' on;
-            color: #2B63F1;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1px;
+            line-height: 16px;
         }
     }
 }
@@ -221,55 +221,55 @@
     padding: 16px 24px;
 
     p {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 16px;
-        letter-spacing: 0.6px;
-        color: #8B909A;
+        color: #8b909a;
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
+        font-size: 12px;
+        font-weight: 500;
+        justify-content: space-between;
+        letter-spacing: 0.6px;
+        line-height: 16px;
     }
 
     .total {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-        letter-spacing: 0.1px;
+        color: #000;
         font-feature-settings: 'tnum' on, 'lnum' on;
-        color: #000000;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.1px;
+        line-height: 22px;
 
         span {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 22px;
-            letter-spacing: 0.1px;
+            color: #000;
             font-feature-settings: 'tnum' on, 'lnum' on;
-            color: #000000;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.1px;
+            line-height: 22px;
         }
     }
 
     .uk-formatted-currency-value {
         span {
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 16px;
-            letter-spacing: 0.1px;
+            color: #000;
             font-feature-settings: 'tnum' on, 'lnum' on;
-            color: #000000;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1px;
+            line-height: 16px;
         }
     }
 }
 
 @mixin hook-tile-muted() {
-    background: linear-gradient(270.13deg, #FFF3CD 0%, #DEF1DE 100%), #F0BB1C;
-    max-width: 440px;
+    background: linear-gradient(270.13deg, #fff3cd 0%, #def1de 100%), #f0bb1c;
     margin: auto;
-    padding: 24px;
     margin-top: 40px;
-    @media (max-width: 640px) {
-        margin-top: 0;
+    max-width: 440px;
+    padding: 24px;
+    @media (width <= 640px) {
         margin-bottom: 40px;
+        margin-top: 0;
     }
 }
 
@@ -281,54 +281,52 @@
 }
 
 
-
-
 @mixin hook-label-misc() {
     .uk-label {
         padding: 4px 8px;
 
         .uk-icon {
+            height: 10px;
             margin: auto 0;
             margin-left: 7px;
             margin-right: 2px;
             width: 10px;
-            height: 10px;
         }
     }
 }
 
 @mixin hook-label-success() {
-    color: #398A39;
-    background: #DEF1DE;
-    font-weight: 400;
+    background: #def1de;
+    color: #398a39;
     font-size: 12px;
-    line-height: 16px;
+    font-weight: 400;
     letter-spacing: 0.2px;
+    line-height: 16px;
 }
 
 @mixin hook-label-warning() {
-    background: #FEF2CD;
-    color: #B28501;
-    font-weight: 400;
+    background: #fef2cd;
+    color: #b28501;
     font-size: 12px;
-    line-height: 16px;
+    font-weight: 400;
     letter-spacing: 0.2px;
+    line-height: 16px;
 }
 
 @mixin hook-label-danger() {
-    background: #F7D7DD;
-    color: #A53045;
-    font-weight: 400;
+    background: #f7d7dd;
+    color: #a53045;
     font-size: 12px;
-    line-height: 16px;
+    font-weight: 400;
     letter-spacing: 0.2px;
+    line-height: 16px;
 }
 
 @mixin hook-label() {
-    background: #E4E5EA;
-    color: #6C7078;
-    font-weight: 400;
+    background: #e4e5ea;
+    color: #6c7078;
     font-size: 12px;
-    line-height: 16px;
+    font-weight: 400;
     letter-spacing: 0.2px;
+    line-height: 16px;
 }

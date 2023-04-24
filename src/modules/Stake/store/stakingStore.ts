@@ -1,20 +1,19 @@
 import {
-    AbstractStore, TvmWalletService, useRpcClient, useRpcProvider,
+    AbstractStore, type TvmWalletService, useRpcProvider,
 } from '@broxus/js-core'
 import BigNumber from 'bignumber.js'
 import {
     computed, makeObservable, reaction,
 } from 'mobx'
-import { formattedTokenAmount } from '@broxus/js-utils'
 import { Address } from 'everscale-inpage-provider'
 
-import { StEverVaultDetails } from '@/abi/types'
+import { type StEverVaultDetails } from '@/abi/types'
 import { parseCurrency } from '@/utils'
 import { ST_EVER_VAULT_ADDRESS_CONFIG, ST_EVER_DECIMALS, ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG } from '@/config'
-import { MainPage, StrategiesService } from '@/apiClientCodegen'
+import { type MainPage, StrategiesService } from '@/apiClientCodegen'
+import { useWalletsCache } from '@/hooks/useWalletsCache'
 
 import { Staking } from '../models/staking'
-import { useWalletsCache } from '@/hooks/useWalletsCache'
 
 export enum StakingType {
     Stake = 'Stake',
@@ -77,7 +76,7 @@ export class StakingStore extends AbstractStore<
                 ).then(e => {
                     this.setData(
                         'stBalance',
-                        e.balance ? e.balance : "0",
+                        e.balance ? e.balance : '0',
                     )
 
                 })
@@ -101,7 +100,8 @@ export class StakingStore extends AbstractStore<
                 const amount = parseCurrency(this.amount, ST_EVER_DECIMALS)
                 if (this._state.type === StakingType.Stake) {
                     await this._data.modelStaking.deposit(amount, this.wallet.account.address)
-                } else {
+                }
+                else {
                     const address = await this._data.modelStaking.getTokenWallet(
                         new Address(ST_EVER_TOKEN_ROOT_ADDRESS_CONFIG),
                         this.wallet.account.address,
@@ -118,17 +118,18 @@ export class StakingStore extends AbstractStore<
                 }
                 this.setAmount('')
                 this.setState('isFetchingForm', true)
-            } catch (e) {
+            }
+            catch (e) {
                 this.setState('isFetchingForm', false)
             }
         }
     }
 
     public async getMainInfo(): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.getStrategiesMain()
         this.setData('strategyMainInfo', response.data)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
     }
 
     public setAmount(value: string): void {
@@ -202,7 +203,7 @@ export class StakingStore extends AbstractStore<
 
 
     private async estimateDepositStEverAmount(value: string): Promise<void> {
-        this.setState("isFetchingForm", true)
+        this.setState('isFetchingForm', true)
         const amount = parseCurrency(value, ST_EVER_DECIMALS) || '0'
         if (this._state.type === StakingType.Stake) {
             this.setState('depositStEverAmount', await this._data.modelStaking.getDepositStEverAmount(amount))
@@ -210,7 +211,7 @@ export class StakingStore extends AbstractStore<
         else {
             this.setState('depositStEverAmount', await this._data.modelStaking.getWithdrawEverAmount(amount))
         }
-        this.setState("isFetchingForm", false)
+        this.setState('isFetchingForm', false)
     }
 
 

@@ -1,10 +1,10 @@
 import { TvmContractWrapper } from '@broxus/js-core'
-import { Address, ProviderRpcClient, Transaction } from 'everscale-inpage-provider'
+import { type Address, type ProviderRpcClient, type Transaction } from 'everscale-inpage-provider'
 import {
     computed, makeObservable,
 } from 'mobx'
 
-import { StEverVaultDetails } from '@/abi/types'
+import { type StEverVaultDetails } from '@/abi/types'
 
 import { StakingUtils } from './utils'
 
@@ -63,7 +63,7 @@ export class Staking extends TvmContractWrapper<
 
     public async getTokenWallet(address: Address, owner: Address): Promise<Address> {
         return Staking.Utils._getTokenWallet(address, owner)
-    } 
+    }
 
     public async transfer(address: Address, sender: Address, params: {
         amount: string | number;

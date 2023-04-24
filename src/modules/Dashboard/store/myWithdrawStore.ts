@@ -1,12 +1,13 @@
-import { AbstractStore, TvmWalletService, useRpcProvider } from '@broxus/js-core'
+import { AbstractStore, type TvmWalletService, useRpcProvider } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
+import { type Address } from 'everscale-inpage-provider'
 
 import {
-    Direction, UserWithdrawalColumn, UserWithdrawalResponse, UserWithdrawalsOrdering, UsersService, UsersWithdrawalsRequest, UsersWithdrawalsStatus,
+    Direction, UserWithdrawalColumn, type UserWithdrawalResponse, type UserWithdrawalsOrdering, UsersService, type UsersWithdrawalsRequest, UsersWithdrawalsStatus,
 } from '@/apiClientCodegen'
-import { Dashboard } from '../models/dashboard';
-import { ST_EVER_VAULT_ADDRESS_CONFIG } from '@/config';
-import { Address } from 'everscale-inpage-provider';
+import { ST_EVER_VAULT_ADDRESS_CONFIG } from '@/config'
+
+import { Dashboard } from '../models/dashboard'
 
 type UserTransactionsStoreData = {
     transactions: Array<UserWithdrawalResponse>;
@@ -31,6 +32,7 @@ export class MyWithdrawStore extends AbstractStore<
     UserTransactionsStoreData,
     UserTransactionsStoreState
 > {
+
     protected rpc = useRpcProvider()
 
     constructor(
@@ -70,18 +72,15 @@ export class MyWithdrawStore extends AbstractStore<
             _transactions[idx].status = UsersWithdrawalsStatus.CANCELLED
             this.setData('transactions', _transactions)
             await this._data.modelDashboard.removePendingWithdraw(nonce, this.wallet.account?.address as Address)
-            
+
             const accountAddress = await this._data.modelDashboard.getAccountAddress(this.wallet.account?.address as Address)
             const details = await this._data.modelDashboard.withdrawRequests(accountAddress)
-            const filteredTransactions = _transactions.filter((transaction) => {
-                return details.some((detail) => {
-                    return detail[0] === transaction.nonce + ''
-                })
-            })
+            const filteredTransactions = _transactions.filter(transaction => details.some(detail => detail[0] === `${transaction.nonce}`))
             this.setData('transactions', filteredTransactions)
 
 
-        } catch {
+        }
+        catch {
             _transactions[idx].status = UsersWithdrawalsStatus.PENDING
             this.setData('transactions', _transactions)
         }
@@ -127,4 +126,5 @@ export class MyWithdrawStore extends AbstractStore<
     public get userSum() {
         return this._data.userSum
     }
+
 }

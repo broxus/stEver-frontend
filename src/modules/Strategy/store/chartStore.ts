@@ -1,17 +1,21 @@
-import { AbstractStore, useCurrenciesApi, useRpcClient, useRpcProvider } from '@broxus/js-core'
+import {
+    AbstractStore, useCurrenciesApi, useRpcProvider,
+} from '@broxus/js-core'
 import { uniqBy } from 'lodash'
 import { computed, makeObservable, reaction } from 'mobx'
 import { useParams } from 'react-router-dom'
+import { Address } from 'everscale-inpage-provider'
+import BigNumber from 'bignumber.js'
 
 import {
-    StrategiesService, StrategyPage, TvlRequest, TvlResponse,
+    StrategiesService, type StrategyPage, type TvlRequest, type TvlResponse,
 } from '@/apiClientCodegen'
-import { Params } from '@/routes'
-import { Strategy } from '../models/strategy'
-import { Address } from 'everscale-inpage-provider'
-import { GetDePoolInfo, GetRounds, StrategyDePool } from '@/abi/types'
+import { type Params } from '@/routes'
+import { type GetDePoolInfo, type GetRounds } from '@/abi/types'
 import { ST_EVER_DECIMALS, WEVERRootAddress } from '@/config'
-import BigNumber from 'bignumber.js'
+
+import { Strategy } from '../models/strategy'
+
 
 type TabelDepoolsStoreData = {
     tvlCharts: TvlResponse[]
@@ -31,6 +35,7 @@ export class ChartStore extends AbstractStore<
 > {
 
     protected params = useParams<Params>()
+
     protected rpc = useRpcProvider()
 
     constructor() {
@@ -72,19 +77,19 @@ export class ChartStore extends AbstractStore<
         string: string,
         requestBody: TvlRequest
     }): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await StrategiesService.postStrategiesTvl(string, requestBody)
         const data = this._data.tvlCharts.concat(response ?? [])
         this.setData('tvlCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
 
     public async getMainInfo(string: string): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.getStrategiesMain1(string)
         this.setData('strategyMainInfo', response.data)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
     }
 
 
@@ -132,4 +137,5 @@ export class ChartStore extends AbstractStore<
     public get isFetching() {
         return this._state.isFetching
     }
+
 }

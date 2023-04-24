@@ -2,7 +2,7 @@ import { AbstractStore } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
 
 import {
-    Direction, StrategiesService, UserTransactionColumn, UserTransactionResponse, UserTransactionsKind, UserTransactionsOrdering, UsersTransactionsRequest,
+    Direction, StrategiesService, UserTransactionColumn, type UserTransactionResponse, type UserTransactionsKind, type UserTransactionsOrdering, type UsersTransactionsRequest,
 } from '@/apiClientCodegen'
 
 type UserTransactionsStoreData = {
@@ -44,7 +44,7 @@ export class UserTransactionsStore extends AbstractStore<
                 totalPages: 0,
             },
             isFetching: true,
-            filter: []
+            filter: [],
         }))
 
         reaction(
@@ -65,10 +65,10 @@ export class UserTransactionsStore extends AbstractStore<
     }
 
     public async getTransactions(params: UsersTransactionsRequest): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.postUsersTransactionsSearch(params)
         this.setData('transactions', response.transactions)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,
@@ -103,4 +103,5 @@ export class UserTransactionsStore extends AbstractStore<
     public get filter() {
         return this._state.filter
     }
+
 }

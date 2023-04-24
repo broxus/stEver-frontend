@@ -1,11 +1,11 @@
-import { Address, Transaction } from 'everscale-inpage-provider'
+import { type Address, type Transaction } from 'everscale-inpage-provider'
 import BigNumber from 'bignumber.js'
+import { useRpcProvider } from '@broxus/js-core'
 
-import { StEverVaultDetails } from '@/abi/types'
+import { type StEverVaultDetails } from '@/abi/types'
 import { FEE } from '@/config'
 
 import { StEverTokenWallet, StEverTokenWalletRoot, stEverVaultContract } from './contracts'
-import { useRpcProvider } from '@broxus/js-core'
 
 export abstract class StakingUtils {
 

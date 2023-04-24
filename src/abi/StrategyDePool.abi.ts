@@ -1,157 +1,157 @@
 export const StrategyDePoolAbi = {
-    "ABI version": 2,
-    "version": "2.2",
-    "header": ["time", "expire"],
-    "functions": [
+    'ABI version': 2,
+    version: '2.2',
+    header: ['time', 'expire'],
+    functions: [
         {
-            "name": "constructor",
-            "inputs": [
-                { "name": "_vault", "type": "address" },
-                { "name": "_dePool", "type": "address" }
+            name: 'constructor',
+            inputs: [
+                { name: '_vault', type: 'address' },
+                { name: '_dePool', type: 'address' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "getDetails",
-            "inputs": [
-                { "name": "answerId", "type": "uint32" }
+            name: 'getDetails',
+            inputs: [
+                { name: 'answerId', type: 'uint32' },
             ],
-            "outputs": [
-                { "components": [{ "name": "vault", "type": "address" }, { "name": "dePool", "type": "address" }, { "name": "strategyVersion", "type": "uint32" }, { "name": "state", "type": "uint8" }], "name": "value0", "type": "tuple" }
-            ]
+            outputs: [
+                { components: [{ name: 'vault', type: 'address' }, { name: 'dePool', type: 'address' }, { name: 'strategyVersion', type: 'uint32' }, { name: 'state', type: 'uint8' }], name: 'value0', type: 'tuple' },
+            ],
         },
         {
-            "name": "deposit",
-            "inputs": [
-                { "name": "_amount", "type": "uint128" }
+            name: 'deposit',
+            inputs: [
+                { name: '_amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "withdraw",
-            "inputs": [
-                { "name": "_amount", "type": "uint128" }
+            name: 'withdraw',
+            inputs: [
+                { name: '_amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "receiveAnswer",
-            "inputs": [
-                { "name": "_errcode", "type": "uint32" },
-                { "name": "value1", "type": "uint64" }
+            name: 'receiveAnswer',
+            inputs: [
+                { name: '_errcode', type: 'uint32' },
+                { name: 'value1', type: 'uint64' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "onTransfer",
-            "inputs": [
-                { "name": "source", "type": "address" },
-                { "name": "amount", "type": "uint128" }
+            name: 'onTransfer',
+            inputs: [
+                { name: 'source', type: 'address' },
+                { name: 'amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "withdrawForce",
-            "inputs": [
-                { "name": "_amount", "type": "uint64" }
+            name: 'withdrawForce',
+            inputs: [
+                { name: '_amount', type: 'uint64' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "onRoundComplete",
-            "inputs": [
-                { "name": "value0", "type": "uint64" },
-                { "name": "_reward", "type": "uint64" },
-                { "name": "_ordinaryStake", "type": "uint64" },
-                { "name": "value3", "type": "uint64" },
-                { "name": "value4", "type": "uint64" },
-                { "name": "value5", "type": "bool" },
-                { "name": "value6", "type": "uint8" }
+            name: 'onRoundComplete',
+            inputs: [
+                { name: 'value0', type: 'uint64' },
+                { name: '_reward', type: 'uint64' },
+                { name: '_ordinaryStake', type: 'uint64' },
+                { name: 'value3', type: 'uint64' },
+                { name: 'value4', type: 'uint64' },
+                { name: 'value5', type: 'bool' },
+                { name: 'value6', type: 'uint8' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "withdrawExtraMoney",
-            "inputs": [
+            name: 'withdrawExtraMoney',
+            inputs: [
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "upgrade",
-            "inputs": [
-                { "name": "_newCode", "type": "cell" },
-                { "name": "_newVersion", "type": "uint32" },
-                { "name": "_sendGasTo", "type": "address" }
+            name: 'upgrade',
+            inputs: [
+                { name: '_newCode', type: 'cell' },
+                { name: '_newVersion', type: 'uint32' },
+                { name: '_sendGasTo', type: 'address' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "nonce",
-            "inputs": [
+            name: 'nonce',
+            inputs: [
             ],
-            "outputs": [
-                { "name": "nonce", "type": "uint128" }
-            ]
+            outputs: [
+                { name: 'nonce', type: 'uint128' },
+            ],
         },
         {
-            "name": "factory",
-            "inputs": [
+            name: 'factory',
+            inputs: [
             ],
-            "outputs": [
-                { "name": "factory", "type": "address" }
-            ]
+            outputs: [
+                { name: 'factory', type: 'address' },
+            ],
         },
         {
-            "name": "strategyVersion",
-            "inputs": [
+            name: 'strategyVersion',
+            inputs: [
             ],
-            "outputs": [
-                { "name": "strategyVersion", "type": "uint32" }
-            ]
-        }
+            outputs: [
+                { name: 'strategyVersion', type: 'uint32' },
+            ],
+        },
     ],
-    "data": [
-        { "key": 1, "name": "nonce", "type": "uint128" },
-        { "key": 2, "name": "factory", "type": "address" },
-        { "key": 3, "name": "strategyVersion", "type": "uint32" }
+    data: [
+        { key: 1, name: 'nonce', type: 'uint128' },
+        { key: 2, name: 'factory', type: 'address' },
+        { key: 3, name: 'strategyVersion', type: 'uint32' },
     ],
-    "events": [
+    events: [
         {
-            "name": "Deposit",
-            "inputs": [
-                { "name": "amount", "type": "uint128" }
+            name: 'Deposit',
+            inputs: [
+                { name: 'amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
+            outputs: [
+            ],
         },
         {
-            "name": "Withdraw",
-            "inputs": [
-                { "name": "amount", "type": "uint128" }
+            name: 'Withdraw',
+            inputs: [
+                { name: 'amount', type: 'uint128' },
             ],
-            "outputs": [
-            ]
-        }
+            outputs: [
+            ],
+        },
     ],
-    "fields": [
-        { "name": "_pubkey", "type": "uint256" },
-        { "name": "_timestamp", "type": "uint64" },
-        { "name": "_constructorFlag", "type": "bool" },
-        { "name": "minStake", "type": "uint128" },
-        { "name": "vault", "type": "address" },
-        { "name": "dePool", "type": "address" },
-        { "name": "state", "type": "uint8" },
-        { "name": "nonce", "type": "uint128" },
-        { "name": "factory", "type": "address" },
-        { "name": "strategyVersion", "type": "uint32" }
-    ]
+    fields: [
+        { name: '_pubkey', type: 'uint256' },
+        { name: '_timestamp', type: 'uint64' },
+        { name: '_constructorFlag', type: 'bool' },
+        { name: 'minStake', type: 'uint128' },
+        { name: 'vault', type: 'address' },
+        { name: 'dePool', type: 'address' },
+        { name: 'state', type: 'uint8' },
+        { name: 'nonce', type: 'uint128' },
+        { name: 'factory', type: 'address' },
+        { name: 'strategyVersion', type: 'uint32' },
+    ],
 } as const

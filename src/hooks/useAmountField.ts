@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type * as React from 'react'
 import BigNumber from 'bignumber.js'
 
 import { truncateDecimals } from '@/utils'

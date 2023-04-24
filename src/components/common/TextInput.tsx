@@ -45,7 +45,7 @@ function TextInputInner({
     price,
     currency,
     borderButtom,
-    showMaxButton = false
+    showMaxButton = false,
 }: TextInputProps): JSX.Element {
     const _onChange = (_: string): void => {
         onChange?.(_)

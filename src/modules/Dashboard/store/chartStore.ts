@@ -4,9 +4,9 @@ import { computed, makeObservable, reaction } from 'mobx'
 import BigNumber from 'bignumber.js'
 
 import {
-    ApyResponse,
-    HoldersResponse,
-    MainPage, PriceResponse, StrategiesService, TvlRequest, TvlResponse, UsersService,
+    type ApyResponse,
+    type HoldersResponse,
+    type MainPage, type PriceResponse, StrategiesService, type TvlRequest, type TvlResponse, UsersService,
 } from '@/apiClientCodegen'
 import { ST_EVER_DECIMALS, WEVERRootAddress } from '@/config'
 
@@ -64,51 +64,51 @@ export class ChartStore extends AbstractStore<
     }
 
     public async getUsersTvlCharts(params: TvlRequest): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await UsersService.postUsersTvl(params)
         const data = this._data.tvlCharts.concat(response ?? [])
         this.setData('tvlCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
     public async getUsersPriceCharts(params: TvlRequest): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await UsersService.postUsersPrice(params)
         const data = this._data.priceCharts.concat(response ?? [])
         this.setData('priceCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
     public async getUsersAPYCharts(params: TvlRequest): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await UsersService.postUsersApy(params)
         const data = this._data.apyCharts.concat(response ?? [])
         this.setData('apyCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
     public async getUsersHoldersCharts(params: TvlRequest): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await UsersService.postUsersHolders(params)
         const data = this._data.holdersCharts.concat(response ?? [])
         this.setData('holdersCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
     public async getUsersUntappedCharts(params: TvlRequest): Promise<void> {
-        this.setState("isFetchingCharts", true)
+        this.setState('isFetchingCharts', true)
         const response = await UsersService.postUsersAvailableAssets(params)
         const data = this._data.untappedCharts.concat(response ?? [])
         this.setData('untappedCharts', data)
-        this.setState("isFetchingCharts", false)
+        this.setState('isFetchingCharts', false)
     }
 
 
     public async getMainInfo(): Promise<void> {
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.getStrategiesMain()
         this.setData('strategyMainInfo', response.data)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
     }
 
 

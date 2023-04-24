@@ -3,12 +3,12 @@ import { debounce } from 'lodash'
 import { DateTime } from 'luxon'
 import Media from 'react-media'
 import { Observer, observer } from 'mobx-react-lite'
-
 import { Chart } from '@broxus/react-components'
 import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
 
-import { ChartStore } from '../../store/chartStore'
 import { useStore } from '@/hooks/useStore'
+
+import { ChartStore } from '../../store/chartStore'
 
 function ChartUntappedInner(): JSX.Element {
     const chartUntapped = React.useRef<any>(null)
@@ -92,12 +92,12 @@ function ChartUntappedInner(): JSX.Element {
                             ref={chartUntapped}
                             onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
                             layout={{
-                                textColor: "#8B909A",
+                                textColor: '#8B909A',
                                 fontSize: 12,
-                                fontFamily: 'PT Root UI'
+                                fontFamily: 'PT Root UI',
                             }}
                             rightPriceScale={{
-                                borderColor: "#E4E5EA",
+                                borderColor: '#E4E5EA',
                                 borderVisible: true,
                                 scaleMargins: {
                                     bottom: 0.025,
@@ -105,7 +105,7 @@ function ChartUntappedInner(): JSX.Element {
                                 },
                             }}
                             timeScale={{
-                                borderColor: "#E4E5EA",
+                                borderColor: '#E4E5EA',
                                 borderVisible: true,
                                 fixRightEdge: true,
                                 rightBarStaysOnScroll: true,
@@ -114,13 +114,13 @@ function ChartUntappedInner(): JSX.Element {
                             }}
                             crosshair={{
                                 vertLine: {
-                                    color: "#8B909A",
+                                    color: '#8B909A',
                                     style: 4,
                                     visible: true,
                                     width: 1,
                                 },
                                 horzLine: {
-                                    color: "#8B909A",
+                                    color: '#8B909A',
                                     style: 4,
                                     visible: true,
                                     width: 1,
@@ -133,7 +133,7 @@ function ChartUntappedInner(): JSX.Element {
                                 type="Area"
                                 data={dashboard.untappedCharts}
                                 lineColor="#2B63F1"
-                                title={"EVER"}
+                                title="EVER"
                                 priceFormat={{
                                     formatter: usdPriceFormatter,
                                     type: 'custom',

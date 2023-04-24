@@ -93,5 +93,5 @@ export default {
     DONE: 'Done',
     PENDING: 'Pending',
     CANCELLED: 'Cancelled',
+    ERROR: 'Error',
 }
-

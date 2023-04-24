@@ -1,13 +1,16 @@
-import { Address } from 'everscale-inpage-provider'
+import { type Address } from 'everscale-inpage-provider'
 import BigNumber from 'bignumber.js'
+
 import { FEE } from '@/config'
+
 import { stEverAccountContract, stEverVaultContract } from './contracts'
 
 export abstract class DashboardUtils {
+
     public static async _removePendingWithdraw(address: Address, sender: Address, nonce: number) {
         const contract = stEverVaultContract(address)
         await contract.methods.removePendingWithdraw({
-            _nonce: nonce
+            _nonce: nonce,
         }).send({
             from: sender,
             amount: new BigNumber(FEE).toFixed(),

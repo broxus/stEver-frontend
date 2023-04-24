@@ -2,7 +2,7 @@ import { AbstractStore } from '@broxus/js-core'
 import { computed, makeObservable, reaction } from 'mobx'
 
 import {
-    Direction, StrategiesRequest, StrategiesService, StrategyColumn, StrategyInfo,
+    Direction, type StrategiesRequest, StrategiesService, StrategyColumn, type StrategyInfo,
 } from '@/apiClientCodegen'
 
 type TabelDepoolsStoreData = {
@@ -65,10 +65,10 @@ export class TabelDepoolsStore extends AbstractStore<
 
     public async getDepoolsStrategies(params: StrategiesRequest): Promise<void> {
         // debugger
-        this.setState("isFetching", true)
+        this.setState('isFetching', true)
         const response = await StrategiesService.postStrategiesSearch(params)
         this.setData('depoolsStrategies', response.strategies)
-        this.setState("isFetching", false)
+        this.setState('isFetching', false)
         if (response.totalCount !== this._state.pagination.totalCount) {
             this.setState('pagination', {
                 currentPage: this.pagination.currentPage,

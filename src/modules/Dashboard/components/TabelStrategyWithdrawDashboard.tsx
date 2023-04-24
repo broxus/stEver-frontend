@@ -1,31 +1,36 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
-    Flex, Grid, Heading, Label, Link, Text, Tile,
+    Button,
+    Checkbox,
+    Drop,
+    Flex, Grid, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
 import { sliceAddress } from '@broxus/js-utils'
+import { NavLink, generatePath, useParams } from 'react-router-dom'
+import {
+    AccountIcon, ExplorerTransactionLink, FormattedTokenAmount, Icon,
+} from '@broxus/react-components'
+import { useTvmWalletContext } from '@broxus/react-modules'
+import { useIntl } from 'react-intl'
 
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import {
-    StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus, StrategyWithdrawalsOrdering,
+    type StrategyWithdrawalResponse, Direction, StrategyWithdrawalColumn, StrategiesWithdrawalsStatus, type StrategyWithdrawalsOrdering,
 } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
-
-import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
-import BigNumber from 'bignumber.js'
 import { ST_EVER_DECIMALS } from '@/config'
-import { NavLink, generatePath, useParams } from 'react-router-dom'
-import { Params, appRoutes } from '@/routes'
-import { AccountIcon, ExplorerAccountLink, ExplorerTransactionLink, FormattedTokenAmount, Icon } from '@broxus/react-components'
-import { useTvmWalletContext } from '@broxus/react-modules'
+import { type Params, appRoutes } from '@/routes'
 import { Date } from '@/components/common/Date'
 import { DownloadCsv } from '@/components/common/DownloadCsv'
 import { formatDate } from '@/utils'
+
+import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
-import { useIntl } from 'react-intl'
+
 
 export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
     const strategyWithdraw = useStore(StrategyWithdrawStore)
@@ -34,56 +39,55 @@ export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
         <Observer>
             {() => (
                 <Tile type="default" className="uk-padding-remove">
-                    {strategyWithdraw.isFetching ?
-                        <Media query={{ minWidth: 640 }}>
-                            {matches => matches ?
-                                (<PoolsListPlaceholder />)
-                                :
-                                (<PoolsListMobilePlaceholder />)
-                            }
-                        </Media>
-                        :
-                        <>
-                            <table className="uk-table uk-table-divider uk-width-1-1 table">
-                                <Media query={{ minWidth: 640 }}>
-                                    <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
-                                </Media>
-                                {strategyWithdraw.transactions?.map((pool, idx) => (
-                                    <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
-                                        {matches => (matches ? (
-                                            <TransactionsListItem
-                                                key={pool.transactionHash}
-                                                idx={idx + 1}
-                                                pool={pool}
-                                            />
-                                        ) : (
-                                            <TransactionsListCard
-                                                key={pool.transactionHash}
-                                                idx={idx + 1}
-                                                pool={pool}
-                                            />
-                                        ))}
+                    {strategyWithdraw.isFetching
+                        ? (
+                            <Media query={{ minWidth: 640 }}>
+                                {matches => (matches
+                                    ? (<PoolsListPlaceholder />)
+                                    : (<PoolsListMobilePlaceholder />))}
+                            </Media>
+                        )
+                        : (
+                            <>
+                                <table className="uk-table uk-table-divider uk-width-1-1 table">
+                                    <Media query={{ minWidth: 640 }}>
+                                        <TransactionsListHeader strategyWithdraw={strategyWithdraw} />
                                     </Media>
-                                ))}
-                            </table>
-                            {!strategyWithdraw.transactions?.length &&
-                                <Tile className="empty-list">
-                                    <Flex justifyContent="center">
-                                        <Text className="uk-margin-auto-vertical">
-                                            {intl.formatMessage({
-                                                id: 'THE_LIST_IS_EMPTY',
-                                            })}
-                                        </Text>
-                                    </Flex>
-                                </Tile>
-                            }
-                        </>
-                    }
-                    {strategyWithdraw.transactions?.length ?
-                        <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
-                        :
-                        undefined
-                    }
+                                    {strategyWithdraw.transactions?.map((pool, idx) => (
+                                        <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
+                                            {matches => (matches ? (
+                                                <TransactionsListItem
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ) : (
+                                                <TransactionsListCard
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
+                                            ))}
+                                        </Media>
+                                    ))}
+                                </table>
+                                {!strategyWithdraw.transactions?.length
+                                && (
+                                    <Tile className="empty-list">
+                                        <Flex justifyContent="center">
+                                            <Text className="uk-margin-auto-vertical">
+                                                {intl.formatMessage({
+                                                    id: 'THE_LIST_IS_EMPTY',
+                                                })}
+                                            </Text>
+                                        </Flex>
+                                    </Tile>
+                                )}
+                            </>
+                        )}
+                    {strategyWithdraw.transactions?.length
+                        ? <DepoolsListPagination strategyWithdraw={strategyWithdraw} />
+                        : undefined}
                 </Tile>
             )}
         </Observer>
@@ -112,13 +116,14 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
     return (
         <thead className="uk-height-small">
             <tr>
-                {!id &&
-                    <th className="uk-text-left uk-width-small">
-                        {intl.formatMessage({
-                            id: 'STRATEGY',
-                        })}
-                    </th>
-                }
+                {!id
+                    && (
+                        <th className="uk-text-left uk-width-small">
+                            {intl.formatMessage({
+                                id: 'STRATEGY',
+                            })}
+                        </th>
+                    )}
                 <th className="uk-text-left uk-width-small">
                     {intl.formatMessage({
                         id: 'TRANSACTION',
@@ -143,7 +148,7 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
                                 column={StrategyWithdrawalColumn.CREATED_AT}
                                 value={{ column: strategyWithdraw.ordering.column, direction: strategyWithdraw.ordering.direction }}
                                 onSwitch={onSwitchOrdering}
-                                positionLeft={true}
+                                positionLeft
                             >
                                 {intl.formatMessage({
                                     id: 'DATE_TIME',
@@ -170,30 +175,34 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
     return (
         <tbody className="uk-height-small">
             <tr>
-                {!id &&
-                    <td className="uk-text-left uk-width-small">
-                        <NavLink to={generatePath(appRoutes.strategy.path, {
-                            id: pool.strategy,
-                        })}
-                        >
-                            {sliceAddress(pool.strategy)}
-                        </NavLink>
-                    </td>
-                }
+                {!id
+                    && (
+                        <td className="uk-text-left uk-width-small">
+                            <NavLink to={generatePath(appRoutes.strategy.path, {
+                                id: pool.strategy,
+                            })}
+                            >
+                                {sliceAddress(pool.strategy)}
+                            </NavLink>
+                        </td>
+                    )}
                 <td className="uk-text-left uk-width-small">
                     <Link>
-                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                        <ExplorerTransactionLink subPath="transactions" baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
                             <Flex>
                                 {sliceAddress(pool.transactionHash)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
+                                <Icon
+                                    className="uk-margin-auto-vertical uk-margin-small-left" ratio={0.6} type=""
+                                    icon="externalLink"
+                                />
                             </Flex>
                         </ExplorerTransactionLink>
                     </Link>
                 </td>
                 <td className="uk-text-left uk-width-small">
                     <Label
-                        type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success' 
-                        : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
+                        type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success'
+                            : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
                     >
                         {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
                     </Label>
@@ -205,7 +214,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                     />
                 </td>
                 <td className="uk-text-right uk-width-small">
-                    <Flex flexDirection='column'>
+                    <Flex flexDirection="column">
                         <Date time={pool.transactionTime * 1000} />
                     </Flex>
                 </td>
@@ -227,52 +236,53 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
 
     return (
         <Tile className="listCard uk-padding-small">
-            <Grid childWidth={1} gap='xsmall'>
-                <Flex justifyContent='between'>
-                    {!id &&
-                        <Text className='uk-margin-auto-vertical' size='small'>
-                            <NavLink to={generatePath(appRoutes.strategy.path, {
-                                id: pool.strategy,
-                            })}
-                            >
-                                <AccountIcon className='uk-margin-small-right' size={20} address={pool.strategy} />
-                                {sliceAddress(pool.strategy)}
-                            </NavLink>
-                        </Text>
-                    }
-                    <Text className='uk-margin-auto-vertical' size='small'>
+            <Grid childWidth={1} gap="xsmall">
+                <Flex justifyContent="between">
+                    {!id
+                        && (
+                            <Text className="uk-margin-auto-vertical" size="small">
+                                <NavLink to={generatePath(appRoutes.strategy.path, {
+                                    id: pool.strategy,
+                                })}
+                                >
+                                    <AccountIcon className="uk-margin-small-right" size={20} address={pool.strategy} />
+                                    {sliceAddress(pool.strategy)}
+                                </NavLink>
+                            </Text>
+                        )}
+                    <Text className="uk-margin-auto-vertical" size="small">
                         <FormattedTokenAmount
                             decimals={ST_EVER_DECIMALS}
                             value={pool.amount}
                         />
-                        {id && " EVER"}
+                        {id && ' EVER'}
                     </Text>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'TRANSACTION',
                         })}
                     </Text>
 
                     <Link>
-                        <ExplorerTransactionLink subPath='transactions' baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
+                        <ExplorerTransactionLink subPath="transactions" baseUrl={wallet.network?.explorer.baseUrl} txHash={pool.transactionHash}>
                             <Flex>
-                                <Text className='uk-margin-auto-vertical' size='small'>
+                                <Text className="uk-margin-auto-vertical" size="small">
                                     {sliceAddress(pool.transactionHash)}
                                 </Text>
                             </Flex>
                         </ExplorerTransactionLink>
                     </Link>
                 </Flex>
-                <Flex justifyContent='between'>
-                    <Text className='uk-margin-auto-vertical listCard--title' size='small'>
+                <Flex justifyContent="between">
+                    <Text className="uk-margin-auto-vertical listCard--title" size="small">
                         {intl.formatMessage({
                             id: 'DATE_TIME',
                         })}
                     </Text>
                     <Link>
-                        <Text className='uk-margin-auto-vertical' size='small'>
+                        <Text className="uk-margin-auto-vertical" size="small">
                             <Date line time={pool.transactionTime * 1000} />
                         </Text>
                     </Link>
@@ -361,4 +371,75 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
     )
 }
 
+function WithdrawStrategyListFilterInner(): JSX.Element {
+
+    const current = React.useRef<StrategiesWithdrawalsStatus[]>([])
+    const strategyWithdraw = useStore(StrategyWithdrawStore)
+    const intl = useIntl()
+
+    const onChange = (e: StrategiesWithdrawalsStatus[]) => {
+        current.current = e
+        strategyWithdraw.setState('filter', e)
+
+        strategyWithdraw.getTransactions({
+            limit: strategyWithdraw.pagination.limit,
+            offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
+            ordering: strategyWithdraw.ordering,
+            userAddress: null,
+            status: e,
+            amountGe: undefined,
+            amountLe: undefined,
+        })
+    }
+
+    const options = [
+        {
+            label: intl.formatMessage({
+                id: 'DONE',
+            }),
+            value: StrategiesWithdrawalsStatus.DONE,
+        },
+        {
+            label: intl.formatMessage({
+                id: 'PENDING',
+            }),
+            value: StrategiesWithdrawalsStatus.PENDING,
+        },
+        {
+            label: intl.formatMessage({
+                id: 'ERROR',
+            }),
+            value: StrategiesWithdrawalsStatus.ERROR,
+        },
+    ]
+    return (
+        <Drop
+            trigger={['hover']}
+            placement="bottom-right"
+            overlay={(
+                <Tile type="default" size="xsmall">
+                    <Text component="h6">
+                        {intl.formatMessage({
+                            id: 'TYPE',
+                        })}
+                    </Text>
+                    <Checkbox.Group
+                        options={options}
+                        onChange={onChange}
+                        stack
+                    />
+                </Tile>
+            )}
+        >
+            <Button type="secondary">
+                {intl.formatMessage({
+                    id: 'TYPE',
+                })}
+            </Button>
+        </Drop>
+    )
+}
+
+
 export const TabelStrategyWithdrawDashboard = observer(TabelStrategyWithdrawDashboardInner)
+export const WithdrawStrategyListFilter = observer(WithdrawStrategyListFilterInner)

@@ -1,32 +1,33 @@
 import * as React from 'react'
-import { Chart, ExplorerAccountLink, FormattedCurrencyValue, FormattedTokenAmount, Icon } from '@broxus/react-components'
+import {
+    Chart, ExplorerAccountLink, FormattedCurrencyValue, FormattedTokenAmount, Icon,
+} from '@broxus/react-components'
 import {
     Breadcrumb,
     Card,
     Flex, Grid, Heading, Label, Text, Tile, Width,
-    Link as LinkText
 } from '@broxus/react-uikit'
-
-import { RateChange } from '@/components/common/RateChange'
-
 import { Observer, observer } from 'mobx-react-lite'
-
-import { useStore } from '@/hooks/useStore'
-
-import { ChartStore } from '../store/chartStore'
-
-import { abbreviateNumber, debounce, formattedAmount, sliceAddress } from '@broxus/js-utils'
+import {
+    abbreviateNumber, debounce, formattedAmount, sliceAddress,
+} from '@broxus/js-utils'
 import { DateTime } from 'luxon'
-import { ST_EVER_DECIMALS } from '@/config'
 import BigNumber from 'bignumber.js'
 import { Link, useParams } from 'react-router-dom'
-import { Params, appRoutes } from '@/routes'
+
 
 import './ChartStrategy.scss'
 import { useTvmWalletContext } from '@broxus/react-modules'
-import { Placeholder } from '@/components/common/Placeholder'
 import Media from 'react-media'
 import { useIntl } from 'react-intl'
+
+import { Placeholder } from '@/components/common/Placeholder'
+import { type Params, appRoutes } from '@/routes'
+import { ST_EVER_DECIMALS } from '@/config'
+import { useStore } from '@/hooks/useStore'
+import { RateChange } from '@/components/common/RateChange'
+
+import { ChartStore } from '../store/chartStore'
 
 function ChartStrategyInner(): JSX.Element {
     const intl = useIntl()
@@ -133,7 +134,9 @@ function ChartStrategyInner(): JSX.Element {
                         <a>
                             {intl.formatMessage({
                                 id: 'STRATEGY',
-                            })} {sliceAddress(id)}
+                            })}
+                            {' '}
+                            {sliceAddress(id)}
                         </a>
                     </Breadcrumb.Item>
                 </Breadcrumb>
@@ -141,10 +144,12 @@ function ChartStrategyInner(): JSX.Element {
                 <Heading component="h2" className="uk-margin-remove">
                     {intl.formatMessage({
                         id: 'STRATEGY',
-                    })}  {sliceAddress(id)}
+                    })}
+                    {' '}
+                    {sliceAddress(id)}
                 </Heading>
 
-                <Card className='chartDashboard--labels'>
+                <Card className="chartDashboard--labels">
                     <Label
                         type={dashboard?.strategyMainInfo?.priority === 'high' ? 'success' : dashboard?.strategyMainInfo?.priority === 'medium' ? 'warning' : 'danger'}
                     >
@@ -156,22 +161,24 @@ function ChartStrategyInner(): JSX.Element {
                     </Label>
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
-                        address={id}>
+                        address={id}
+                    >
                         <Label>
                             {intl.formatMessage({
                                 id: 'STRATEGY',
                             })}
-                            <Icon icon='externalLink' />
+                            <Icon icon="externalLink" />
                         </Label>
                     </ExplorerAccountLink>
                     <ExplorerAccountLink
                         baseUrl={wallet.network?.explorer?.baseUrl}
-                        address={dashboard?.strategyMainInfo?.owner}>
+                        address={dashboard?.strategyMainInfo?.owner}
+                    >
                         <Label>
                             {intl.formatMessage({
                                 id: 'OWNER',
                             })}
-                            <Icon icon='externalLink' />
+                            <Icon icon="externalLink" />
                         </Label>
                     </ExplorerAccountLink>
                 </Card>
@@ -179,7 +186,7 @@ function ChartStrategyInner(): JSX.Element {
                 <Media query={{ minWidth: 640 }}>
                     {matches => (
                         <Grid gap="xsmall" match className="chartDashboard--layout">
-                            <Width size={matches ? "1-4" : "1-1"}>
+                            <Width size={matches ? '1-4' : '1-1'}>
                                 <Observer>
                                     {() => (
                                         <Grid gap="xsmall" childWidth={1}>
@@ -191,40 +198,41 @@ function ChartStrategyInner(): JSX.Element {
                                                         })}
                                                     </Text>
                                                     <Text>
-                                                        {dashboard.isFetching ?
-                                                            <>
-                                                                <Placeholder height={30} width={100} />
-                                                                <span>
-                                                                    <Placeholder height={20} width={35} />
-                                                                </span>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <FormattedTokenAmount
-                                                                    decimals={ST_EVER_DECIMALS}
-                                                                    value={dashboard?.strategyMainInfo?.tvl}
-                                                                    symbol='EVER'
-                                                                    className='total'
-                                                                />
-
-                                                                <span>
-                                                                    ~<FormattedCurrencyValue
-                                                                        value={
-                                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
-                                                                                .times(dashboard.price)
-                                                                                .integerValue()
-                                                                                .toFixed()
-                                                                        }
+                                                        {dashboard.isFetching
+                                                            ? (
+                                                                <>
+                                                                    <Placeholder height={30} width={100} />
+                                                                    <span>
+                                                                        <Placeholder height={20} width={35} />
+                                                                    </span>
+                                                                </>
+                                                            )
+                                                            : (
+                                                                <>
+                                                                    <FormattedTokenAmount
+                                                                        decimals={ST_EVER_DECIMALS}
+                                                                        value={dashboard?.strategyMainInfo?.tvl}
+                                                                        symbol="EVER"
+                                                                        className="total"
                                                                     />
-                                                                </span>
-                                                            </>
-                                                        }
+
+                                                                    <span>
+                                                                        ~
+                                                                        <FormattedCurrencyValue
+                                                                            value={
+                                                                                new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                                    .times(dashboard.price)
+                                                                                    .integerValue()
+                                                                                    .toFixed()
+                                                                            }
+                                                                        />
+                                                                    </span>
+                                                                </>
+                                                            )}
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={20} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
-                                                    }
+                                                    {dashboard.isFetching
+                                                        ? <Placeholder height={20} width={35} />
+                                                        : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
                                             <Tile type="secondary" size="xsmall">
@@ -234,14 +242,17 @@ function ChartStrategyInner(): JSX.Element {
                                                             id: 'FEE',
                                                         })}
                                                     </Text>
-                                                    <Text className='total'>
-                                                        {!dashboard.strategyDetails?.validatorRewardFraction ?
-                                                            <>
+                                                    <Text className="total">
+                                                        {!dashboard.strategyDetails?.validatorRewardFraction
+                                                            ? (
                                                                 <Placeholder height={30} width={100} />
-                                                            </>
-                                                            :
-                                                            <>{dashboard.strategyDetails?.validatorRewardFraction ?? 0}%</>
-                                                        }
+                                                            )
+                                                            : (
+                                                                <>
+                                                                    {dashboard.strategyDetails?.validatorRewardFraction ?? 0}
+                                                                    %
+                                                                </>
+                                                            )}
                                                     </Text>
                                                 </Grid>
                                             </Tile>
@@ -249,9 +260,9 @@ function ChartStrategyInner(): JSX.Element {
                                     )}
                                 </Observer>
                             </Width>
-                            <Width size={matches ? "3-4" : "1-1"}>
+                            <Width size={matches ? '3-4' : '1-1'}>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                    <Text component='h5' className="uk-margin-remove uk-padding-small">
+                                    <Text component="h5" className="uk-margin-remove uk-padding-small">
                                         {intl.formatMessage({
                                             id: 'TVL',
                                         })}
@@ -265,10 +276,10 @@ function ChartStrategyInner(): JSX.Element {
                                                 ref={chart}
                                                 onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                                 layout={{
-                                                    textColor: "#8B909A"
+                                                    textColor: '#8B909A',
                                                 }}
                                                 rightPriceScale={{
-                                                    borderColor: "#E4E5EA",
+                                                    borderColor: '#E4E5EA',
                                                     borderVisible: true,
                                                     scaleMargins: {
                                                         bottom: 0.025,
@@ -276,7 +287,7 @@ function ChartStrategyInner(): JSX.Element {
                                                     },
                                                 }}
                                                 timeScale={{
-                                                    borderColor: "#E4E5EA",
+                                                    borderColor: '#E4E5EA',
                                                     borderVisible: true,
                                                     fixRightEdge: true,
                                                     rightBarStaysOnScroll: true,
@@ -285,13 +296,13 @@ function ChartStrategyInner(): JSX.Element {
                                                 }}
                                                 crosshair={{
                                                     vertLine: {
-                                                        color: "#8B909A",
+                                                        color: '#8B909A',
                                                         style: 4,
                                                         visible: true,
                                                         width: 1,
                                                     },
                                                     horzLine: {
-                                                        color: "#8B909A",
+                                                        color: '#8B909A',
                                                         style: 4,
                                                         visible: true,
                                                         width: 1,
@@ -320,7 +331,7 @@ function ChartStrategyInner(): JSX.Element {
                     )}
                 </Media>
             </Flex>
-        </div >
+        </div>
     )
 }
 

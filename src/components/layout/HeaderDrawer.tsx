@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useIntl } from 'react-intl'
 import { Observer, observer } from 'mobx-react-lite'
 import { Button, Icon } from '@broxus/react-uikit'
 
@@ -7,9 +6,9 @@ import { Component } from '@/components/common/Component'
 import { Logo } from '@/components/layout/Logo'
 import { DeviceNav } from '@/components/layout/DeviceNav'
 
-import { Drawer, DrawerRef } from '../common/Drawer'
+import { Drawer, type DrawerRef } from '../common/Drawer'
 
-import "./Header.scss"
+import './Header.scss'
 
 function HeaderDrawerInner(): JSX.Element {
     const drawer = React.useRef<DrawerRef | null>(null)
@@ -43,7 +42,7 @@ function HeaderDrawerInner(): JSX.Element {
 
                             <div className="device-drawer-header-inner">
                                 <Button
-                                    type='text'
+                                    type="text"
                                     className="btn-open-drawer"
                                     onClick={collapse}
                                 >

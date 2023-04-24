@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Observer, observer } from 'mobx-react-lite'
 import BigNumber from 'bignumber.js'
 import { useIntl } from 'react-intl'
-
 import {
     Flex,
     Grid,
@@ -11,17 +10,15 @@ import {
     Tile,
     Width,
 } from '@broxus/react-uikit'
-
 import { FormattedCurrencyValue, FormattedTokenAmount } from '@broxus/react-components'
 import Media from 'react-media'
 
-import { ChartStore } from '../store/chartStore'
 import { ST_EVER_DECIMALS } from '@/config'
 import { useStore } from '@/hooks/useStore'
-
 import { RateChange } from '@/components/common/RateChange'
 import { Placeholder } from '@/components/common/Placeholder'
 
+import { ChartStore } from '../store/chartStore'
 import { ChartAPY } from './charts/ChartAPY'
 import { ChartHolders } from './charts/ChartHolders'
 import { ChartPrice } from './charts/ChartPrice'
@@ -32,11 +29,11 @@ import { ChartUntapped } from './charts/ChartUntapped'
 
 
 enum Charts {
-    TVL = "TVL",
-    Price = "Price",
-    APY = "APY",
-    Holders = "Holders",
-    Untapped = "Untapped"
+    TVL = 'TVL',
+    Price = 'Price',
+    APY = 'APY',
+    Holders = 'Holders',
+    Untapped = 'Untapped'
 }
 
 function ChartDashboardInner(): JSX.Element {
@@ -54,13 +51,16 @@ function ChartDashboardInner(): JSX.Element {
                 <Media query={{ minWidth: 640 }}>
                     {matches => (
                         <Grid gap="xsmall" match>
-                            <Width size={matches ? "1-4" : "1-1"}>
+                            <Width size={matches ? '1-4' : '1-1'}>
                                 <Observer>
                                     {() => (
-                                        <Grid style={{
-                                            marginLeft: 0,
-                                        }} gap="xsmall" childWidth={1}>
-                                            <Tile type={activeChart === Charts.TVL ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px" }} size="xsmall"
+                                        <Grid
+                                            style={{
+                                                marginLeft: 0,
+                                            }} gap="xsmall" childWidth={1}
+                                        >
+                                            <Tile
+                                                type={activeChart === Charts.TVL ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.TVL)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -68,45 +68,47 @@ function ChartDashboardInner(): JSX.Element {
                                                         {intl.formatMessage({
                                                             id: 'TVL',
                                                         })}
-                                                    </Text> 
-                                                    <Text>
-                                                        {dashboard.isFetching ?
-                                                            <>
-                                                                <Placeholder height={25} width={100} />
-                                                                <span>
-                                                                    <Placeholder height={20} width={35} />
-                                                                </span>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <FormattedTokenAmount
-                                                                    decimals={ST_EVER_DECIMALS}
-                                                                    value={dashboard?.strategyMainInfo?.tvl}
-                                                                    symbol='EVER'
-                                                                    className='total'
-                                                                />
-
-                                                                <span className='uk-margin-auto-vertical'>
-                                                                    ~<FormattedCurrencyValue
-                                                                        value={
-                                                                            new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
-                                                                                .times(dashboard.price)
-                                                                                .integerValue()
-                                                                                .toFixed()
-                                                                        }
-                                                                    />
-                                                                </span>
-                                                            </>
-                                                        }
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={17} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />
-                                                    }
+                                                    <Text>
+                                                        {dashboard.isFetching
+                                                            ? (
+                                                                <>
+                                                                    <Placeholder height={25} width={100} />
+                                                                    <span>
+                                                                        <Placeholder height={20} width={35} />
+                                                                    </span>
+                                                                </>
+                                                            )
+                                                            : (
+                                                                <>
+                                                                    <FormattedTokenAmount
+                                                                        decimals={ST_EVER_DECIMALS}
+                                                                        value={dashboard?.strategyMainInfo?.tvl}
+                                                                        symbol="EVER"
+                                                                        className="total"
+                                                                    />
+
+                                                                    <span className="uk-margin-auto-vertical">
+                                                                        ~
+                                                                        <FormattedCurrencyValue
+                                                                            value={
+                                                                                new BigNumber(parseFloat(new BigNumber(dashboard?.strategyMainInfo?.tvl ?? 0).shiftedBy(-ST_EVER_DECIMALS).integerValue().toFixed()))
+                                                                                    .times(dashboard.price)
+                                                                                    .integerValue()
+                                                                                    .toFixed()
+                                                                            }
+                                                                        />
+                                                                    </span>
+                                                                </>
+                                                            )}
+                                                    </Text>
+                                                    {dashboard.isFetching
+                                                        ? <Placeholder height={17} width={35} />
+                                                        : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Price ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
+                                            <Tile
+                                                type={activeChart === Charts.Price ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Price)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -116,37 +118,39 @@ function ChartDashboardInner(): JSX.Element {
                                                         })}
                                                     </Text>
                                                     <Text>
-                                                        {dashboard.isFetching ?
-                                                            <>
-                                                                <Placeholder height={25} width={100} />
-                                                                <span>
-                                                                    <Placeholder height={20} width={35} />
-                                                                </span>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <FormattedTokenAmount
-                                                                    value={new BigNumber(dashboard?.strategyMainInfo?.price).toString()}
-                                                                    symbol="EVER"
-                                                                    className='total'
-                                                                />
-
-                                                                <span>
-                                                                    ~<FormattedCurrencyValue
-                                                                        value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
+                                                        {dashboard.isFetching
+                                                            ? (
+                                                                <>
+                                                                    <Placeholder height={25} width={100} />
+                                                                    <span>
+                                                                        <Placeholder height={20} width={35} />
+                                                                    </span>
+                                                                </>
+                                                            )
+                                                            : (
+                                                                <>
+                                                                    <FormattedTokenAmount
+                                                                        value={new BigNumber(dashboard?.strategyMainInfo?.price).toString()}
+                                                                        symbol="EVER"
+                                                                        className="total"
                                                                     />
-                                                                </span>
-                                                            </>
-                                                        }
+
+                                                                    <span>
+                                                                        ~
+                                                                        <FormattedCurrencyValue
+                                                                            value={new BigNumber(dashboard?.strategyMainInfo?.price).times(dashboard.price).toFixed(2)}
+                                                                        />
+                                                                    </span>
+                                                                </>
+                                                            )}
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={17} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />
-                                                    }
+                                                    {dashboard.isFetching
+                                                        ? <Placeholder height={17} width={35} />
+                                                        : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.APY ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
+                                            <Tile
+                                                type={activeChart === Charts.APY ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.APY)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -155,31 +159,28 @@ function ChartDashboardInner(): JSX.Element {
                                                             id: 'APY',
                                                         })}
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <>
-                                                            <Text className='total'>
+                                                    {dashboard.isFetching
+                                                        ? (
+                                                            <Text className="total">
                                                                 <Placeholder height={25} width={100} />
                                                                 <span>
                                                                     <Placeholder height={20} width={35} />
                                                                 </span>
                                                             </Text>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <Text className='total'>
+                                                        )
+                                                        : (
+                                                            <Text className="total">
                                                                 {new BigNumber(dashboard?.strategyMainInfo?.apy).times(100).toFixed(2)}
                                                                 %
                                                             </Text>
-                                                        </>
-                                                    }
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={17} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />
-                                                    }
+                                                        )}
+                                                    {dashboard.isFetching
+                                                        ? <Placeholder height={17} width={35} />
+                                                        : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Holders ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
+                                            <Tile
+                                                type={activeChart === Charts.Holders ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Holders)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -188,30 +189,27 @@ function ChartDashboardInner(): JSX.Element {
                                                             id: 'HOLDERS',
                                                         })}
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <>
-                                                            <Text className='total'>
+                                                    {dashboard.isFetching
+                                                        ? (
+                                                            <Text className="total">
                                                                 <Placeholder height={25} width={100} />
                                                                 <span>
                                                                     <Placeholder height={18} width={35} />
                                                                 </span>
                                                             </Text>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <Text className='total'>
+                                                        )
+                                                        : (
+                                                            <Text className="total">
                                                                 {dashboard?.strategyMainInfo?.holders}
                                                             </Text>
-                                                        </>
-                                                    }
-                                                    {dashboard.isFetching ?
-                                                        <Placeholder height={17} width={35} />
-                                                        :
-                                                        <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />
-                                                    }
+                                                        )}
+                                                    {dashboard.isFetching
+                                                        ? <Placeholder height={17} width={35} />
+                                                        : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
-                                            <Tile type={activeChart === Charts.Untapped ? "primary" : "secondary"} style={{ cursor: "pointer", minHeight: "104px"  }} size="xsmall"
+                                            <Tile
+                                                type={activeChart === Charts.Untapped ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Untapped)}
                                             >
                                                 <Grid gap="xsmall" childWidth={1}>
@@ -220,58 +218,51 @@ function ChartDashboardInner(): JSX.Element {
                                                             id: 'UNTAPPED_EVER',
                                                         })}
                                                     </Text>
-                                                    {dashboard.isFetching ?
-                                                        <>
-                                                            <Text className='total'>
-                                                                <Placeholder height={25} width={100} />
+                                                    {dashboard.isFetching
+                                                        ? (
+                                                            <Text className="total">
+                                                                <Placeholder height={24} width={100} />
                                                             </Text>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <Text className='total'>
+                                                        )
+                                                        : (
+                                                            <Text className="total">
                                                                 <FormattedTokenAmount
                                                                     decimals={ST_EVER_DECIMALS}
                                                                     value={dashboard?.strategyMainInfo?.availableAssets}
-                                                                    symbol='EVER'
-                                                                    className='total'
+                                                                    symbol="EVER"
+                                                                    className="total"
                                                                 />
                                                             </Text>
-                                                        </>
-                                                    }
+                                                        )}
                                                 </Grid>
                                             </Tile>
                                         </Grid>
                                     )}
                                 </Observer>
                             </Width>
-                            <Width size={matches ? "3-4" : "1-1"}>
+                            <Width size={matches ? '3-4' : '1-1'}>
                                 <Tile type="default" size="xsmall" className="uk-padding-remove">
-                                    <Text component='h5' className="uk-margin-remove uk-padding-small">
-                                        {activeChart === Charts.TVL &&
-                                            intl.formatMessage({
+                                    <Text component="h5" className="uk-margin-remove uk-padding-small">
+                                        {activeChart === Charts.TVL
+                                            && intl.formatMessage({
                                                 id: 'TVL',
-                                            })
-                                        }
-                                        {activeChart === Charts.Price &&
-                                            intl.formatMessage({
+                                            })}
+                                        {activeChart === Charts.Price
+                                            && intl.formatMessage({
                                                 id: 'CURRENT_PRICE',
-                                            })
-                                        }
-                                        {activeChart === Charts.APY &&
-                                            intl.formatMessage({
+                                            })}
+                                        {activeChart === Charts.APY
+                                            && intl.formatMessage({
                                                 id: 'APY',
-                                            })
-                                        }
-                                        {activeChart === Charts.Holders &&
-                                            intl.formatMessage({
+                                            })}
+                                        {activeChart === Charts.Holders
+                                            && intl.formatMessage({
                                                 id: 'HOLDERS',
-                                            })
-                                        }
-                                        {activeChart === Charts.Untapped &&
-                                            intl.formatMessage({
+                                            })}
+                                        {activeChart === Charts.Untapped
+                                            && intl.formatMessage({
                                                 id: 'UNTAPPED_EVER',
-                                            })
-                                        }
+                                            })}
 
                                     </Text>
                                 </Tile>

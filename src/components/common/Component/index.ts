@@ -1,6 +1,6 @@
-import * as React from 'react'
+import type * as React from 'react'
 
-import type { ComponentProps } from './Component'
+import { type ComponentProps } from './Component'
 
 
 export { Component } from '@/components/common/Component/Component'

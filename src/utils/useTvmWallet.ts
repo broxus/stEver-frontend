@@ -1,13 +1,14 @@
 import {
-    AllNetworksConfigs,
+    type AllNetworksConfigs,
     TvmWalletService,
     inheritTextStyle,
     onlyTvmNetworks,
     successLabelStyle,
 } from '@broxus/js-core'
 import { debug } from '@broxus/js-utils'
-import { WEVERRootAddress } from '@/config'
 import { AddressLiteral } from 'everscale-inpage-provider'
+
+import { WEVERRootAddress } from '@/config'
 
 // import { networks } from '@/assets/networks'
 

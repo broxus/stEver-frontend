@@ -223,20 +223,24 @@
 }
 
 .device-drawer-content-inner {
+    display: flex;
     flex-flow: column wrap;
     overflow: hidden auto;
     width: 100%;
-    display: flex;
+
     .device-nav {
         flex-grow: 1;
     }
-    .logout{
-        font-weight: 500;
+
+    .logout {
         display: flex;
+        font-weight: 500;
         justify-content: center;
+
         span {
             margin: auto 0;
             margin-right: 6px;
+
             svg {
                 width: 32px;
             }
