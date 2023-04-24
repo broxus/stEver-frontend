@@ -390,38 +390,37 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
     const current = React.useRef<StrategiesWithdrawalsStatus[]>([])
     const strategyWithdraw = useStore(StrategyWithdrawStore)
     const intl = useIntl()
+    const { id } = useParams<Params>()
 
     const onChange = (e: StrategiesWithdrawalsStatus[]) => {
         current.current = e
         strategyWithdraw.setState('filter', e)
-
+ 
         strategyWithdraw.getTransactions({
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            userAddress: null,
-            status: e,
-            amountGe: undefined,
-            amountLe: undefined,
+            statuses: e,
+            strategy: id,
         })
     }
 
     const options = [
         {
             label: intl.formatMessage({
-                id: 'DONE',
+                id: 'WITHDRAWALS_DONE',
             }),
             value: StrategiesWithdrawalsStatus.DONE,
         },
         {
             label: intl.formatMessage({
-                id: 'PENDING',
+                id: 'WITHDRAWALS_PENDING',
             }),
             value: StrategiesWithdrawalsStatus.PENDING,
         },
         {
             label: intl.formatMessage({
-                id: 'ERROR',
+                id: 'WITHDRAWALS_ERROR',
             }),
             value: StrategiesWithdrawalsStatus.ERROR,
         },

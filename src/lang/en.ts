@@ -91,8 +91,8 @@ export default {
     STATUS: 'Status',
 
     WITHDRAWALS: 'Withdrawals',
-    DONE: 'Done',
-    PENDING: 'Pending',
-    CANCELLED: 'Cancelled',
-    ERROR: 'Error',
+    WITHDRAWALS_DONE: 'Withdrawals done',
+    WITHDRAWALS_PENDING: 'Withdrawals pending',
+    WITHDRAWALS_CANCELLED: 'Withdrawals cancelled',
+    WITHDRAWALS_ERROR: 'Withdrawals error',
 }

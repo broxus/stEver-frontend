@@ -392,28 +392,28 @@ function WithdrawUserListFilterInner(): JSX.Element {
             offset: userWithdraw.pagination.currentPage * userWithdraw.pagination.limit,
             ordering: userWithdraw.ordering,
             userAddress: null,
-            status: e,
+            statuses: e,
             amountGe: undefined,
             amountLe: undefined,
-        })
+        }) 
     }
 
     const options = [
         {
             label: intl.formatMessage({
-                id: 'DONE',
+                id: 'WITHDRAWALS_DONE',
             }),
             value: UsersWithdrawalsStatus.DONE,
         },
         {
             label: intl.formatMessage({
-                id: 'PENDING',
+                id: 'WITHDRAWALS_PENDING',
             }),
             value: UsersWithdrawalsStatus.PENDING,
         },
         {
             label: intl.formatMessage({
-                id: 'CANCELLED',
+                id: 'WITHDRAWALS_CANCELLED',
             }),
             value: UsersWithdrawalsStatus.CANCELLED,
         },

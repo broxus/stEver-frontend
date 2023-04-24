@@ -8,7 +8,10 @@ import type { UsersWithdrawalsStatus } from './UsersWithdrawalsStatus';
  * Users withdrawals sum request
  */
 export type UsersWithdrawalsSumRequest = {
-    status?: UsersWithdrawalsStatus;
+    /**
+     * statuses
+     */
+    statuses?: Array<UsersWithdrawalsStatus> | null;
     userAddress?: string;
 };
 

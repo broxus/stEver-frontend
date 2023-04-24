@@ -20,7 +20,10 @@ export type UsersWithdrawalsRequest = {
     limit: number;
     offset: number;
     ordering?: UserWithdrawalsOrdering;
-    status?: UsersWithdrawalsStatus;
+    /**
+     * status
+     */
+    statuses?: Array<UsersWithdrawalsStatus> | null;
     userAddress?: string | null;
 };
 

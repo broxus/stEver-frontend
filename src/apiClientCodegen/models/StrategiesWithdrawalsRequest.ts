@@ -12,7 +12,7 @@ export type StrategiesWithdrawalsRequest = {
     limit: number;
     offset: number;
     ordering?: StrategyWithdrawalsOrdering;
-    status?: StrategiesWithdrawalsStatus;
+    statuses?: Array<StrategiesWithdrawalsStatus> | null;
     strategy?: string | null;
 };
 
