@@ -75,7 +75,7 @@ export default {
     STAKE_YOUR_EVERS: 'Stake your EVERs',
     EFFICIENCY: 'efficiency',
     ROUNDS_BALANCES: ' Rounds balances',
-
+    Round: 'Round',
     MANUAL: 'Manual',
     YOUR_STAKED_TOTAL: 'stEVER withdrawal is being processed. This may take up to 36 hours.',
     YOUR_PENDING_WITHDRAWALS: 'Your pending withdrawals',

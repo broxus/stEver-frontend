@@ -42,12 +42,14 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                             <Width size={matches ? '1-3' : '1-1'}>
                                                 <Tile type="secondary" size="xsmall" className="round">
                                                     <Text className="uk-margin-remove">
-                                                        Round
+                                                        {intl.formatMessage({
+                                                            id: 'ROUND',
+                                                        })}
                                                         {e[0]}
                                                     </Text>
                                                     <Flex>
                                                         {dashboard.strategyMainInfo?.tvlDeltaNextRound
-                                                                && i === 2
+                                                            && i === 2
                                                             ? (
                                                                 <>
                                                                     <FormattedTokenAmount
