@@ -55,10 +55,9 @@ function ChartDashboardInner(): JSX.Element {
                                 <Observer>
                                     {() => (
                                         <Grid
-                                            style={{
-                                                marginLeft: 0,
-                                            }} gap="xsmall" childWidth={1}
+                                         gap="xsmall" childWidth={1}
                                         >
+                                            <div>
                                             <Tile
                                                 type={activeChart === Charts.TVL ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.TVL)}
@@ -107,6 +106,8 @@ function ChartDashboardInner(): JSX.Element {
                                                         : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.tvlDelta).div(dashboard?.strategyMainInfo?.tvl).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
+                                            </div>
+                                            <div>
                                             <Tile
                                                 type={activeChart === Charts.Price ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Price)}
@@ -149,6 +150,8 @@ function ChartDashboardInner(): JSX.Element {
                                                         : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.priceDelta).div(dashboard?.strategyMainInfo?.price).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
+                                            </div>
+                                            <div>
                                             <Tile
                                                 type={activeChart === Charts.APY ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.APY)}
@@ -179,6 +182,8 @@ function ChartDashboardInner(): JSX.Element {
                                                         : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.apyDelta).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
+                                            </div>
+                                            <div>
                                             <Tile
                                                 type={activeChart === Charts.Holders ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Holders)}
@@ -208,6 +213,8 @@ function ChartDashboardInner(): JSX.Element {
                                                         : <RateChange size="sm" value={new BigNumber(dashboard?.strategyMainInfo?.holdersDelta).div(dashboard?.strategyMainInfo?.holders).times(100).toFixed(2)} />}
                                                 </Grid>
                                             </Tile>
+                                            </div>
+                                            <div>
                                             <Tile
                                                 type={activeChart === Charts.Untapped ? 'primary' : 'secondary'} style={{ cursor: 'pointer', minHeight: '104px' }} size="xsmall"
                                                 onClick={() => setActiveChart(Charts.Untapped)}
@@ -236,6 +243,7 @@ function ChartDashboardInner(): JSX.Element {
                                                         )}
                                                 </Grid>
                                             </Tile>
+                                            </div>
                                         </Grid>
                                     )}
                                 </Observer>
