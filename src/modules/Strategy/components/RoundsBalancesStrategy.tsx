@@ -45,6 +45,7 @@ function RoundsBalancesStrategyInner(): JSX.Element {
                                                         {intl.formatMessage({
                                                             id: 'ROUND',
                                                         })}
+                                                        {' '}
                                                         {e[0]}
                                                     </Text>
                                                     <Flex>

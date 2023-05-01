@@ -26,20 +26,17 @@ export function DesktopNav(): JSX.Element {
                     })}
                 </NavLink>
             </Nav.Item>
-            {/* <Nav.Item>
-                <NavLink key="docs" to={appRoutes.docs.makeUrl()}>
-                    {intl.formatMessage({
-                        id: 'NAV_LINK_TEXT_DOCS',
-                    })}
-                </NavLink>
-            </Nav.Item>
             <Nav.Item>
-                <NavLink key="decomeValidator" to={appRoutes.decomeValidator.makeUrl()}>
+                <a
+                    href="https://docs.stakedever.io/overview/about-stever"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     {intl.formatMessage({
-                        id: 'NAV_LINK_TEXT_BECOME_A_VLIDATOR',
+                        id: 'MANUAL',
                     })}
-                </NavLink>
-            </Nav.Item> */}
+                </a>
+            </Nav.Item>
         </Navbar.Nav>
     )
 }

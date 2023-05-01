@@ -1,0 +1,41 @@
+.btn-icon {
+    align-items: center;
+    border: none 0;
+    color: #a6aab2;
+    display: inline-flex;
+    height: auto;
+    justify-content: center;
+    opacity: 0.5;
+    padding: 0;
+    transition: opacity 0.15s ease-in-out;
+    vertical-align: middle;
+    width: auto;
+    background: #fff0;
+    margin-right: 25px;
+
+    &:hover,
+    &.active {
+        color: #a6aab2;
+        opacity: 1;
+    }
+
+    &.btn-md {
+        padding: 0 24px;
+
+        &.btn-square {
+            width: 48px;
+        }
+    }
+
+    &.btn-fav {
+        &.active {
+            svg {
+                fill: #a6aab2;
+
+                path {
+                    stroke: #a6aab2;
+                }
+            }
+        }
+    }
+}

@@ -22,7 +22,10 @@ type StrategiesTransactionsStoreState = {
     isFetching?: boolean;
     ordering: StrategyWithdrawalsOrdering
     pagination: StrategiesTransactionsDashboardPagination;
-    filter: StrategiesWithdrawalsStatus[]
+    filter: {
+        statuses: StrategiesWithdrawalsStatus[] | [],
+        strategies: string[] | []
+    }
 
 }
 
@@ -49,7 +52,10 @@ export class StrategyWithdrawStore extends AbstractStore<
                 totalPages: 0,
             },
             isFetching: true,
-            filter: [],
+            filter: {
+                statuses: [],
+                strategies: []
+            }
         }))
 
         reaction(
@@ -59,7 +65,6 @@ export class StrategyWithdrawStore extends AbstractStore<
                     limit: this._state.pagination.limit,
                     offset: this._state.pagination.currentPage * this._state.pagination.limit,
                     ordering: this._state.ordering,
-                    // status: StrategiesWithdrawalsStatus.PENDING,
                     strategy: this.params.id,
                 })
             },

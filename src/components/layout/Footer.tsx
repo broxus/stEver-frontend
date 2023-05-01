@@ -81,6 +81,18 @@ export function Footer(): JSX.Element {
                                         </LinkText>
                                     </Link>
                                 </Tile>
+                                <Tile size="xsmall" className="uk-padding-remove">
+                                    <a
+                                        href="https://docs.stakedever.io/overview/about-stever"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'MANUAL',
+                                        })}
+                                    </a>
+                                </Tile>
+
                             </List>
                         </div>
                         <div className="footer-nav__col">

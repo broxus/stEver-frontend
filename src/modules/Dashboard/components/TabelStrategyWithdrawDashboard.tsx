@@ -30,6 +30,7 @@ import { formatDate } from '@/utils'
 import { StrategyWithdrawStore } from '../store/strategyWithdrawStore'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
+import { useFavoritesPoolsStorage } from '@/hooks/useFavoritesPoolsStorage'
 
 
 export function TabelStrategyWithdrawDashboardInner(): JSX.Element {
@@ -103,13 +104,13 @@ export function TransactionsListHeader({ strategyWithdraw }: TransactionsListHea
     const intl = useIntl()
     const onSwitchOrdering = async (value: StrategyWithdrawalsOrdering) => {
         strategyWithdraw.setState('ordering', value)
-
         strategyWithdraw.getTransactions({
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: value,
-            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
+            statuses: strategyWithdraw.filter.statuses.length ? strategyWithdraw.filter.statuses : undefined,
             strategy: id,
+            strategies: strategyWithdraw.filter.strategies.length ? strategyWithdraw.filter.strategies : undefined,
         })
     }
 
@@ -323,8 +324,9 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
+            statuses: strategyWithdraw.filter.statuses.length ? strategyWithdraw.filter.statuses : undefined,
             strategy: id,
+            strategies: strategyWithdraw.filter.strategies.length ? strategyWithdraw.filter.strategies : undefined,
         })
     }
 
@@ -337,8 +339,9 @@ export function DepoolsListPagination({ strategyWithdraw }: TransactionsListPagi
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
-            statuses: strategyWithdraw.filter.length ? strategyWithdraw.filter : undefined,
+            statuses: strategyWithdraw.filter.statuses.length ? strategyWithdraw.filter.statuses : undefined,
             strategy: id,
+            strategies: strategyWithdraw.filter.strategies.length ? strategyWithdraw.filter.strategies : undefined,
         })
     }
 
@@ -391,19 +394,42 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
     const strategyWithdraw = useStore(StrategyWithdrawStore)
     const intl = useIntl()
     const { id } = useParams<Params>()
+    const pools = useFavoritesPoolsStorage()
 
     const onChange = (e: StrategiesWithdrawalsStatus[]) => {
         current.current = e
-        strategyWithdraw.setState('filter', e)
- 
+        strategyWithdraw.setState('filter', {
+            ...strategyWithdraw.filter,
+            statuses: e,
+        })
+
         strategyWithdraw.getTransactions({
             limit: strategyWithdraw.pagination.limit,
             offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
             ordering: strategyWithdraw.ordering,
             statuses: e.length ? e : undefined,
             strategy: id,
+            strategies: strategyWithdraw.filter.strategies.length ? strategyWithdraw.filter.strategies : undefined,
         })
     }
+
+    const onChangeStrategies = (e: StrategiesWithdrawalsStatus[]) => {
+        current.current = e
+        strategyWithdraw.setState('filter', {
+            ...strategyWithdraw.filter,
+            strategies: e,
+        })
+
+        strategyWithdraw.getTransactions({
+            limit: strategyWithdraw.pagination.limit,
+            offset: strategyWithdraw.pagination.currentPage * strategyWithdraw.pagination.limit,
+            ordering: strategyWithdraw.ordering,
+            statuses: strategyWithdraw.filter.statuses.length ? strategyWithdraw.filter.statuses : undefined,
+            strategy: id,
+            strategies: e.length ? e : undefined
+        })
+    }
+
 
     const options = [
         {
@@ -425,6 +451,12 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
             value: StrategiesWithdrawalsStatus.ERROR,
         },
     ]
+    const optionsStrategies = pools.map((pool) => ({
+        label: pool,
+        value: pool,
+    }))
+
+
     return (
         <Drop
             trigger={['hover']}
@@ -441,6 +473,20 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
                         onChange={onChange}
                         stack
                     />
+                    {pools.length &&
+                        <>
+                            <Text component="h6">
+                                {intl.formatMessage({
+                                    id: 'ONLY_FAOURITES_DEPOOLS',
+                                })}
+                            </Text>
+                            <Checkbox.Group
+                                options={optionsStrategies}
+                                onChange={onChangeStrategies}
+                                stack
+                            />
+                        </>
+                    }
                 </Tile>
             )}
         >

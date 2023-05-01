@@ -34,6 +34,18 @@ function DeviceNavInner({ onNavigate }: Props): JSX.Element {
                         })}
                     </NavLink>
                 </Nav.Item>
+                <Nav.Item key="dashboard">
+                    <a
+                        href="https://docs.stakedever.io/overview/about-stever"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {intl.formatMessage({
+                            id: 'MANUAL',
+                        })}
+                    </a>
+                </Nav.Item>
+
             </Nav>
             {wallet.isConnected
                 ? (

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Media from 'react-media'
 import {
+    Checkbox,
     Drop,
     Flex, Grid, Heading, Label, Link, Text, Tile,
 } from '@broxus/react-uikit'
@@ -29,21 +30,56 @@ import { Placeholder } from '@/components/common/Placeholder'
 import { PoolsListPlaceholder } from './placeholders/TabelDepoolsPlaceholder'
 import { PoolsListMobilePlaceholder } from './placeholders/TabelDepoolsMobilePlaceholder'
 import { TabelDepoolsStore } from '../store/depoolsStore'
+import { FaveButton } from '@/components/common/FaveButton'
+import { useFavoritesPoolsStorage } from '@/hooks/useFavoritesPoolsStorage'
 
 
 export function TabelDepoolsDashboardInner(): JSX.Element {
     const tabelDepools = useStore(TabelDepoolsStore)
     const intl = useIntl()
+    const pools = useFavoritesPoolsStorage()
+
+    const onChange = (e: boolean[]) => {
+        tabelDepools.getDepoolsStrategies({
+            depool: null,
+            limit: tabelDepools.pagination.limit,
+            offset: tabelDepools.pagination.currentPage * tabelDepools.pagination.limit,
+            validatorFeeGe: null,
+            validatorFeeLe: null,
+            strategies: e[0] ? pools : null
+        })
+    }
+
+    const options = [
+        {
+            label: intl.formatMessage({
+                id: 'ONLY_FAOURITES_DEPOOLS',
+            }),
+            value: true,
+        }
+    ]
+
     return (
         <Flex flexDirection="column">
-            <Heading component="h4">
-                {intl.formatMessage({
-                    id: 'PARTICIPATING_DEPOOLS',
-                })}
-                {!tabelDepools.isFetching
-                    ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
-                    : <Placeholder className="uk-margin-small-left" height={24} width={31} />}
-            </Heading>
+            <Flex justifyContent='between'>
+                <Heading component="h4">
+                    {intl.formatMessage({
+                        id: 'PARTICIPATING_DEPOOLS',
+                    })}
+                    {!tabelDepools.isFetching
+                        ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{tabelDepools.pagination.totalCount}</Label>
+                        : <Placeholder className="uk-margin-small-left" height={24} width={31} />}
+                </Heading>
+                {pools.length > 0 &&
+                    <Checkbox.Group
+                        options={options}
+                        onChange={onChange}
+                        stack
+                    />
+                }
+
+            </Flex>
+
             <Observer>
                 {() => (
                     <Tile type="default" className="uk-padding-remove">
@@ -80,17 +116,17 @@ export function TabelDepoolsDashboardInner(): JSX.Element {
                                         ))}
                                     </table>
                                     {!tabelDepools.depoolsStrategies?.length
-                                    && (
-                                        <Tile className="empty-list">
-                                            <Flex justifyContent="center">
-                                                <Text className="uk-margin-auto-vertical">
-                                                    {intl.formatMessage({
-                                                        id: 'THE_LIST_IS_EMPTY',
-                                                    })}
-                                                </Text>
-                                            </Flex>
-                                        </Tile>
-                                    )}
+                                        && (
+                                            <Tile className="empty-list">
+                                                <Flex justifyContent="center">
+                                                    <Text className="uk-margin-auto-vertical">
+                                                        {intl.formatMessage({
+                                                            id: 'THE_LIST_IS_EMPTY',
+                                                        })}
+                                                    </Text>
+                                                </Flex>
+                                            </Tile>
+                                        )}
                                 </>
                             )}
                         {tabelDepools.depoolsStrategies?.length
@@ -135,16 +171,6 @@ export function DepoolsListHeader({ tabelDepools }: DepoolsListHeaderType): JSX.
                         id: 'VALIDATOR_FEE',
                     })}
                 </th>
-                {/* <th className="uk-text-left uk-width-small">
-                    {intl.formatMessage({
-                        id: 'DEPOOL',
-                    })}
-                </th>
-                <th className="uk-text-left uk-width-small">
-                    {intl.formatMessage({
-                        id: 'OWNER',
-                    })}
-                </th> */}
                 <th className="uk-text-left uk-width-small">
                     <Observer>
                         {() => (
@@ -228,42 +254,21 @@ type DepoolsListItemType = {
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
-    const wallet = useTvmWalletContext()
-
     return (
         <tbody className="uk-height-small">
             <tr>
                 <td className="uk-text-left uk-width-small">
-                    <NavLink to={generatePath(appRoutes.strategy.path, {
-                        id: pool.strategy,
-                    })}
-                    >
-                        {sliceAddress(pool.strategy)}
-                    </NavLink>
+                    <Flex>
+                        <FaveButton poolAddress={pool.strategy} iconRatio={0.8} />
+                        <NavLink to={generatePath(appRoutes.strategy.path, {
+                            id: pool.strategy,
+                        })}
+                        >
+                            {sliceAddress(pool.strategy)}
+                        </NavLink>
+                    </Flex>
                 </td>
                 <td className="uk-text-left uk-width-small">{pool.validatorFee}</td>
-
-                {/* <td className="uk-text-left uk-width-small">
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.depool}>
-                            <Flex>
-                                {sliceAddress(pool.depool)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} type='' icon='externalLink' />
-                            </Flex>
-                        </ExplorerAccountLink>
-                    </Link>
-                </td>
-                <td className="uk-text-left uk-width-small">
-                    <Link>
-                        <ExplorerAccountLink baseUrl={wallet.network?.explorer.baseUrl} address={pool.owner}>
-                            <Flex>
-                                {sliceAddress(pool.owner)}
-                                <Icon className='uk-margin-auto-vertical uk-margin-small-left' ratio={0.6} icon='externalLink' />
-                            </Flex>
-                        </ExplorerAccountLink>
-                    </Link>
-                </td> */}
-
                 <td className="uk-text-left uk-width-small">
                     <Label
                         type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}

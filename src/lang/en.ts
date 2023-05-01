@@ -95,4 +95,5 @@ export default {
     WITHDRAWALS_PENDING: 'Withdrawals pending',
     WITHDRAWALS_CANCELLED: 'Withdrawals cancelled',
     WITHDRAWALS_ERROR: 'Withdrawals error',
+    ONLY_FAOURITES_DEPOOLS: 'Only favourites depools',
 }

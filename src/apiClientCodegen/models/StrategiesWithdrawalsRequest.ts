@@ -13,6 +13,7 @@ export type StrategiesWithdrawalsRequest = {
     offset: number;
     ordering?: StrategyWithdrawalsOrdering;
     statuses?: Array<StrategiesWithdrawalsStatus> | null;
+    strategies?: Array<string> | null;
     strategy?: string | null;
 };
 
