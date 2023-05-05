@@ -37,7 +37,7 @@ export function InfoStakInner(): JSX.Element {
                 offset: myWithdraw.pagination.currentPage * myWithdraw.pagination.limit,
                 ordering: myWithdraw.ordering,
                 userAddress: wallet.address?.toString(),
-                status: UsersWithdrawalsStatus.PENDING,
+                statuses: [UsersWithdrawalsStatus.PENDING],
                 amountGe: undefined,
                 amountLe: undefined,
             })
