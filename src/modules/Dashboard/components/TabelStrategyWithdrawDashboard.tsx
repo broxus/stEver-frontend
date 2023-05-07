@@ -473,7 +473,7 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
                         onChange={onChange}
                         stack
                     />
-                    {pools.length &&
+                    {pools.length ?
                         <>
                             <Text component="h6">
                                 {intl.formatMessage({
@@ -486,6 +486,8 @@ function WithdrawStrategyListFilterInner(): JSX.Element {
                                 stack
                             />
                         </>
+                        :
+                        undefined
                     }
                 </Tile>
             )}
