@@ -1,5 +1,5 @@
 import * as React from 'react'
-
+import 'setimmediate';
 import { storage } from '@/utils'
 
 export enum Theme {
@@ -19,7 +19,8 @@ export function useTheme(): ThemeShape {
 
     React.useEffect(() => {
         const body = document.documentElement
-
+        // document.body.classList.add('theme-light');
+        body.style.backgroundColor = "#050B2E"
         body.classList.add('no-transition')
         body.setAttribute('theme', theme)
 

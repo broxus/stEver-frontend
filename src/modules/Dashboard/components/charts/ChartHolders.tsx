@@ -9,11 +9,15 @@ import { abbreviateNumber, formattedAmount } from '@broxus/js-utils'
 import { useStore } from '@/hooks/useStore'
 
 import { ChartStore } from '../../store/chartStore'
+import { ThemeContext } from '@/provider/ThemeProvider'
+import { useContext } from '@/hooks/useContext'
+import { Theme } from '@/hooks/useTheme'
 
 function ChartHoldersInner(): JSX.Element {
     const seriesHolders = React.useRef<any>(null)
     const chartHolders = React.useRef<any>(null)
     const dashboard = useStore(ChartStore)
+    const theme = useContext(ThemeContext)
 
 
     const onVisibleLogicalRangeChangeTvl: any = debounce(logicalRange => {
@@ -103,12 +107,12 @@ function ChartHoldersInner(): JSX.Element {
                             ref={chartHolders}
                             onVisibleLogicalRangeChange={onVisibleLogicalRangeChangeTvl}
                             layout={{
-                                textColor: '#8B909A',
+                                textColor: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                 fontSize: 12,
                                 fontFamily: 'PT Root UI',
                             }}
                             rightPriceScale={{
-                                borderColor: '#E4E5EA',
+                                borderColor: `${theme.theme === Theme.Light ? 'rgba(255, 255, 255, 0.16)' : '#E4E5EA'}`,
                                 borderVisible: true,
                                 scaleMargins: {
                                     bottom: 0.025,
@@ -116,7 +120,7 @@ function ChartHoldersInner(): JSX.Element {
                                 },
                             }}
                             timeScale={{
-                                borderColor: '#E4E5EA',
+                                borderColor: `${theme.theme === Theme.Light ? 'rgba(255, 255, 255, 0.16)' : '#E4E5EA'}`,
                                 borderVisible: true,
                                 fixRightEdge: true,
                                 rightBarStaysOnScroll: true,
@@ -125,13 +129,13 @@ function ChartHoldersInner(): JSX.Element {
                             }}
                             crosshair={{
                                 vertLine: {
-                                    color: '#8B909A',
+                                    color: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                     style: 4,
                                     visible: true,
                                     width: 1,
                                 },
                                 horzLine: {
-                                    color: '#8B909A',
+                                    color: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                     style: 4,
                                     visible: true,
                                     width: 1,
@@ -143,7 +147,7 @@ function ChartHoldersInner(): JSX.Element {
                                 ref={seriesHolders}
                                 type="Area"
                                 data={dashboard.holdersCharts}
-                                lineColor="#2B63F1"
+                                lineColor={`${theme.theme === Theme.Light ? '#FFFFFF' : '#2B63F1'}`}
                                 priceFormat={{
                                     formatter: usdPriceFormatter,
                                     type: 'custom',

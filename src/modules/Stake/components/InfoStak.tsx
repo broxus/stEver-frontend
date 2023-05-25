@@ -74,7 +74,7 @@ export function InfoStakInner(): JSX.Element {
                                     <Text className="uk-text-center uk-margin-remove">
                                         {intl.formatMessage({
                                             id: 'EVER_STAKED',
-                                        })}
+                                        })} 
                                     </Text>
                                 </Tile>
                                 <Tile className="uk-padding-remove">

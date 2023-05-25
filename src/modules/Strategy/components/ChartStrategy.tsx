@@ -28,6 +28,9 @@ import { useStore } from '@/hooks/useStore'
 import { RateChange } from '@/components/common/RateChange'
 
 import { ChartStore } from '../store/chartStore'
+import { useContext } from '@/hooks/useContext'
+import { ThemeContext } from '@/provider/ThemeProvider'
+import { Theme } from '@/hooks/useTheme'
 
 function ChartStrategyInner(): JSX.Element {
     const intl = useIntl()
@@ -36,6 +39,7 @@ function ChartStrategyInner(): JSX.Element {
     const chart = React.useRef<any>(null)
     const { id } = useParams<Params>()
     const wallet = useTvmWalletContext()
+    const theme = useContext(ThemeContext)
 
     const onVisibleLogicalRangeChange: any = debounce(logicalRange => {
         if (logicalRange == null) {
@@ -276,10 +280,10 @@ function ChartStrategyInner(): JSX.Element {
                                                 ref={chart}
                                                 onVisibleLogicalRangeChange={onVisibleLogicalRangeChange}
                                                 layout={{
-                                                    textColor: '#8B909A',
+                                                    textColor: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                                 }}
                                                 rightPriceScale={{
-                                                    borderColor: '#E4E5EA',
+                                                    borderColor: `${theme.theme === Theme.Light ? 'rgba(255, 255, 255, 0.16)' : '#E4E5EA'}`,
                                                     borderVisible: true,
                                                     scaleMargins: {
                                                         bottom: 0.025,
@@ -287,7 +291,7 @@ function ChartStrategyInner(): JSX.Element {
                                                     },
                                                 }}
                                                 timeScale={{
-                                                    borderColor: '#E4E5EA',
+                                                    borderColor: `${theme.theme === Theme.Light ? 'rgba(255, 255, 255, 0.16)' : '#E4E5EA'}`,
                                                     borderVisible: true,
                                                     fixRightEdge: true,
                                                     rightBarStaysOnScroll: true,
@@ -296,13 +300,13 @@ function ChartStrategyInner(): JSX.Element {
                                                 }}
                                                 crosshair={{
                                                     vertLine: {
-                                                        color: '#8B909A',
+                                                        color: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                                         style: 4,
                                                         visible: true,
                                                         width: 1,
                                                     },
                                                     horzLine: {
-                                                        color: '#8B909A',
+                                                        color: `${theme.theme === Theme.Light ? '#FFFFFF' : '#8B909A'}`,
                                                         style: 4,
                                                         visible: true,
                                                         width: 1,
@@ -314,7 +318,7 @@ function ChartStrategyInner(): JSX.Element {
                                                     ref={series}
                                                     type="Area"
                                                     data={dashboard.tvlCharts}
-                                                    lineColor="#2B63F1"
+                                                    lineColor={`${theme.theme === Theme.Light ? '#FFFFFF' : '#2B63F1'}`}
                                                     priceFormat={{
                                                         formatter: usdPriceFormatter,
                                                         type: 'custom',

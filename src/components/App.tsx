@@ -22,6 +22,9 @@ import { ChartStore } from '@/modules/Dashboard/store/chartStore'
 import { Footer } from './layout/Footer'
 import { Header } from './layout/Header'
 import { ScrollManager } from './layout/ScrollManager'
+import { useContext } from '@/hooks/useContext'
+import { ThemeContext } from '@/provider/ThemeProvider'
+import { Theme } from '@/hooks/useTheme'
 
 OpenAPI.BASE = API_URL
 
@@ -29,7 +32,7 @@ export function App(): JSX.Element {
     const localization = React.useContext(LocalizationContext)
     const wallet = useTvmWallet()
     const ChartProvider = useProvider(ChartStore)
-
+    const theme = useContext(ThemeContext)
     return (
         <IntlProvider
             key="intl"
@@ -41,7 +44,7 @@ export function App(): JSX.Element {
             <TvmWalletProvider wallet={wallet}>
                 <Router>
                     <ScrollManager>
-                        <div className="wrapper">
+                        <div className={`wrapper ${theme.theme === Theme.Light ? 'uk-light' : 'uk-dark'}`}>
                             <ChartProvider>
                                 <Header key="header" />
                             </ChartProvider>

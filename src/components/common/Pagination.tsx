@@ -10,6 +10,9 @@ import {
 import { AmountInput } from '@broxus/react-components'
 
 import './Pagination.scss'
+import { ThemeContext } from '@/provider/ThemeProvider'
+import { useContext } from '@/hooks/useContext'
+import { Theme } from '@/hooks/useTheme'
 
 
 export type PaginationProps = {
@@ -32,6 +35,7 @@ export const Pagination = React.memo(({
     onSubmit,
 }: PaginationProps): JSX.Element => {
     const [value, setValue] = React.useState<string>(currentPage.toString())
+    const theme = useContext(ThemeContext)
     const intl = useIntl()
     const onChange = (_: string): void => {
         setValue?.(_)
@@ -87,7 +91,7 @@ export const Pagination = React.memo(({
                                 width="9" height="14" viewBox="0 0 9 14"
                                 fill="none" xmlns="http://www.w3.org/2000/svg"
                             >
-                                <path d="M8 13L2 7L8 1" stroke="#2B63F1" strokeWidth="1.6" />
+                                <path d="M8 13L2 7L8 1" stroke={`${theme.theme === Theme.Light ? '#C5E4F3' : '#2B63F1'}`} strokeWidth="1.6" />
                             </svg>
                         </Button>
                         <Button type="default" onClick={onNext} disabled={disabled || !totalPages || currentPage === totalPages}>
@@ -95,7 +99,7 @@ export const Pagination = React.memo(({
                                 width="9" height="14" viewBox="0 0 9 14"
                                 fill="none" xmlns="http://www.w3.org/2000/svg"
                             >
-                                <path d="M1 1L7 7L1 13" stroke="#2B63F1" strokeWidth="1.6" />
+                                <path d="M1 1L7 7L1 13" stroke={`${theme.theme === Theme.Light ? '#C5E4F3' : '#2B63F1'}`} strokeWidth="1.6" />
                             </svg>
                         </Button>
                     </Card>

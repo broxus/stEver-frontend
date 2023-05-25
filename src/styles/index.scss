@@ -1,5 +1,9 @@
+@import './uiKit/variables.scss';
+
 @import '@broxus/react-uikit/dist/esm/styles/variables.scss';
 @import '@broxus/react-uikit/dist/esm/styles/mixins.scss';
+@import './uiKit/mixins.scss';
+
 @import '@broxus/react-uikit/dist/esm/styles/base.scss';
 
 @import '@broxus/react-uikit/dist/esm/styles/animation.scss';
@@ -11,13 +15,14 @@
 @import '@broxus/react-uikit/dist/esm/styles/padding.scss';
 @import '@broxus/react-uikit/dist/esm/styles/position.scss';
 @import '@broxus/react-uikit/dist/esm/styles/visibility.scss';
-@import '@broxus/react-uikit/dist/esm/styles/vars.scss';
 @import '@broxus/react-uikit/dist/esm/styles/text.scss';
 @import '@broxus/react-uikit/dist/esm/styles/motion.scss';
 @import '@broxus/react-uikit/dist/esm/styles/transition.scss';
 
+@import '@broxus/react-uikit/dist/esm/styles/inverse.scss';
+@import '@broxus/react-uikit/dist/esm/styles/vars.scss';
+
 @import './card.scss';
 @import './table.scss';
-
-
 @import 'app';
+@import 'theme-light.scss';

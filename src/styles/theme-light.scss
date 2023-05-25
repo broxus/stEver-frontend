@@ -1,0 +1,213 @@
+.uk-light {
+    .header {
+        background: #040925;
+
+        .header .nextDistribution time {
+            color: rgba(255, 255, 255, 0.48);
+        }
+
+        .logo {
+            svg {
+                path {
+                    fill: #C5E4F3;
+                }
+            }
+        }
+        .uk-wallet-account .uk-wallet-account-title {
+            color: #fff;
+        }
+    }
+
+    .main {
+        background: #050B2E;
+
+        // Stake page
+        .uk-accordion-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .uk-accordion-header span {
+            color: var(--inverse-base-color);
+        }
+
+        .form__container--tabs .uk-tabs-nav-wrap {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .uk-tabs-tab {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.2px;
+            color: rgba(255, 255, 255, 0.48);
+        }
+
+        .form__container--tabs .uk-tabs-nav-wrap .uk-tabs-nav-list .uk-tabs-tab-active:not(.uk-tabs-tab-disabled) {
+            background: rgba(255, 255, 255, 0.16);
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.2px;
+            color: #FFFFFF;
+        }
+
+        .uk-amount-input .uk-input {
+            background: #fff0;
+            color: var(--inverse-base-color) !important;
+        }
+
+        .uk-control {
+            background-color: #fff0
+        }
+
+        .text-input-border-buttom {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .uk-formatted-token-amount {
+            color: var(--inverse-base-color);
+        }
+
+        .border>div {
+            border: none;
+        }
+
+        .form__container {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0px 2px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        // Dashboard 
+
+        .uk-tile-secondary {
+            background: rgba(255, 255, 255, 0.08);
+
+            p {
+                color: rgba(255, 255, 255, 0.48);
+            }
+
+            .total {
+                color: rgba(255, 255, 255, 0.48);
+
+                span {
+                    color: rgba(255, 255, 255, 0.48);
+                }
+            }
+
+            .uk-formatted-currency-value {
+                span {
+                    color: rgba(255, 255, 255, 0.48);
+                }
+            }
+
+        }
+
+        .uk-tile-primary {
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 4px #C5E4F3 solid;
+
+            p {
+                color: #C5E4F3;
+            }
+
+            .total span {
+                color: #C5E4F3;
+            }
+
+            .uk-formatted-currency-value {
+                span {
+                    color: #C5E4F3;
+                }
+            }
+        }
+
+        .uk-tile-default {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .uk-label {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: var(--inverse-base-color);
+        }
+
+        .table th {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.56);
+
+            .ordering-switcher-desc,
+            .ordering-switcher-asc {
+                color: #fff !important;
+            }
+
+            .ordering-switcher.btn {
+                color: #fff !important;
+            }
+
+            .ordering-switcher-desc-left::before {
+                border-top-color: rgba(255, 255, 255, 0.48);
+                ;
+            }
+
+            .ordering-switcher-asc-left::before {
+                border-bottom-color: rgba(255, 255, 255, 0.48);
+                ;
+            }
+        }
+
+        .table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+            color: #fff;
+
+            a {
+                color: #C5E4F3;
+            }
+
+            .uk-button {
+                color: #fff;
+            }
+
+            .src-components-common-Date-module__title--hphG6 {
+                color: #fff;
+            }
+        }
+
+        .downloadCsv {
+            color: #C5E4F3;
+        }
+
+        .uk-tabs-bottom .uk-tabs-nav::before, .uk-tabs-top .uk-tabs-nav::before {
+            border-bottom: 1px solid #fff0
+        }
+
+        .uk-tabs-ink-bar {
+            background: #C5E4F3;
+        }
+
+        // Strategy
+
+        .uk-formatted-token-amount {
+            span {
+                color: #fff;
+            }
+        }
+
+        .uk-breadcrumb> :last-child>span,
+        .uk-breadcrumb> :last-child>a:not([href]) {
+            color: #fff;
+        }
+    }
+
+    .footer {
+        background: #040925;
+
+        .footer-logo {
+            svg {
+                path {
+                    fill: #C5E4F3;
+                }
+            }
+        }
+    }
+
+
+}

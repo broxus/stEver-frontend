@@ -331,3 +331,68 @@
     letter-spacing: 0.2px;
     line-height: 16px;
 }
+
+
+@mixin hook-inverse-button() {
+    color: #050A2E;
+}
+
+@mixin hook-inverse-button-default() {
+    background: rgba(197, 228, 243, 0.16);
+    color: #C5E4F3;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+}
+
+@mixin hook-inverse-button-default-hover() {
+    background: rgb(85 116 131 / 16%);
+    color: #C5E4F3;
+}
+
+@mixin hook-inverse-button-default-active() {
+    background: rgb(85 116 131 / 16%);
+    color: #C5E4F3;
+}
+
+@mixin hook-inverse-button-primary() {
+    background: #C5E4F3;
+    color: #050A2E;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+}
+
+@mixin hook-inverse-button-primary-hover() {
+    background: #7998a7;
+    color: #050A2E;
+}
+
+@mixin hook-inverse-button-primary-active() {
+    background: #7998a7;
+    color: #050A2E;
+}
+
+@mixin hook-inverse-button-secondary() {}
+
+@mixin hook-inverse-button-secondary-hover() {}
+
+@mixin hook-inverse-button-secondary-active() {}
+
+@mixin hook-inverse-button-tertiary() {}
+
+@mixin hook-inverse-button-tertiary-hover() {}
+
+@mixin hook-inverse-button-tertiary-active() {}
+
+@mixin hook-inverse-button-danger() {}
+
+@mixin hook-inverse-button-danger-hover() {}
+
+@mixin hook-inverse-button-danger-active() {}
+
+@mixin hook-inverse-button-text() {}
+
+@mixin hook-inverse-button-text-hover() {}
+
+@mixin hook-inverse-button-text-disabled() {}
+
+@mixin hook-inverse-button-link() {}
