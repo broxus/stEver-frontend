@@ -96,6 +96,7 @@ function FormTab({
                                 iconUrl={
                                     type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
                                 }
+                                disabled={staking?.isFetchingForm}
                                 borderButtom
                                 showMaxButton={match && wallet.isConnected}
                             />
@@ -111,7 +112,7 @@ function FormTab({
                         <TextInput
                             placeholder="0"
                             value={formatCurrency(convertCurrency(staking.getDepositStEverAmount, ST_EVER_DECIMALS))}
-                            disabled={false}
+                            disabled={staking?.isFetchingForm}
                             inputMode="numeric"
                             readOnly
                             title={type === StakingType.Stake
@@ -124,6 +125,7 @@ function FormTab({
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
                             price={type === StakingType.Stake ? staking.exchangeRate ?? '0' : staking.exchangeRate ?? '0'}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
+                            
                         />
                         {!wallet.isConnected ?
                             <>
