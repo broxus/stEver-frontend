@@ -3,7 +3,7 @@ import {
     Button, Flex, Tabs, Tile,
 } from '@broxus/react-uikit'
 import { Observer, observer } from 'mobx-react-lite'
-import { useTvmWalletContext } from '@broxus/react-modules'
+import { ConnectButton, useTvmWalletContext } from '@broxus/react-modules'
 import Media from 'react-media'
 import { useIntl } from 'react-intl'
 
@@ -125,35 +125,50 @@ function FormTab({
                             price={type === StakingType.Stake ? staking.exchangeRate ?? '0' : staking.exchangeRate ?? '0'}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
                         />
-                        {staking?.isFetchingForm
-                            ? (
-                                <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
-                                    {intl.formatMessage({
-                                        id: 'LOADING',
-                                    })}
-                                </Button>
-                            )
-                            : (
-                                <Button
-                                    htmlType="submit"
-                                    disabled={
-                                        !wallet.isConnected
-                                    || !staking.amount
-                                    || staking.amount === '0'
-                                    || +staking.amount > +staking.maxAmount
-                                    }
-                                    type="primary"
-                                    className="uk-width-1-1"
+                        {!wallet.isConnected ?
+                            <>
+                                <ConnectButton
+                                    key="connect"
+                                    popupType="modal"
+                                    type="default"
+                                    className="button-connect"
+                                    standalone
                                 >
-                                    {type === StakingType.Stake
-                                        ? `${intl.formatMessage({
-                                            id: 'STAKE',
-                                        })} EVER`
-                                        : `${intl.formatMessage({
-                                            id: 'UNSTAKE',
-                                        })} EVER`}
-                                </Button>
-                            )}
+                                    {intl.formatMessage({
+                                        id: 'CONNECT_WALLET',
+                                    })}
+                                </ConnectButton>
+                            </>
+                            :
+                            staking?.isFetchingForm
+                                ? (
+                                    <Button disabled={staking?.isFetchingForm} type="primary" className="uk-width-1-1">
+                                        {intl.formatMessage({
+                                            id: 'LOADING',
+                                        })}
+                                    </Button>
+                                )
+                                : (
+                                    <Button
+                                        htmlType="submit"
+                                        disabled={
+                                            !wallet.isConnected
+                                            || !staking.amount
+                                            || staking.amount === '0'
+                                            || +staking.amount > +staking.maxAmount
+                                        }
+                                        type="primary"
+                                        className="uk-width-1-1"
+                                    >
+                                        {type === StakingType.Stake
+                                            ? `${intl.formatMessage({
+                                                id: 'STAKE',
+                                            })} EVER`
+                                            : `${intl.formatMessage({
+                                                id: 'UNSTAKE',
+                                            })} EVER`}
+                                    </Button>
+                                )}
                     </>
                 )}
             </Observer>
