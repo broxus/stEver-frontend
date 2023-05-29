@@ -160,13 +160,20 @@ function FormTab({
                                         type="primary"
                                         className="uk-width-1-1"
                                     >
-                                        {type === StakingType.Stake
-                                            ? `${intl.formatMessage({
-                                                id: 'STAKE',
-                                            })} EVER`
-                                            : `${intl.formatMessage({
-                                                id: 'UNSTAKE',
-                                            })} EVER`}
+                                        {+staking.amount! > +staking.maxAmount ?
+                                            intl.formatMessage({
+                                                id: 'NOT_CORRECT_STAKE',
+                                            })
+                                            :
+                                            type === StakingType.Stake
+                                                ? `${intl.formatMessage({
+                                                    id: 'STAKE',
+                                                })} EVER`
+                                                : `${intl.formatMessage({
+                                                    id: 'UNSTAKE',
+                                                })} EVER`
+                                        }
+
                                     </Button>
                                 )}
                     </>

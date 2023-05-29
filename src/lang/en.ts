@@ -96,4 +96,5 @@ export default {
     WITHDRAWALS_CANCELLED: 'Withdrawals cancelled',
     WITHDRAWALS_ERROR: 'Withdrawals error',
     ONLY_FAOURITES_DEPOOLS: 'Only favourites depools',
+    NOT_CORRECT_STAKE: 'Insufficient balance'
 }
