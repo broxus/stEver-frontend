@@ -104,8 +104,6 @@ function FormTab({
                     </Observer>
                 )}
             </Media>
-
-
             <Observer>
                 {() => (
                     <>
