@@ -89,7 +89,7 @@ export function HeaderInner(): JSX.Element {
                                 <Navbar.Item>
                                     <LangSwitcher />
                                 </Navbar.Item>
-                                <Navbar.Item>
+                                {/* <Navbar.Item>
                                     <div
                                         onClick={theme.toggle}
                                     >
@@ -113,7 +113,7 @@ export function HeaderInner(): JSX.Element {
                                             </>
                                         )}
                                     </div>
-                                </Navbar.Item>
+                                </Navbar.Item> */}
                                 <Observer>
                                     {() => (
                                         <Navbar.Right className="header-switchers" component={Navbar.Item}>

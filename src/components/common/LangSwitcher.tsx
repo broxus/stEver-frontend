@@ -49,7 +49,7 @@ export function LangSwitcher(): JSX.Element {
                 className="language-switcher"
                 type="link"
             >
-                <Icon icon="world" />
+                <Icon className="world" icon="world" />
                 {label}
                 <Icon className="arrow" icon="arrowDown" />
             </Button>
