@@ -23,6 +23,7 @@ import { Date } from '../common/Date'
 import { useContext } from '@/hooks/useContext'
 import { ThemeContext } from '@/provider/ThemeProvider'
 import { Theme } from '@/hooks/useTheme'
+import { LangSwitcher } from '../common/LangSwitcher'
 
 export function HeaderInner(): JSX.Element {
     const wallet = useTvmWalletContext()
@@ -84,6 +85,9 @@ export function HeaderInner(): JSX.Element {
                                             </>
                                         )}
                                     </Observer>
+                                </Navbar.Item>
+                                <Navbar.Item>
+                                    <LangSwitcher />
                                 </Navbar.Item>
                                 <Navbar.Item>
                                     <div

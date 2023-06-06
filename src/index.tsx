@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom/client'
 import { App } from '@/components/App'
 import '@/polyfills'
 import { ThemeProvider } from './provider/ThemeProvider'
+import { LocalizationProvider } from './context/Localization'
 
 const container = document.getElementById('root')
 if (container != null) {
@@ -11,7 +12,9 @@ if (container != null) {
     root.render(
         <React.StrictMode>
             <ThemeProvider>
-                <App />
+                <LocalizationProvider>
+                    <App />
+                </LocalizationProvider>
             </ThemeProvider>
         </React.StrictMode>,
     )

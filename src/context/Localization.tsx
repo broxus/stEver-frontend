@@ -1,9 +1,10 @@
 import React from 'react'
 
 import en from '@/lang/en'
+import ko from '@/lang/ko'
 import { storage } from '@/utils'
 
-const messagesList = { en } as const
+const messagesList = { en, ko } as const
 
 export type Locale = keyof typeof messagesList
 
@@ -23,6 +24,7 @@ export type Language = {
 
 export const LANGUAGES: Language[] = [
     { code: 'en', nativeLabel: 'English' },
+    { code: 'ko', nativeLabel: '한국어' },
 ]
 
 export const LocalizationContext = React.createContext<LocalizationContextProps>({

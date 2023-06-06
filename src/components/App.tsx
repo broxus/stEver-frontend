@@ -25,6 +25,7 @@ import { ScrollManager } from './layout/ScrollManager'
 import { useContext } from '@/hooks/useContext'
 import { ThemeContext } from '@/provider/ThemeProvider'
 import { Theme } from '@/hooks/useTheme'
+import { Settings } from 'luxon'
 
 OpenAPI.BASE = API_URL
 
@@ -33,6 +34,11 @@ export function App(): JSX.Element {
     const wallet = useTvmWallet()
     const ChartProvider = useProvider(ChartStore)
     const theme = useContext(ThemeContext)
+
+    React.useEffect(() => {
+        Settings.defaultLocale = localization.locale
+    }, [localization.locale])
+
     return (
         <IntlProvider
             key="intl"
