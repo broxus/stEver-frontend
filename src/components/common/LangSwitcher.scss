@@ -10,8 +10,11 @@
     // }
     .world {
         svg {
-            fill: #000;
-            fill-opacity: 0.48;
+            g {
+                path {
+                    fill: #000;
+                }
+            }
         }
     }
 

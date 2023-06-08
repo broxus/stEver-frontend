@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { useIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import { Button, Nav } from '@broxus/react-uikit'
-import { useTvmWalletContext } from '@broxus/react-modules'
-import { observer } from 'mobx-react-lite'
+import { Button, Nav, Navbar } from '@broxus/react-uikit'
+import { TvmConnector, useTvmWalletContext } from '@broxus/react-modules'
+import { Observer, observer } from 'mobx-react-lite'
 import { Icon } from '@broxus/react-components'
 
 import { appRoutes } from '@/routes'
 
 import './DeviceNav.scss'
+import { LangSwitcher } from '../common/LangSwitcher'
 
 type Props = {
     onNavigate?: () => void;
@@ -45,7 +46,13 @@ function DeviceNavInner({ onNavigate }: Props): JSX.Element {
                         })}
                     </a>
                 </Nav.Item>
-
+                <Nav.Item>
+                    <a
+                        rel="noopener noreferrer"
+                    >
+                        <LangSwitcher />
+                    </a>
+                </Nav.Item>
             </Nav>
             {wallet.isConnected
                 ? (
