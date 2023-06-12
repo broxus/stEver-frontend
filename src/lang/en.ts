@@ -51,6 +51,10 @@ export default {
     VALUE_EVER: 'Value, EVER',
     DATE_TIME: 'Date & Time',
     STRATEGY_DEPOSIT: 'Strategy deposit',
+
+    DEPOSIT: 'Deposit',
+    WITHDRAWAL: 'Withdrawal',
+
     STRATEGY_WITHDRAW: 'Strategy withdraw',
     USER_WITHDRAW: 'User withdraw',
     USER_DEPOSIT: 'User deposit',
@@ -96,5 +100,13 @@ export default {
     WITHDRAWALS_CANCELLED: 'Withdrawals cancelled',
     WITHDRAWALS_ERROR: 'Withdrawals error',
     ONLY_FAOURITES_DEPOOLS: 'Only favourites depools',
-    NOT_CORRECT_STAKE: 'Insufficient balance'
+    NOT_CORRECT_STAKE: 'Insufficient balance',
+
+    HIGH: 'High',
+    MEDIUM: 'Medium',
+    LOW: 'Low',
+
+    PENDING: 'Pending',
+    CANCELLED: 'Cancelled',
+    DONE: 'Done'
 }

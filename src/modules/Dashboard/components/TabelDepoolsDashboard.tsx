@@ -19,7 +19,7 @@ import { Pagination } from '@/components/common/Pagination'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { useStore } from '@/hooks/useStore'
 import {
-    Direction, type StrategiesOrdering, StrategyColumn, type StrategyInfo,
+    Direction, type StrategiesOrdering, StrategyColumn, type StrategyInfo, StrategyPriority,
 } from '@/apiClientCodegen'
 import { appRoutes } from '@/routes'
 import { ST_EVER_DECIMALS } from '@/config'
@@ -254,6 +254,8 @@ type DepoolsListItemType = {
 }
 
 export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
+    const intl = useIntl()
+
     return (
         <tbody className="uk-height-small">
             <tr>
@@ -273,7 +275,18 @@ export function DepoolsListItem({ pool }: DepoolsListItemType): JSX.Element {
                     <Label
                         type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
                     >
-                        {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
+                        {pool.priority === StrategyPriority.HIGH ?
+                            intl.formatMessage({
+                                id: 'HIGH',
+                            })
+                            : pool.priority === StrategyPriority.MEDIUM ?
+                                intl.formatMessage({
+                                    id: 'MEDIUM',
+                                }) :
+                                intl.formatMessage({
+                                    id: 'LOW',
+                                })
+                        }
                     </Label>
                 </td>
                 <td className="uk-text-right uk-width-small">
@@ -330,7 +343,18 @@ export function DepoolsListCard({ pool }: DepoolsListCardType): JSX.Element {
                         <Label
                             type={pool.priority === 'high' ? 'success' : pool.priority === 'medium' ? 'warning' : 'danger'}
                         >
-                            {pool.priority.charAt(0).toUpperCase() + pool.priority.slice(1)}
+                            {pool.priority === StrategyPriority.HIGH ?
+                                intl.formatMessage({
+                                    id: 'HIGH',
+                                })
+                                : pool.priority === StrategyPriority.MEDIUM ?
+                                    intl.formatMessage({
+                                        id: 'MEDIUM',
+                                    }) :
+                                    intl.formatMessage({
+                                        id: 'LOW',
+                                    })
+                            }
                         </Label>
                     </Text>
                 </Flex>

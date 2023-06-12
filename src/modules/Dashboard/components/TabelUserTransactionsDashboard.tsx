@@ -55,10 +55,10 @@ function TabelUserTransactionsDashboardInner(): JSX.Element {
                                         <Media key={pool.transactionHash} query={{ minWidth: 640 }}>
                                             {matches => (matches ? (
                                                 <TransactionsListItem
-                        key={pool.transactionHash}
-                        idx={idx + 1}
-                        pool={pool}
-                    />
+                                                    key={pool.transactionHash}
+                                                    idx={idx + 1}
+                                                    pool={pool}
+                                                />
                                             ) : (
                                                 <TransactionsListCard
                                                     key={pool.transactionHash}
@@ -175,8 +175,8 @@ type Props = {
 }
 
 export function TransactionsListItem({ pool }: Props): JSX.Element {
-
     const wallet = useTvmWalletContext()
+    const intl = useIntl()
 
     return (
         <tbody className="uk-height-small">
@@ -207,7 +207,16 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         </ExplorerTransactionLink>
                     </Link>
                 </td>
-                <td className="uk-text-left uk-width-small">{pool.kind}</td>
+                <td className="uk-text-left uk-width-small">{
+                    pool.kind === UserTransactionsKind.DEPOSIT ?
+                        intl.formatMessage({
+                            id: 'DEPOSIT',
+                        })
+                        :
+                        intl.formatMessage({
+                            id: 'WITHDRAWAL',
+                        })}
+                </td>
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
@@ -274,7 +283,14 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                         })}
                     </Text>
                     <Text className="uk-margin-auto-vertical" size="small">
-                        {pool.kind}
+                        {pool.kind === UserTransactionsKind.DEPOSIT ?
+                            intl.formatMessage({
+                                id: 'DEPOSIT',
+                            })
+                            :
+                            intl.formatMessage({
+                                id: 'WITHDRAWAL',
+                            })}
                     </Text>
                 </Flex>
                 <Flex justifyContent="between">

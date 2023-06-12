@@ -172,6 +172,7 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
 
     const wallet = useTvmWalletContext()
     const { id } = useParams<Params>()
+    const intl = useIntl()
 
     return (
         <tbody className="uk-height-small">
@@ -205,7 +206,18 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success'
                             : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
                     >
-                        {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                        {pool.status === StrategiesWithdrawalsStatus.DONE ?
+                            intl.formatMessage({
+                                id: 'DONE',
+                            })
+                            : pool.status === StrategiesWithdrawalsStatus.PENDING ?
+                                intl.formatMessage({
+                                    id: 'PENDING',
+                                }) :
+                                intl.formatMessage({
+                                    id: 'CANCELLED',
+                                })
+                        }
                     </Label>
                 </td>
                 <td className="uk-text-right uk-width-small">
@@ -256,7 +268,18 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                             type={pool.status === StrategiesWithdrawalsStatus.DONE ? 'success'
                                 : pool.status === StrategiesWithdrawalsStatus.PENDING ? 'warning' : undefined}
                         >
-                            {pool.status.charAt(0).toUpperCase() + pool.status.slice(1)}
+                            {pool.status === StrategiesWithdrawalsStatus.DONE ?
+                                intl.formatMessage({
+                                    id: 'DONE',
+                                })
+                                : pool.status === StrategiesWithdrawalsStatus.PENDING ?
+                                    intl.formatMessage({
+                                        id: 'PENDING',
+                                    }) :
+                                    intl.formatMessage({
+                                        id: 'CANCELLED',
+                                    })
+                            }
                         </Label>
                     </Text>
                 </Flex>

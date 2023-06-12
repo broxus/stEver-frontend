@@ -18,7 +18,7 @@ import { useIntl } from 'react-intl'
 import { Pagination } from '@/components/common/Pagination'
 import { useStore } from '@/hooks/useStore'
 import {
-    Direction, SystemTransactionColumn, type SystemTransactionResponse, SystemTransactionsKind, type SystemTransactionsOrdering,
+    Direction, SystemTransactionColumn, type SystemTransactionResponse, SystemTransactionsKind, type SystemTransactionsOrdering, UserTransactionsKind,
 } from '@/apiClientCodegen'
 import { OrderingSwitcher } from '@/components/common/OrderingSwitcher'
 import { ST_EVER_DECIMALS } from '@/config'
@@ -73,17 +73,17 @@ export function TabelStrategyTransactionsDashboardInner(): JSX.Element {
                                     ))}
                                 </table>
                                 {!strategyTransactions.transactions?.length
-                                && (
-                                    <Tile className="empty-list">
-                                        <Flex justifyContent="center">
-                                            <Text className="uk-margin-auto-vertical">
-                                                {intl.formatMessage({
-                                                    id: 'THE_LIST_IS_EMPTY',
-                                                })}
-                                            </Text>
-                                        </Flex>
-                                    </Tile>
-                                )}
+                                    && (
+                                        <Tile className="empty-list">
+                                            <Flex justifyContent="center">
+                                                <Text className="uk-margin-auto-vertical">
+                                                    {intl.formatMessage({
+                                                        id: 'THE_LIST_IS_EMPTY',
+                                                    })}
+                                                </Text>
+                                            </Flex>
+                                        </Tile>
+                                    )}
                             </>
                         )}
                     {strategyTransactions.transactions?.length
@@ -181,6 +181,8 @@ type Props = {
 export function TransactionsListItem({ pool }: Props): JSX.Element {
     const wallet = useTvmWalletContext()
     const { id } = useParams<Params>()
+    const intl = useIntl()
+
     return (
         <tbody className="uk-height-small">
             <tr>
@@ -208,7 +210,16 @@ export function TransactionsListItem({ pool }: Props): JSX.Element {
                         </ExplorerTransactionLink>
                     </Link>
                 </td>
-                <td className="uk-text-left uk-width-small">{pool.kind}</td>
+                <td className="uk-text-left uk-width-small">
+                    {pool.kind === SystemTransactionsKind.DEPOSIT ?
+                        intl.formatMessage({
+                            id: 'DEPOSIT',
+                        })
+                        :
+                        intl.formatMessage({
+                            id: 'WITHDRAWAL',
+                        })}
+                </td>
                 <td className="uk-text-left uk-width-small">
                     <FormattedTokenAmount
                         decimals={ST_EVER_DECIMALS}
@@ -283,7 +294,14 @@ export function TransactionsListCard({ pool }: TransactionsListCardType): JSX.El
                         })}
                     </Text>
                     <Text className="uk-margin-auto-vertical" size="small">
-                        {pool.kind}
+                        {pool.kind === SystemTransactionsKind.DEPOSIT ?
+                            intl.formatMessage({
+                                id: 'DEPOSIT',
+                            })
+                            :
+                            intl.formatMessage({
+                                id: 'WITHDRAWAL',
+                            })}
                     </Text>
                 </Flex>
                 <Flex justifyContent="between">
