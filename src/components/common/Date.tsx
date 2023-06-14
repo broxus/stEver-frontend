@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import { formatDate } from '@/utils'
 
-import styles from './Date.module.scss'
+import './Date.scss'
 
 type Props = {
     time: number;
@@ -16,14 +16,12 @@ export function Date({
 }: Props): JSX.Element {
     return (
         <div
-            className={classNames(styles.root, {
-                [styles.line]: line,
-            })}
+            className={classNames("root-date", line && "line")}
         >
-            <time className={styles.title}>
+            <time className={"title-date"}>
                 {formatDate(time, 'HH:mm:ss')}
             </time>
-            <time className={styles.main}>
+            <time className={"main-date"}>
                 {formatDate(time, 'MMM dd, yyyy')}
             </time>
         </div>

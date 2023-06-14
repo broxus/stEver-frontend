@@ -1,4 +1,4 @@
-.root {
+.root-date {
     color: var(--text);
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
         flex-direction: row-reverse;
         grid-gap: 4px;
 
-        .main {
+        .main-date {
             font-size: 14px;
             letter-spacing: 0.5px;
             line-height: 20px;
@@ -18,7 +18,7 @@
     }
 }
 
-.title {
+.title-date {
     color: #000;
     font-feature-settings: 'tnum' on, 'lnum' on;
     font-size: 14px;
@@ -28,7 +28,7 @@
     line-height: 20px;
 }
 
-.main {
+.main-date {
     color: #6c7078;
     font-feature-settings: 'tnum' on, 'lnum' on;
     font-size: 12px;

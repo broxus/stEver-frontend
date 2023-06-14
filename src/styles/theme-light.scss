@@ -233,6 +233,14 @@
         .uk-breadcrumb> :last-child>a:not([href]) {
             color: #fff;
         }
+
+        .title-date {
+            color: #fff;
+        }
+        .main-date {
+            color: #fff;
+            opacity: 0.5;
+        }
     }
 
     .footer {
