@@ -9,12 +9,16 @@ import { DeviceNav } from '@/components/layout/DeviceNav'
 import { Drawer, type DrawerRef } from '../common/Drawer'
 
 import './Header.scss'
+import { ThemeContext } from '@/provider/ThemeProvider'
+import { Theme } from '@/hooks/useTheme'
+import { useContext } from '@/hooks/useContext'
 
 function HeaderDrawerInner(): JSX.Element {
     const drawer = React.useRef<DrawerRef | null>(null)
     const collapse = () => {
         drawer.current?.collapse()
     }
+
     return (
         <Observer>
             {() => (
@@ -34,7 +38,9 @@ function HeaderDrawerInner(): JSX.Element {
                     )}
                     width="100vw"
                 >
-                    <Component className="device-drawer-content-inner">
+                    <Component
+                        className={"device-drawer-content-inner"}
+                    >
                         <div className="device-drawer-header">
                             <div className="logo">
                                 <Logo ratio={1} />

@@ -1,4 +1,20 @@
 .uk-light {
+    .drawer-body {
+        background: #050B2E;
+
+        .logo {
+            svg {
+                path {
+                    fill: #C5E4F3;
+                }
+            }
+        }
+
+        .language-switcher .world svg g path {
+            fill: #fff;
+        }
+    }
+
     .header {
         background: #040925;
 
@@ -188,7 +204,7 @@
             }
 
             .src-components-common-Date-module__title--hphG6 {
-                color: #fff!important;
+                color: #fff !important;
             }
         }
 

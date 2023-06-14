@@ -7,6 +7,9 @@ import { useForceUpdate } from '@/hooks/useForceUpdate'
 import { tuple } from '@/utils'
 
 import './Drawer.scss'
+import { Theme } from '@/hooks/useTheme'
+import { useContext } from '@/hooks/useContext'
+import { ThemeContext } from '@/provider/ThemeProvider'
 
 
 export type DrawerRef = {
@@ -237,7 +240,7 @@ export const Drawer = React.forwardRef<DrawerRef, DrawerProps>((props, ref): JSX
         destroyClose.current = false
 
         const containerStyle: React.CSSProperties = {}
-
+        const theme = useContext(ThemeContext)
         if (isDestroyOnClose) {
             // Increase the opacity transition, delete children after closing.
             containerStyle.opacity = 0
@@ -246,7 +249,7 @@ export const Drawer = React.forwardRef<DrawerRef, DrawerProps>((props, ref): JSX
 
         return (
             <div
-                className={`${prefixCls}-body-wrapper`}
+                className={`${prefixCls}-body-wrapper ${theme.theme === Theme.Light ? 'uk-light' : 'uk-dark'}`}
                 style={containerStyle}
                 onTransitionEnd={onDestroyTransitionEnd}
             >
