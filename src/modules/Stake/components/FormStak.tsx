@@ -96,7 +96,7 @@ function FormTab({
                                 iconUrl={
                                     type === StakingType.Stake ? CoinEverLogo : CoinStEverLogo
                                 }
-                                disabled={staking?.isFetchingForm}
+                                // disabled={staking?.isFetchingForm}
                                 borderButtom
                                 showMaxButton={match && wallet.isConnected}
                             />
