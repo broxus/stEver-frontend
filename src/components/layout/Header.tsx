@@ -89,8 +89,11 @@ export function HeaderInner(): JSX.Element {
                                 <Navbar.Item>
                                     <LangSwitcher />
                                 </Navbar.Item>
-                                {/* <Navbar.Item>
+                                <Navbar.Item>
                                     <div
+                                        style={{
+                                            cursor: "pointer"
+                                        }}
                                         onClick={theme.toggle}
                                     >
                                         {theme.theme === Theme.Dark ? (
@@ -113,7 +116,7 @@ export function HeaderInner(): JSX.Element {
                                             </>
                                         )}
                                     </div>
-                                </Navbar.Item> */}
+                                </Navbar.Item>
                                 <Observer>
                                     {() => (
                                         <Navbar.Right className="header-switchers" component={Navbar.Item}>
