@@ -139,7 +139,7 @@ export function InfoStakInner(): JSX.Element {
                                             id: 'TRANSACTIONS',
                                         })}
                                     </Button>
-                                    <Button type="tertiary">
+                                    <Button type="tertiary" href='https://docs.stakedever.io/overview/about-stever' target="_blank">
                                         {intl.formatMessage({
                                             id: 'MANUAL',
                                         })}

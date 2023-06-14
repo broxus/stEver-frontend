@@ -122,7 +122,7 @@ function FormTab({
                             iconUrl={type === StakingType.Stake ? CoinStEverLogo : CoinEverLogo}
                             price={type === StakingType.Stake ? staking.exchangeRate ?? '0' : staking.exchangeRate ?? '0'}
                             currency={type === StakingType.Stake ? 'StEVER' : 'StEVER'}
-                            
+
                         />
                         {!wallet.isConnected ?
                             <>
@@ -160,9 +160,14 @@ function FormTab({
                                         className="uk-width-1-1"
                                     >
                                         {+staking.amount! > +staking.maxAmount ?
-                                            intl.formatMessage({
-                                                id: 'NOT_CORRECT_STAKE',
-                                            })
+                                            type === StakingType.Stake ?
+                                                intl.formatMessage({
+                                                    id: 'NOT_CORRECT_EVER_STAKE',
+                                                })
+                                                :
+                                                intl.formatMessage({
+                                                    id: 'NOT_CORRECT_ST_STAKE',
+                                                })
                                             :
                                             type === StakingType.Stake
                                                 ? `${intl.formatMessage({
