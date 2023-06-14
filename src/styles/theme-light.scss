@@ -13,9 +13,11 @@
                 }
             }
         }
+
         .uk-wallet-account .uk-wallet-account-title {
             color: #fff;
         }
+
         .language-switcher .world svg g path {
             fill: #fff;
         }
@@ -81,6 +83,22 @@
         }
 
         // Dashboard 
+        // @mixin hook-tile-() {
+        //     background: linear-gradient(270.13deg, #fff3cd 0%, #def1de 100%), #f0bb1c;
+        //     margin: auto;
+        //     margin-top: 40px;
+        //     max-width: 440px;
+        //     padding: 24px;
+
+        //     @media (width <=640px) {
+        //         margin-bottom: 40px;
+        //         margin-top: 0;
+        //     }
+        // }
+
+        .uk-tile-muted {
+            background: linear-gradient(270.13deg, #782D8B 0%, #8F9202 100%);
+        }
 
         .uk-tile-secondary {
             background: rgba(255, 255, 255, 0.08);
@@ -178,7 +196,8 @@
             color: #C5E4F3;
         }
 
-        .uk-tabs-bottom .uk-tabs-nav::before, .uk-tabs-top .uk-tabs-nav::before {
+        .uk-tabs-bottom .uk-tabs-nav::before,
+        .uk-tabs-top .uk-tabs-nav::before {
             border-bottom: 1px solid #fff0
         }
 
