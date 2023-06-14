@@ -61,7 +61,7 @@ export default function StrategyPage(): JSX.Element {
                                 <>
                                     <Heading component="h4">
                                         {intl.formatMessage({
-                                            id: 'PENDING_WITHDRAWALS',
+                                            id: 'WITHDRAWALS',
                                         })}
                                         {!strategyWithdraw.isFetching
                                             ? <Label style={{ marginTop: '-5px' }} className="uk-margin-small-left">{strategyWithdraw.pagination.totalCount}</Label>
